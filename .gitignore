@@ -1,0 +1,6 @@
+# 号角网页的浏览器缓存目录（原始页面 html 保留，仅排除 _files 资源缓存）
+数据源/*_files/
+
+# 系统垃圾
+Thumbs.db
+Desktop.ini

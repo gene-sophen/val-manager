@@ -1,0 +1,10 @@
+{
+  "CN": ["EDG", "BLG", "FPX", "TE", "WOL", "TYL", "JDG", "NOVA", "AG", "DRG", "TEC", "XLG"],
+  "AMER": ["C9", "SEN", "NRG", "G2", "100T", "LEV", "LOUD", "MIBR", "KRÜ", "EG", "FUR", "NV"],
+  "EMEA": ["FNC", "TH", "VIT", "KC", "TL", "NAVI", "BBL", "FUT", "GX", "M8", "ULF", "EF", "PCF"],
+  "PAC": ["PRX", "T1", "GEN", "ZETA", "DFM", "RRQ", "GE", "TS", "NS", "VL", "KRX", "FS"],
+  "CN_次级": ["KBG", "AT"],
+  "AMER_次级": ["2G", "M80", "BST", "FXW"],
+  "EMEA_次级": ["EP", "FF", "JL", "SGE"],
+  "PAC_次级": ["ONG", "QTD", "SPE", "XIP"]
+}

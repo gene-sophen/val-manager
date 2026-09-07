@@ -1,0 +1,38 @@
+{
+  "CN": {
+    "file": "File:VCT China allmode.png",
+    "url": "https://liquipedia.net/commons/images/thumb/d/dd/VCT_China_allmode.png/600px-VCT_China_allmode.png",
+    "size": [
+      600,
+      688
+    ],
+    "alpha": true
+  },
+  "AMER": {
+    "file": "File:VCT 2023 Americas League allmode.png",
+    "url": "https://liquipedia.net/commons/images/thumb/0/09/VCT_2023_Americas_League_allmode.png/600px-VCT_2023_Americas_League_allmode.png",
+    "size": [
+      600,
+      637
+    ],
+    "alpha": true
+  },
+  "EMEA": {
+    "file": "File:VCT 2024 EMEA League lightmode.png",
+    "url": "https://liquipedia.net/commons/images/thumb/b/b3/VCT_2024_EMEA_League_lightmode.png/600px-VCT_2024_EMEA_League_lightmode.png",
+    "size": [
+      600,
+      600
+    ],
+    "alpha": true
+  },
+  "PAC": {
+    "file": "File:VCT 2023 Pacific League allmode.png",
+    "url": "https://liquipedia.net/commons/images/thumb/5/54/VCT_2023_Pacific_League_allmode.png/600px-VCT_2023_Pacific_League_allmode.png",
+    "size": [
+      600,
+      600
+    ],
+    "alpha": true
+  }
+}

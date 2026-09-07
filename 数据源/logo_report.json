@@ -1,0 +1,550 @@
+{
+  "downloaded": {
+    "EDG": {
+      "page": "https://liquipedia.net/valorant/EDward_Gaming",
+      "image": "EDward Gaming 2017 lightmode.png",
+      "size": [
+        400,
+        400
+      ],
+      "alpha": true
+    },
+    "BLG": {
+      "page": "https://liquipedia.net/valorant/Bilibili_Gaming",
+      "image": "Bilibili Gaming Valorant full allmode.png",
+      "size": [
+        400,
+        188
+      ],
+      "alpha": true
+    },
+    "FPX": {
+      "page": "https://liquipedia.net/valorant/FunPlus_Phoenix",
+      "image": "FPX logo 2021.png",
+      "size": [
+        400,
+        133
+      ],
+      "alpha": true
+    },
+    "TE": {
+      "page": "https://liquipedia.net/valorant/Trace_Esports",
+      "image": "Trace Esports 2025 allmode.png",
+      "size": [
+        400,
+        377
+      ],
+      "alpha": true
+    },
+    "WOL": {
+      "page": "https://liquipedia.net/valorant/Wolves_Esports",
+      "image": "Wolves Esports full lightmode.png",
+      "size": [
+        400,
+        392
+      ],
+      "alpha": true
+    },
+    "TYL": {
+      "page": "https://liquipedia.net/valorant/TYLOO",
+      "image": "TyLoo2016logo.png",
+      "size": [
+        400,
+        360
+      ],
+      "alpha": true
+    },
+    "JDG": {
+      "page": "https://liquipedia.net/valorant/JD_Gaming",
+      "image": "JD Gaming 2021 full allmode.png",
+      "size": [
+        400,
+        322
+      ],
+      "alpha": false
+    },
+    "NOVA": {
+      "page": "https://liquipedia.net/valorant/Nova_Esports",
+      "image": "Nova Esports 2025 full allmode.png",
+      "size": [
+        400,
+        203
+      ],
+      "alpha": true
+    },
+    "AG": {
+      "page": "https://liquipedia.net/valorant/All_Gamers",
+      "image": "All Gamers full allmode.png",
+      "size": [
+        400,
+        579
+      ],
+      "alpha": false
+    },
+    "DRG": {
+      "page": "https://liquipedia.net/valorant/Dragon_Ranger_Gaming",
+      "image": "Dragon Ranger Gaming full allmode.png",
+      "size": [
+        400,
+        454
+      ],
+      "alpha": true
+    },
+    "TEC": {
+      "page": "https://liquipedia.net/valorant/Titan_Esports_Club",
+      "image": "Titan Esports Club 2025 full lightmode.png",
+      "size": [
+        400,
+        579
+      ],
+      "alpha": true
+    },
+    "XLG": {
+      "page": "https://liquipedia.net/valorant/XLG_Esports",
+      "image": "XLG China 2024 allmode.png",
+      "size": [
+        400,
+        291
+      ],
+      "alpha": true
+    },
+    "C9": {
+      "page": "https://liquipedia.net/valorant/Cloud9",
+      "image": "Cloud9 2023 full allmode.png",
+      "size": [
+        400,
+        399
+      ],
+      "alpha": true
+    },
+    "SEN": {
+      "page": "https://liquipedia.net/valorant/Sentinels",
+      "image": "Sentinels 2025 full lightmode.png",
+      "size": [
+        400,
+        61
+      ],
+      "alpha": true
+    },
+    "NRG": {
+      "page": "https://liquipedia.net/valorant/NRG",
+      "image": "NRG 2024 allmode.png",
+      "size": [
+        400,
+        95
+      ],
+      "alpha": true
+    },
+    "G2": {
+      "page": "https://liquipedia.net/valorant/G2_Esports",
+      "image": "G2 Esports 2020 full lightmode.png",
+      "size": [
+        400,
+        156
+      ],
+      "alpha": true
+    },
+    "100T": {
+      "page": "https://liquipedia.net/valorant/100_Thieves",
+      "image": "100 Thieves full lightmode.png",
+      "size": [
+        400,
+        233
+      ],
+      "alpha": true
+    },
+    "LEV": {
+      "page": "https://liquipedia.net/valorant/Leviatán",
+      "image": "Leviatan 2023 full allmode.png",
+      "size": [
+        400,
+        519
+      ],
+      "alpha": true
+    },
+    "LOUD": {
+      "page": "https://liquipedia.net/valorant/LOUD",
+      "image": "LOUD 2025 full allmode.png",
+      "size": [
+        400,
+        74
+      ],
+      "alpha": false
+    },
+    "MIBR": {
+      "page": "https://liquipedia.net/valorant/MIBR",
+      "image": "MIBR 2018 lightmode.png",
+      "size": [
+        400,
+        160
+      ],
+      "alpha": true
+    },
+    "KRÜ": {
+      "page": "https://liquipedia.net/valorant/KRÜ_Esports",
+      "image": "KRU Esports full lightmode.png",
+      "size": [
+        400,
+        441
+      ],
+      "alpha": true
+    },
+    "EG": {
+      "page": "https://liquipedia.net/valorant/Evil_Geniuses",
+      "image": "Evil Geniuses 2024 full lightmode.png",
+      "size": [
+        400,
+        322
+      ],
+      "alpha": true
+    },
+    "FUR": {
+      "page": "https://liquipedia.net/valorant/FURIA",
+      "image": "FURIA Esports full lightmode.png",
+      "size": [
+        400,
+        500
+      ],
+      "alpha": true
+    },
+    "NV": {
+      "page": "https://liquipedia.net/valorant/ENVY",
+      "image": "ENVY 2025 full lightmode.png",
+      "size": [
+        400,
+        95
+      ],
+      "alpha": true
+    },
+    "FNC": {
+      "page": "https://liquipedia.net/valorant/Fnatic",
+      "image": "Fnatic 2020 full lightmode.png",
+      "size": [
+        400,
+        59
+      ],
+      "alpha": true
+    },
+    "TH": {
+      "page": "https://liquipedia.net/valorant/Team_Heretics",
+      "image": "Team Heretics 2022 full lightmode.png",
+      "size": [
+        400,
+        464
+      ],
+      "alpha": true
+    },
+    "VIT": {
+      "page": "https://liquipedia.net/valorant/Team_Vitality",
+      "image": "Team Vitality 2026 full allmode.png",
+      "size": [
+        400,
+        115
+      ],
+      "alpha": true
+    },
+    "KC": {
+      "page": "https://liquipedia.net/valorant/Karmine_Corp",
+      "image": "Karmine Corp full lightmode.png",
+      "size": [
+        400,
+        257
+      ],
+      "alpha": true
+    },
+    "TL": {
+      "page": "https://liquipedia.net/valorant/Team_Liquid",
+      "image": "Team Liquid 2024 full lightmode.png",
+      "size": [
+        400,
+        517
+      ],
+      "alpha": true
+    },
+    "NAVI": {
+      "page": "https://liquipedia.net/valorant/Natus_Vincere",
+      "image": "Natus Vincere 2021 lightmode.png",
+      "size": [
+        400,
+        352
+      ],
+      "alpha": true
+    },
+    "BBL": {
+      "page": "https://liquipedia.net/valorant/BBL_Esports",
+      "image": "BBL Esports 2022 full lightmode.png",
+      "size": [
+        400,
+        399
+      ],
+      "alpha": true
+    },
+    "FUT": {
+      "page": "https://liquipedia.net/valorant/FUT_Esports",
+      "image": "Futbolist 2021 lightmode.png",
+      "size": [
+        400,
+        758
+      ],
+      "alpha": true
+    },
+    "GX": {
+      "page": "https://liquipedia.net/valorant/GIANTX",
+      "image": "GIANTX full lightmode.png",
+      "size": [
+        400,
+        337
+      ],
+      "alpha": true
+    },
+    "ULF": {
+      "page": "https://liquipedia.net/valorant/ULF_Esports",
+      "image": "ULF Esports lightmode.png",
+      "size": [
+        400,
+        295
+      ],
+      "alpha": true
+    },
+    "EF": {
+      "page": "https://liquipedia.net/valorant/Eternal_Fire",
+      "image": "Eternal Fire 2023 allmode.png",
+      "size": [
+        400,
+        213
+      ],
+      "alpha": true
+    },
+    "PCF": {
+      "page": "https://liquipedia.net/valorant/PCIFIC_Esports",
+      "image": "PCIFIC Esports 2025 full allmode.png",
+      "size": [
+        400,
+        80
+      ],
+      "alpha": true
+    },
+    "PRX": {
+      "page": "https://liquipedia.net/valorant/Paper_Rex",
+      "image": "Paper Rex lightmode full.png",
+      "size": [
+        400,
+        215
+      ],
+      "alpha": true
+    },
+    "T1": {
+      "page": "https://liquipedia.net/valorant/T1",
+      "image": "T1 allmode.png",
+      "size": [
+        400,
+        158
+      ],
+      "alpha": false
+    },
+    "GEN": {
+      "page": "https://liquipedia.net/valorant/Gen.G_Esports",
+      "image": "Gen.G Esports 2026 allmode.png",
+      "size": [
+        400,
+        343
+      ],
+      "alpha": false
+    },
+    "ZETA": {
+      "page": "https://liquipedia.net/valorant/ZETA_DIVISION",
+      "image": "ZETA DIVISION lightmode.png",
+      "size": [
+        400,
+        400
+      ],
+      "alpha": true
+    },
+    "DFM": {
+      "page": "https://liquipedia.net/valorant/DetonatioN_FocusMe",
+      "image": "DetonatioN FocusMe 2022 full lightmode.png",
+      "size": [
+        400,
+        330
+      ],
+      "alpha": true
+    },
+    "RRQ": {
+      "page": "https://liquipedia.net/valorant/Rex_Regum_Qeon",
+      "image": "Rex Regum Qeon full lightmode.png",
+      "size": [
+        400,
+        156
+      ],
+      "alpha": true
+    },
+    "GE": {
+      "page": "https://liquipedia.net/valorant/Global_Esports",
+      "image": "Global Esports 2021.png",
+      "size": [
+        400,
+        240
+      ],
+      "alpha": true
+    },
+    "TS": {
+      "page": "https://liquipedia.net/valorant/Team_Secret",
+      "image": "Team Secret lightmode full.png",
+      "size": [
+        400,
+        253
+      ],
+      "alpha": true
+    },
+    "NS": {
+      "page": "https://liquipedia.net/valorant/Nongshim_RedForce",
+      "image": "NS Redforce allmode.png",
+      "size": [
+        400,
+        538
+      ],
+      "alpha": true
+    },
+    "VL": {
+      "page": "https://liquipedia.net/valorant/Velocity_Gaming",
+      "image": "Velocity Gaming 2021.png",
+      "size": [
+        400,
+        398
+      ],
+      "alpha": true
+    },
+    "FS": {
+      "page": "https://liquipedia.net/valorant/FULL_SENSE",
+      "image": "FULL SENSE 2025 full lightmode.png",
+      "size": [
+        400,
+        291
+      ],
+      "alpha": true
+    },
+    "KBG": {
+      "page": "https://liquipedia.net/valorant/KeepBest_Gaming",
+      "image": "KeepBest Gaming full allmode.png",
+      "size": [
+        400,
+        286
+      ],
+      "alpha": true
+    },
+    "2G": {
+      "page": "https://liquipedia.net/valorant/2GAME_Esports",
+      "image": "2GAME Esports 2024 allmode.png",
+      "size": [
+        400,
+        554
+      ],
+      "alpha": true
+    },
+    "M80": {
+      "page": "https://liquipedia.net/valorant/M80",
+      "image": "M80 2023 allmode.png",
+      "size": [
+        400,
+        457
+      ],
+      "alpha": true
+    },
+    "FXW": {
+      "page": "https://liquipedia.net/valorant/Fluxo_W7M",
+      "image": "Fluxo W7M Dec 2025 allmode.png",
+      "size": [
+        400,
+        400
+      ],
+      "alpha": true
+    },
+    "ONG": {
+      "page": "https://liquipedia.net/valorant/ONSIDE_GAMING",
+      "image": "ONSIDE Gaming full lightmode.png",
+      "size": [
+        400,
+        612
+      ],
+      "alpha": true
+    },
+    "QTD": {
+      "page": "https://liquipedia.net/valorant/QT_DIG",
+      "image": "QT DIG 2025 allmode.png",
+      "size": [
+        400,
+        462
+      ],
+      "alpha": true
+    },
+    "M8": {
+      "page": "https://liquipedia.net/valorant/Gentle_Mates",
+      "image": "Gentle Mates 2024 lightmode.png",
+      "size": [
+        400,
+        386
+      ],
+      "alpha": true
+    },
+    "JL": {
+      "page": "https://liquipedia.net/valorant/Joblife",
+      "image": "Joblife full lightmode.png",
+      "size": [
+        400,
+        301
+      ],
+      "alpha": true
+    },
+    "FF": {
+      "page": "https://liquipedia.net/valorant/Fire_Flux_Esports",
+      "image": "Fire Flux Esports lightmode full.png",
+      "size": [
+        400,
+        208
+      ],
+      "alpha": true
+    },
+    "SGE": {
+      "page": "https://liquipedia.net/valorant/Eintracht_Frankfurt",
+      "image": "Eintracht Frankfurt allmode.png",
+      "size": [
+        400,
+        400
+      ],
+      "alpha": true
+    },
+    "EP": {
+      "page": "https://liquipedia.net/valorant/Enterprise_Esports",
+      "image": "ENTERPRISE Esports 2023 allmode.png",
+      "size": [
+        400,
+        271
+      ],
+      "alpha": true
+    },
+    "XIP": {
+      "page": "https://liquipedia.net/valorant/Xipto_Esports",
+      "image": "Xipto Esports 2025 allmode.png",
+      "size": [
+        400,
+        350
+      ],
+      "alpha": true
+    },
+    "BST": {
+      "page": "https://liquipedia.net/valorant/BESTIA",
+      "image": "BESTIA full lightmode.png",
+      "size": [
+        400,
+        79
+      ],
+      "alpha": true
+    }
+  },
+  "failed_teams": [
+    "SPE",
+    "AT",
+    "KRX"
+  ],
+  "no_image_url": []
+}

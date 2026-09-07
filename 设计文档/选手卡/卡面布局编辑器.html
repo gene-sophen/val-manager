@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>卡面布局编辑器 · 拖动摆放后导出 JSON</title>
+<style>
+  @font-face{font-family:'Anton';font-weight:400;font-display:swap;
+    src:url('../../素材库/字体/Anton-400.woff2') format('woff2')}
+  @font-face{font-family:'Rajdhani';font-weight:500;font-display:swap;
+    src:url('../../素材库/字体/Rajdhani-500.woff2') format('woff2')}
+  @font-face{font-family:'Rajdhani';font-weight:600;font-display:swap;
+    src:url('../../素材库/字体/Rajdhani-600.woff2') format('woff2')}
+  @font-face{font-family:'Rajdhani';font-weight:700;font-display:swap;
+    src:url('../../素材库/字体/Rajdhani-700.woff2') format('woff2')}
+</style>
+<style>
+  :root{
+    --bg:#0F1923; --ink:#F5F2EC; --dim:#AAB9C6; --red:#FF4655;
+    --copper:#B08968; --silver:#C9D4DE; --gold:#E8B93E; --dia:#A9F1FF;
+    --hex-frame:path('M 134.6,4.3 Q 150.0,0.0 165.4,4.3 L 284.6,38.0 Q 300.0,42.3 300.0,58.3 L 300.0,411.7 Q 300.0,427.7 284.6,432.0 L 165.4,465.7 Q 150.0,470.0 134.6,465.7 L 15.4,432.0 Q 0.0,427.7 0.0,411.7 L 0.0,58.3 Q 0.0,42.3 15.4,38.0 Z');
+    --hex-body:path('M 136.5,12.7 Q 150.0,8.9 163.5,12.7 L 280.8,45.8 Q 294.3,49.6 294.3,63.6 L 294.3,406.4 Q 294.3,420.4 280.8,424.2 L 163.5,457.3 Q 150.0,461.1 136.5,457.3 L 19.2,424.2 Q 5.7,420.4 5.7,406.4 L 5.7,63.6 Q 5.7,49.6 19.2,45.8 Z');
+    --hex-sm:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+    --r-sm:5px; --r-md:7px;
+    --noise:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="140" height="140" filter="url(%23n)"/></svg>');
+    --tex-copper:url('../../素材库/底纹/铜.png');
+    --tex-silver:url('../../素材库/底纹/银.png');
+    --tex-gold:url('../../素材库/底纹/金.png');
+    --tex-dia:url('../../素材库/底纹/钻.png');
+    --tex-holo:url('../../素材库/底纹/全息.png');
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:'Rajdhani','Microsoft YaHei',sans-serif;
+    min-height:100vh;padding:20px 300px 40px 32px;user-select:none;-webkit-user-select:none}
+
+  /* ===== 卡体 ===== */
+  .card{width:300px;height:470px;position:relative;flex:none;
+    filter:drop-shadow(0 16px 26px rgba(0,0,0,.6))}
+  .frame{position:absolute;inset:0;clip-path:var(--hex-frame);background-size:cover;background-position:center}
+  .r-铜 .frame{background-image:var(--tex-copper)}
+  .r-银 .frame{background-image:var(--tex-silver)}
+  .r-金 .frame{background-image:var(--tex-gold)}
+  .r-钻 .frame{background-image:var(--tex-dia)}
+  .bevel{position:absolute;inset:0;clip-path:var(--hex-frame);z-index:2;
+    background:linear-gradient(175deg,rgba(255,255,255,.45),rgba(255,255,255,.04) 22%,rgba(0,0,0,.18) 55%,rgba(0,0,0,.6))}
+  .body{position:absolute;inset:0;clip-path:var(--hex-body);z-index:3;overflow:hidden;
+    background:linear-gradient(168deg,#18222d 0%,#111820 45%,#0b1015 100%)}
+  .grain{position:absolute;inset:0;z-index:2;background-image:var(--noise);opacity:.06;mix-blend-mode:overlay;pointer-events:none}
+  .vignette{position:absolute;inset:0;z-index:3;pointer-events:none;
+    background:radial-gradient(ellipse 75% 62% at 50% 38%,transparent 52%,rgba(0,0,0,.42) 100%)}
+  .r-金{filter:drop-shadow(0 16px 26px rgba(0,0,0,.6)) drop-shadow(0 0 16px rgba(232,185,62,.3))}
+  .r-钻{filter:drop-shadow(0 16px 26px rgba(0,0,0,.6)) drop-shadow(0 0 18px rgba(169,241,255,.4))}
+
+  /* ===== 底纹艺术字 ===== */
+  .texnum{font-family:'Anton',sans-serif;background-size:cover;background-position:center;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    -webkit-text-stroke:2px rgba(8,12,16,.92)}
+  .r-铜 .texnum{background-image:var(--tex-copper)}
+  .r-银 .texnum{background-image:var(--tex-silver)}
+  .r-金 .texnum{background-image:var(--tex-gold)}
+  .r-钻 .texnum{background-image:var(--tex-dia)}
+
+  /* ===== 顶区 ===== */
+  .gem{position:absolute;top:15px;left:50%;transform:translateX(-50%) rotate(45deg);z-index:6}
+  .r-金 .gem{width:13px;height:13px;background:linear-gradient(135deg,#fff3c2,var(--gold));border-radius:3px;box-shadow:0 0 10px rgba(232,185,62,.9)}
+  .r-钻 .gem{width:14px;height:14px;background:linear-gradient(135deg,#f2feff,var(--dia) 60%,#b99df1);border-radius:3px;box-shadow:0 0 14px rgba(169,241,255,.95)}
+  .rating{position:absolute;top:70px;left:36px;z-index:5;font-size:52px;line-height:1;
+    transform:skew(-4deg);filter:drop-shadow(0 3px 6px rgba(0,0,0,.9))}
+  .r-铜 .rating{background-image:none;color:#E4C6A4;-webkit-text-stroke:1.1px rgba(8,12,16,.85)}
+  .r-银 .rating{background-image:none;color:#EFF5FA;-webkit-text-stroke:1.1px rgba(8,12,16,.85)}
+  .r-金 .rating{background-image:none;color:#FCE49B;-webkit-text-stroke:1.1px rgba(8,12,16,.85)}
+  .r-钻 .rating{background-image:none;color:#D8F6FF;-webkit-text-stroke:1.1px rgba(8,12,16,.85)}
+  .rating::before{content:attr(data-n);position:absolute;left:0;top:0;z-index:-1;
+    color:transparent;-webkit-text-stroke:4px transparent;
+    background-size:cover;background-position:center;
+    -webkit-background-clip:text;background-clip:text}
+  .r-铜 .rating::before{background-image:var(--tex-copper)}
+  .r-银 .rating::before{background-image:var(--tex-silver)}
+  .r-金 .rating::before{background-image:var(--tex-gold)}
+  .r-钻 .rating::before{background-image:var(--tex-dia)}
+  .corner{position:absolute;top:66px;right:27px;z-index:5}
+  .corner .tlo{width:56px;height:56px;object-fit:contain;padding:5px;border-radius:var(--r-md);
+    background:linear-gradient(180deg,rgba(236,232,225,.94),rgba(200,208,216,.9));border:1px solid rgba(13,20,27,.5);
+    box-shadow:0 3px 10px rgba(0,0,0,.55)}
+  .rgen{position:absolute;top:40px;left:50%;transform:translateX(-50%);width:26px;height:26px;
+    object-fit:contain;z-index:6;filter:drop-shadow(0 2px 5px rgba(0,0,0,.6))}
+
+  /* ===== 像区 ===== */
+  .pbg{position:absolute;top:64px;bottom:210px;left:26px;right:26px;z-index:0;overflow:hidden}
+  .pbg::before{content:'';position:absolute;inset:0;z-index:1;
+    background:repeating-linear-gradient(125deg,rgba(236,232,225,.028) 0 2px,transparent 2px 14px)}
+  .pbg .watermark{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);z-index:2;
+    width:150px;height:150px;object-fit:contain;opacity:.1;filter:grayscale(.2)}
+  .portrait{position:absolute;top:74px;bottom:215px;left:38px;right:38px;z-index:1}
+  .portrait img{width:100%;height:100%;object-fit:cover;object-position:center 10%;display:block;
+    clip-path:polygon(0 0,100% 0,100% 92%,50% 100%,0 92%)}
+  .scrim{position:absolute;left:-16px;right:-16px;bottom:-8px;height:74px;z-index:2;
+    background:linear-gradient(180deg,transparent,rgba(9,14,19,.95) 60%,#0b1015 90%)}
+  .deco{position:absolute;inset:0;z-index:4;pointer-events:none}
+  .wing{position:absolute;top:285px;width:26px;height:110px;z-index:4;pointer-events:none;
+    background-size:cover;background-position:center;opacity:.5;
+    clip-path:polygon(0 0,60% 8%,100% 18%,60% 28%,100% 38%,60% 48%,100% 58%,60% 68%,100% 78%,60% 88%,0 100%)}
+  .wing.l{left:8px}.wing.r{right:8px;transform:scaleX(-1)}
+  .r-金 .wing{background-image:var(--tex-gold)}
+
+  /* ===== 名区 ===== */
+  .who{position:absolute;left:0;right:0;top:248px;padding:0 25px;z-index:5;text-align:center}
+  .pid{font-family:'Anton',sans-serif;font-size:30px;letter-spacing:1.5px;line-height:1;text-shadow:0 2px 6px rgba(0,0,0,.9),0 0 18px rgba(0,0,0,.7)}
+  .r-金 .pid::after{content:'';display:block;height:2px;margin:7px auto 0;border-radius:2px;width:48px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+  /* ===== 英雄池 ===== */
+  .agents{position:absolute;left:0;right:0;top:288px;z-index:5;display:flex;gap:10px;justify-content:center}
+  .ag{width:37px;text-align:center}
+  .ag .heximg{width:37px;height:42px;clip-path:var(--hex-sm);background:#16202a;position:relative}
+  .ag img{width:100%;height:100%;object-fit:cover;display:block}
+  .ag.sig .heximg{clip-path:none;background:none}
+  .ag.sig .heximg::before{content:'';position:absolute;inset:0;clip-path:var(--hex-sm)}
+  .r-金 .ag.sig .heximg::before{background:linear-gradient(160deg,#fff3c2,#E8B93E 55%,#8a6a1c)}
+  .r-钻 .ag.sig .heximg::before{background:linear-gradient(160deg,#f2feff,#A9F1FF 55%,#b99df1)}
+  .ag.sig .heximg::after{content:'';position:absolute;inset:2.5px;clip-path:var(--hex-sm);background:#0d141b}
+  .ag.sig .heximg img{position:absolute;inset:4.5px;width:calc(100% - 9px);height:calc(100% - 9px);clip-path:var(--hex-sm);z-index:1}
+
+  /* ===== 徽章区 ===== */
+  .badges{position:absolute;left:0;right:0;top:326px;z-index:5;display:flex;gap:8px;justify-content:center}
+  .plate{flex:0 0 auto;display:flex;align-items:center;gap:7px;padding:5px 12px 5px 5px;border-radius:var(--r-md);
+    background:linear-gradient(180deg,rgba(27,38,48,.94),rgba(16,24,32,.94));
+    border:1px solid #2a3742;box-shadow:inset 0 1px 0 rgba(236,232,225,.06),0 3px 7px rgba(0,0,0,.45)}
+  .plate .picon{flex:none;width:22px;height:22px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center}
+  .plate .ptext b{display:block;font-size:11.5px;letter-spacing:1px;white-space:nowrap}
+  .plate.trait{border-color:rgba(232,185,62,.45)}
+  .plate.trait .picon{background:rgba(232,185,62,.14);border:1px solid rgba(232,185,62,.5)}
+  .plate.trait .ptext b{color:var(--gold)}
+  .plate.moment{border-color:rgba(169,241,255,.55);box-shadow:inset 0 1px 0 rgba(233,253,255,.1),0 0 14px rgba(169,241,255,.2)}
+  .plate.moment .picon{background:rgba(169,241,255,.12);border:1px solid rgba(169,241,255,.55)}
+  .plate.moment .ptext b{color:var(--dia)}
+
+  /* ===== 三维（金银铜） ===== */
+  .stats{position:absolute;left:0;right:0;top:331px;margin:0 60px;z-index:5;display:flex}
+  .r-金 .badges{top:383px}
+  .stat{flex:1;text-align:center;position:relative}
+  .stat+.stat::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;
+    background:linear-gradient(180deg,transparent,#2a3742,transparent)}
+  .stat b{display:block;font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700;line-height:1.1;
+    background-image:none;-webkit-text-stroke:.8px rgba(8,12,16,.85);
+    filter:drop-shadow(0 2px 3px rgba(0,0,0,.8))}
+  .r-铜 .stat b{color:#D8B794}
+  .r-银 .stat b{color:#EAF1F7}
+  .r-金 .stat b{color:#F7DC85}
+  .stat span{display:block;font-size:10.5px;font-weight:700;letter-spacing:2.5px;color:var(--dim);margin-top:0}
+
+  /* ===== 钻卡独立布局 ===== */
+  .r-钻 .wing{display:none}
+  .r-钻 .rating{top:68px;left:35px}
+  .r-钻 .corner{display:none}
+  .r-钻 .pbg{top:60px;bottom:230px;left:20px;right:16px}
+  .r-钻 .portrait{top:95px;left:41px;width:218px;height:168px}
+  .r-钻 .portrait img{object-position:center 20%;clip-path:polygon(8% 0,100% 0,100% 90%,50% 100%,0 90%,0 8%)}
+  .r-钻 .scrim{left:-66px;right:-16px;bottom:-8px;height:84px}
+  .d-banner{position:absolute;top:240px;left:14px;right:14px;z-index:5;text-align:center;
+    padding:9px 0 8px;background:linear-gradient(180deg,rgba(24,34,44,.95),rgba(13,19,25,.95));
+    border:1px solid rgba(169,241,255,.35);
+    clip-path:polygon(4% 0,96% 0,100% 50%,96% 100%,4% 100%,0 50%);
+    box-shadow:0 4px 12px rgba(0,0,0,.5)}
+  .d-pid{font-family:'Anton',sans-serif;font-size:32px;letter-spacing:4px;line-height:1;
+    transform:skew(-6deg);background-image:var(--tex-dia);background-size:cover;background-position:center;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    -webkit-text-stroke:1.8px rgba(8,12,16,.9);filter:drop-shadow(0 0 10px rgba(169,241,255,.3))}
+  .d-cut{position:absolute;top:296px;left:0;right:0;z-index:5;text-align:center;
+    font-size:10.5px;letter-spacing:3px;color:var(--dia);text-shadow:0 0 8px rgba(169,241,255,.45)}
+  .r-钻 .agents{left:76px;right:auto;top:317px;width:56px}
+  .r-钻 .ag{width:56px}
+  .r-钻 .ag .heximg{width:46px;height:52px;margin:0 auto}
+  .r-钻 .badges{left:41px;right:auto;top:376px;width:132px;justify-content:center}
+  .d-stat{position:absolute;left:184px;z-index:5;display:flex;align-items:baseline;gap:4px}
+  .d-stat b{font-family:'Rajdhani',sans-serif;font-size:21px;font-weight:700;line-height:1.1;
+    background-image:none;color:#C9F4FF;-webkit-text-stroke:.8px rgba(8,12,16,.85);
+    filter:drop-shadow(0 2px 4px rgba(0,0,0,.85))}
+  .d-stat span{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--dim)}
+  .ds1{top:316px}
+  .ds2{top:344px}
+  .ds3{top:374px}
+  .sheen{position:absolute;inset:0;z-index:7;pointer-events:none;opacity:0;
+    background-image:var(--tex-holo);background-size:cover;background-position:center;mix-blend-mode:screen}
+  .r-钻 .sheen{opacity:.3}
+
+  /* ============================================================ */
+  /* ===== 编辑器专用 ===== */
+  /* ============================================================ */
+  .stage{display:flex;gap:70px;justify-content:center;transform-origin:top left;padding:20px 0}
+  [data-mv]{cursor:grab}
+  [data-mv]:hover{outline:1.5px dashed rgba(169,241,255,.9);outline-offset:3px}
+  [data-mv].sel{outline:2px solid #A9F1FF !important;outline-offset:3px}
+  [data-mv]:active{cursor:grabbing}
+  .guides{position:absolute;inset:0;z-index:20;pointer-events:none;display:none}
+  .guides i{position:absolute;background:rgba(255,70,85,.55)}
+  .guides .v{left:50%;top:0;bottom:0;width:1px}
+  .guides .h{top:50%;left:0;right:0;height:1px}
+  .show-guides .guides{display:block}
+
+  .panel{position:fixed;top:0;right:0;bottom:0;width:280px;z-index:99;
+    background:#0d141b;border-left:1px solid #22303c;display:flex;flex-direction:column;
+    font-size:13px}
+  .panel h2{font-family:'Anton',sans-serif;font-size:16px;letter-spacing:1px;padding:14px 14px 8px;color:var(--dia)}
+  .panel .tip{padding:0 14px 10px;color:var(--dim);line-height:1.6;font-size:12px}
+  .toolbar{display:flex;gap:6px;padding:0 14px 10px;flex-wrap:wrap}
+  .toolbar button,.toolbar label{background:#16202a;border:1px solid #2a3742;color:var(--ink);
+    border-radius:6px;padding:5px 10px;font-size:12px;cursor:pointer;font-family:inherit}
+  .toolbar button:hover{background:#1d2a36}
+  .toolbar label{display:flex;align-items:center;gap:4px}
+  .rows{flex:1;overflow-y:auto;border-top:1px solid #22303c}
+  .rows .group{padding:8px 14px 4px;color:var(--gold);font-weight:700;letter-spacing:2px;font-size:12px}
+  .rows .rrow{display:flex;justify-content:space-between;padding:4px 14px;cursor:pointer;color:var(--dim)}
+  .rows .rrow:hover{background:#16202a;color:var(--ink)}
+  .rows .rrow.on{background:#16202a;color:var(--dia)}
+  .rows .rrow .pos{font-variant-numeric:tabular-nums}
+  .export{padding:10px 14px;border-top:1px solid #22303c}
+  .export button{width:100%;background:var(--red);border:none;color:#fff;border-radius:6px;
+    padding:8px 0;font-size:14px;font-weight:700;letter-spacing:2px;cursor:pointer;font-family:inherit}
+  .export textarea{width:100%;height:130px;margin-top:8px;background:#0a1015;color:#9fd8e8;
+    border:1px solid #2a3742;border-radius:6px;font-size:10px;font-family:Consolas,monospace;padding:6px;resize:none}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="i-star" viewBox="0 0 24 24">
+      <path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <circle cx="12" cy="12" r="2" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-scope" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M12 4v16 M4 12h16" stroke="currentColor" stroke-width="1.2" opacity=".7"/>
+      <path d="M3 3 L8 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="medal" viewBox="0 0 20 20">
+      <rect x="3" y="3" width="14" height="14" transform="rotate(45 10 10)" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      <rect x="6" y="6" width="8" height="8" transform="rotate(45 10 10)" fill="none" stroke="currentColor" stroke-width=".9" opacity=".6"/>
+      <circle cx="10" cy="10" r="1.8" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="stage" id="stage">
+
+  <!-- 金卡（代表 金/银/铜 共用布局） -->
+  <div class="card r-金" data-card="common">
+    <div class="frame"></div><div class="bevel"></div>
+    <div class="body">
+      <div class="pbg"><img class="watermark" src="../../素材库/队伍logo/EDG.png"></div>
+      <div class="portrait" data-mv="poster"><img src="../../素材库/选手半身像/ZmjjKK.png"><div class="scrim"></div></div>
+      <div class="vignette"></div><div class="grain"></div>
+      <div class="wing l"></div><div class="wing r"></div>
+      <svg class="deco" viewBox="0 0 300 470" style="color:#E8B93E">
+        <path d="M 138.5,23.2 Q 150.0,20.0 161.5,23.2 L 275.7,55.4 Q 287.2,58.7 287.2,70.7 L 287.2,399.3 Q 287.2,411.3 275.7,414.6 L 161.5,446.8 Q 150.0,450.0 138.5,446.8 L 24.3,414.6 Q 12.8,411.3 12.8,399.3 L 12.8,70.7 Q 12.8,58.7 24.3,55.4 Z"
+          fill="none" stroke="rgba(0,0,0,.65)" stroke-width="3.2" transform="translate(0,-1.4)"/>
+        <path d="M 138.5,23.2 Q 150.0,20.0 161.5,23.2 L 275.7,55.4 Q 287.2,58.7 287.2,70.7 L 287.2,399.3 Q 287.2,411.3 275.7,414.6 L 161.5,446.8 Q 150.0,450.0 138.5,446.8 L 24.3,414.6 Q 12.8,411.3 12.8,399.3 L 12.8,70.7 Q 12.8,58.7 24.3,55.4 Z"
+          fill="none" stroke="#E8B93E" stroke-width="1.5" opacity=".9"/>
+        <path d="M 140.4,29.7 Q 150.0,27.0 159.6,29.7 L 273.1,61.7 Q 282.8,64.5 282.8,74.5 L 282.8,395.5 Q 282.8,405.5 273.1,408.3 L 159.6,440.3 Q 150.0,443.0 140.4,440.3 L 26.9,408.3 Q 17.2,405.5 17.2,395.5 L 17.2,74.5 Q 17.2,64.5 26.9,61.7 Z"
+          fill="none" stroke="#E8B93E" stroke-width=".7" opacity=".45"/>
+        <use href="#medal" x="140" y="11" width="19" height="19"/>
+        <use href="#medal" x="277" y="49" width="19" height="19"/>
+        <use href="#medal" x="4" y="49" width="19" height="19"/>
+        <use href="#medal" x="277" y="398" width="19" height="19" opacity=".6"/>
+        <use href="#medal" x="4" y="398" width="19" height="19" opacity=".6"/>
+        <use href="#medal" x="140" y="438" width="19" height="19" opacity=".6"/>
+        <g stroke="#E8B93E" fill="none" opacity=".75">
+          <path d="M150 30 v16 M130 33 l7 13 M170 33 l-7 13 M112 41 l11 9 M188 41 l-11 9" stroke-width="1.2"/>
+          <path d="M150 34 v8 M136 37 l4 6 M164 37 l-4 6" stroke-width=".7" opacity=".6"/>
+        </g>
+      </svg>
+      <div class="gem" data-mv="gem"></div>
+      <img class="rgen" data-mv="rgen" src="../../素材库/赛区图标/CN.png">
+      <div class="rating texnum" data-mv="rating" data-n="83">83</div>
+      <div class="corner" data-mv="corner"><img class="tlo" src="../../素材库/队伍logo/EDG.png"></div>
+      <div class="who" data-mv="id"><div class="pid">ZmjjKK</div></div>
+      <div class="agents" data-mv="agents">
+        <div class="ag sig"><div class="heximg"><img src="../../素材库/英雄头像/捷风.png"></div></div>
+        <div class="ag"><div class="heximg"><img src="../../素材库/英雄头像/霓虹.png"></div></div>
+        <div class="ag"><div class="heximg"><img src="../../素材库/英雄头像/夜露.png"></div></div>
+      </div>
+      <div class="badges" data-mv="badges">
+        <div class="plate trait">
+          <div class="picon"><svg width="14" height="14" style="color:#E8B93E"><use href="#i-star"/></svg></div>
+          <div class="ptext"><b>大场面先生</b></div>
+        </div>
+      </div>
+      <div class="stats" data-mv="stats">
+        <div class="stat"><b class="texnum">90</b><span>枪法</span></div>
+        <div class="stat"><b class="texnum">65</b><span>协同</span></div>
+        <div class="stat"><b class="texnum">70</b><span>意识</span></div>
+      </div>
+      <div class="guides"><i class="v"></i><i class="h"></i></div>
+    </div>
+  </div>
+
+  <!-- 钻卡 -->
+  <div class="card r-钻" data-card="diamond">
+    <div class="frame"></div><div class="bevel"></div>
+    <div class="body">
+      <div class="pbg"><img class="watermark" src="../../素材库/队伍logo/EDG.png"></div>
+      <div class="portrait" data-mv="poster"><img src="../../素材库/切面海报/23东京_ZmjjKK.png"><div class="scrim"></div></div>
+      <div class="vignette"></div><div class="grain"></div>
+      <svg class="deco" viewBox="0 0 300 470" style="color:#A9F1FF">
+        <defs>
+          <linearGradient id="prism2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#A9F1FF"/><stop offset=".5" stop-color="#f2feff"/>
+            <stop offset=".8" stop-color="#b99df1"/><stop offset="1" stop-color="#A9F1FF"/>
+          </linearGradient>
+        </defs>
+        <path d="M 138.5,23.2 Q 150.0,20.0 161.5,23.2 L 275.7,55.4 Q 287.2,58.7 287.2,70.7 L 287.2,399.3 Q 287.2,411.3 275.7,414.6 L 161.5,446.8 Q 150.0,450.0 138.5,446.8 L 24.3,414.6 Q 12.8,411.3 12.8,399.3 L 12.8,70.7 Q 12.8,58.7 24.3,55.4 Z"
+          fill="none" stroke="rgba(0,0,0,.65)" stroke-width="3.4" transform="translate(0,-1.4)"/>
+        <path d="M 138.5,23.2 Q 150.0,20.0 161.5,23.2 L 275.7,55.4 Q 287.2,58.7 287.2,70.7 L 287.2,399.3 Q 287.2,411.3 275.7,414.6 L 161.5,446.8 Q 150.0,450.0 138.5,446.8 L 24.3,414.6 Q 12.8,411.3 12.8,399.3 L 12.8,70.7 Q 12.8,58.7 24.3,55.4 Z"
+          fill="none" stroke="url(#prism2)" stroke-width="1.8"/>
+        <path d="M 140.4,29.7 Q 150.0,27.0 159.6,29.7 L 273.1,61.7 Q 282.8,64.5 282.8,74.5 L 282.8,395.5 Q 282.8,405.5 273.1,408.3 L 159.6,440.3 Q 150.0,443.0 140.4,440.3 L 26.9,408.3 Q 17.2,405.5 17.2,395.5 L 17.2,74.5 Q 17.2,64.5 26.9,61.7 Z"
+          fill="none" stroke="url(#prism2)" stroke-width=".8" opacity=".5"/>
+        <use href="#medal" x="140" y="11" width="20" height="20"/>
+        <use href="#medal" x="277" y="49" width="20" height="20"/>
+        <use href="#medal" x="4" y="49" width="20" height="20"/>
+        <use href="#medal" x="277" y="398" width="20" height="20" opacity=".6"/>
+        <use href="#medal" x="4" y="398" width="20" height="20" opacity=".6"/>
+        <path d="M126 452 L150 434 L174 452" fill="none" stroke="rgba(0,0,0,.6)" stroke-width="2.4" transform="translate(0,-1)"/>
+        <path d="M126 452 L150 434 L174 452" fill="none" stroke="url(#prism2)" stroke-width="1.3"/>
+        <path d="M136 452 L150 440 L164 452" fill="none" stroke="url(#prism2)" stroke-width=".8" opacity=".6"/>
+      </svg>
+      <div class="sheen"></div>
+      <div class="gem" data-mv="gem"></div>
+      <img class="rgen" data-mv="rgen" src="../../素材库/赛区图标/CN.png">
+      <div class="rating texnum" data-mv="rating" data-n="90">90</div>
+      <div class="d-banner" data-mv="id"><div class="d-pid">ZmjjKK</div></div>
+      <div class="d-cut" data-mv="cut">2023 · 东京大师赛</div>
+      <div class="agents" data-mv="agent">
+        <div class="ag sig"><div class="heximg"><img src="../../素材库/英雄头像/捷风.png"></div></div>
+      </div>
+      <div class="badges" data-mv="moment">
+        <div class="plate moment">
+          <div class="picon"><svg width="14" height="14" style="color:#A9F1FF"><use href="#i-scope"/></svg></div>
+          <div class="ptext"><b>冥驹审判</b></div>
+        </div>
+      </div>
+      <div class="d-stat ds1" data-mv="ds1"><span>枪法</span><b>88</b></div>
+      <div class="d-stat ds2" data-mv="ds2"><span>协同</span><b>75</b></div>
+      <div class="d-stat ds3" data-mv="ds3"><span>意识</span><b>80</b></div>
+      <div class="guides"><i class="v"></i><i class="h"></i></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 侧栏 -->
+<div class="panel">
+  <h2>布局编辑器</h2>
+  <div class="tip">
+    左：金卡 = 金/银/铜共用布局；右：钻卡。<br>
+    ① 直接<b>拖动</b>组件（悬停会亮虚线框）<br>
+    ② 点选后用<b>方向键</b>微调（Shift = 5px）<br>
+    ③ 摆好后点下方「导出布局 JSON」，把文本发给我
+  </div>
+  <div class="toolbar">
+    <button id="zoomOut">－</button>
+    <button id="zoomIn">＋</button>
+    <label><input type="checkbox" id="guideToggle"> 中轴参考线</label>
+    <button id="reset">重置</button>
+  </div>
+  <div class="rows" id="rows"></div>
+  <div class="export">
+    <button id="exportBtn">导出布局 JSON（已复制）</button>
+    <textarea id="exportText" readonly placeholder="点击上方按钮生成坐标 JSON"></textarea>
+  </div>
+</div>
+
+<script>
+const LABELS = {
+  gem:'品质宝石', rgen:'赛区标', rating:'总评', corner:'队标', poster:'选手海报',
+  id:'选手ID', agents:'英雄池', stats:'三维区', badges:'特性铭牌',
+  cut:'切面标签', agent:'招牌英雄', moment:'明星时刻',
+  ds1:'三维·枪法', ds2:'三维·协同', ds3:'三维·意识'
+};
+const CARD_NAMES = {common:'金/银/铜', diamond:'钻卡'};
+let scale = 1, sel = null;
+const rowsEl = document.getElementById('rows');
+
+// 锁定布局：读取计算后的实际位置，固化为 left/top/width（消除 right/margin 影响）
+function pin(el){
+  const cs = getComputedStyle(el);
+  el.style.width = cs.width;
+  el.style.top = cs.top;
+  el.style.left = cs.left;
+  el.style.right = 'auto';
+  el.style.bottom = 'auto';
+  el.style.margin = '0';
+  return {t: parseFloat(cs.top), l: parseFloat(cs.left)};
+}
+
+function curPos(el){
+  const cs = getComputedStyle(el);
+  return {t: Math.round(parseFloat(cs.top)), l: Math.round(parseFloat(cs.left))};
+}
+
+// 建立侧栏行
+const rowMap = new Map();
+document.querySelectorAll('.card').forEach(card => {
+  const g = document.createElement('div');
+  g.className = 'group';
+  g.textContent = CARD_NAMES[card.dataset.card];
+  rowsEl.appendChild(g);
+  card.querySelectorAll('[data-mv]').forEach(el => {
+    const row = document.createElement('div');
+    row.className = 'rrow';
+    row.innerHTML = `<span>${LABELS[el.dataset.mv] || el.dataset.mv}</span><span class="pos"></span>`;
+    row.addEventListener('click', () => select(el));
+    rowsEl.appendChild(row);
+    rowMap.set(el, row);
+    refreshRow(el);
+  });
+});
+
+function refreshRow(el){
+  const p = curPos(el);
+  rowMap.get(el).querySelector('.pos').textContent = `T ${p.t} · L ${p.l}`;
+}
+
+function select(el){
+  if (sel) { sel.classList.remove('sel'); rowMap.get(sel).classList.remove('on'); }
+  sel = el;
+  if (el) { el.classList.add('sel'); rowMap.get(el).classList.add('on'); }
+}
+
+// 拖拽
+document.querySelectorAll('[data-mv]').forEach(el => {
+  el.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    select(el);
+    const start = pin(el);
+    const sx = e.clientX, sy = e.clientY;
+    const move = ev => {
+      el.style.top = (start.t + (ev.clientY - sy) / scale) + 'px';
+      el.style.left = (start.l + (ev.clientX - sx) / scale) + 'px';
+      refreshRow(el);
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  });
+});
+
+// 方向键微调
+window.addEventListener('keydown', e => {
+  if (!sel) return;
+  const d = {ArrowUp:[0,-1], ArrowDown:[0,1], ArrowLeft:[-1,0], ArrowRight:[1,0]}[e.key];
+  if (!d) return;
+  e.preventDefault();
+  const step = e.shiftKey ? 5 : 1;
+  const cs = getComputedStyle(sel);
+  sel.style.top = (parseFloat(cs.top) + d[1] * step) + 'px';
+  sel.style.left = (parseFloat(cs.left) + d[0] * step) + 'px';
+  refreshRow(sel);
+});
+
+// 缩放
+const stage = document.getElementById('stage');
+document.getElementById('zoomIn').onclick = () => { scale = Math.min(2, scale + 0.2); stage.style.transform = `scale(${scale})`; };
+document.getElementById('zoomOut').onclick = () => { scale = Math.max(0.5, scale - 0.2); stage.style.transform = `scale(${scale})`; };
+
+// 参考线
+document.getElementById('guideToggle').onchange = e => {
+  document.querySelectorAll('.card').forEach(c => c.classList.toggle('show-guides', e.target.checked));
+};
+
+// 重置
+document.getElementById('reset').onclick = () => location.reload();
+
+// 导出
+document.getElementById('exportBtn').onclick = () => {
+  const out = {};
+  document.querySelectorAll('.card').forEach(card => {
+    const c = CARD_NAMES[card.dataset.card];
+    out[c] = {};
+    card.querySelectorAll('[data-mv]').forEach(el => {
+      const p = curPos(el);
+      out[c][LABELS[el.dataset.mv] || el.dataset.mv] = {top: p.t, left: p.l};
+    });
+  });
+  const text = JSON.stringify(out, null, 1);
+  document.getElementById('exportText').value = text;
+  navigator.clipboard.writeText(text).catch(() => {});
+};
+</script>
+</body>
+</html>
