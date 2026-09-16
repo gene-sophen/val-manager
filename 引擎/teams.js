@@ -59,6 +59,7 @@ function resolveTeam(spec, rng) {
     players,
     tactics: spec.tactics || null,
     tactics2: spec.tactics2 || null,
+    coach: spec.coach || null, // 教练配置 { tactics, igl }（可选）
     // IGL：显式指定或自动识别（取队内第一张 igl 标记卡）；noIGL 强制无指挥
     iglName: spec.noIGL ? null : (spec.igl || (players.find((p) => p.igl) || {}).name || null)
   };

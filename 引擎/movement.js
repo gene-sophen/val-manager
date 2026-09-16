@@ -15,7 +15,9 @@ module.exports = {
     }
     if (u.rotating) {
       ticks = Math.max(1, Math.round(ticks * (1 - u.syn * cfg.move.rotateSynCoef)));
-      if (this.iglAlive(u.side)) ticks = Math.max(1, Math.round(ticks * cfg.igl.rotateTicksMult)); // IGL 指挥机动
+      // IGL 指挥机动（效率按 IGL 本人 SYN 缩放）
+      const igl = this.iglUnit(u.side);
+      if (igl) ticks = Math.max(1, Math.round(ticks * (1 - (1 - cfg.igl.rotateTicksMult) * (igl.syn / 60))));
     }
     if (mode === 'run') u.loudUntil = this.t + 6; // 跑动暴露行踪，可被侦察捕捉
     // 烟雾封锁：防守回防穿越烟雾边减速

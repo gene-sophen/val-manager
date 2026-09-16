@@ -8,11 +8,14 @@ const abilities = require('./abilities');
 const { decisionQuality } = brain;
 
 class RoundSim {
-  constructor({ map, atkUnits, defUnits, atkFamily, defFamily, atkIntent, defIntent, rng, hooks, logger }) {
+  constructor({ map, atkUnits, defUnits, atkFamily, defFamily, atkIntent, defIntent, rng, hooks, logger, onRoundEnd }) {
     this.map = map;
     this.rng = rng;
     this.hooks = hooks;
-    this.log = logger || null;
+    // 事件采集：供回合战报（report.js）渲染；onRoundEnd 在 round_end 发出前回调取摘要
+    this._roundEvents = logger ? [] : null;
+    this.log = logger ? (ev) => { this._roundEvents.push(ev); logger(ev); } : null;
+    this.onRoundEnd = onRoundEnd || null;
     this.atkFamily = atkFamily;
     this.defFamily = defFamily;
     // 战术意图（tactics.js 输出，取代指令链剧本）
@@ -118,11 +121,15 @@ class RoundSim {
     return cfg.utility.synBase + cfg.utility.synCoef * syn / 100;
   }
 
-  // IGL 存活才有指挥加成
-  iglAlive(side) {
+  // IGL 存活才有指挥加成；iglUnit 供加成强度按 IGL 本人 SEN/SYN 缩放
+  iglUnit(side) {
     const arr = side === 'atk' ? this.atk : this.def;
-    for (const u of arr) if (u.alive && u.isIGL) return true;
-    return false;
+    for (const u of arr) if (u.alive && u.isIGL) return u;
+    return null;
+  }
+
+  iglAlive(side) {
+    return !!this.iglUnit(side);
   }
 
   // 道具自主决策：SEN 决定"该用时能不能想到用"，战术道具倾向（utilPosture）调制意愿
@@ -347,7 +354,8 @@ class RoundSim {
       this.updateBrains();
       this.t++;
     }
-    this.emit('round_end', { winner: this.result.winner, reason: this.result.reason });
+    const summary = this.onRoundEnd ? this.onRoundEnd(this.result, this._roundEvents || []) : null;
+    this.emit('round_end', { winner: this.result.winner, reason: this.result.reason, ...(summary ? { summary } : {}) });
     return this.result;
   }
 }

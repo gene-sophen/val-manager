@@ -1,8 +1,25 @@
 {
   "name": "银卡默认队",
-  "players": ["Veqaj", "eeiu", "Sato", "WsLeo", "cb"],
+  "players": [
+    "Veqaj",
+    "eeiu",
+    "Sato",
+    "WsLeo",
+    "cb"
+  ],
   "tactics": {
-    "atk": { "rush": 0.2, "mid": 0.4, "lurk": 0.4 },
-    "def": { "push": 0.4, "hold": 0.4, "stack": 0.2 }
+    "atk": {
+      "rush": 0.2,
+      "mid": 0.4,
+      "lurk": 0.4
+    },
+    "def": {
+      "push": 0.4,
+      "hold": 0.4,
+      "stack": 0.2
+    }
+  },
+  "coach": {
+    "tactics": 58
   }
 }

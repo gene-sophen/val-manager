@@ -112,8 +112,9 @@ module.exports = {
     if (!cands.length) return;
     for (const fn of this.hooks.beforeDecision) cands = fn({ unit: u, round: this }, cands) || cands;
     const dq = decisionQuality(u.sen);
-    // IGL 存活时队友的战术意图先验增强（指挥让行动更贴合计划）
-    const iglBoost = (!u.isIGL && this.iglAlive(u.side)) ? 1 + cfg.igl.priorBoost : 1;
+    // IGL 存活时队友的战术意图先验增强（指挥让行动更贴合计划；强度按 IGL 本人 SEN 缩放）
+    const igl = this.iglUnit(u.side);
+    const iglBoost = (!u.isIGL && igl) ? 1 + cfg.igl.priorBoost * (igl.sen / 60) : 1;
     let best = null, bestScore = -1e9;
     for (const c of cands) {
       const s = c.prior * iglBoost * (0.5 + dq) + (c.situ || 0) + (c.pers || 0)
@@ -304,7 +305,8 @@ module.exports = {
     // 假打识破：可疑信息（只有动静没有接触）挂 SEN 判定，识破则不被拉扯
     if (info.suspicious && u.fakeReadTick !== info.tick) {
       u.fakeReadTick = info.tick;
-      let pRead = cfg.fake.readBase + u.sen * cfg.fake.readSen + (this.iglAlive('def') ? cfg.igl.fakeReadBonus : 0);
+      const iglD = this.iglUnit('def');
+      let pRead = cfg.fake.readBase + u.sen * cfg.fake.readSen + (iglD ? cfg.igl.fakeReadBonus * (iglD.sen / 60) : 0);
       if (this.defIntent.family === 'stack') pRead *= 0.6; // 赌点队信息面窄，更难识破假打
       if (this.rng() < pRead) {
         this.stats.fakeReads++;

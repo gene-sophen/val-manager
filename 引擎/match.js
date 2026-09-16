@@ -1,10 +1,12 @@
-// 整局比赛：经济、换边、战术比重、英雄分配、心态、胜负判定
+// 整局比赛：经济、换边、战术比重、英雄分配、心态、胜负判定；教练系统（赛前布置/暂停/战报）
 const cfg = require('./config');
 const { RoundSim } = require('./round');
 const { buildIntent } = require('./tactics');
 const { buyPhase, settleRound } = require('./economy');
 const createHooks = require('./hooks');
 const { assignAgents } = require('./agents');
+const coach = require('./coach');
+const report = require('./report');
 const events = require('./events');
 
 // 按比重抽战术族
@@ -28,11 +30,22 @@ function makeUnits(team, side) {
   }));
 }
 
-// matchCfg 可覆盖赛制：{ firstTo, halfRounds }
-function simulateMatch({ teamA, teamB, map, rng, logger, matchCfg }) {
+// matchCfg 可覆盖赛制：{ firstTo, halfRounds }；coachScores 可指定两队教练战术分 {A, B}
+function simulateMatch({ teamA, teamB, map, rng, logger, matchCfg, coachScores }) {
   const mc = { ...cfg.match, ...(matchCfg || {}) };
   const hooks = createHooks();
   events.attachHooks(hooks); // 突发事件（爆种/爆冷）+ 心态修正
+
+  // 教练赛前布置：战术比重 + IGL 任命（覆盖自动识别；teams 配置 coach.igl 可再覆盖）
+  const coachSt = {
+    A: coach.initCoachState(teamA, coachScores && coachScores.A),
+    B: coach.initCoachState(teamB, coachScores && coachScores.B)
+  };
+  teamA.iglName = coachSt.A.iglPick;
+  teamB.iglName = coachSt.B.iglPick;
+  // 战术族使用轨迹（教练读取对手倾向用）
+  const famSeq = { A: { atk: [], def: [] }, B: { atk: [], def: [] } };
+
   const unitsA = makeUnits(teamA, 'atk');
   const unitsB = makeUnits(teamB, 'def');
 
@@ -68,11 +81,19 @@ function simulateMatch({ teamA, teamB, map, rng, logger, matchCfg }) {
     const atkTeamObj = atkTeam === 'A' ? teamA : teamB;
     const defTeamObj = atkTeam === 'A' ? teamB : teamA;
 
-    // 中场战术布置：换边后可换比重
-    const atkTac = (secondHalf && atkTeamObj.tactics2) ? atkTeamObj.tactics2.atk : (atkTeamObj.tactics || cfg.defaultTactics).atk;
-    const defTac = (secondHalf && defTeamObj.tactics2) ? defTeamObj.tactics2.def : (defTeamObj.tactics || cfg.defaultTactics).def;
-    const atkFamily = sampleFamily(atkTac || cfg.defaultTactics.atk, rng);
-    const defFamily = sampleFamily(defTac || cfg.defaultTactics.def, rng);
+    // 战术比重：来自教练当前布置；换边时若队伍配置了 tactics2 则先整套换用
+    for (const [key, teamObj] of [['A', teamA], ['B', teamB]]) {
+      if (secondHalf && !coachSt[key].swapped && teamObj.tactics2) {
+        coachSt[key].weights = { atk: { ...teamObj.tactics2.atk }, def: { ...teamObj.tactics2.def } };
+        coachSt[key].baseWeights = { atk: { ...teamObj.tactics2.atk }, def: { ...teamObj.tactics2.def } };
+        coachSt[key].swapped = true;
+      }
+    }
+    const defTeamKey = atkTeam === 'A' ? 'B' : 'A';
+    const atkFamily = sampleFamily(coachSt[atkTeam].weights.atk, rng);
+    const defFamily = sampleFamily(coachSt[defTeamKey].weights.def, rng);
+    famSeq[atkTeam].atk.push(atkFamily);
+    famSeq[defTeamKey].def.push(defFamily);
 
     // 购买：手枪局 / 强起（手枪局获胜次回合）/ 孤注一掷（对方逼近赛点且经济不良）
     const isPistol = roundIdx === 0 || roundIdx === mc.halfRounds;
@@ -107,7 +128,16 @@ function simulateMatch({ teamA, teamB, map, rng, logger, matchCfg }) {
     const defIntent = buildIntent(map, 'def', defFamily, rng);
     const sim = new RoundSim({
       map, atkUnits, defUnits, atkFamily, defFamily, atkIntent, defIntent,
-      rng, hooks, logger: roundLogger
+      rng, hooks, logger: roundLogger,
+      // 极简战报：回合结束时渲染一句话摘要（挂到 round_end.summary）
+      onRoundEnd: logger ? (res, evs) => {
+        const wTeam = res.winner === 'atk' ? atkTeam : (atkTeam === 'A' ? 'B' : 'A');
+        return report.roundSummary(evs, {
+          round: roundIdx + 1, atkTeam: atkTeamObj.name, defTeam: defTeamObj.name, atkFamily,
+          scoreA: scoreA + (wTeam === 'A' ? 1 : 0), scoreB: scoreB + (wTeam === 'B' ? 1 : 0),
+          nameA: teamA.name, nameB: teamB.name, reason: res.reason
+        });
+      } : null
     });
     const result = sim.run();
     settleRound(atkUnits, defUnits, result);
@@ -139,6 +169,53 @@ function simulateMatch({ teamA, teamB, map, rng, logger, matchCfg }) {
       atkReason: buyA.reason, defReason: buyB.reason
     });
     if (logger) logger({ t: result.ticks, type: 'score', round: roundIdx + 1, scoreA, scoreB, winner: winnerTeam, reason: result.reason });
+
+    // ---- 教练窗口（仅回合之间）：暂停状态播报 + AI 教练决策（暂停/中场调整热更新） ----
+    if (logger) logger({ t: result.ticks, type: 'coach_window', round: roundIdx + 1, scoreA, scoreB, timeoutsLeft: { A: coachSt.A.timeoutsLeft, B: coachSt.B.timeoutsLeft } });
+    const nextIdx = roundIdx + 1;
+    const isHalftime = nextIdx === mc.halfRounds; // 第 12 回合后进入中场窗口
+    for (const key of ['A', 'B']) {
+      // 中场窗口先落 tactics2 换套，再做暂停调整（调整作用于下半场实际使用的比重）
+      const teamObj = key === 'A' ? teamA : teamB;
+      if (isHalftime && !coachSt[key].swapped && teamObj.tactics2) {
+        coachSt[key].weights = { atk: { ...teamObj.tactics2.atk }, def: { ...teamObj.tactics2.def } };
+        coachSt[key].baseWeights = { atk: { ...teamObj.tactics2.atk }, def: { ...teamObj.tactics2.def } };
+        coachSt[key].swapped = true;
+      }
+      const oppKey = key === 'A' ? 'B' : 'A';
+      // 对手两侧的连出场次与倾向（我方进攻针对其防守倾向，反之亦然）
+      const seqs = famSeq[oppKey];
+      const tend = {}, streaks = {}, signal = {};
+      for (const side of ['atk', 'def']) {
+        const seq = seqs[side];
+        let run = 0;
+        for (let i = seq.length - 1; i >= 0 && seq[i] === seq[seq.length - 1]; i--) run++;
+        streaks[side] = run;
+        const counts = {};
+        for (const f of seq) counts[f] = (counts[f] || 0) + 1;
+        const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0] || [null, 0];
+        tend[side] = top[0];
+        // 明确信号：样本 ≥6 且（同族连出 ≥3 或多数族占比 ≥60%）；不足则暂停只回摆/稳心态不针对
+        // （均匀对手的短期噪声不是信号，针对幻影倾向调整只会自伤）
+        signal[side] = seq.length >= 6 && (run >= 3 || top[1] / seq.length >= 0.6);
+      }
+      const myScore = key === 'A' ? scoreA : scoreB, oppScore = key === 'A' ? scoreB : scoreA;
+      const myUnits = key === 'A' ? unitsA : unitsB;
+      const dec = coach.aiDecide(coachSt[key], {
+        loseStreak: Math.max(0, -streak[key]), oppSameStreak: Math.max(streaks.atk, streaks.def), isHalftime,
+        oppTendency: tend, oppSignal: signal, rng, scoreGap: myScore - oppScore, units: myUnits
+      });
+      if (!dec) continue;
+      if (dec.iglSwap) { // 换 IGL 热更新
+        for (const u of myUnits) u.isIGL = u.name === dec.iglSwap;
+      }
+      if (logger) logger({
+        t: result.ticks, type: 'timeout', round: roundIdx + 1, side: key, kind: dec.kind,
+        coach: coachSt[key].coach.name, tactics: coachSt[key].coach.tactics,
+        reads: dec.reads, weights: dec.weights,
+        iglPick: dec.iglSwap || undefined
+      });
+    }
 
     roundIdx++;
     if (scoreA >= mc.firstTo || scoreB >= mc.firstTo) break;

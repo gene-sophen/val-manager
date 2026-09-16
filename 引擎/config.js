@@ -71,6 +71,25 @@ module.exports = {
     utilThinkBase: 0.45,    // 道具自主决策：想到要使用的基础概率
     utilThinkSen: 0.005     // 每点 SEN 增加想到概率
   },
+  // 教练系统（coach.js）：赛前布置 / 局间暂停 / 中场调整 / IGL 任命
+  coach: {
+    tacticsDefault: 60,     // 缺省三维（战术/声望/临场，本期只有战术维生效）
+    timeouts: 2,            // 每队局内暂停次数（中场暂停另计 1 次）
+    readBase: 0.55,         // 暂停读取对手倾向的准确率 = readBase + (战术-30)*readTacticsCoef
+    readTacticsCoef: 0.008, // 战术 99 → 1.10(封顶)，战术 30 → 0.55
+    counterShift: 0.25,     // 暂停调整后克制族比重提升量（过大暴露倾向会被对手教练反读）
+    timeoutComposure: 0.2,  // 暂停稳心态：叫暂停方全员心态回升（打断对手势头）
+    loseStreakTrigger: 2,   // AI 教练：连败 N 局叫暂停
+    sameFamilyTrigger: 4,   // AI 教练：对手同族连续 N 回合叫暂停
+    iglSwapGap: 4,          // 中场落后 N 分考虑换 IGL（换帅求变）
+    // 赛前布置：战术分越高，初始比重越贴近版本强势族（meta），k = (战术-30)/69*metaBlend
+    metaBlend: 0.65,
+    metaAtk: { rush: 0.45, mid: 0.1, lurk: 0.1, fake: 0.3 },  // 依 BALANCE 各族回合胜率
+    metaDef: { push: 0.25, hold: 0.25, stack: 0.5 },
+    // 克制表（依据 BALANCE 克制矩阵）：对手守族 -> 我方攻族 / 对手攻族 -> 我方守族
+    counterAtk: { push: 'rush', hold: 'rush', stack: 'mid' },
+    counterDef: { rush: 'stack', mid: 'push', lurk: 'stack', fake: 'stack' }
+  },
   // 战术意图先验（tactics.js）：各族节奏时点与道具倾向，输出意图而非指令链
   tactics: {
     rush: { contactTick: 0, commitTick: 0, utilPosture: 0.8 },      // 爆弹冲点：立即全员直冲
@@ -107,14 +126,14 @@ module.exports = {
     readSen: 0.005,         // 每点 SEN 增加识破概率
     decoyUtilThink: 0.7     // 假打组交道具佯攻的意愿概率
   },
-  // IGL 指挥加成（队内 IGL 存活时生效）
+  // IGL 指挥加成（队内 IGL 存活时生效；强度按 IGL 本人 SEN/SYN 缩放，70 为基准）
   igl: {
     syncSynBonus: 14,       // 同步进点等效 SYN 加成
-    rotateTicksMult: 0.88,  // 回防/转点耗时乘子
-    fakeReadBonus: 0.10,    // 识破/假打质量加成
+    rotateTicksMult: 0.88,  // 回防/转点耗时乘子（按 IGL SYN/70 缩放）
+    fakeReadBonus: 0.10,    // 识破/假打质量加成（按 IGL SEN/70 缩放）
     readBonus: 0.10,        // 中路读取等战术决策质量加成
-    priorBoost: 0.18,       // IGL 存活时队友的战术意图先验倍率（1+priorBoost，指挥让行动更贴合计划）
-    aimPenalty: 0.97        // IGL 自身击杀概率乘子（指挥注意力代价）
+    priorBoost: 0.18,       // IGL 存活时队友的战术意图先验倍率（按 IGL SEN/70 缩放）
+    aimPenalty: 0.98        // IGL 自身击杀概率乘子基准（实际代价再按 70/SEN 缩放）
   },
   // 默认战术比重（队伍配置缺省时使用）
   defaultTactics: {

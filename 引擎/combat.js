@@ -47,7 +47,7 @@ module.exports = {
     if (att.aimbuffUntil >= this.t) p *= (att.aimbuffMult || cfg.abilities.aimbuffMult); // 自增益技能（猎头/心流/大招）
     if (tgt.healUntil >= this.t) p *= 1 - cfg.abilities.healResist; // 治疗后的短期受击减免
     if (att.stun > 0) p *= cfg.utility.stunFirePenalty; // 被警戒/燃烧/震荡滞留时开火不稳
-    if (att.isIGL) p *= cfg.igl.aimPenalty; // IGL 指挥分心的枪法代价
+    if (att.isIGL) p *= 1 - (1 - cfg.igl.aimPenalty) * (70 / att.sen); // IGL 指挥分心代价（意识差的选手分心更严重）
     for (const fn of this.hooks.beforeKillRoll) p = fn({ att, tgt, node, round: this, entry }, p);
     return Math.min(Math.max(p, 0.01), 0.9);
   },

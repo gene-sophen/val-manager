@@ -62,7 +62,10 @@ function runBatch(specA, specB, n, seed, opts = {}) {
       events = [];
       logger = (ev) => events.push(ev);
     }
-    const m = simulateMatch({ teamA, teamB, map, rng, logger, matchCfg });
+    const m = simulateMatch({
+      teamA, teamB, map, rng, logger, matchCfg,
+      coachScores: (opts.coachA || opts.coachB) ? { A: opts.coachA, B: opts.coachB } : null
+    });
     if (events) {
       fs.mkdirSync(outDir, { recursive: true });
       const safe = (s) => s.replace(/[\\/:*?"<>|]/g, '_');
@@ -154,7 +157,8 @@ if (require.main === module) {
   if (args.halfRounds) matchCfg.halfRounds = parseInt(args.halfRounds, 10);
   const t0 = Date.now();
   const stats = runBatch(parseCliSpec(args.a), parseCliSpec(args.b), args.n, args.seed, {
-    log: args.log, firstTo: matchCfg.firstTo, halfRounds: matchCfg.halfRounds
+    log: args.log, firstTo: matchCfg.firstTo, halfRounds: matchCfg.halfRounds,
+    coachA: args.coachA ? parseInt(args.coachA, 10) : null, coachB: args.coachB ? parseInt(args.coachB, 10) : null
   });
   printStats(stats, args.n);
   const dt = (Date.now() - t0) / 1000;
