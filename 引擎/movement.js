@@ -1,5 +1,6 @@
 // 机动：节点间移动、边暴露、静音慢摸、警戒/燃烧触发、进点连锁（从 round.js 拆出，纯代码移动）
 const cfg = require('./config');
+const abilities = require('./abilities');
 
 module.exports = {
   startMove(u, dest, mode) {
@@ -20,6 +21,9 @@ module.exports = {
     // 烟雾封锁：防守回防穿越烟雾边减速
     const smokeUntil = this.smokedEdges[this.edgeKey(u.node, next)];
     if (u.side === 'def' && smokeUntil && this.t < smokeUntil) ticks += cfg.utility.smokeRotateDelay;
+    // 墙体封锁（冰墙类）：双方穿越都大幅减速
+    const wallUntil = this.walledEdges[this.edgeKey(u.node, next)];
+    if (wallUntil && this.t < wallUntil) ticks += cfg.abilities.wallTickDelay;
     this.occ[u.node].delete(u);
     this.releasePost(u); // 移动中 post=null，离开节点释放对枪点
     // 预选到达节点的对枪点（高 SEN 偏好掩体好/枪线多的槽位；进攻慢摸埋伏时回避枪线）
@@ -53,7 +57,7 @@ module.exports = {
           this.emit('trap_spotted', { node: u.node, unit: u.name });
         } else {
           this.addInfo(region, cfg.utility.trapInfo);
-          u.stun = cfg.utility.trapStun;
+          u.stun = cfg.utility.trapStun + (this.trapPower[u.node] || 0); // 招牌陷阱（零绊线等）滞留更久
           this.emit('trap', { node: u.node, unit: u.name, region });
         }
       }
@@ -67,15 +71,7 @@ module.exports = {
         // 进攻方踩进包点 => 进攻方向落实；到位选手自主决定是否封烟掩护（阻断回防路线）
         if ((u.node === 'a_site' || u.node === 'b_site') && !this.committedSite) {
           this.committedSite = this.map.region(u.node);
-          if (!this.atkSmokeUsed && this.thinkUse(u)) {
-            this.atkSmokeUsed = true;
-            u.utils--;
-            this.stats.utilsAtk++;
-            this.stats.utilsByType.smoke++;
-            const staging = this.map.data.staging[this.committedSite];
-            this.smokedEdges[this.edgeKey(staging, u.node)] = this.t + cfg.utility.smokeTicks;
-            this.emit('smoke', { node: u.node, edge: [staging, u.node], by: u.name, until: this.t + cfg.utility.smokeTicks });
-          }
+          if (!this.atkSmokeUsed && abilities.onCommitSmoke(this, u)) this.atkSmokeUsed = true;
         }
       }
       // 预置燃烧（赌点全押）：进攻踩进该点即激活火线封锁，预置火线持续更久
@@ -84,20 +80,18 @@ module.exports = {
         this.mollyZone = { node: u.node, until: this.t + cfg.utility.mollyZoneTicks + 2 };
         this.emit('molly_entry', { node: u.node, preset: true });
       }
-      // 进点燃烧弹：点内守军自主决定是否封火，后续进点者被火线逼停
+      // 进点燃烧弹：点内守军自主决定是否封火（优先 molly 技能），后续进点者被火线逼停
       if (u.side === 'atk' && (u.node === 'a_site' || u.node === 'b_site') && this.enemiesAt(u.node, 'atk').length > 0) {
         const region = this.map.region(u.node);
         if (!this.defEntryMolly[region]) {
           const candidates = [];
           for (const d of this.def) {
-            if (d.alive && d.utils > 0 && this.map.region(d.node) === region) candidates.push(d);
+            if (d.alive && (d.utils > 0 || abilities.findSkill(d, 'molly')) && this.map.region(d.node) === region) candidates.push(d);
           }
           candidates.sort((a, b) => b.syn - a.syn);
           for (const thrower of candidates) {
-            if (this.thinkUse(thrower)) {
-              thrower.utils--;
-              this.stats.utilsDef++;
-              this.stats.utilsByType.molly++;
+            const r = abilities.triggerCast(this, thrower, 'molly', { node: u.node, entry: true });
+            if (r) {
               this.defEntryMolly[region] = true;
               this.mollyZone = { node: u.node, until: this.t + cfg.utility.mollyZoneTicks };
               this.emit('molly_entry', { node: u.node, by: thrower.name });
@@ -106,8 +100,9 @@ module.exports = {
           }
         }
       }
-      // 穿越火线：被燃烧弹逼停
-      if (u.side === 'atk' && this.mollyZone && this.t < this.mollyZone.until && u.node === this.mollyZone.node) {
+      // 穿越火线：被燃烧弹逼停（deny=守包燃烧拦防守，普通=进点燃烧拦进攻）
+      if (this.mollyZone && this.t < this.mollyZone.until && u.node === this.mollyZone.node
+        && (this.mollyZone.deny ? u.side === 'def' : u.side === 'atk')) {
         u.stun = Math.max(u.stun, 3);
         this.emit('molly_block', { node: u.node, unit: u.name });
       }

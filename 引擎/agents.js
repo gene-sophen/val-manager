@@ -10,6 +10,13 @@ function allAgents() {
   return AGENT_NAMES;
 }
 
+let KITS = null;
+// 英雄技能组（agent_kits.json）；无 kit 的英雄走原型通用行为之外的基础道具
+function kitOf(agent) {
+  if (!KITS) KITS = require('./agent_kits.json');
+  return KITS[agent] || null;
+}
+
 // 回溯分配：优先池内不重复；失败的选手落到池外（inPool=false）
 function assignAgents(players, rng) {
   const used = new Set();
@@ -21,7 +28,7 @@ function assignAgents(players, rng) {
     if (avail.length) {
       const pick = avail[Math.floor(rng() * avail.length)];
       used.add(pick);
-      result[i] = { agent: pick, inPool: true };
+      result[i] = { agent: pick, inPool: true, kit: kitOf(pick) };
     }
   }
   // 池外补位
@@ -30,9 +37,9 @@ function assignAgents(players, rng) {
     const outside = allAgents().filter((a) => !used.has(a) && !players[i].agents.includes(a));
     const pick = outside[Math.floor(rng() * outside.length)];
     used.add(pick);
-    result[i] = { agent: pick, inPool: false };
+    result[i] = { agent: pick, inPool: false, kit: kitOf(pick) };
   }
   return result;
 }
 
-module.exports = { assignAgents, allAgents };
+module.exports = { assignAgents, allAgents, kitOf };

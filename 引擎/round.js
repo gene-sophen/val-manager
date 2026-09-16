@@ -1,8 +1,9 @@
 // 回合推演编排：tick 时钟 + 队伍级状态机；个体决策在 brain.js（效用 AI）
-// 模块：movement.js 机动 / combat.js 交火 / perception.js 信息感知 / brain.js 个体决策
+// 模块：movement.js 机动 / combat.js 交火 / perception.js 信息感知 / brain.js 个体决策 / abilities.js 英雄技能
 const cfg = require('./config');
 const { aimAt } = require('./tactics');
 const brain = require('./brain');
+const abilities = require('./abilities');
 
 const { decisionQuality } = brain;
 
@@ -42,9 +43,16 @@ class RoundSim {
     this.smokedEdges = {};  // "a|b" -> 失效 tick
     this.atkSmokeUsed = false;
     this.lastFlashTick = { atk: -99, def: -99 };
+    this.lastStunTick = { atk: -99, def: -99 }; // 震荡技能每方冷却
     this.defEntryMolly = { A: false, B: false }; // 进点燃烧弹每点限一次
-    this.mollyZone = null; // { node, until }
-    this.stats = { popOffs: 0, whiffs: 0, utilsAtk: 0, utilsDef: 0, fakeReads: 0, fakePulled: 0, utilsByType: { flash: 0, smoke: 0, molly: 0, recon: 0, trap: 0 } };
+    this.mollyZone = null; // { node, until, deny? }（deny=守包燃烧，拖延拆包）
+    // 英雄技能层状态
+    this.turrets = [];      // 奇乐炮台 [{ owner, node, post, power, seen }]
+    this.reviveQueue = [];  // 复活队列 [{ unit, node, at, skillName, agent }]
+    this.smokedSight = {};  // postKey -> 失效 tick（烟/墙封枪线）
+    this.walledEdges = {};  // "a|b" -> 失效 tick（冰墙类封锁边，双方穿越减速）
+    this.trapPower = {};    // node -> 警戒额外滞留（零绊线等招牌加成）
+    this.stats = { popOffs: 0, whiffs: 0, utilsAtk: 0, utilsDef: 0, fakeReads: 0, fakePulled: 0, utilsByType: { flash: 0, smoke: 0, molly: 0, recon: 0, trap: 0 }, abilityByArchetype: {} };
 
     // 占位表：node -> Set(unit)；对枪点占用表：postId -> unit
     this.occ = {};
@@ -58,6 +66,7 @@ class RoundSim {
   }
 
   // 防守道具预置：默认架点预置 1 点警戒；赌点把全部道具押在赌的点；前压不预置
+  // 哨卫英雄优先消耗 trap/molly 技能充能（招牌陷阱更疼），其余回退通用道具点
   preplaceUtility() {
     const fam = this.defIntent.family;
     for (const u of this.def) {
@@ -68,15 +77,24 @@ class RoundSim {
       if (fam === 'hold') n = Math.min(1, u.utils);
       else if (fam === 'stack') n = u.utils; // 道具全押赌点
       if (n <= 0) continue;
-      u.utils -= n;
-      this.stats.utilsDef += n;
       // 分站防守的警戒放在入口通道（提前预警）；赌点全押在包点本身
       const trapNode = fam === 'hold' ? ((this.map.data.trapSpots || {})[home] || home) : home;
+      const trapSk = abilities.findSkill(u, 'trap');
+      if (trapSk) { // 哨卫技能警戒（零绊线/奇乐警报机器人等）
+        abilities.cast(this, u, trapSk, { node: trapNode, preset: true });
+        const snare = trapSk.def.params.snare || 0;
+        if (snare) this.trapPower[trapNode] = Math.max(this.trapPower[trapNode] || 0, snare);
+      } else {
+        u.utils--;
+        this.stats.utilsDef++;
+        this.stats.utilsByType.trap++;
+      }
       this.traps[trapNode] = (this.traps[trapNode] || 0) + 1;           // 第一点为警戒
-      this.stats.utilsByType.trap++;
       if (n > 1) {
+        const mollySk = abilities.findSkill(u, 'molly');
+        if (mollySk && fam === 'stack') abilities.cast(this, u, mollySk, { node: home, preset: true });
+        else { u.utils -= n - 1; this.stats.utilsDef += n - 1; this.stats.utilsByType.molly += n - 1; }
         this.presetMolly[home] = (this.presetMolly[home] || 0) + (n - 1); // 其余预置燃烧
-        this.stats.utilsByType.molly += n - 1;
       }
     }
   }
@@ -143,11 +161,21 @@ class RoundSim {
     u.committed = false;    // 推进决心（brain：已开始推进后不再摇摆）
     u.routeProg = 0;        // 角色路线推进进度
     u.concealed = false;    // 埋伏隐蔽中（brain：不进跨节点枪线）
+    // 英雄技能运行时状态（ultSpent 跨回合持久，大招整场一次）
+    u.dashUntil = -99; u.dashDodge = 0;
+    u.aimbuffUntil = -99; u.aimbuffMult = 1;
+    u.healUntil = -99;
+    abilities.mount(u);
     this.occ[spawn].add(u);
   }
 
   emit(type, data) {
     if (this.log) this.log({ t: this.t, type, ...data });
+  }
+
+  // 枪线是否被烟/墙阻断
+  sightBlocked(postA, postB) {
+    return (this.smokedSight[this.map.postKey(postA, postB)] || 0) > this.t;
   }
 
   // ---- 下包 / 拆包 ----
@@ -315,6 +343,7 @@ class RoundSim {
         break;
       }
       this.updateTeamState();
+      abilities.tick(this); // 技能被动：复活队列 + 炮台扫视
       this.updateBrains();
       this.t++;
     }

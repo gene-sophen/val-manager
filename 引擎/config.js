@@ -140,6 +140,26 @@ module.exports = {
     synBase: 0.7,          // 道具效率 = synBase + synCoef*SYN/100
     synCoef: 0.6
   },
+  // 英雄技能系统（abilities.js + agent_kits.json）：原型族默认数值；kit params 可覆盖
+  abilities: {
+    fumbleMult: 1.0,      // 释放失误概率 = proficiency.whiffIn/whiffOut × fumbleMult（心态调制）
+    fumblePower: 0.4,     // 失误时效果倍率
+    smokeSightTicks: 10,  // 烟雾封枪线持续 tick（复用 utility.smokeTicks 作边封锁）
+    wallTickDelay: 2,     // 穿越墙体封锁边的额外耗时
+    stunTicks: 2,         // 震荡滞留 tick
+    turretKillP: 0.04,    // 炮台每 2 tick 对每个可见敌人的击杀判定
+    turretInfo: 2,        // 炮台预警信息强度
+    reviveDelay: 3,       // 复活落地延迟 tick
+    reviveStun: 3,        // 复活落地滞留 tick
+    decoyInfo: 3,         // 假身动静的信息强度（可疑标记）
+    aimbuffTicks: 8,      // 自增益持续 tick
+    aimbuffMult: 1.15,    // 自增益击杀概率乘子
+    mollyDenyDelay: 4,    // 守包燃烧对拆包开始的额外拖延
+    healResist: 0.08,     // 治疗后短期受击减免
+    healMentality: 0.2,   // 治疗心态恢复
+    healTicks: 12,        // 治疗增益默认持续 tick
+    atkReconReadP: 0.85   // 进攻侦察揭示后改打薄弱点的概率
+  },
   // 英雄池熟练度驱动的突发事件（高光/失误）
   proficiency: {
     popOffIn: 0.022,        // 池内高光概率（关键交火判定）

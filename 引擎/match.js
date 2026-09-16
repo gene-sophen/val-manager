@@ -39,14 +39,14 @@ function simulateMatch({ teamA, teamB, map, rng, logger, matchCfg }) {
   // 英雄分配：各自池内互不重复，分不到则池外低熟练度
   for (const [units, team] of [[unitsA, teamA], [unitsB, teamB]]) {
     const assign = assignAgents(team.players, rng);
-    units.forEach((u, i) => { u.agent = assign[i].agent; u.inPool = assign[i].inPool; });
+    units.forEach((u, i) => { u.agent = assign[i].agent; u.inPool = assign[i].inPool; u.kit = assign[i].kit; });
   }
 
   let scoreA = 0, scoreB = 0;
   let roundIdx = 0;
   let totalTicks = 0;
   const roundDetails = [];
-  const agg = { popOffs: 0, whiffs: 0, utilsAtk: 0, utilsDef: 0, fakeReads: 0, fakePulled: 0, utilsByType: { flash: 0, smoke: 0, molly: 0, recon: 0, trap: 0 } };
+  const agg = { popOffs: 0, whiffs: 0, utilsAtk: 0, utilsDef: 0, fakeReads: 0, fakePulled: 0, utilsByType: { flash: 0, smoke: 0, molly: 0, recon: 0, trap: 0 }, abilityByArchetype: {} };
   // 心态用的连赢/连输计数
   const streak = { A: 0, B: 0 };
   // 手枪局结果（两个半场各一次），用于次回合强起规则
@@ -118,6 +118,9 @@ function simulateMatch({ teamA, teamB, map, rng, logger, matchCfg }) {
     agg.fakeReads += result.stats.fakeReads;
     agg.fakePulled += result.stats.fakePulled;
     for (const k of Object.keys(agg.utilsByType)) agg.utilsByType[k] += result.stats.utilsByType[k];
+    for (const [k, v] of Object.entries(result.stats.abilityByArchetype || {})) {
+      agg.abilityByArchetype[k] = (agg.abilityByArchetype[k] || 0) + v;
+    }
 
     const winnerTeam = (result.winner === 'atk') ? atkTeam : (atkTeam === 'A' ? 'B' : 'A');
     if (winnerTeam === 'A') { scoreA++; streak.A = Math.max(streak.A, 0) + 1; streak.B = Math.min(streak.B, 0) - 1; }

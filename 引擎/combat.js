@@ -1,5 +1,6 @@
 // 交火结算：击杀概率模型、补枪、进点抢先枪、每 tick 同节点交火（从 round.js 拆出，纯代码移动）
 const cfg = require('./config');
+const abilities = require('./abilities');
 
 const C = cfg.combat;
 
@@ -35,7 +36,7 @@ module.exports = {
     p *= 1 + (att.aim - tgt.aim) * C.aimCoef;
     p *= cfg.gun.mod[att.gun];
     p *= tgt.armor === 'heavy' ? cfg.armor.heavy : (tgt.armor === 'light' ? cfg.armor.light : cfg.armor.none);
-    p *= att.holdTicks >= 2 ? C.settledBonus : C.moverPenalty;
+    p *= att.holdTicks >= 2 ? C.settledBonus : (att.dashUntil >= this.t ? 1.0 : C.moverPenalty); // dash 位移进点抹平移动惩罚
     const adv = node.advantage;
     p *= adv === att.side ? C.advBonus : (adv === 'neutral' ? 1 : C.disadvPenalty);
     // 掩体减免：目标占了对枪点则用 post.cover（高 SEN 选位好直接受益），否则节点级
@@ -43,7 +44,9 @@ module.exports = {
     if (tgt.holdTicks >= 2) p *= 1 - tgtCover * C.coverResist;
     if (crossFire && att.post && tgt.post) p *= 1 - this.map.exposureBetween(att.post, tgt.post) * cfg.brain.crossFireResist;
     if (entry) p *= C.entryBonus;
-    if (att.stun > 0) p *= cfg.utility.stunFirePenalty; // 被警戒/燃烧震驻时开火不稳
+    if (att.aimbuffUntil >= this.t) p *= (att.aimbuffMult || cfg.abilities.aimbuffMult); // 自增益技能（猎头/心流/大招）
+    if (tgt.healUntil >= this.t) p *= 1 - cfg.abilities.healResist; // 治疗后的短期受击减免
+    if (att.stun > 0) p *= cfg.utility.stunFirePenalty; // 被警戒/燃烧/震荡滞留时开火不稳
     if (att.isIGL) p *= cfg.igl.aimPenalty; // IGL 指挥分心的枪法代价
     for (const fn of this.hooks.beforeKillRoll) p = fn({ att, tgt, node, round: this, entry }, p);
     return Math.min(Math.max(p, 0.01), 0.9);
@@ -84,6 +87,8 @@ module.exports = {
         if (this.tryKill(tm, killer, false)) break;
       }
     }
+    // 复活技能判定（不死鸟/暮蝶自我复活，贤者复活队友）
+    abilities.onDeath(this, victim);
   },
 
   entryFight(entrant) {
@@ -96,38 +101,19 @@ module.exports = {
       if (u.alive && u.side === entrant.side && u.holdTicks <= 3) { sync++; synSum += u.syn; }
     }
     if (sync > 0 && this.iglAlive(entrant.side)) synSum += cfg.igl.syncSynBonus * sync;
-    // 闪光道具：进点/回防进包点时，在场同方选手自主决定是否丢闪（SYN 决定效果）
+    // 闪光道具：进点/回防进包点时，在场同方选手自主决定是否丢闪（SYN 决定效果；技能闪更强）
     const isSite = entrant.node === 'a_site' || entrant.node === 'b_site';
     const isAtkHit = entrant.side === 'atk' && isSite;
     const isDefRetake = entrant.side === 'def' && this.planted && isSite;
     let flash = 0;
-    if (isAtkHit || isDefRetake) {
-      const candidates = [];
-      for (const u of this.occ[entrant.node]) {
-        if (u.alive && u.side === entrant.side && u.utils > 0 && !u.flashUsedRound) candidates.push(u);
-      }
-      candidates.sort((a, b) => b.syn - a.syn); // 道具效率高的先想
-      for (const c of candidates) {
-        if (this.thinkUse(c)) {
-          c.utils--;
-          c.flashUsedRound = true;
-          this.stats[entrant.side === 'atk' ? 'utilsAtk' : 'utilsDef']++;
-          this.stats.utilsByType.flash++;
-          flash = cfg.utility.flashReduce * this.synFactor(c.syn);
-          // 2 tick 内的第二颗闪效果减半
-          if (this.t - (this.lastFlashTick[entrant.side] || -99) <= 2) flash *= 0.5;
-          this.lastFlashTick[entrant.side] = this.t;
-          this.emit('flash', { node: entrant.node, side: entrant.side, by: c.name });
-          break;
-        }
-      }
-    }
+    if (isAtkHit || isDefRetake) flash = abilities.onEntryFlash(this, entrant);
     for (const holder of enemies) {
       if (!holder.alive || holder.planting || holder.defusing || holder.stun > 0) continue;
       if (holder.holdTicks < 2) continue; // 只有已架好枪的单位才有抢先枪
       let pSpot = C.entryShotBase + holder.sen * C.entryShotSen;
       if (sync >= C.syncMin) pSpot -= (synSum / sync) * C.syncReduce;
       pSpot -= flash; // 被致盲
+      if (entrant.dashUntil >= this.t) pSpot -= entrant.dashDodge || 0; // dash 位移闪避抢先枪
       if (this.rng() < Math.max(pSpot, 0.05)) {
         this.emit('entry_shot', { node: entrant.node, holder: holder.name, entrant: entrant.name });
         this.tryKill(holder, entrant, true);
@@ -178,6 +164,7 @@ module.exports = {
         if (a.node === b.node) continue; // 同节点已在上面结算
         if (a.concealed || b.concealed) continue; // 埋伏隐蔽中的单位不被枪线锁定（也不探身开枪）
         if (!this.map.canSee(a.post, b.post)) continue;
+        if (this.sightBlocked(a.post, b.post)) continue; // 烟/墙封枪线
         if (this.rng() >= cfg.brain.crossFireProb) continue;
         // 随机先后各开一枪
         if (this.rng() < 0.5) {

@@ -483,13 +483,13 @@ function drawHUD() {
     ).join('');
   }
   // 事件流
-  const evs = r.events.filter((e) => e.t <= tick && ['plant', 'defuse', 'defuse_start', 'flash', 'smoke', 'molly', 'molly_entry', 'trap', 'trap_spotted', 'recon', 'fake_noise', 'fake_read', 'fake_pulled', 'pop_off', 'whiff', 'save', 'retake', 'force_commit', 'spike_drop', 'spike_pickup', 'mid_read'].includes(e.type));
+  const evs = r.events.filter((e) => e.t <= tick && ['plant', 'defuse', 'defuse_start', 'flash', 'smoke', 'molly', 'molly_entry', 'trap', 'trap_spotted', 'recon', 'fake_noise', 'fake_read', 'fake_pulled', 'pop_off', 'whiff', 'save', 'retake', 'force_commit', 'spike_drop', 'spike_pickup', 'mid_read', 'ability'].includes(e.type));
   const ef = document.getElementById('eventfeed');
   if (evs.length !== shownEvents) {
     shownEvents = evs.length;
     const EVNAME = { plant: '下包', defuse: '拆包成功', defuse_start: '开始拆包', flash: '闪光', smoke: '烟雾', molly: '燃烧拖包', molly_entry: '燃烧封点', trap: '警戒触发', trap_spotted: '识破警戒', recon: '侦察', fake_noise: '假打佯动', fake_read: '识破假打', fake_pulled: '中计拉动', pop_off: '★爆种', whiff: '▼失误', save: '保枪', retake: '回防同步', force_commit: '强行进点', spike_drop: '爆能器掉落', spike_pickup: '拾取爆能器', mid_read: '中路读取' };
     ef.innerHTML = evs.slice(-10).map((e) =>
-      `<div class="kf"><span class="dim">t${e.t}</span> ${EVNAME[e.type] || e.type} <span class="dim">${e.unit || e.by || ''}</span></div>`
+      `<div class="kf"><span class="dim">t${e.t}</span> ${e.type === 'ability' ? `${e.ult ? '◆大招' : '技能'}·${e.agent} ${e.skill}${e.fumble ? '(失误)' : ''}` : (EVNAME[e.type] || e.type)} <span class="dim">${e.unit || e.by || ''}</span></div>`
     ).join('');
   }
   // 回合结果横幅

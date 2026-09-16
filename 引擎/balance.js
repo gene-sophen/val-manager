@@ -35,7 +35,8 @@ function emptyDetail() {
     reasonDist: {}, planDist: {}, halfReasons: { pistol_follow: 0, desperate: 0, other: 0 },
     family: {}, popOffs: 0, whiffs: 0, utils: 0,
     fakeReads: 0, fakePulled: 0,
-    utilsByType: { flash: 0, smoke: 0, molly: 0, recon: 0, trap: 0 }
+    utilsByType: { flash: 0, smoke: 0, molly: 0, recon: 0, trap: 0 },
+    abilityByArchetype: {}
   };
 }
 
@@ -48,6 +49,9 @@ function feedDetail(d, m) {
   d.fakeReads += m.agg.fakeReads;
   d.fakePulled += m.agg.fakePulled;
   for (const k of Object.keys(d.utilsByType)) d.utilsByType[k] += m.agg.utilsByType[k];
+  for (const [k, v] of Object.entries(m.agg.abilityByArchetype || {})) {
+    d.abilityByArchetype[k] = (d.abilityByArchetype[k] || 0) + v;
+  }
   for (const r of m.roundDetails) {
     if (r.winner === r.atkTeam) d.atkWins++;
     if (r.planted) {
@@ -153,6 +157,17 @@ function main() {
   }
   lines.push('');
   lines.push(`假打博弈：场均识破 ${(mirror.fakeReads / args.n).toFixed(2)} 次 / 中计被拉扯 ${(mirror.fakePulled / args.n).toFixed(2)} 次`, '');
+  // 技能原型分布（ability 事件按 archetype 聚合；检查无单一原型独大）
+  const ab = mirror.abilityByArchetype;
+  const abTotal = Object.values(ab).reduce((a, b) => a + b, 0);
+  lines.push('## 技能原型分布（混编镜像场，次/场）', '');
+  let maxArch = null, maxShare = 0;
+  for (const [k, v] of Object.entries(ab).sort((a, b) => b[1] - a[1])) {
+    const share = v / Math.max(abTotal, 1);
+    if (share > maxShare) { maxShare = share; maxArch = k; }
+    lines.push(`- ${k}：${(v / args.n).toFixed(2)}（${pct(share)}）`);
+  }
+  lines.push(`- 独大检查：最大原型 ${maxArch || '-'} ${pct(maxShare)}（阈值 ≤60%）${maxShare <= 0.6 ? ' ✅' : ' ❌'}`, '');
   lines.push('## 局型分布（混编镜像场，按队·回合计）', '');
   for (const [k, v] of Object.entries(mirror.planDist).sort((a, b) => b[1] - a[1])) {
     lines.push(`- ${PLAN_NAME[k]}：${pct(v / totalPlans)}`);

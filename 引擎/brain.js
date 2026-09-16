@@ -2,6 +2,7 @@
 // 战术意图（tactics.js）只是先验；选手靠自己的 AIM/SEN/SYN + 战场感知做决策，执行有偏差
 // 打分 = 战术意图先验 × (0.5 + 决策质量) + 态势项 + 个性项 + 执行偏差噪声（SEN 越低噪声越大）
 const cfg = require('./config');
+const abilities = require('./abilities');
 
 const B = cfg.brain;
 
@@ -75,16 +76,22 @@ module.exports = {
     for (const e of this.units) {
       if (!e.alive || e.side === u.side || e.moving) continue;
       if (e.node === u.node) return true;
-      if (u.post && e.post && this.map.canSee(u.post, e.post)) return true;
+      if (u.post && e.post && this.map.canSee(u.post, e.post) && !this.sightBlocked(u.post, e.post)) return true;
     }
     return false;
   },
 
-  // 按意图点位倾向选目标点（每单位缓存，mid 读取后重置）
+  // 按意图点位倾向选目标点（每单位缓存，mid 读取后重置；进攻侦察揭示后改打薄弱点）
   pickTargetSite(u, intent) {
     if (!u.targetSite) {
-      const w = intent.siteWeights;
-      u.targetSite = this.rng() * (w.A + w.B) < w.A ? 'A' : 'B';
+      const kr = this.flags.atkRecon;
+      if (kr) {
+        const weaker = kr.A <= kr.B ? 'A' : 'B';
+        u.targetSite = this.rng() < cfg.abilities.atkReconReadP ? weaker : (weaker === 'A' ? 'B' : 'A');
+      } else {
+        const w = intent.siteWeights;
+        u.targetSite = this.rng() * (w.A + w.B) < w.A ? 'A' : 'B';
+      }
     }
     return u.targetSite;
   },
@@ -101,6 +108,7 @@ module.exports = {
     if (u.stun > 0) return;
     if (!force && ((this.t + u.sideIdx + (u.side === 'def' ? 1 : 0)) % B.thinkInterval) !== 0) return;
     let cands = u.side === 'atk' ? this.atkCandidates(u) : this.defCandidates(u);
+    if (!u.saved) cands = cands.concat(abilities.candidates(this, u)); // 英雄技能候选
     if (!cands.length) return;
     for (const fn of this.hooks.beforeDecision) cands = fn({ unit: u, round: this }, cands) || cands;
     const dq = decisionQuality(u.sen);
@@ -215,7 +223,9 @@ module.exports = {
       if (u.node === siteNode) {
         u.retaking = true;
         // 拆包 vs 架枪警戒：低 SEN 会犹豫（等队友掩护/多架一会儿再拆）
-        if (this.enemiesAt(u.node, 'def').length === 0
+        // 守包燃烧封锁期间无法开始拆包（火线封住爆能器）
+        const denied = this.mollyZone && this.mollyZone.deny && this.mollyZone.node === u.node && this.t < this.mollyZone.until;
+        if (!denied && this.enemiesAt(u.node, 'def').length === 0
           && this.rng() < decisionQuality(u.sen) + 0.3) out.push({ action: 'defuse', prior: 10 });
         out.push({ action: 'hold', prior: 7 });
         return out;
@@ -268,8 +278,8 @@ module.exports = {
     } else {
       out.push({ action: 'hold', prior: 2.5 });
     }
-    // 侦察道具：无信息时自主扫描（只捕捉近期跑动/交战过的进攻方）
-    if (u.utils > 0 && !u.reconUsed && t >= cfg.utility.reconTick && u.node === u.homeNode) {
+    // 侦察道具：无信息时自主扫描（优先 recon 技能；只捕捉近期跑动/交战过的进攻方）
+    if ((u.utils > 0 || abilities.findSkill(u, 'recon')) && !u.reconUsed && t >= cfg.utility.reconTick && u.node === u.homeNode) {
       const maxInfo = Math.max(this.defInfo.A.strength, this.defInfo.B.strength);
       if (maxInfo < cfg.ai.rotateNeedInfo) out.push({ action: 'useRecon', prior: 2 });
     }
@@ -352,7 +362,15 @@ module.exports = {
       }
       case 'defuse':
         u.defusing = cfg.round.defuseTicks;
+        // 守包燃烧封锁：拆包被迫晚开始
+        if (this.mollyZone && this.mollyZone.deny && this.mollyZone.node === u.node && this.t < this.mollyZone.until) {
+          u.defusing += cfg.abilities.mollyDenyDelay;
+        }
+        abilities.onDefuseSmoke(this, u); // 队友封烟掩护拆包（阻断指向包点枪线）
         this.emit('defuse_start', { node: u.node, unit: u.name });
+        break;
+      case 'useAbility':
+        abilities.exec(this, u, c.skill);
         break;
       case 'plant':
         this.doPlant(u);
@@ -384,15 +402,14 @@ module.exports = {
       const siteRegion = this.map.region(u.node);
       const candidates = [];
       for (const d of this.def) {
-        if (d.alive && d.utils > 0 && this.map.region(d.node) === siteRegion) candidates.push(d);
+        if (d.alive && (d.utils > 0 || abilities.findSkill(d, 'molly')) && this.map.region(d.node) === siteRegion) candidates.push(d);
       }
       candidates.sort((a, b) => b.syn - a.syn);
       for (const thrower of candidates) {
-        if (this.thinkUse(thrower)) {
-          thrower.utils--;
-          this.stats.utilsDef++;
-          this.stats.utilsByType.molly++;
-          u.planting += Math.round(cfg.utility.mollyDelay * this.synFactor(thrower.syn));
+        const r = abilities.triggerCast(this, thrower, 'molly', { node: u.node, delayPlant: true });
+        if (r) {
+          // 拖延下包：技能威力不放大拖延时长（时长封顶通用值，只体现 SYN 效率）
+          u.planting += Math.round(cfg.utility.mollyDelay * this.synFactor(thrower.syn) * Math.min(r.power, 1));
           this.emit('molly', { node: u.node, by: thrower.name });
           break;
         }
@@ -433,14 +450,18 @@ module.exports = {
   },
 
   // 防守侦察道具
+  // 防守侦察道具：优先消耗 recon 技能（猎枭侦察箭 deep 可捕捉隐蔽目标，信息量更大）
   doRecon(u) {
-    if (u.utils <= 0 || u.reconUsed) return;
+    if (u.reconUsed) return;
+    const sk = abilities.findSkill(u, 'recon') || abilities.findSkill(u, 'ult_recon');
+    if (!sk && u.utils <= 0) return;
     u.reconUsed = true;
+    const deep = sk && sk.def.params.deep; // 跨节点深侦察：无视隐蔽，捕捉所有存活进攻方
     const count = { A: 0, B: 0, mid: 0 };
     let loud = 0;
     for (const a of this.atk) {
       if (!a.alive) continue;
-      if ((a.loudUntil || 0) >= this.t) {
+      if (deep || (a.loudUntil || 0) >= this.t) {
         loud++;
         count[this.map.region(a.node)] = (count[this.map.region(a.node)] || 0) + 1;
       }
@@ -449,13 +470,12 @@ module.exports = {
       this.emit('recon_empty', { unit: u.name }); // 扫描无果，道具保留
       return;
     }
-    u.utils--;
-    this.stats.utilsDef++;
-    this.stats.utilsByType.recon++;
+    const power = sk ? (abilities.cast(this, u, sk, { recon: true }) || {}).power : null;
+    if (!sk) { u.utils--; this.stats.utilsDef++; this.stats.utilsByType.recon++; }
     let region = 'A';
     if (count.B > count.A) region = 'B';
     else if (count.B === count.A && this.rng() < 0.5) region = 'B';
-    this.addInfo(region, cfg.utility.reconInfo, null); // 侦察不辨真伪，保留可疑标记
+    this.addInfo(region, Math.round(cfg.utility.reconInfo * (power || 1)), null); // 侦察不辨真伪，保留可疑标记
     this.emit('recon', { unit: u.name, region });
   }
 };

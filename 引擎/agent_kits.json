@@ -1,0 +1,171 @@
+{
+  "//": "英雄技能组：3 小技能(c/q/e，每回合刷新 charges) + 大招(x，整场一次)。archetype 为原型族，params 覆盖 config.abilities 默认值，sig 英雄在 abilities.js 有专属逻辑",
+  "哈泊":   { "role": "控场", "skills": [
+    {"key": "c", "name": "高涌潮", "archetype": "smoke", "charges": 2, "cost": 150, "params": {}},
+    {"key": "q", "name": "瀑布",   "archetype": "wall",  "charges": 1, "cost": 200, "params": {"ticks": 12, "region": true}},
+    {"key": "e", "name": "狂澜",   "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "风暴",   "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 3}}
+  ]},
+  "黑梦":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "恐狼",   "archetype": "recon", "charges": 1, "cost": 200, "params": {}},
+    {"key": "q", "name": "幽爪",   "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "徘徊者", "archetype": "recon", "charges": 1, "cost": 250, "params": {"power": 1.2}},
+    {"key": "x", "name": "夜幕降临", "archetype": "ult_recon", "charges": 1, "cost": 0, "params": {"deep": true, "power": 2}}
+  ]},
+  "K/O":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "闪光弹", "archetype": "flash", "charges": 2, "cost": 200, "params": {}},
+    {"key": "q", "name": "碎片手雷", "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "零点嗅探", "archetype": "recon", "charges": 1, "cost": 250, "params": {}},
+    {"key": "x", "name": "无效命令", "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 3}}
+  ]},
+  "星礈":   { "role": "控场", "skills": [
+    {"key": "c", "name": "星云",   "archetype": "smoke", "charges": 2, "cost": 150, "params": {}},
+    {"key": "q", "name": "引力井", "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "新星震荡", "archetype": "stun", "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "星体屏障", "archetype": "ult_wall", "charges": 1, "cost": 0, "params": {"ticks": 16, "region": true}}
+  ]},
+  "尚勃勒": { "role": "哨卫", "skills": [
+    {"key": "c", "name": "商标陷阱", "archetype": "trap", "charges": 1, "cost": 200, "params": {"snare": 1}},
+    {"key": "q", "name": "猎头",   "archetype": "aimbuff", "charges": 1, "cost": 150, "params": {"ticks": 8, "mult": 1.15}},
+    {"key": "e", "name": "游走",   "archetype": "dash",  "charges": 1, "cost": 200, "params": {"ticks": 3, "dodge": 0.2}},
+    {"key": "x", "name": "孤高火力", "archetype": "ult_aimbuff", "charges": 1, "cost": 0, "params": {"ticks": 12, "mult": 1.2}}
+  ]},
+  "不死鸟": { "role": "决斗", "skills": [
+    {"key": "c", "name": "火墙",   "archetype": "wall",  "charges": 1, "cost": 200, "params": {"ticks": 10, "edge": true}},
+    {"key": "q", "name": "闪光曲球", "archetype": "flash", "charges": 2, "cost": 200, "params": {"power": 1.1}},
+    {"key": "e", "name": "火球",   "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "再来一局", "archetype": "ult_revive", "charges": 1, "cost": 0, "params": {"self": true, "delay": 2}}
+  ]},
+  "贤者":   { "role": "哨卫", "skills": [
+    {"key": "c", "name": "冰墙",   "archetype": "wall",  "charges": 1, "cost": 300, "params": {"ticks": 15, "edge": true}},
+    {"key": "q", "name": "缓速球", "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "治愈",   "archetype": "heal",  "charges": 1, "cost": 200, "params": {"ticks": 15, "resist": 0.10, "mentality": 0.2}},
+    {"key": "x", "name": "复苏",   "archetype": "ult_revive", "charges": 1, "cost": 0, "params": {"self": false, "delay": 3}}
+  ]},
+  "斯凯":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "引路之隼", "archetype": "flash", "charges": 2, "cost": 200, "params": {"throughWall": true}},
+    {"key": "q", "name": "疗愈之芽", "archetype": "heal",  "charges": 1, "cost": 200, "params": {"ticks": 10, "resist": 0.06, "mentality": 0.15, "multi": true}},
+    {"key": "e", "name": "追猎狼",  "archetype": "recon", "charges": 1, "cost": 250, "params": {}},
+    {"key": "x", "name": "追踪者",  "archetype": "ult_recon", "charges": 1, "cost": 0, "params": {"deep": true, "power": 2}}
+  ]},
+  "霓虹":   { "role": "决斗", "skills": [
+    {"key": "c", "name": "闪电滑行", "archetype": "dash",  "charges": 1, "cost": 200, "params": {"ticks": 3, "dodge": 0.25}},
+    {"key": "q", "name": "闪电箭",  "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "高速通道", "archetype": "wall",  "charges": 1, "cost": 200, "params": {"ticks": 8, "edge": true}},
+    {"key": "x", "name": "超限暴走", "archetype": "ult_aimbuff", "charges": 1, "cost": 0, "params": {"ticks": 12, "mult": 1.2}}
+  ]},
+  "奇乐":   { "role": "哨卫", "skills": [
+    {"key": "c", "name": "哨戒炮台", "archetype": "turret", "charges": 1, "cost": 200, "params": {"killP": 0.04}},
+    {"key": "q", "name": "警报机器人", "archetype": "trap", "charges": 1, "cost": 200, "params": {"snare": 1}},
+    {"key": "e", "name": "纳米蜂群", "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "封锁区",  "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 3}}
+  ]},
+  "幽影":   { "role": "控场", "skills": [
+    {"key": "c", "name": "阴影遮蔽", "archetype": "smoke", "charges": 2, "cost": 150, "params": {"ranged": true}},
+    {"key": "q", "name": "妄想",   "archetype": "flash", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "暗影步",  "archetype": "dash",  "charges": 1, "cost": 200, "params": {"ticks": 3, "dodge": 0.2}},
+    {"key": "x", "name": "来自暗影", "archetype": "ult_dash", "charges": 1, "cost": 0, "params": {"ticks": 6, "dodge": 0.4}}
+  ]},
+  "雷兹":   { "role": "决斗", "skills": [
+    {"key": "c", "name": "爆破包",  "archetype": "dash",  "charges": 1, "cost": 200, "params": {"ticks": 3, "dodge": 0.2}},
+    {"key": "q", "name": "颜料手雷", "archetype": "molly", "charges": 1, "cost": 200, "params": {"power": 1.2}},
+    {"key": "e", "name": "爆爆机器人", "archetype": "recon", "charges": 1, "cost": 250, "params": {}},
+    {"key": "x", "name": "扫射火箭筒", "archetype": "ult_molly", "charges": 1, "cost": 0, "params": {"delay": 6, "zoneTicks": 10}}
+  ]},
+  "捷风":   { "role": "决斗", "skills": [
+    {"key": "c", "name": "瞬云",   "archetype": "smoke", "charges": 2, "cost": 150, "params": {"ticks": 6}},
+    {"key": "q", "name": "逐风",   "archetype": "dash",  "charges": 1, "cost": 200, "params": {"ticks": 4, "dodge": 0.35}},
+    {"key": "e", "name": "上升气流", "archetype": "dash", "charges": 1, "cost": 150, "params": {"ticks": 3, "dodge": 0.2}},
+    {"key": "x", "name": "旋风飞刀", "archetype": "ult_aimbuff", "charges": 1, "cost": 0, "params": {"ticks": 12, "mult": 1.2}}
+  ]},
+  "铁臂":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "闪点",   "archetype": "flash", "charges": 2, "cost": 200, "params": {"throughWall": true}},
+    {"key": "q", "name": "震荡冲击", "archetype": "stun",  "charges": 1, "cost": 200, "params": {"throughWall": true}},
+    {"key": "e", "name": "滚雷",   "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "大地震",  "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 3, "throughWall": true}}
+  ]},
+  "零":     { "role": "哨卫", "skills": [
+    {"key": "c", "name": "绊线",   "archetype": "trap",  "charges": 2, "cost": 200, "params": {"snare": 1}},
+    {"key": "q", "name": "电子烟雾", "archetype": "smoke", "charges": 1, "cost": 150, "params": {}},
+    {"key": "e", "name": "间谍摄像头", "archetype": "recon", "charges": 1, "cost": 250, "params": {}},
+    {"key": "x", "name": "神经窃析", "archetype": "ult_recon", "charges": 1, "cost": 0, "params": {"deep": true, "power": 2}}
+  ]},
+  "蝰蛇":   { "role": "控场", "skills": [
+    {"key": "c", "name": "毒幕",   "archetype": "wall",  "charges": 1, "cost": 200, "params": {"ticks": 14, "region": true}},
+    {"key": "q", "name": "毒云",   "archetype": "smoke", "charges": 1, "cost": 150, "params": {}},
+    {"key": "e", "name": "蛇吻",   "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "毒巢",   "archetype": "ult_smoke", "charges": 1, "cost": 0, "params": {"ticks": 18, "multi": 3}}
+  ]},
+  "猎枭":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "侦察箭",  "archetype": "recon", "charges": 2, "cost": 250, "params": {"deep": true, "power": 1.5}},
+    {"key": "q", "name": "电击箭",  "archetype": "molly", "charges": 1, "cost": 200, "params": {"power": 1.2}},
+    {"key": "e", "name": "猫头鹰无人机", "archetype": "recon", "charges": 1, "cost": 300, "params": {}},
+    {"key": "x", "name": "猎枭之怒", "archetype": "ult_molly", "charges": 1, "cost": 0, "params": {"delay": 6, "zoneTicks": 10}}
+  ]},
+  "夜露":   { "role": "决斗", "skills": [
+    {"key": "c", "name": "假身",   "archetype": "decoy", "charges": 1, "cost": 200, "params": {"info": 3}},
+    {"key": "q", "name": "盲闪",   "archetype": "flash", "charges": 2, "cost": 200, "params": {}},
+    {"key": "e", "name": "出其不意", "archetype": "dash",  "charges": 1, "cost": 200, "params": {"ticks": 3, "dodge": 0.2}},
+    {"key": "x", "name": "次元漫游", "archetype": "ult_recon", "charges": 1, "cost": 0, "params": {"deep": true, "power": 1.5}}
+  ]},
+  "暮蝶":   { "role": "控场", "skills": [
+    {"key": "c", "name": "诡计之烟", "archetype": "smoke", "charges": 2, "cost": 150, "params": {}},
+    {"key": "q", "name": "腐朽",   "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "扰域",   "archetype": "decoy", "charges": 1, "cost": 200, "params": {"info": 2}},
+    {"key": "x", "name": "化蝶",   "archetype": "ult_revive", "charges": 1, "cost": 0, "params": {"self": true, "delay": 2}}
+  ]},
+  "薇丝":   { "role": "哨卫", "skills": [
+    {"key": "c", "name": "刀藤",   "archetype": "trap",  "charges": 1, "cost": 200, "params": {"snare": 1}},
+    {"key": "q", "name": "弧光玫瑰", "archetype": "flash", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "铁壁",   "archetype": "wall",  "charges": 1, "cost": 200, "params": {"ticks": 12, "edge": true}},
+    {"key": "x", "name": "封锁",   "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 3}}
+  ]},
+  "钛狐":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "隐形无人机", "archetype": "recon", "charges": 1, "cost": 250, "params": {}},
+    {"key": "q", "name": "制导导弹", "archetype": "molly", "charges": 1, "cost": 200, "params": {"power": 1.2}},
+    {"key": "e", "name": "震荡弹",  "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "末日审判", "archetype": "ult_molly", "charges": 1, "cost": 0, "params": {"delay": 6, "zoneTicks": 10}}
+  ]},
+  "盖可":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "晕眩兽",  "archetype": "flash", "charges": 1, "cost": 200, "params": {}},
+    {"key": "q", "name": "翼龙",   "archetype": "decoy", "charges": 1, "cost": 200, "params": {"info": 2}},
+    {"key": "e", "name": "爆爆",   "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "鲨鲨",   "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 3}}
+  ]},
+  "炼狱":   { "role": "控场", "skills": [
+    {"key": "c", "name": "三连烟幕", "archetype": "smoke", "charges": 1, "cost": 300, "params": {"multi": 3}},
+    {"key": "q", "name": "燃烧弹",  "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "士气鼓舞", "archetype": "aimbuff", "charges": 1, "cost": 150, "params": {"ticks": 8, "mult": 1.1}},
+    {"key": "x", "name": "轨道打击", "archetype": "ult_molly", "charges": 1, "cost": 0, "params": {"delay": 6, "zoneTicks": 10}}
+  ]},
+  "钢锁":   { "role": "哨卫", "skills": [
+    {"key": "c", "name": "感应网",  "archetype": "trap",  "charges": 1, "cost": 200, "params": {"snare": 1}},
+    {"key": "q", "name": "声呐",   "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "重力捕网", "archetype": "trap",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "湮灭",   "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 3}}
+  ]},
+  "壹决":   { "role": "决斗", "skills": [
+    {"key": "c", "name": "绝对屏障", "archetype": "wall",  "charges": 1, "cost": 200, "params": {"ticks": 10, "edge": true}},
+    {"key": "q", "name": "削弱",   "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "心流",   "archetype": "aimbuff", "charges": 1, "cost": 150, "params": {"ticks": 8, "mult": 1.15}},
+    {"key": "x", "name": "决斗领域", "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 2}}
+  ]},
+  "幻棱":   { "role": "决斗", "skills": [
+    {"key": "c", "name": "光速",   "archetype": "dash",  "charges": 1, "cost": 200, "params": {"ticks": 3, "dodge": 0.25}},
+    {"key": "q", "name": "饱和",   "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "折射",   "archetype": "flash", "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "光速审判", "archetype": "ult_aimbuff", "charges": 1, "cost": 0, "params": {"ticks": 12, "mult": 1.2}}
+  ]},
+  "禁灭":   { "role": "控场", "skills": [
+    {"key": "c", "name": "禁灭烟域", "archetype": "smoke", "charges": 2, "cost": 150, "params": {}},
+    {"key": "q", "name": "蚀能",   "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "绝域",   "archetype": "wall",  "charges": 1, "cost": 200, "params": {"ticks": 12, "region": true}},
+    {"key": "x", "name": "湮灭禁区", "archetype": "ult_smoke", "charges": 1, "cost": 0, "params": {"ticks": 16, "multi": 2}}
+  ]},
+  "迷核":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "核芯探测", "archetype": "recon", "charges": 1, "cost": 250, "params": {}},
+    {"key": "q", "name": "脉冲闪",  "archetype": "flash", "charges": 2, "cost": 200, "params": {}},
+    {"key": "e", "name": "共振震荡", "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "全域核视", "archetype": "ult_recon", "charges": 1, "cost": 0, "params": {"deep": true, "power": 2}}
+  ]}
+}
