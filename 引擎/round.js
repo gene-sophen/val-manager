@@ -1,8 +1,7 @@
 // 回合推演核心：tick 时钟 + 节点图机动 + 信息暴露 + 交火结算 + 效用 AI
+// 模块拆分（Phase2-A 纯代码移动）：movement.js 机动 / combat.js 交火 / perception.js 信息感知
 const cfg = require('./config');
 const { buildPlaybook } = require('./playbooks');
-
-const C = cfg.combat;
 
 // 决策质量：SEN -> 选中效用最优项的概率
 function decisionQuality(sen) {
@@ -115,16 +114,6 @@ class RoundSim {
     return u.utils > 0 && this.rng() < cfg.ai.utilThinkBase + u.sen * cfg.ai.utilThinkSen;
   }
 
-  // 信息写入：真实信息（暴露/警戒/交战/侦察/下包）会洗掉假打的可疑标记
-  addInfo(region, amount, suspicious = false) {
-    const info = this.defInfo[region];
-    if (!info) return;
-    info.strength = Math.min(info.strength + amount, 12);
-    info.tick = this.t;
-    info.suspicious = suspicious === null ? info.suspicious : suspicious; // 侦察传 null 保留可疑标记
-    this.newInfo = true;
-  }
-
   resetUnit(u, spawn, plan) {
     u.node = spawn;
     u.alive = true;
@@ -151,270 +140,6 @@ class RoundSim {
 
   emit(type, data) {
     if (this.log) this.log({ t: this.t, type, ...data });
-  }
-
-  aliveCount(side) {
-    const arr = side === 'atk' ? this.atk : this.def;
-    let n = 0;
-    for (const u of arr) if (u.alive) n++;
-    return n;
-  }
-
-  enemiesAt(node, side) {
-    const out = [];
-    for (const u of this.occ[node]) if (u.alive && u.side !== side) out.push(u);
-    return out;
-  }
-
-  isContested(node) {
-    let a = false, d = false;
-    for (const u of this.occ[node]) {
-      if (!u.alive) continue;
-      if (u.side === 'atk') a = true; else d = true;
-      if (a && d) return true;
-    }
-    return false;
-  }
-
-  // ---- 击杀概率模型 ----
-  killP(att, tgt, entry) {
-    const node = this.map.nodes[att.node];
-    let p = C.baseKill;
-    p *= 1 + (att.aim - tgt.aim) * C.aimCoef;
-    p *= cfg.gun.mod[att.gun];
-    p *= tgt.armor === 'heavy' ? cfg.armor.heavy : (tgt.armor === 'light' ? cfg.armor.light : cfg.armor.none);
-    p *= att.holdTicks >= 2 ? C.settledBonus : C.moverPenalty;
-    const adv = node.advantage;
-    p *= adv === att.side ? C.advBonus : (adv === 'neutral' ? 1 : C.disadvPenalty);
-    if (tgt.holdTicks >= 2) p *= 1 - node.cover * C.coverResist;
-    if (entry) p *= C.entryBonus;
-    if (att.stun > 0) p *= cfg.utility.stunFirePenalty; // 被警戒/燃烧震驻时开火不稳
-    for (const fn of this.hooks.beforeKillRoll) p = fn({ att, tgt, node, round: this, entry }, p);
-    return Math.min(Math.max(p, 0.01), 0.9);
-  }
-
-  tryKill(att, tgt, entry) {
-    if (!att.alive || !tgt.alive) return false;
-    const p = this.killP(att, tgt, entry);
-    if (this.rng() < p) {
-      this.applyKill(att, tgt);
-      return true;
-    }
-    return false;
-  }
-
-  applyKill(killer, victim) {
-    victim.alive = false;
-    victim.moving = null;
-    victim.planting = 0;
-    victim.defusing = 0;
-    killer.roundKills++;
-    this.occ[victim.node].delete(victim);
-    this.emit('kill', { node: victim.node, killer: killer.name, victim: victim.name, side: killer.side });
-    for (const fn of this.hooks.onKill) fn({ killer, victim, node: victim.node, round: this });
-    // 爆能器掉落
-    if (victim.isCarrier) {
-      victim.isCarrier = false;
-      this.spike.carrier = null;
-      this.spike.node = victim.node;
-      this.pickupAssigned = false;
-      this.emit('spike_drop', { node: victim.node });
-    }
-    // 补枪（SYN）：受害者同节点队友立即反打一枪
-    for (const tm of this.occ[victim.node]) {
-      if (!tm.alive || tm.side !== victim.side || tm.planting || tm.defusing) continue;
-      if (this.rng() < C.tradeBase * tm.syn / 100) {
-        if (this.tryKill(tm, killer, false)) break;
-      }
-    }
-  }
-
-  // ---- 机动 ----
-  startMove(u, dest, mode) {
-    const next = this.map.nextHop[u.node][dest];
-    if (!next || next === u.node) return false;
-    const edge = this.map.edgeBetween(u.node, next);
-    let ticks = edge.ticks;
-    let exposure = edge.exposure;
-    if (mode === 'walk') {
-      ticks = Math.ceil(ticks * cfg.move.silentTickMult);
-      exposure *= cfg.move.silentExposureMult;
-    }
-    if (u.rotating) {
-      ticks = Math.max(1, Math.round(ticks * (1 - u.syn * cfg.move.rotateSynCoef)));
-      if (this.iglAlive(u.side)) ticks = Math.max(1, Math.round(ticks * cfg.igl.rotateTicksMult)); // IGL 指挥机动
-    }
-    if (mode === 'run') u.loudUntil = this.t + 6; // 跑动暴露行踪，可被侦察捕捉
-    // 烟雾封锁：防守回防穿越烟雾边减速
-    const smokeUntil = this.smokedEdges[this.edgeKey(u.node, next)];
-    if (u.side === 'def' && smokeUntil && this.t < smokeUntil) ticks += cfg.utility.smokeRotateDelay;
-    this.occ[u.node].delete(u);
-    u.moving = { from: u.node, to: next, dest, left: ticks, mode, exposure };
-    u.holdTicks = 0;
-    this.emit('move', { unit: u.name, side: u.side, from: u.node, to: next, ticks }); // 观赛回放用
-    return true;
-  }
-
-  updateMovement() {
-    for (const u of this.units) {
-      if (!u.alive) continue;
-      if (u.stun > 0) { u.stun--; continue; } // 被警戒道具滞留
-      if (!u.moving) continue;
-      u.moving.left--;
-      if (u.moving.left > 0) continue;
-      const mv = u.moving;
-      u.moving = null;
-      u.node = mv.to;
-      u.holdTicks = 0;
-      this.occ[u.node].add(u);
-      // 哨卫警戒：进攻方踩点触发；高 SEN 可识破规避，静音慢摸更谨慎
-      if (u.side === 'atk' && this.traps[u.node] > 0) {
-        this.traps[u.node]--;
-        const region = this.map.region(u.node);
-        const avoidP = cfg.utility.trapAvoidBase + u.sen * cfg.utility.trapAvoidSen + (mv.mode === 'walk' ? 0.15 : 0);
-        if (this.rng() < avoidP) {
-          this.emit('trap_spotted', { node: u.node, unit: u.name });
-        } else {
-          this.addInfo(region, cfg.utility.trapInfo);
-          u.stun = cfg.utility.trapStun;
-          this.emit('trap', { node: u.node, unit: u.name, region });
-        }
-      }
-      // 信息暴露：进攻方过点被防守方察觉
-      if (u.side === 'atk') {
-        const region = this.map.region(u.node);
-        if (region !== 'spawn' && this.rng() < mv.exposure) {
-          this.addInfo(region, cfg.ai.spotInfo);
-          this.emit('spotted', { node: u.node, unit: u.name, region });
-        }
-        // 进攻方踩进包点 => 进攻方向落实；到位选手自主决定是否封烟掩护（阻断回防路线）
-        if ((u.node === 'a_site' || u.node === 'b_site') && !this.committedSite) {
-          this.committedSite = this.map.region(u.node);
-          if (!this.atkSmokeUsed && this.thinkUse(u)) {
-            this.atkSmokeUsed = true;
-            u.utils--;
-            this.stats.utilsAtk++;
-            this.stats.utilsByType.smoke++;
-            const staging = this.map.data.staging[this.committedSite];
-            this.smokedEdges[this.edgeKey(staging, u.node)] = this.t + cfg.utility.smokeTicks;
-            this.emit('smoke', { node: u.node, edge: [staging, u.node], by: u.name, until: this.t + cfg.utility.smokeTicks });
-          }
-        }
-      }
-      // 预置燃烧（赌点全押）：进攻踩进该点即激活火线封锁，预置火线持续更久
-      if (u.side === 'atk' && this.presetMolly[u.node] > 0 && !(this.mollyZone && this.t < this.mollyZone.until)) {
-        this.presetMolly[u.node]--;
-        this.mollyZone = { node: u.node, until: this.t + cfg.utility.mollyZoneTicks + 2 };
-        this.emit('molly_entry', { node: u.node, preset: true });
-      }
-      // 进点燃烧弹：点内守军自主决定是否封火，后续进点者被火线逼停
-      if (u.side === 'atk' && (u.node === 'a_site' || u.node === 'b_site') && this.enemiesAt(u.node, 'atk').length > 0) {
-        const region = this.map.region(u.node);
-        if (!this.defEntryMolly[region]) {
-          const candidates = [];
-          for (const d of this.def) {
-            if (d.alive && d.utils > 0 && this.map.region(d.node) === region) candidates.push(d);
-          }
-          candidates.sort((a, b) => b.syn - a.syn);
-          for (const thrower of candidates) {
-            if (this.thinkUse(thrower)) {
-              thrower.utils--;
-              this.stats.utilsDef++;
-              this.stats.utilsByType.molly++;
-              this.defEntryMolly[region] = true;
-              this.mollyZone = { node: u.node, until: this.t + cfg.utility.mollyZoneTicks };
-              this.emit('molly_entry', { node: u.node, by: thrower.name });
-              break;
-            }
-          }
-        }
-      }
-      // 穿越火线：被燃烧弹逼停
-      if (u.side === 'atk' && this.mollyZone && this.t < this.mollyZone.until && u.node === this.mollyZone.node) {
-        u.stun = Math.max(u.stun, 3);
-        this.emit('molly_block', { node: u.node, unit: u.name });
-      }
-      // 进点遭遇：架点方抢先枪
-      this.entryFight(u);
-      // 到达后继续推进指令
-      if (u.alive) this.advance(u);
-    }
-  }
-
-  entryFight(entrant) {
-    const enemies = this.enemiesAt(entrant.node, entrant.side);
-    if (!enemies.length) return;
-    // 同步进点：2 tick 内同节点友方人数 >=2 时降低被抢先概率（IGL 提升等效协同）
-    let sync = 0, synSum = 0;
-    for (const u of this.occ[entrant.node]) {
-      if (u.alive && u.side === entrant.side && u.holdTicks <= 2) { sync++; synSum += u.syn; }
-    }
-    if (sync > 0 && this.iglAlive(entrant.side)) synSum += cfg.igl.syncSynBonus * sync;
-    // 闪光道具：进点/回防进包点时，在场同方选手自主决定是否丢闪（SYN 决定效果）
-    const isSite = entrant.node === 'a_site' || entrant.node === 'b_site';
-    const isAtkHit = entrant.side === 'atk' && isSite;
-    const isDefRetake = entrant.side === 'def' && this.planted && isSite;
-    let flash = 0;
-    if (isAtkHit || isDefRetake) {
-      const candidates = [];
-      for (const u of this.occ[entrant.node]) {
-        if (u.alive && u.side === entrant.side && u.utils > 0 && !u.flashUsedRound) candidates.push(u);
-      }
-      candidates.sort((a, b) => b.syn - a.syn); // 道具效率高的先想
-      for (const c of candidates) {
-        if (this.thinkUse(c)) {
-          c.utils--;
-          c.flashUsedRound = true;
-          this.stats[entrant.side === 'atk' ? 'utilsAtk' : 'utilsDef']++;
-          this.stats.utilsByType.flash++;
-          flash = cfg.utility.flashReduce * this.synFactor(c.syn);
-          // 2 tick 内的第二颗闪效果减半
-          if (this.t - (this.lastFlashTick[entrant.side] || -99) <= 2) flash *= 0.5;
-          this.lastFlashTick[entrant.side] = this.t;
-          this.emit('flash', { node: entrant.node, side: entrant.side, by: c.name });
-          break;
-        }
-      }
-    }
-    for (const holder of enemies) {
-      if (!holder.alive || holder.planting || holder.defusing || holder.stun > 0) continue;
-      if (holder.holdTicks < 2) continue; // 只有已架好枪的单位才有抢先枪
-      let pSpot = C.entryShotBase + holder.sen * C.entryShotSen;
-      if (sync >= C.syncMin) pSpot -= (synSum / sync) * C.syncReduce;
-      pSpot -= flash; // 被致盲
-      if (this.rng() < Math.max(pSpot, 0.05)) {
-        this.emit('entry_shot', { node: entrant.node, holder: holder.name, entrant: entrant.name });
-        this.tryKill(holder, entrant, true);
-        if (!entrant.alive) return;
-      }
-    }
-    if (this.isContested(entrant.node)) {
-      const region = this.map.region(entrant.node);
-      if (region === 'A' || region === 'B') this.addInfo(region, 5);
-    }
-  }
-
-  // ---- 每 tick 交火 ----
-  resolveCombat() {
-    for (const nodeId of Object.keys(this.occ)) {
-      if (!this.isContested(nodeId)) continue;
-      const fighters = [];
-      for (const u of this.occ[nodeId]) {
-        if (u.alive && !u.planting && !u.defusing) fighters.push(u);
-      }
-      // 随机出手顺序
-      for (let i = fighters.length - 1; i > 0; i--) {
-        const j = Math.floor(this.rng() * (i + 1));
-        [fighters[i], fighters[j]] = [fighters[j], fighters[i]];
-      }
-      for (const u of fighters) {
-        if (!u.alive) continue;
-        const enemies = this.enemiesAt(nodeId, u.side);
-        if (!enemies.length) break;
-        const tgt = enemies[Math.floor(this.rng() * enemies.length)];
-        this.tryKill(u, tgt, false);
-      }
-    }
   }
 
   // ---- 下包 / 拆包 ----
@@ -854,41 +579,6 @@ class RoundSim {
     this.newInfo = false;
   }
 
-  // 防守方对信息的反应：全面回防（下包/强真实信息）或局部收缩（分站防守对中等信息）
-  // 可疑信息（假打）：分站/前压最多局部收缩，赌点队本性赌博会被拉动
-  reactToInfo(u, target, strength, plantedThere, isWaiting, suspicious) {
-    const action = this.decideBinary(u, [
-      { u: strength + (plantedThere ? 50 : 0), action: 'rotate' },
-      { u: cfg.ai.rotateNeedInfo + 8, action: 'stay' }
-    ]);
-    if (action !== 'rotate') return;
-    const fullRotate = plantedThere || (!suspicious && strength >= cfg.ai.contractInfo) || this.defPlan.family === 'stack';
-    u.rotating = true;
-    if (plantedThere) {
-      // 已下包：先到集结点汇合，等同步信号再一起回防
-      u.directives = [
-        { type: 'go', node: this.map.data.staging[target], mode: 'run' },
-        { type: 'waitEvent', event: 'retakeHit' },
-        { type: 'go', node: this.map.siteNode(target), mode: 'run' },
-        { type: 'hold' }
-      ];
-      this.emit('rotate', { unit: u.name, to: target });
-    } else if (fullRotate) {
-      // 强信息：回防到受威胁侧集结点待命（确认交火后再进点，避免逐个送进包点）
-      u.directives = [{ type: 'go', node: this.map.data.staging[target], mode: 'run' }, { type: 'hold', support: target }];
-      this.emit('rotate', { unit: u.name, to: target });
-    } else {
-      // 局部收缩：只有中路自由人向受威胁侧靠拢（站点锚兵不动，否则被假打拉空）；
-      // 每个方向最多收缩一人
-      if (this.map.region(u.node) !== 'mid' || this.contracted[target]) { u.rotating = false; return; }
-      this.contracted[target] = true;
-      u.rotating = false; // 收缩后仍可升级为全面回防
-      u.directives = [{ type: 'go', node: this.map.data.staging[target], mode: 'run' }, { type: 'hold', support: target }];
-      this.emit('contract', { unit: u.name, to: target });
-    }
-    u.di = 0;
-  }
-
   bfsDist(from, to) {
     if (from === to) return 0;
     // 借助 nextHop 表计步数
@@ -942,5 +632,12 @@ class RoundSim {
     return this.result;
   }
 }
+
+// 混入拆出的模块（movement 机动 / combat 交火 / perception 信息感知）
+Object.assign(RoundSim.prototype,
+  require('./movement'),
+  require('./combat'),
+  require('./perception')
+);
 
 module.exports = { RoundSim, decisionQuality };
