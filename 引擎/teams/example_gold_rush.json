@@ -1,0 +1,12 @@
+{
+  "name": "金卡快攻队",
+  "players": ["brawk", "happywei", "RieNs", "Asuna", "vo0kashu"],
+  "tactics": {
+    "atk": { "rush": 0.6, "mid": 0.2, "lurk": 0.2 },
+    "def": { "push": 0.2, "hold": 0.5, "stack": 0.3 }
+  },
+  "tactics2": {
+    "atk": { "rush": 0.34, "mid": 0.33, "lurk": 0.33 },
+    "def": { "push": 0.3, "hold": 0.4, "stack": 0.3 }
+  }
+}

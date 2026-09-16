@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>推演引擎 · 雷达观赛回放</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1117; color: #d5dbe3; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; overflow: hidden; }
+  #app { display: grid; grid-template-rows: 56px 1fr 64px; grid-template-columns: 1fr 260px; height: 100vh; }
+  #topbar { grid-column: 1 / 3; display: flex; align-items: center; gap: 18px; padding: 0 16px; background: #141b24; border-bottom: 1px solid #263042; }
+  #topbar .team { font-size: 15px; font-weight: 600; min-width: 150px; }
+  #topbar .team.atk { color: #ff6b6b; text-align: right; }
+  #topbar .team.def { color: #4ecdc4; }
+  #topbar .score { font-size: 26px; font-weight: 700; letter-spacing: 2px; }
+  #topbar .meta { font-size: 12px; color: #8b98a8; line-height: 1.5; }
+  #topbar .spike { margin-left: auto; width: 180px; }
+  #mapwrap { position: relative; background: #0a0e14; display: flex; align-items: center; justify-content: center; }
+  canvas { display: block; }
+  #side { background: #111720; border-left: 1px solid #263042; padding: 10px; overflow-y: auto; }
+  #side h3 { font-size: 12px; color: #8b98a8; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .kf { font-size: 12px; padding: 4px 6px; margin-bottom: 3px; background: #182030; border-radius: 4px; line-height: 1.5; }
+  .kf .atk { color: #ff6b6b; } .kf .def { color: #4ecdc4; } .kf .dim { color: #6b7686; }
+  #controls { grid-column: 1 / 3; display: flex; align-items: center; gap: 10px; padding: 0 16px; background: #141b24; border-top: 1px solid #263042; }
+  button { background: #1f2a3a; color: #d5dbe3; border: 1px solid #334156; border-radius: 4px; padding: 6px 12px; font-size: 13px; cursor: pointer; }
+  button:hover { background: #2a3a50; }
+  button.active { background: #2f5b8f; border-color: #4a7fb5; }
+  #scrub { flex: 1; height: 8px; background: #1f2a3a; border-radius: 4px; cursor: pointer; position: relative; }
+  #scrubfill { height: 100%; background: #4a7fb5; border-radius: 4px; width: 0; }
+  #roundmarks { position: absolute; inset: 0; display: flex; }
+  #roundmarks div { border-right: 1px solid #0d1117; }
+  #banner { position: absolute; top: 18%; left: 50%; transform: translateX(-50%); padding: 14px 34px; background: rgba(13,17,23,.88);
+            border: 1px solid #4a7fb5; border-radius: 8px; font-size: 22px; font-weight: 700; display: none; text-align: center; z-index: 5; }
+  #banner small { display: block; font-size: 13px; font-weight: 400; color: #8b98a8; margin-top: 4px; }
+  #dropzone { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px;
+              background: rgba(13,17,23,.92); z-index: 10; text-align: center; }
+  #dropzone .hint { color: #8b98a8; font-size: 13px; line-height: 1.8; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="topbar">
+    <div class="team atk" id="teamA">进攻方</div>
+    <div class="score"><span id="scoreA">0</span> : <span id="scoreB">0</span></div>
+    <div class="team def" id="teamB">防守方</div>
+    <div class="meta" id="roundInfo"></div>
+    <div class="meta" id="econ"></div>
+    <div class="spike" id="spikeBox" style="display:none">
+      <div style="font-size:11px;color:#ffb454;margin-bottom:2px">爆能器 <span id="spikeT"></span>s</div>
+      <div style="height:6px;background:#33231a;border-radius:3px"><div id="spikefill" style="height:100%;background:#ffb454;border-radius:3px"></div></div>
+    </div>
+  </div>
+  <div id="mapwrap">
+    <canvas id="map" width="1000" height="720"></canvas>
+    <div id="banner"></div>
+    <div id="dropzone">
+      <div style="font-size:18px">拖入 <b>.jsonl</b> 事件日志开始回放</div>
+      <div class="hint">日志由引擎生成：node 引擎/sim.js --a ... --b ... --n 1 --log<br>
+      或用 build_replay.js 生成自包含回放 HTML（双击即看）<br>
+      <input type="file" id="fileInput" accept=".jsonl,.json" style="margin-top:10px"></div>
+    </div>
+  </div>
+  <div id="side"><h3>击杀信息</h3><div id="killfeed"></div><h3 style="margin-top:14px">本回合事件</h3><div id="eventfeed"></div></div>
+  <div id="controls">
+    <button id="btnPlay">⏸ 暂停</button>
+    <button id="btnPrev">« 上一回合</button>
+    <button id="btnNext">下一回合 »</button>
+    <span style="font-size:12px;color:#8b98a8">倍速</span>
+    <span id="speeds"></span>
+    <div id="scrub"><div id="scrubfill"></div><div id="roundmarks"></div></div>
+    <span id="clock" style="font-size:12px;color:#8b98a8;min-width:90px;text-align:right"></span>
+  </div>
+</div>
+
+<script>
+// ===== 数据：地图由 build_replay.js 从 引擎/maps/ascent_like.json 烘焙；日志可嵌入或拖入 =====
+window.MAP_DATA = {
+  "id": "ascent_like",
+  "name": "类亚海悬城 · 双点图",
+  "sites": { "A": "a_site", "B": "b_site" },
+  "spawns": { "atk": "t_spawn", "def": "ct_spawn" },
+  "staging": { "A": "ct_a", "B": "ct_b" },
+  "trapSpots": { "a_site": "a_lobby", "a_heaven": "a_lobby", "a_short": "a_short", "b_site": "b_lobby", "b_back": "b_lobby", "market": "market", "mid_bottom": "mid" },
+  "view": { "width": 1000, "height": 720 },
+  "nodes": {
+    "t_spawn":    { "name": "T出生点",   "region": "spawn", "cover": 0.2, "advantage": "neutral", "capacity": 8, "x": 500, "y": 655 },
+    "a_main":     { "name": "A大入口",   "region": "A",  "cover": 0.3, "advantage": "neutral", "capacity": 6, "x": 95,  "y": 600 },
+    "a_lobby":    { "name": "A大",       "region": "A",  "cover": 0.4, "advantage": "neutral", "capacity": 6, "x": 115, "y": 450 },
+    "a_site":     { "name": "A包点",     "region": "A",  "cover": 0.5, "advantage": "def", "capacity": 6, "x": 155, "y": 285 },
+    "a_heaven":   { "name": "A高点",     "region": "A",  "cover": 0.6, "advantage": "def", "capacity": 3, "x": 265, "y": 200 },
+    "a_short":    { "name": "A小",       "region": "A",  "cover": 0.3, "advantage": "neutral", "capacity": 3, "x": 330, "y": 350 },
+    "mid_top":    { "name": "中路匪侧",  "region": "mid", "cover": 0.3, "advantage": "neutral", "capacity": 4, "x": 500, "y": 530 },
+    "mid":        { "name": "中路",      "region": "mid", "cover": 0.3, "advantage": "neutral", "capacity": 4, "x": 470, "y": 400 },
+    "mid_bottom": { "name": "中路警侧",  "region": "mid", "cover": 0.3, "advantage": "def", "capacity": 4, "x": 470, "y": 270 },
+    "market":     { "name": "市场",      "region": "B",  "cover": 0.5, "advantage": "def", "capacity": 3, "x": 645, "y": 330 },
+    "b_main":     { "name": "B大入口",   "region": "B",  "cover": 0.3, "advantage": "neutral", "capacity": 6, "x": 905, "y": 600 },
+    "b_lobby":    { "name": "B大",       "region": "B",  "cover": 0.4, "advantage": "neutral", "capacity": 6, "x": 885, "y": 450 },
+    "b_site":     { "name": "B包点",     "region": "B",  "cover": 0.5, "advantage": "def", "capacity": 6, "x": 845, "y": 285 },
+    "b_back":     { "name": "B点后",     "region": "B",  "cover": 0.5, "advantage": "neutral", "capacity": 4, "x": 920, "y": 190 },
+    "ct_spawn":   { "name": "CT出生点",  "region": "spawn", "cover": 0.2, "advantage": "def", "capacity": 8, "x": 560, "y": 85 },
+    "ct_a":       { "name": "警家A连接", "region": "A",  "cover": 0.4, "advantage": "def", "capacity": 4, "x": 300, "y": 115 },
+    "ct_b":       { "name": "警家B连接", "region": "B",  "cover": 0.4, "advantage": "def", "capacity": 4, "x": 770, "y": 115 }
+  },
+  "edges": [
+    { "a": "t_spawn", "b": "a_main",     "ticks": 4, "exposure": 0.10 },
+    { "a": "a_main",  "b": "a_lobby",    "ticks": 3, "exposure": 0.15 },
+    { "a": "a_lobby", "b": "a_site",     "ticks": 3, "exposure": 0.35 },
+    { "a": "a_site",  "b": "a_heaven",   "ticks": 2, "exposure": 0.20 },
+    { "a": "a_short", "b": "a_site",     "ticks": 3, "exposure": 0.30 },
+    { "a": "t_spawn", "b": "mid_top",    "ticks": 3, "exposure": 0.10 },
+    { "a": "mid_top", "b": "mid",        "ticks": 3, "exposure": 0.25 },
+    { "a": "mid",     "b": "a_short",    "ticks": 3, "exposure": 0.25 },
+    { "a": "mid",     "b": "mid_bottom", "ticks": 3, "exposure": 0.30 },
+    { "a": "mid_bottom", "b": "market",  "ticks": 2, "exposure": 0.25 },
+    { "a": "t_spawn", "b": "b_main",     "ticks": 4, "exposure": 0.10 },
+    { "a": "b_main",  "b": "b_lobby",    "ticks": 3, "exposure": 0.15 },
+    { "a": "b_lobby", "b": "b_site",     "ticks": 3, "exposure": 0.35 },
+    { "a": "b_site",  "b": "b_back",     "ticks": 2, "exposure": 0.20 },
+    { "a": "market",  "b": "b_site",     "ticks": 3, "exposure": 0.30 },
+    { "a": "ct_spawn", "b": "ct_a",      "ticks": 3, "exposure": 0.05 },
+    { "a": "ct_spawn", "b": "ct_b",      "ticks": 3, "exposure": 0.05 },
+    { "a": "ct_a",    "b": "a_site",     "ticks": 3, "exposure": 0.20 },
+    { "a": "ct_a",    "b": "a_heaven",   "ticks": 2, "exposure": 0.15 },
+    { "a": "ct_b",    "b": "b_site",     "ticks": 3, "exposure": 0.20 },
+    { "a": "ct_b",    "b": "market",     "ticks": 3, "exposure": 0.20 },
+    { "a": "ct_spawn", "b": "mid_bottom", "ticks": 4, "exposure": 0.15 },
+    { "a": "mid_bottom", "b": "ct_b",    "ticks": 3, "exposure": 0.15 }
+  ]
+};
+window.EMBEDDED_EVENTS = /*__EMBEDDED_EVENTS__*/null;
+
+const FAMILY_NAME = { rush: '爆弹冲点', mid: '中路接触', lurk: '边线渗透', fake: '假打转点', push: '防守前压', hold: '默认架点', stack: '赌点防守' };
+const PLAN_NAME = { pistol: '手枪局', eco: 'ECO', half: '混起', full: '长枪局' };
+const REASON_NAME = { elimination: '歼灭', explosion: '爆能器引爆', defuse: '拆包', timeout: '超时' };
+const GUN_NAME = ['手枪', '冲锋枪', '步枪'];
+
+// ===== 日志解析：按回合分段 =====
+function parseLog(lines) {
+  const rounds = [];
+  let cur = null, teamNames = null;
+  for (const e of lines) {
+    if (e.type === 'round_meta') {
+      cur = { meta: e, events: [], moves: [], duration: 100 };
+      rounds.push(cur);
+      if (!teamNames) teamNames = { A: e.atkTeam, B: e.defTeam }; // 首回合攻=A队
+    } else if (e.type === 'round_start') {
+      cur.start = e;
+      cur.atkFamily = e.atkFamily; cur.defFamily = e.defFamily;
+    } else if (e.type === 'score') {
+      if (cur) { cur.scoreA = e.scoreA; cur.scoreB = e.scoreB; cur.winner = e.winner; cur.reason = e.reason; }
+    } else if (e.type === 'round_end') {
+      if (cur) { cur.duration = Math.max(e.t, 1); cur.events.push(e); }
+    } else if (cur) {
+      cur.events.push(e);
+      if (e.type === 'move') cur.moves.push(e);
+    }
+  }
+  // 每回合按 tick 索引事件
+  for (const r of rounds) {
+    r.byTick = {};
+    for (const e of r.events) {
+      const t = e.t;
+      (r.byTick[t] = r.byTick[t] || []).push(e);
+    }
+  }
+  return { rounds, teamNames };
+}
+
+// ===== 回放器 =====
+const canvas = document.getElementById('map');
+const ctx = canvas.getContext('2d');
+let DATA = null;
+let roundIdx = 0, tick = 0, playing = true, speed = 1;
+let shownKills = 0, shownEvents = 0, bannerUntil = -1;
+
+function cur() { return DATA.rounds[roundIdx]; }
+
+// 单位在指定 tick 的位置（移动插值）
+function unitStates(r, t) {
+  const states = {};
+  for (const u of r.start.units) {
+    states[u.name] = { ...u, x: nodePos(u.node).x, y: nodePos(u.node).y, dead: false, deadTick: -1, deadNode: null };
+  }
+  for (const m of r.moves) {
+    if (m.t > t) break;
+    const s = states[m.unit];
+    if (!s || s.dead) continue;
+    const from = nodePos(m.from), to = nodePos(m.to);
+    const f = Math.min((t - m.t) / m.ticks, 1);
+    if (f >= 1) { s.x = to.x; s.y = to.y; s.node = m.to; }
+    else { s.x = from.x + (to.x - from.x) * f; s.y = from.y + (to.y - from.y) * f; s.node = null; }
+  }
+  for (const e of r.events) {
+    if (e.t > t) break;
+    if (e.type === 'kill') {
+      const v = states[e.victim];
+      if (v && !v.dead) { v.dead = true; v.deadTick = e.t; v.deadNode = e.node; }
+    }
+  }
+  return states;
+}
+
+function nodePos(id) { const n = window.MAP_DATA.nodes[id]; return { x: n.x, y: n.y }; }
+
+// ===== 地图绘制 =====
+const COLORS = {
+  A: '#3a2a4a', B: '#2a3a4a', mid: '#2a3440', spawn: '#22302a',
+  atk: '#ff6b6b', def: '#4ecdc4', edge: '#263042'
+};
+
+function drawMap() {
+  const M = window.MAP_DATA;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // 边
+  ctx.lineWidth = 3;
+  for (const e of M.edges) {
+    const a = M.nodes[e.a], b = M.nodes[e.b];
+    ctx.strokeStyle = COLORS.edge;
+    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+  }
+  // 节点
+  for (const [id, n] of Object.entries(M.nodes)) {
+    const isSite = id === 'a_site' || id === 'b_site';
+    const r = isSite ? 26 : (n.capacity >= 8 ? 20 : 15);
+    ctx.fillStyle = COLORS[n.region] || '#2a3440';
+    ctx.strokeStyle = isSite ? '#c8a86b' : '#3a4a60';
+    ctx.lineWidth = isSite ? 2.5 : 1.5;
+    ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#d5dbe3';
+    ctx.font = (isSite ? 'bold 15px' : '11px') + ' sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(isSite ? id[0].toUpperCase() + '点' : n.name, n.x, n.y - r - 5);
+    if (isSite) { ctx.fillStyle = '#c8a86b'; ctx.fillText(id === 'a_site' ? 'A' : 'B', n.x, n.y + 5); }
+  }
+}
+
+// ===== 单位与事件绘制 =====
+function drawFrame() {
+  if (!DATA) return;
+  const r = cur();
+  if (!r || !r.start) return;
+  drawMap();
+  const t = tick;
+  const states = unitStates(r, t);
+
+  // 持续型事件：烟 / 火 / 闪 / 标记
+  for (const e of r.events) {
+    if (e.t > t) break;
+    const age = t - e.t;
+    if (e.type === 'smoke' && t < (e.until || e.t + 12)) {
+      const a = nodePos(e.edge[0]), b = nodePos(e.edge[1]);
+      ctx.fillStyle = 'rgba(150,150,160,0.4)';
+      ctx.beginPath(); ctx.arc((a.x + b.x) / 2, (a.y + b.y) / 2, 26, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#aab';
+      ctx.font = '10px sans-serif'; ctx.fillText('烟', (a.x + b.x) / 2, (a.y + b.y) / 2 + 3);
+    }
+    if ((e.type === 'molly_entry' || e.type === 'molly') && age < 6) {
+      const p = nodePos(e.node);
+      ctx.fillStyle = `rgba(255,120,30,${0.5 * (1 - age / 6)})`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, 30, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ffd0a0'; ctx.font = '10px sans-serif'; ctx.fillText('火', p.x, p.y - 32);
+    }
+    if (e.type === 'flash' && age < 2) {
+      const p = nodePos(e.node);
+      ctx.strokeStyle = `rgba(255,240,120,${1 - age / 2})`; ctx.lineWidth = 3;
+      for (let i = 0; i < 8; i++) {
+        const ang = i * Math.PI / 4;
+        ctx.beginPath(); ctx.moveTo(p.x + 30 * Math.cos(ang), p.y + 30 * Math.sin(ang));
+        ctx.lineTo(p.x + 42 * Math.cos(ang), p.y + 42 * Math.sin(ang)); ctx.stroke();
+      }
+    }
+    if (e.type === 'kill') {
+      const p = nodePos(e.node);
+      ctx.strokeStyle = '#ff4655'; ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(p.x - 7, p.y - 7); ctx.lineTo(p.x + 7, p.y + 7);
+      ctx.moveTo(p.x + 7, p.y - 7); ctx.lineTo(p.x - 7, p.y + 7);
+      ctx.stroke();
+    }
+    if (e.type === 'trap' && age < 3) {
+      const p = nodePos(e.node);
+      ctx.fillStyle = 'rgba(190,110,255,0.85)';
+      ctx.font = 'bold 13px sans-serif'; ctx.fillText('⚡警戒', p.x, p.y - 24);
+    }
+    if (e.type === 'fake_noise' && age < 4) {
+      const p = nodePos(e.node);
+      ctx.strokeStyle = `rgba(255,150,60,${0.8 - age * 0.2})`; ctx.setLineDash([4, 4]); ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(p.x, p.y, 34 + age * 4, 0, Math.PI * 2); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#ffaa55'; ctx.font = '10px sans-serif'; ctx.fillText('假打?', p.x, p.y - 38);
+    }
+    if (e.type === 'fake_read' && age < 3) {
+      const s = states[e.unit];
+      if (s && !s.dead) { ctx.fillStyle = '#7fe0a0'; ctx.font = 'bold 12px sans-serif'; ctx.fillText('识破!', s.x, s.y - 22); }
+    }
+    if (e.type === 'pop_off' && age < 3) {
+      const p = nodePos(e.node);
+      ctx.fillStyle = '#ffd700'; ctx.font = 'bold 15px sans-serif'; ctx.fillText('★爆种', p.x, p.y - 34);
+    }
+    if (e.type === 'whiff' && age < 3) {
+      const p = nodePos(e.node);
+      ctx.fillStyle = '#b48cff'; ctx.font = 'bold 13px sans-serif'; ctx.fillText('▼失误', p.x, p.y - 34);
+    }
+    if (e.type === 'spike_drop' && age >= 0 && !r.planted) {
+      const p = nodePos(e.node);
+      ctx.fillStyle = '#ffb454'; ctx.font = 'bold 14px sans-serif'; ctx.fillText('◆包', p.x + 14, p.y + 16);
+    }
+  }
+
+  // 下包/拆包进度与爆能器
+  const plantStart = r.events.find((e) => e.type === 'plant_start');
+  const planted = r.events.find((e) => e.type === 'plant');
+  const defuseStart = r.events.find((e) => e.type === 'defuse_start');
+  const spikeNode = planted ? nodePos(planted.node) : (plantStart ? nodePos(plantStart.node) : null);
+  if (plantStart && t >= plantStart.t && !planted) {
+    drawProgress(spikeNode, (t - plantStart.t) / 4, '#ffb454', '下包中');
+  }
+  if (planted && t >= planted.t && t < r.duration) {
+    ctx.fillStyle = '#ffb454'; ctx.font = 'bold 16px sans-serif';
+    ctx.fillText('◆', spikeNode.x, spikeNode.y - 34);
+    const left = planted.t + (planted.spikeTicks || 45) - t;
+    document.getElementById('spikeBox').style.display = 'block';
+    document.getElementById('spikeT').textContent = Math.max(left, 0).toFixed(0);
+    document.getElementById('spikefill').style.width = Math.max(left / (planted.spikeTicks || 45) * 100, 0) + '%';
+  } else {
+    document.getElementById('spikeBox').style.display = 'none';
+  }
+  if (defuseStart && t >= defuseStart.t && !r.events.some((e) => e.type === 'defuse' || (e.type === 'defuse_abort' && e.t >= defuseStart.t && e.t <= t))) {
+    const dn = nodePos(defuseStart.node);
+    drawProgress(dn, (t - defuseStart.t) / 7, '#4ecdc4', '拆包中');
+  }
+
+  // 单位（同节点单位环形散开避免重叠）
+  const groups = {};
+  for (const [name, s] of Object.entries(states)) {
+    if (s.dead && t - s.deadTick > 2) continue; // 尸体 2 tick 后消失
+    const key = `${Math.round(s.x)},${Math.round(s.y)}`;
+    (groups[key] = groups[key] || []).push(s);
+  }
+  for (const g of Object.values(groups)) {
+    g.forEach((s, i) => {
+      if (g.length > 1) {
+        const ang = (i / g.length) * Math.PI * 2;
+        s.dx = 13 * Math.cos(ang); s.dy = 13 * Math.sin(ang);
+      } else { s.dx = 0; s.dy = 0; }
+    });
+  }
+  for (const [name, s] of Object.entries(states)) {
+    if (s.dead && t - s.deadTick > 2) continue;
+    const col = s.side === 'atk' ? COLORS.atk : COLORS.def;
+    const x = s.x + s.dx, y = s.y + s.dy;
+    if (s.dead) {
+      ctx.fillStyle = 'rgba(120,120,130,0.6)';
+      ctx.beginPath(); ctx.arc(x, y, 8, 0, Math.PI * 2); ctx.fill();
+      continue;
+    }
+    ctx.fillStyle = col;
+    ctx.strokeStyle = s.igl ? '#ffd700' : '#0d1117';
+    ctx.lineWidth = s.igl ? 2.5 : 1.5;
+    ctx.beginPath(); ctx.arc(x, y, 8, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#0d1117'; ctx.font = 'bold 8px sans-serif';
+    ctx.fillText(GUN_NAME[s.gun] ? GUN_NAME[s.gun][0] : '', x, y + 3);
+    ctx.fillStyle = col; ctx.font = '10px sans-serif';
+    ctx.fillText(name, x, y - 12);
+  }
+}
+
+function drawProgress(p, frac, color, label) {
+  frac = Math.min(Math.max(frac, 0), 1);
+  ctx.strokeStyle = color; ctx.lineWidth = 4;
+  ctx.beginPath(); ctx.arc(p.x, p.y, 34, -Math.PI / 2, -Math.PI / 2 + frac * Math.PI * 2); ctx.stroke();
+  ctx.fillStyle = color; ctx.font = '11px sans-serif'; ctx.fillText(label, p.x, p.y + 48);
+}
+
+// ===== HUD =====
+function drawHUD() {
+  const r = cur();
+  if (!r) return;
+  const m = r.meta;
+  document.getElementById('teamA').textContent = DATA.teamNames.A + (m.atkTeam === DATA.teamNames.A ? ' (攻)' : ' (守)');
+  document.getElementById('teamB').textContent = DATA.teamNames.B + (m.atkTeam === DATA.teamNames.B ? ' (攻)' : ' (守)');
+  document.getElementById('scoreA').textContent = r.scoreA != null ? r.scoreA : m.scoreA;
+  document.getElementById('scoreB').textContent = r.scoreB != null ? r.scoreB : m.scoreB;
+  document.getElementById('roundInfo').innerHTML =
+    `回合 ${m.round} · ${FAMILY_NAME[r.atkFamily] || ''} vs ${FAMILY_NAME[r.defFamily] || ''}<br>` +
+    `${PLAN_NAME[m.atkPlan] || ''} / ${PLAN_NAME[m.defPlan] || ''}`;
+  document.getElementById('econ').innerHTML =
+    `经济 攻 $${m.atkMoney ?? '-'}<br>守 $${m.defMoney ?? '-'}`;
+  document.getElementById('clock').textContent = `R${m.round} t=${tick.toFixed(0)}s`;
+  // 进度条
+  const totalRounds = DATA.rounds.length;
+  document.getElementById('scrubfill').style.width = ((roundIdx + tick / r.duration) / totalRounds * 100) + '%';
+  // 击杀信息流
+  const kills = r.events.filter((e) => e.type === 'kill' && e.t <= tick);
+  const kf = document.getElementById('killfeed');
+  if (kills.length !== shownKills) {
+    shownKills = kills.length;
+    kf.innerHTML = kills.slice(-8).map((e) =>
+      `<div class="kf"><span class="${e.side}">${e.killer}</span> ✕ <span class="${e.side === 'atk' ? 'def' : 'atk'}">${e.victim}</span> <span class="dim">@${e.t}s</span></div>`
+    ).join('');
+  }
+  // 事件流
+  const evs = r.events.filter((e) => e.t <= tick && ['plant', 'defuse', 'defuse_start', 'flash', 'smoke', 'molly', 'molly_entry', 'trap', 'trap_spotted', 'recon', 'fake_noise', 'fake_read', 'fake_pulled', 'pop_off', 'whiff', 'save', 'retake', 'force_commit', 'spike_drop', 'spike_pickup', 'mid_read'].includes(e.type));
+  const ef = document.getElementById('eventfeed');
+  if (evs.length !== shownEvents) {
+    shownEvents = evs.length;
+    const EVNAME = { plant: '下包', defuse: '拆包成功', defuse_start: '开始拆包', flash: '闪光', smoke: '烟雾', molly: '燃烧拖包', molly_entry: '燃烧封点', trap: '警戒触发', trap_spotted: '识破警戒', recon: '侦察', fake_noise: '假打佯动', fake_read: '识破假打', fake_pulled: '中计拉动', pop_off: '★爆种', whiff: '▼失误', save: '保枪', retake: '回防同步', force_commit: '强行进点', spike_drop: '爆能器掉落', spike_pickup: '拾取爆能器', mid_read: '中路读取' };
+    ef.innerHTML = evs.slice(-10).map((e) =>
+      `<div class="kf"><span class="dim">t${e.t}</span> ${EVNAME[e.type] || e.type} <span class="dim">${e.unit || e.by || ''}</span></div>`
+    ).join('');
+  }
+  // 回合结果横幅
+  if (tick >= r.duration && r.winner) {
+    const name = r.winner === 'A' ? DATA.teamNames.A : DATA.teamNames.B;
+    const b = document.getElementById('banner');
+    b.style.display = 'block';
+    b.innerHTML = `${name} 拿下回合 ${m.round}<small>${REASON_NAME[r.reason] || r.reason} · ${r.scoreA} : ${r.scoreB}</small>`;
+    bannerUntil = -1;
+  } else {
+    document.getElementById('banner').style.display = 'none';
+  }
+}
+
+// ===== 播放控制 =====
+let lastTs = 0;
+function loop(ts) {
+  if (!DATA) { requestAnimationFrame(loop); return; }
+  const dt = Math.min((ts - lastTs) / 1000, 0.1);
+  lastTs = ts;
+  if (playing) {
+    const r = cur();
+    tick += dt * speed;
+    if (tick > r.duration + 2.2) { // 回合结果横幅停留 ~2.2s
+      if (roundIdx < DATA.rounds.length - 1) { setRound(roundIdx + 1); }
+      else { playing = false; document.getElementById('btnPlay').textContent = '▶ 播放'; tick = r.duration + 2.2; }
+    }
+  }
+  drawFrame();
+  drawHUD();
+  requestAnimationFrame(loop);
+}
+
+function setRound(i, t) {
+  roundIdx = Math.max(0, Math.min(i, DATA.rounds.length - 1));
+  tick = t || 0;
+  shownKills = -1; shownEvents = -1;
+  document.getElementById('banner').style.display = 'none';
+}
+
+document.getElementById('btnPlay').onclick = () => {
+  playing = !playing;
+  document.getElementById('btnPlay').textContent = playing ? '⏸ 暂停' : '▶ 播放';
+};
+document.getElementById('btnPrev').onclick = () => setRound(roundIdx - 1);
+document.getElementById('btnNext').onclick = () => setRound(roundIdx + 1);
+const SPEEDS = [0.5, 1, 2, 4, 8];
+const speedsBox = document.getElementById('speeds');
+for (const s of SPEEDS) {
+  const b = document.createElement('button');
+  b.textContent = s + 'x';
+  b.className = s === 1 ? 'active' : '';
+  b.onclick = () => { speed = s; [...speedsBox.children].forEach((c) => c.classList.remove('active')); b.classList.add('active'); };
+  speedsBox.appendChild(b);
+}
+document.getElementById('scrub').onclick = (ev) => {
+  const rect = ev.target.getBoundingClientRect();
+  const frac = (ev.clientX - rect.left) / rect.width;
+  const idx = Math.floor(frac * DATA.rounds.length);
+  setRound(idx);
+};
+window.addEventListener('keydown', (e) => {
+  if (e.code === 'Space') { e.preventDefault(); document.getElementById('btnPlay').click(); }
+  if (e.code === 'ArrowLeft') setRound(roundIdx - 1);
+  if (e.code === 'ArrowRight') setRound(roundIdx + 1);
+});
+
+// ===== 数据加载 =====
+function loadText(text) {
+  const lines = text.trim().split('\n').map((l) => JSON.parse(l));
+  DATA = parseLog(lines);
+  // 回合计刻度
+  const marks = document.getElementById('roundmarks');
+  marks.innerHTML = '';
+  for (let i = 0; i < DATA.rounds.length; i++) {
+    const d = document.createElement('div');
+    d.style.flex = '1';
+    marks.appendChild(d);
+  }
+  document.getElementById('dropzone').style.display = 'none';
+  // URL 参数定位（截图/调试用）：?round=N&tick=M&paused=1
+  const q = new URLSearchParams(location.search);
+  if (q.get('round')) setRound(parseInt(q.get('round')) - 1, parseFloat(q.get('tick') || 0));
+  if (q.get('paused')) { playing = false; document.getElementById('btnPlay').textContent = '▶ 播放'; }
+  setRound(roundIdx, tick);
+}
+
+document.getElementById('fileInput').onchange = (ev) => {
+  const f = ev.target.files[0];
+  if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => loadText(rd.result);
+  rd.readAsText(f);
+};
+document.getElementById('mapwrap').ondragover = (e) => e.preventDefault();
+document.getElementById('mapwrap').ondrop = (e) => {
+  e.preventDefault();
+  const f = e.dataTransfer.files[0];
+  if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => loadText(rd.result);
+  rd.readAsText(f);
+};
+
+if (window.EMBEDDED_EVENTS) loadText(window.EMBEDDED_EVENTS.map((e) => JSON.stringify(e)).join('\n'));
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

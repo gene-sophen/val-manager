@@ -1,0 +1,2086 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>推演引擎 · 雷达观赛回放</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1117; color: #d5dbe3; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; overflow: hidden; }
+  #app { display: grid; grid-template-rows: 56px 1fr 64px; grid-template-columns: 1fr 260px; height: 100vh; }
+  #topbar { grid-column: 1 / 3; display: flex; align-items: center; gap: 18px; padding: 0 16px; background: #141b24; border-bottom: 1px solid #263042; }
+  #topbar .team { font-size: 15px; font-weight: 600; min-width: 150px; }
+  #topbar .team.atk { color: #ff6b6b; text-align: right; }
+  #topbar .team.def { color: #4ecdc4; }
+  #topbar .score { font-size: 26px; font-weight: 700; letter-spacing: 2px; }
+  #topbar .meta { font-size: 12px; color: #8b98a8; line-height: 1.5; }
+  #topbar .spike { margin-left: auto; width: 180px; }
+  #mapwrap { position: relative; background: #0a0e14; display: flex; align-items: center; justify-content: center; }
+  canvas { display: block; }
+  #side { background: #111720; border-left: 1px solid #263042; padding: 10px; overflow-y: auto; }
+  #side h3 { font-size: 12px; color: #8b98a8; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .kf { font-size: 12px; padding: 4px 6px; margin-bottom: 3px; background: #182030; border-radius: 4px; line-height: 1.5; }
+  .kf .atk { color: #ff6b6b; } .kf .def { color: #4ecdc4; } .kf .dim { color: #6b7686; }
+  #controls { grid-column: 1 / 3; display: flex; align-items: center; gap: 10px; padding: 0 16px; background: #141b24; border-top: 1px solid #263042; }
+  button { background: #1f2a3a; color: #d5dbe3; border: 1px solid #334156; border-radius: 4px; padding: 6px 12px; font-size: 13px; cursor: pointer; }
+  button:hover { background: #2a3a50; }
+  button.active { background: #2f5b8f; border-color: #4a7fb5; }
+  #scrub { flex: 1; height: 8px; background: #1f2a3a; border-radius: 4px; cursor: pointer; position: relative; }
+  #scrubfill { height: 100%; background: #4a7fb5; border-radius: 4px; width: 0; }
+  #roundmarks { position: absolute; inset: 0; display: flex; }
+  #roundmarks div { border-right: 1px solid #0d1117; }
+  #banner { position: absolute; top: 18%; left: 50%; transform: translateX(-50%); padding: 14px 34px; background: rgba(13,17,23,.88);
+            border: 1px solid #4a7fb5; border-radius: 8px; font-size: 22px; font-weight: 700; display: none; text-align: center; z-index: 5; }
+  #banner small { display: block; font-size: 13px; font-weight: 400; color: #8b98a8; margin-top: 4px; }
+  #dropzone { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px;
+              background: rgba(13,17,23,.92); z-index: 10; text-align: center; }
+  #dropzone .hint { color: #8b98a8; font-size: 13px; line-height: 1.8; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="topbar">
+    <div class="team atk" id="teamA">进攻方</div>
+    <div class="score"><span id="scoreA">0</span> : <span id="scoreB">0</span></div>
+    <div class="team def" id="teamB">防守方</div>
+    <div class="meta" id="roundInfo"></div>
+    <div class="meta" id="econ"></div>
+    <div class="spike" id="spikeBox" style="display:none">
+      <div style="font-size:11px;color:#ffb454;margin-bottom:2px">爆能器 <span id="spikeT"></span>s</div>
+      <div style="height:6px;background:#33231a;border-radius:3px"><div id="spikefill" style="height:100%;background:#ffb454;border-radius:3px"></div></div>
+    </div>
+  </div>
+  <div id="mapwrap">
+    <canvas id="map" width="1000" height="720"></canvas>
+    <div id="banner"></div>
+    <div id="dropzone">
+      <div style="font-size:18px">拖入 <b>.jsonl</b> 事件日志开始回放</div>
+      <div class="hint">日志由引擎生成：node 引擎/sim.js --a ... --b ... --n 1 --log<br>
+      或用 build_replay.js 生成自包含回放 HTML（双击即看）<br>
+      <input type="file" id="fileInput" accept=".jsonl,.json" style="margin-top:10px"></div>
+    </div>
+  </div>
+  <div id="side"><h3>击杀信息</h3><div id="killfeed"></div><h3 style="margin-top:14px">本回合事件</h3><div id="eventfeed"></div></div>
+  <div id="controls">
+    <button id="btnPlay">⏸ 暂停</button>
+    <button id="btnPrev">« 上一回合</button>
+    <button id="btnNext">下一回合 »</button>
+    <span style="font-size:12px;color:#8b98a8">倍速</span>
+    <span id="speeds"></span>
+    <div id="scrub"><div id="scrubfill"></div><div id="roundmarks"></div></div>
+    <span id="clock" style="font-size:12px;color:#8b98a8;min-width:90px;text-align:right"></span>
+  </div>
+</div>
+
+<script>
+// ===== 数据：地图由 build_replay.js 从 引擎/maps/ascent_like.json 烘焙；日志可嵌入或拖入 =====
+window.MAP_DATA = {
+  "id": "ascent_like",
+  "name": "类亚海悬城 · 双点图",
+  "sites": { "A": "a_site", "B": "b_site" },
+  "spawns": { "atk": "t_spawn", "def": "ct_spawn" },
+  "staging": { "A": "ct_a", "B": "ct_b" },
+  "trapSpots": { "a_site": "a_lobby", "a_heaven": "a_lobby", "a_short": "a_short", "b_site": "b_lobby", "b_back": "b_lobby", "market": "market", "mid_bottom": "mid" },
+  "view": { "width": 1000, "height": 720 },
+  "nodes": {
+    "t_spawn":    { "name": "T出生点",   "region": "spawn", "cover": 0.2, "advantage": "neutral", "capacity": 8, "x": 500, "y": 655 },
+    "a_main":     { "name": "A大入口",   "region": "A",  "cover": 0.3, "advantage": "neutral", "capacity": 6, "x": 95,  "y": 600 },
+    "a_lobby":    { "name": "A大",       "region": "A",  "cover": 0.4, "advantage": "neutral", "capacity": 6, "x": 115, "y": 450 },
+    "a_site":     { "name": "A包点",     "region": "A",  "cover": 0.5, "advantage": "def", "capacity": 6, "x": 155, "y": 285 },
+    "a_heaven":   { "name": "A高点",     "region": "A",  "cover": 0.6, "advantage": "def", "capacity": 3, "x": 265, "y": 200 },
+    "a_short":    { "name": "A小",       "region": "A",  "cover": 0.3, "advantage": "neutral", "capacity": 3, "x": 330, "y": 350 },
+    "mid_top":    { "name": "中路匪侧",  "region": "mid", "cover": 0.3, "advantage": "neutral", "capacity": 4, "x": 500, "y": 530 },
+    "mid":        { "name": "中路",      "region": "mid", "cover": 0.3, "advantage": "neutral", "capacity": 4, "x": 470, "y": 400 },
+    "mid_bottom": { "name": "中路警侧",  "region": "mid", "cover": 0.3, "advantage": "def", "capacity": 4, "x": 470, "y": 270 },
+    "market":     { "name": "市场",      "region": "B",  "cover": 0.5, "advantage": "def", "capacity": 3, "x": 645, "y": 330 },
+    "b_main":     { "name": "B大入口",   "region": "B",  "cover": 0.3, "advantage": "neutral", "capacity": 6, "x": 905, "y": 600 },
+    "b_lobby":    { "name": "B大",       "region": "B",  "cover": 0.4, "advantage": "neutral", "capacity": 6, "x": 885, "y": 450 },
+    "b_site":     { "name": "B包点",     "region": "B",  "cover": 0.5, "advantage": "def", "capacity": 6, "x": 845, "y": 285 },
+    "b_back":     { "name": "B点后",     "region": "B",  "cover": 0.5, "advantage": "neutral", "capacity": 4, "x": 920, "y": 190 },
+    "ct_spawn":   { "name": "CT出生点",  "region": "spawn", "cover": 0.2, "advantage": "def", "capacity": 8, "x": 560, "y": 85 },
+    "ct_a":       { "name": "警家A连接", "region": "A",  "cover": 0.4, "advantage": "def", "capacity": 4, "x": 300, "y": 115 },
+    "ct_b":       { "name": "警家B连接", "region": "B",  "cover": 0.4, "advantage": "def", "capacity": 4, "x": 770, "y": 115 }
+  },
+  "edges": [
+    { "a": "t_spawn", "b": "a_main",     "ticks": 4, "exposure": 0.10 },
+    { "a": "a_main",  "b": "a_lobby",    "ticks": 3, "exposure": 0.15 },
+    { "a": "a_lobby", "b": "a_site",     "ticks": 3, "exposure": 0.35 },
+    { "a": "a_site",  "b": "a_heaven",   "ticks": 2, "exposure": 0.20 },
+    { "a": "a_short", "b": "a_site",     "ticks": 3, "exposure": 0.30 },
+    { "a": "t_spawn", "b": "mid_top",    "ticks": 3, "exposure": 0.10 },
+    { "a": "mid_top", "b": "mid",        "ticks": 3, "exposure": 0.25 },
+    { "a": "mid",     "b": "a_short",    "ticks": 3, "exposure": 0.25 },
+    { "a": "mid",     "b": "mid_bottom", "ticks": 3, "exposure": 0.30 },
+    { "a": "mid_bottom", "b": "market",  "ticks": 2, "exposure": 0.25 },
+    { "a": "t_spawn", "b": "b_main",     "ticks": 4, "exposure": 0.10 },
+    { "a": "b_main",  "b": "b_lobby",    "ticks": 3, "exposure": 0.15 },
+    { "a": "b_lobby", "b": "b_site",     "ticks": 3, "exposure": 0.35 },
+    { "a": "b_site",  "b": "b_back",     "ticks": 2, "exposure": 0.20 },
+    { "a": "market",  "b": "b_site",     "ticks": 3, "exposure": 0.30 },
+    { "a": "ct_spawn", "b": "ct_a",      "ticks": 3, "exposure": 0.05 },
+    { "a": "ct_spawn", "b": "ct_b",      "ticks": 3, "exposure": 0.05 },
+    { "a": "ct_a",    "b": "a_site",     "ticks": 3, "exposure": 0.20 },
+    { "a": "ct_a",    "b": "a_heaven",   "ticks": 2, "exposure": 0.15 },
+    { "a": "ct_b",    "b": "b_site",     "ticks": 3, "exposure": 0.20 },
+    { "a": "ct_b",    "b": "market",     "ticks": 3, "exposure": 0.20 },
+    { "a": "ct_spawn", "b": "mid_bottom", "ticks": 4, "exposure": 0.15 },
+    { "a": "mid_bottom", "b": "ct_b",    "ticks": 3, "exposure": 0.15 }
+  ]
+};
+window.EMBEDDED_EVENTS = [{"t":-1,"type":"round_meta","round":1,"atkTeam":"金卡快攻队","defTeam":"银卡默认队","atkFamily":"rush","defFamily":"stack","atkPlan":"pistol","atkReason":"pistol","defPlan":"pistol","defReason":"pistol","scoreA":0,"scoreB":0,"atkMoney":4000,"defMoney":4000},
+{"t":0,"type":"round_start","atkFamily":"rush","defFamily":"stack","units":[{"name":"brawk","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":1,"agent":"薇丝","igl":false},{"name":"happywei","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":1,"agent":"幽影","igl":true},{"name":"RieNs","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":1,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":1,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":1,"agent":"零","igl":false},{"name":"Veqaj","side":"def","node":"ct_spawn","gun":0,"armor":"none","utils":0,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"def","node":"ct_spawn","gun":0,"armor":"none","utils":0,"agent":"斯凯","igl":false},{"name":"Sato","side":"def","node":"ct_spawn","gun":0,"armor":"none","utils":0,"agent":"幽影","igl":false},{"name":"WsLeo","side":"def","node":"ct_spawn","gun":0,"armor":"none","utils":0,"agent":"猎枭","igl":false},{"name":"cb","side":"def","node":"ct_spawn","gun":0,"armor":"none","utils":0,"agent":"奇乐","igl":true}],"round":1},
+{"t":0,"type":"move","unit":"brawk","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":1},
+{"t":0,"type":"move","unit":"happywei","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":1},
+{"t":0,"type":"move","unit":"RieNs","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":1},
+{"t":0,"type":"move","unit":"Asuna","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":1},
+{"t":0,"type":"move","unit":"vo0kashu","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":1},
+{"t":0,"type":"move","unit":"Veqaj","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":1},
+{"t":0,"type":"move","unit":"eeiu","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":1},
+{"t":0,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":1},
+{"t":0,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":1},
+{"t":0,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":1},
+{"t":3,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":1},
+{"t":3,"type":"move","unit":"eeiu","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":1},
+{"t":3,"type":"move","unit":"Sato","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":1},
+{"t":3,"type":"move","unit":"WsLeo","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":1},
+{"t":3,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":1},
+{"t":4,"type":"move","unit":"brawk","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":1},
+{"t":4,"type":"move","unit":"happywei","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":1},
+{"t":4,"type":"move","unit":"RieNs","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":1},
+{"t":4,"type":"move","unit":"Asuna","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":1},
+{"t":4,"type":"move","unit":"vo0kashu","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":1},
+{"t":6,"type":"move","unit":"Sato","side":"def","from":"a_site","to":"a_short","ticks":3,"round":1},
+{"t":7,"type":"move","unit":"brawk","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":1},
+{"t":7,"type":"move","unit":"happywei","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":1},
+{"t":7,"type":"move","unit":"RieNs","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":1},
+{"t":7,"type":"move","unit":"Asuna","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":1},
+{"t":7,"type":"move","unit":"vo0kashu","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":1},
+{"t":10,"type":"trap_spotted","node":"a_site","unit":"brawk","round":1},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"brawk","round":1},
+{"t":10,"type":"trap","node":"a_site","unit":"happywei","region":"A","round":1},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"happywei","round":1},
+{"t":10,"type":"spotted","node":"a_site","unit":"RieNs","region":"A","round":1},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"RieNs","round":1},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"Asuna","round":1},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"vo0kashu","round":1},
+{"t":10,"type":"rotate","unit":"eeiu","to":"A","round":1},
+{"t":10,"type":"move","unit":"eeiu","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":1},
+{"t":11,"type":"kill","node":"a_site","killer":"WsLeo","victim":"happywei","side":"def","round":1},
+{"t":11,"type":"kill","node":"a_site","killer":"Veqaj","victim":"Asuna","side":"def","round":1},
+{"t":11,"type":"kill","node":"a_site","killer":"brawk","victim":"Veqaj","side":"atk","round":1},
+{"t":12,"type":"push_in","unit":"eeiu","site":"A","round":1},
+{"t":12,"type":"move","unit":"eeiu","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":1},
+{"t":13,"type":"kill","node":"a_site","killer":"WsLeo","victim":"brawk","side":"def","round":1},
+{"t":13,"type":"spike_drop","node":"a_site","round":1},
+{"t":15,"type":"entry_shot","node":"a_site","holder":"RieNs","entrant":"eeiu","round":1},
+{"t":15,"type":"rotate","unit":"Sato","to":"A","round":1},
+{"t":15,"type":"move","unit":"Sato","side":"def","from":"a_short","to":"a_site","ticks":3,"round":1},
+{"t":16,"type":"kill","node":"a_site","killer":"vo0kashu","victim":"eeiu","side":"atk","round":1},
+{"t":16,"type":"kill","node":"a_site","killer":"RieNs","victim":"WsLeo","side":"atk","round":1},
+{"t":16,"type":"spike_pickup","node":"a_site","unit":"RieNs","round":1},
+{"t":16,"type":"plant_start","node":"a_site","unit":"RieNs","round":1},
+{"t":18,"type":"entry_shot","node":"a_site","holder":"vo0kashu","entrant":"Sato","round":1},
+{"t":18,"type":"kill","node":"a_site","killer":"vo0kashu","victim":"Sato","side":"atk","round":1},
+{"t":20,"type":"plant","node":"a_site","unit":"RieNs","site":"A","spikeTicks":45,"round":1},
+{"t":20,"type":"move","unit":"cb","side":"def","from":"b_site","to":"ct_b","ticks":3,"round":1},
+{"t":23,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"ct_spawn","ticks":3,"round":1},
+{"t":26,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":1},
+{"t":29,"type":"retake","site":"A","count":1,"round":1},
+{"t":29,"type":"move","unit":"cb","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":1},
+{"t":32,"type":"entry_shot","node":"a_site","holder":"RieNs","entrant":"cb","round":1},
+{"t":33,"type":"kill","node":"a_site","killer":"cb","victim":"RieNs","side":"def","round":1},
+{"t":33,"type":"spike_drop","node":"a_site","round":1},
+{"t":35,"type":"save","unit":"cb","round":1},
+{"t":37,"type":"kill","node":"a_site","killer":"cb","victim":"vo0kashu","side":"def","round":1},
+{"t":37,"type":"round_end","winner":"def","reason":"defuse","round":1},
+{"t":37,"type":"score","round":1,"scoreA":0,"scoreB":1,"winner":"B","reason":"defuse"},
+{"t":-1,"type":"round_meta","round":2,"atkTeam":"金卡快攻队","defTeam":"银卡默认队","atkFamily":"rush","defFamily":"hold","atkPlan":"eco","atkReason":"eco","defPlan":"half","defReason":"pistol_follow","scoreA":0,"scoreB":1,"atkMoney":16100,"defMoney":7250},
+{"t":0,"type":"round_start","atkFamily":"rush","defFamily":"hold","units":[{"name":"brawk","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":0,"agent":"薇丝","igl":false},{"name":"happywei","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":0,"agent":"幽影","igl":true},{"name":"RieNs","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":0,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":0,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":0,"agent":"零","igl":false},{"name":"Veqaj","side":"def","node":"ct_spawn","gun":1,"armor":"light","utils":0,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"def","node":"ct_spawn","gun":1,"armor":"light","utils":0,"agent":"斯凯","igl":false},{"name":"Sato","side":"def","node":"ct_spawn","gun":1,"armor":"light","utils":0,"agent":"幽影","igl":false},{"name":"WsLeo","side":"def","node":"ct_spawn","gun":1,"armor":"light","utils":0,"agent":"猎枭","igl":false},{"name":"cb","side":"def","node":"ct_spawn","gun":1,"armor":"light","utils":0,"agent":"奇乐","igl":true}],"round":2},
+{"t":0,"type":"move","unit":"brawk","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":2},
+{"t":0,"type":"move","unit":"happywei","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":2},
+{"t":0,"type":"move","unit":"RieNs","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":2},
+{"t":0,"type":"move","unit":"Asuna","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":2},
+{"t":0,"type":"move","unit":"vo0kashu","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":2},
+{"t":0,"type":"move","unit":"Veqaj","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":2},
+{"t":0,"type":"move","unit":"eeiu","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":2},
+{"t":0,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"mid_bottom","ticks":4,"round":2},
+{"t":0,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":2},
+{"t":0,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":2},
+{"t":3,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":2},
+{"t":3,"type":"move","unit":"eeiu","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":2},
+{"t":3,"type":"move","unit":"WsLeo","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":2},
+{"t":3,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"market","ticks":3,"round":2},
+{"t":4,"type":"move","unit":"brawk","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":2},
+{"t":4,"type":"move","unit":"happywei","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":2},
+{"t":4,"type":"move","unit":"RieNs","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":2},
+{"t":4,"type":"move","unit":"Asuna","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":2},
+{"t":4,"type":"move","unit":"vo0kashu","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":2},
+{"t":7,"type":"trap","node":"b_lobby","unit":"brawk","region":"B","round":2},
+{"t":7,"type":"spotted","node":"b_lobby","unit":"brawk","region":"B","round":2},
+{"t":7,"type":"move","unit":"happywei","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":2},
+{"t":7,"type":"move","unit":"RieNs","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":2},
+{"t":7,"type":"move","unit":"Asuna","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":2},
+{"t":7,"type":"move","unit":"vo0kashu","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":2},
+{"t":7,"type":"contract","unit":"Sato","to":"B","round":2},
+{"t":7,"type":"move","unit":"Sato","side":"def","from":"mid_bottom","to":"ct_b","ticks":3,"round":2},
+{"t":10,"type":"spotted","node":"b_site","unit":"happywei","region":"B","round":2},
+{"t":10,"type":"entry_shot","node":"b_site","holder":"WsLeo","entrant":"happywei","round":2},
+{"t":10,"type":"whiff","node":"b_site","unit":"WsLeo","agent":"猎枭","round":2},
+{"t":10,"type":"entry_shot","node":"b_site","holder":"WsLeo","entrant":"RieNs","round":2},
+{"t":10,"type":"entry_shot","node":"b_site","holder":"WsLeo","entrant":"vo0kashu","round":2},
+{"t":10,"type":"move","unit":"brawk","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":2},
+{"t":10,"type":"push_in","unit":"Sato","site":"B","round":2},
+{"t":10,"type":"move","unit":"Sato","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":2},
+{"t":10,"type":"rotate","unit":"cb","to":"B","round":2},
+{"t":10,"type":"move","unit":"cb","side":"def","from":"market","to":"ct_b","ticks":3,"round":2},
+{"t":13,"type":"entry_shot","node":"b_site","holder":"happywei","entrant":"Sato","round":2},
+{"t":13,"type":"entry_shot","node":"b_site","holder":"RieNs","entrant":"Sato","round":2},
+{"t":13,"type":"entry_shot","node":"b_site","holder":"Asuna","entrant":"Sato","round":2},
+{"t":13,"type":"entry_shot","node":"b_site","holder":"vo0kashu","entrant":"Sato","round":2},
+{"t":13,"type":"rotate","unit":"Veqaj","to":"B","round":2},
+{"t":13,"type":"move","unit":"Veqaj","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":2},
+{"t":13,"type":"rotate","unit":"eeiu","to":"B","round":2},
+{"t":13,"type":"move","unit":"eeiu","side":"def","from":"a_site","to":"ct_a","ticks":3,"round":2},
+{"t":13,"type":"push_in","unit":"cb","site":"B","round":2},
+{"t":13,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":2},
+{"t":15,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":2},
+{"t":16,"type":"move","unit":"eeiu","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":2},
+{"t":16,"type":"entry_shot","node":"b_site","holder":"happywei","entrant":"cb","round":2},
+{"t":16,"type":"entry_shot","node":"b_site","holder":"RieNs","entrant":"cb","round":2},
+{"t":16,"type":"entry_shot","node":"b_site","holder":"Asuna","entrant":"cb","round":2},
+{"t":16,"type":"entry_shot","node":"b_site","holder":"vo0kashu","entrant":"cb","round":2},
+{"t":16,"type":"kill","node":"b_site","killer":"WsLeo","victim":"RieNs","side":"def","round":2},
+{"t":16,"type":"kill","node":"b_site","killer":"Sato","victim":"happywei","side":"def","round":2},
+{"t":17,"type":"kill","node":"b_site","killer":"Sato","victim":"brawk","side":"def","round":2},
+{"t":17,"type":"spike_drop","node":"b_site","round":2},
+{"t":18,"type":"move","unit":"Veqaj","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":2},
+{"t":19,"type":"move","unit":"eeiu","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":2},
+{"t":20,"type":"kill","node":"b_site","killer":"Sato","victim":"vo0kashu","side":"def","round":2},
+{"t":21,"type":"push_in","unit":"Veqaj","site":"B","round":2},
+{"t":21,"type":"move","unit":"Veqaj","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":2},
+{"t":22,"type":"kill","node":"b_site","killer":"WsLeo","victim":"Asuna","side":"def","round":2},
+{"t":22,"type":"round_end","winner":"def","reason":"elimination","round":2},
+{"t":22,"type":"score","round":2,"scoreA":0,"scoreB":2,"winner":"B","reason":"elimination"},
+{"t":-1,"type":"round_meta","round":3,"atkTeam":"金卡快攻队","defTeam":"银卡默认队","atkFamily":"rush","defFamily":"push","atkPlan":"full","atkReason":"full","defPlan":"full","defReason":"full","scoreA":0,"scoreB":2,"atkMoney":5600,"defMoney":1350},
+{"t":0,"type":"round_start","atkFamily":"rush","defFamily":"push","units":[{"name":"brawk","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"薇丝","igl":false},{"name":"happywei","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"幽影","igl":true},{"name":"RieNs","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"零","igl":false},{"name":"Veqaj","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"斯凯","igl":false},{"name":"Sato","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":2,"agent":"幽影","igl":false},{"name":"WsLeo","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":2,"agent":"猎枭","igl":false},{"name":"cb","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":2,"agent":"奇乐","igl":true}],"round":3},
+{"t":0,"type":"move","unit":"brawk","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":3},
+{"t":0,"type":"move","unit":"happywei","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":3},
+{"t":0,"type":"move","unit":"RieNs","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":3},
+{"t":0,"type":"move","unit":"Asuna","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":3},
+{"t":0,"type":"move","unit":"vo0kashu","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":3},
+{"t":0,"type":"move","unit":"Veqaj","side":"def","from":"ct_spawn","to":"mid_bottom","ticks":4,"round":3},
+{"t":0,"type":"move","unit":"eeiu","side":"def","from":"ct_spawn","to":"mid_bottom","ticks":4,"round":3},
+{"t":0,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":3},
+{"t":0,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":3},
+{"t":0,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":3},
+{"t":3,"type":"move","unit":"Sato","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":3},
+{"t":3,"type":"move","unit":"WsLeo","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":3},
+{"t":3,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":3},
+{"t":4,"type":"move","unit":"brawk","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":3},
+{"t":4,"type":"move","unit":"happywei","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":3},
+{"t":4,"type":"move","unit":"RieNs","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":3},
+{"t":4,"type":"move","unit":"Asuna","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":3},
+{"t":4,"type":"move","unit":"vo0kashu","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":3},
+{"t":4,"type":"move","unit":"Veqaj","side":"def","from":"mid_bottom","to":"mid","ticks":3,"round":3},
+{"t":4,"type":"move","unit":"eeiu","side":"def","from":"mid_bottom","to":"mid","ticks":3,"round":3},
+{"t":7,"type":"move","unit":"brawk","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":3},
+{"t":7,"type":"move","unit":"happywei","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":3},
+{"t":7,"type":"move","unit":"RieNs","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":3},
+{"t":7,"type":"spotted","node":"a_lobby","unit":"Asuna","region":"A","round":3},
+{"t":7,"type":"move","unit":"Asuna","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":3},
+{"t":7,"type":"move","unit":"vo0kashu","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":3},
+{"t":10,"type":"molly_entry","node":"a_site","by":"WsLeo","round":3},
+{"t":10,"type":"molly_block","node":"a_site","unit":"brawk","round":3},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"WsLeo","entrant":"brawk","round":3},
+{"t":10,"type":"spotted","node":"a_site","unit":"happywei","region":"A","round":3},
+{"t":10,"type":"molly_block","node":"a_site","unit":"happywei","round":3},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"brawk","round":3},
+{"t":10,"type":"spotted","node":"a_site","unit":"RieNs","region":"A","round":3},
+{"t":10,"type":"molly_block","node":"a_site","unit":"RieNs","round":3},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"RieNs","round":3},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"WsLeo","entrant":"RieNs","round":3},
+{"t":10,"type":"kill","node":"a_site","killer":"WsLeo","victim":"RieNs","side":"def","round":3},
+{"t":10,"type":"molly_block","node":"a_site","unit":"Asuna","round":3},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"Asuna","round":3},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"WsLeo","entrant":"Asuna","round":3},
+{"t":10,"type":"molly_block","node":"a_site","unit":"vo0kashu","round":3},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"happywei","round":3},
+{"t":10,"type":"rotate","unit":"cb","to":"A","round":3},
+{"t":10,"type":"move","unit":"cb","side":"def","from":"b_site","to":"ct_b","ticks":3,"round":3},
+{"t":11,"type":"kill","node":"a_site","killer":"WsLeo","victim":"Asuna","side":"def","round":3},
+{"t":13,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"ct_spawn","ticks":3,"round":3},
+{"t":13,"type":"kill","node":"a_site","killer":"happywei","victim":"WsLeo","side":"atk","round":3},
+{"t":13,"type":"molly","node":"a_site","by":"Sato","round":3},
+{"t":13,"type":"plant_start","node":"a_site","unit":"brawk","round":3},
+{"t":16,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":3},
+{"t":19,"type":"push_in","unit":"cb","site":"A","round":3},
+{"t":19,"type":"move","unit":"cb","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":3},
+{"t":22,"type":"entry_shot","node":"a_site","holder":"happywei","entrant":"cb","round":3},
+{"t":22,"type":"entry_shot","node":"a_site","holder":"vo0kashu","entrant":"cb","round":3},
+{"t":22,"type":"kill","node":"a_site","killer":"vo0kashu","victim":"cb","side":"atk","round":3},
+{"t":22,"type":"plant","node":"a_site","unit":"brawk","site":"A","spikeTicks":45,"round":3},
+{"t":22,"type":"rotate","unit":"Veqaj","to":"A","round":3},
+{"t":22,"type":"move","unit":"Veqaj","side":"def","from":"mid","to":"a_short","ticks":3,"round":3},
+{"t":22,"type":"move","unit":"eeiu","side":"def","from":"mid","to":"a_short","ticks":3,"round":3},
+{"t":22,"type":"rotate","unit":"Sato","to":"A","round":3},
+{"t":22,"type":"move","unit":"Sato","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":3},
+{"t":25,"type":"move","unit":"Veqaj","side":"def","from":"a_short","to":"a_site","ticks":3,"round":3},
+{"t":25,"type":"move","unit":"eeiu","side":"def","from":"a_short","to":"a_site","ticks":3,"round":3},
+{"t":28,"type":"flash","node":"a_site","side":"def","by":"Veqaj","round":3},
+{"t":28,"type":"flash","node":"a_site","side":"def","by":"eeiu","round":3},
+{"t":28,"type":"entry_shot","node":"a_site","holder":"brawk","entrant":"eeiu","round":3},
+{"t":28,"type":"entry_shot","node":"a_site","holder":"vo0kashu","entrant":"eeiu","round":3},
+{"t":28,"type":"kill","node":"a_site","killer":"eeiu","victim":"happywei","side":"def","round":3},
+{"t":28,"type":"retake","site":"A","count":3,"round":3},
+{"t":28,"type":"move","unit":"Sato","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":3},
+{"t":29,"type":"kill","node":"a_site","killer":"eeiu","victim":"brawk","side":"def","round":3},
+{"t":29,"type":"spike_drop","node":"a_site","round":3},
+{"t":31,"type":"entry_shot","node":"a_site","holder":"vo0kashu","entrant":"Sato","round":3},
+{"t":31,"type":"kill","node":"a_site","killer":"eeiu","victim":"vo0kashu","side":"def","round":3},
+{"t":31,"type":"round_end","winner":"def","reason":"defuse","round":3},
+{"t":31,"type":"score","round":3,"scoreA":0,"scoreB":3,"winner":"B","reason":"defuse"},
+{"t":-1,"type":"round_meta","round":4,"atkTeam":"金卡快攻队","defTeam":"银卡默认队","atkFamily":"rush","defFamily":"hold","atkPlan":"full","atkReason":"full","defPlan":"full","defReason":"full","scoreA":0,"scoreB":3,"atkMoney":700,"defMoney":5750},
+{"t":0,"type":"round_start","atkFamily":"rush","defFamily":"hold","units":[{"name":"brawk","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"薇丝","igl":false},{"name":"happywei","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":1,"agent":"幽影","igl":true},{"name":"RieNs","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":0,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"零","igl":false},{"name":"Veqaj","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"斯凯","igl":false},{"name":"Sato","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"幽影","igl":false},{"name":"WsLeo","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"猎枭","igl":false},{"name":"cb","side":"def","node":"ct_spawn","gun":2,"armor":"none","utils":0,"agent":"奇乐","igl":true}],"round":4},
+{"t":0,"type":"move","unit":"brawk","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":4},
+{"t":0,"type":"move","unit":"happywei","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":4},
+{"t":0,"type":"move","unit":"RieNs","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":4},
+{"t":0,"type":"move","unit":"Asuna","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":4},
+{"t":0,"type":"move","unit":"vo0kashu","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":4},
+{"t":0,"type":"move","unit":"Veqaj","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":4},
+{"t":0,"type":"move","unit":"eeiu","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":4},
+{"t":0,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"mid_bottom","ticks":4,"round":4},
+{"t":0,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":4},
+{"t":0,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":4},
+{"t":3,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":4},
+{"t":3,"type":"move","unit":"eeiu","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":4},
+{"t":3,"type":"move","unit":"WsLeo","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":4},
+{"t":3,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"market","ticks":3,"round":4},
+{"t":4,"type":"move","unit":"brawk","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":4},
+{"t":4,"type":"move","unit":"happywei","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":4},
+{"t":4,"type":"move","unit":"RieNs","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":4},
+{"t":4,"type":"move","unit":"Asuna","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":4},
+{"t":4,"type":"move","unit":"vo0kashu","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":4},
+{"t":7,"type":"trap_spotted","node":"a_lobby","unit":"brawk","round":4},
+{"t":7,"type":"move","unit":"brawk","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":4},
+{"t":7,"type":"trap","node":"a_lobby","unit":"happywei","region":"A","round":4},
+{"t":7,"type":"move","unit":"RieNs","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":4},
+{"t":7,"type":"spotted","node":"a_lobby","unit":"Asuna","region":"A","round":4},
+{"t":7,"type":"move","unit":"Asuna","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":4},
+{"t":7,"type":"spotted","node":"a_lobby","unit":"vo0kashu","region":"A","round":4},
+{"t":7,"type":"move","unit":"vo0kashu","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":4},
+{"t":7,"type":"rotate","unit":"Veqaj","to":"A","round":4},
+{"t":7,"type":"move","unit":"Veqaj","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":4},
+{"t":7,"type":"rotate","unit":"WsLeo","to":"A","round":4},
+{"t":7,"type":"move","unit":"WsLeo","side":"def","from":"b_site","to":"ct_b","ticks":3,"round":4},
+{"t":9,"type":"push_in","unit":"Veqaj","site":"A","round":4},
+{"t":9,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":4},
+{"t":10,"type":"smoke","node":"a_site","edge":["ct_a","a_site"],"by":"brawk","until":22,"round":4},
+{"t":10,"type":"molly_entry","node":"a_site","by":"eeiu","round":4},
+{"t":10,"type":"molly_block","node":"a_site","unit":"brawk","round":4},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"brawk","round":4},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"brawk","round":4},
+{"t":10,"type":"kill","node":"a_site","killer":"eeiu","victim":"brawk","side":"def","round":4},
+{"t":10,"type":"spike_drop","node":"a_site","round":4},
+{"t":10,"type":"molly_block","node":"a_site","unit":"RieNs","round":4},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"RieNs","round":4},
+{"t":10,"type":"molly_block","node":"a_site","unit":"Asuna","round":4},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"Asuna","round":4},
+{"t":10,"type":"spotted","node":"a_site","unit":"vo0kashu","region":"A","round":4},
+{"t":10,"type":"molly_block","node":"a_site","unit":"vo0kashu","round":4},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"vo0kashu","round":4},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"vo0kashu","round":4},
+{"t":10,"type":"move","unit":"WsLeo","side":"def","from":"ct_b","to":"ct_spawn","ticks":3,"round":4},
+{"t":10,"type":"move","unit":"happywei","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":4},
+{"t":10,"type":"rotate","unit":"Sato","to":"A","round":4},
+{"t":10,"type":"move","unit":"Sato","side":"def","from":"mid_bottom","to":"ct_spawn","ticks":4,"round":4},
+{"t":13,"type":"spotted","node":"a_site","unit":"happywei","region":"A","round":4},
+{"t":13,"type":"molly_block","node":"a_site","unit":"happywei","round":4},
+{"t":13,"type":"flash","node":"a_site","side":"atk","by":"happywei","round":4},
+{"t":13,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":4},
+{"t":13,"type":"kill","node":"a_site","killer":"Veqaj","victim":"vo0kashu","side":"def","round":4},
+{"t":13,"type":"rotate","unit":"cb","to":"A","round":4},
+{"t":13,"type":"move","unit":"cb","side":"def","from":"market","to":"mid_bottom","ticks":2,"round":4},
+{"t":14,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":4},
+{"t":14,"type":"kill","node":"a_site","killer":"eeiu","victim":"happywei","side":"def","round":4},
+{"t":15,"type":"move","unit":"cb","side":"def","from":"mid_bottom","to":"ct_spawn","ticks":4,"round":4},
+{"t":15,"type":"kill","node":"a_site","killer":"RieNs","victim":"Veqaj","side":"atk","round":4},
+{"t":16,"type":"push_in","unit":"WsLeo","site":"A","round":4},
+{"t":16,"type":"move","unit":"WsLeo","side":"def","from":"ct_a","to":"a_site","ticks":5,"round":4},
+{"t":17,"type":"push_in","unit":"Sato","site":"A","round":4},
+{"t":17,"type":"move","unit":"Sato","side":"def","from":"ct_a","to":"a_site","ticks":5,"round":4},
+{"t":19,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":4},
+{"t":20,"type":"kill","node":"a_site","killer":"Asuna","victim":"eeiu","side":"atk","round":4},
+{"t":20,"type":"spike_pickup","node":"a_site","unit":"RieNs","round":4},
+{"t":20,"type":"plant_start","node":"a_site","unit":"RieNs","round":4},
+{"t":21,"type":"entry_shot","node":"a_site","holder":"Asuna","entrant":"WsLeo","round":4},
+{"t":22,"type":"push_in","unit":"cb","site":"A","round":4},
+{"t":22,"type":"move","unit":"cb","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":4},
+{"t":24,"type":"plant","node":"a_site","unit":"RieNs","site":"A","spikeTicks":45,"round":4},
+{"t":24,"type":"retake","site":"A","count":2,"round":4},
+{"t":25,"type":"flash","node":"a_site","side":"def","by":"Sato","round":4},
+{"t":27,"type":"kill","node":"a_site","killer":"cb","victim":"RieNs","side":"def","round":4},
+{"t":27,"type":"spike_drop","node":"a_site","round":4},
+{"t":28,"type":"kill","node":"a_site","killer":"WsLeo","victim":"Asuna","side":"def","round":4},
+{"t":28,"type":"round_end","winner":"def","reason":"defuse","round":4},
+{"t":28,"type":"score","round":4,"scoreA":0,"scoreB":4,"winner":"B","reason":"defuse"},
+{"t":-1,"type":"round_meta","round":5,"atkTeam":"金卡快攻队","defTeam":"银卡默认队","atkFamily":"lurk","defFamily":"hold","atkPlan":"full","atkReason":"full","defPlan":"full","defReason":"full","scoreA":0,"scoreB":4,"atkMoney":800,"defMoney":7950},
+{"t":0,"type":"round_start","atkFamily":"lurk","defFamily":"hold","units":[{"name":"brawk","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":1,"agent":"薇丝","igl":false},{"name":"happywei","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":1,"agent":"幽影","igl":true},{"name":"RieNs","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":2,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":2,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":1,"agent":"零","igl":false},{"name":"Veqaj","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"斯凯","igl":false},{"name":"Sato","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"幽影","igl":false},{"name":"WsLeo","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"猎枭","igl":false},{"name":"cb","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"奇乐","igl":true}],"round":5},
+{"t":0,"type":"move","unit":"brawk","side":"atk","from":"t_spawn","to":"b_main","ticks":6,"round":5},
+{"t":0,"type":"move","unit":"happywei","side":"atk","from":"t_spawn","to":"b_main","ticks":6,"round":5},
+{"t":0,"type":"move","unit":"RieNs","side":"atk","from":"t_spawn","to":"b_main","ticks":6,"round":5},
+{"t":0,"type":"move","unit":"Asuna","side":"atk","from":"t_spawn","to":"b_main","ticks":6,"round":5},
+{"t":0,"type":"move","unit":"vo0kashu","side":"atk","from":"t_spawn","to":"a_main","ticks":6,"round":5},
+{"t":0,"type":"move","unit":"Veqaj","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":5},
+{"t":0,"type":"move","unit":"eeiu","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":5},
+{"t":0,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"mid_bottom","ticks":4,"round":5},
+{"t":0,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":5},
+{"t":0,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":5},
+{"t":3,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":5},
+{"t":3,"type":"move","unit":"eeiu","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":5},
+{"t":3,"type":"move","unit":"WsLeo","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":5},
+{"t":3,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"market","ticks":3,"round":5},
+{"t":6,"type":"spotted","node":"b_main","unit":"RieNs","region":"B","round":5},
+{"t":14,"type":"recon_empty","unit":"Veqaj","round":5},
+{"t":14,"type":"recon_empty","unit":"eeiu","round":5},
+{"t":14,"type":"recon_empty","unit":"Sato","round":5},
+{"t":14,"type":"recon_empty","unit":"cb","round":5},
+{"t":16,"type":"recon_empty","unit":"WsLeo","round":5},
+{"t":33,"type":"move","unit":"brawk","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":5},
+{"t":33,"type":"move","unit":"happywei","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":5},
+{"t":33,"type":"move","unit":"RieNs","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":5},
+{"t":33,"type":"move","unit":"Asuna","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":5},
+{"t":33,"type":"move","unit":"vo0kashu","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":5},
+{"t":36,"type":"trap_spotted","node":"b_lobby","unit":"brawk","round":5},
+{"t":36,"type":"move","unit":"brawk","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":5},
+{"t":36,"type":"move","unit":"happywei","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":5},
+{"t":36,"type":"move","unit":"RieNs","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":5},
+{"t":36,"type":"move","unit":"Asuna","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":5},
+{"t":36,"type":"trap_spotted","node":"a_lobby","unit":"vo0kashu","round":5},
+{"t":36,"type":"move","unit":"vo0kashu","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":5},
+{"t":39,"type":"smoke","node":"b_site","edge":["ct_b","b_site"],"by":"brawk","until":51,"round":5},
+{"t":39,"type":"molly_entry","node":"b_site","by":"cb","round":5},
+{"t":39,"type":"molly_block","node":"b_site","unit":"brawk","round":5},
+{"t":39,"type":"entry_shot","node":"b_site","holder":"WsLeo","entrant":"brawk","round":5},
+{"t":39,"type":"kill","node":"b_site","killer":"WsLeo","victim":"brawk","side":"def","round":5},
+{"t":39,"type":"spike_drop","node":"b_site","round":5},
+{"t":39,"type":"molly_block","node":"b_site","unit":"happywei","round":5},
+{"t":39,"type":"flash","node":"b_site","side":"atk","by":"happywei","round":5},
+{"t":39,"type":"spotted","node":"b_site","unit":"RieNs","region":"B","round":5},
+{"t":39,"type":"molly_block","node":"b_site","unit":"RieNs","round":5},
+{"t":39,"type":"entry_shot","node":"b_site","holder":"WsLeo","entrant":"RieNs","round":5},
+{"t":39,"type":"spotted","node":"b_site","unit":"Asuna","region":"B","round":5},
+{"t":39,"type":"molly_block","node":"b_site","unit":"Asuna","round":5},
+{"t":39,"type":"flash","node":"b_site","side":"atk","by":"RieNs","round":5},
+{"t":39,"type":"entry_shot","node":"b_site","holder":"WsLeo","entrant":"Asuna","round":5},
+{"t":39,"type":"spotted","node":"a_site","unit":"vo0kashu","region":"A","round":5},
+{"t":39,"type":"flash","node":"a_site","side":"atk","by":"vo0kashu","round":5},
+{"t":39,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"vo0kashu","round":5},
+{"t":39,"type":"kill","node":"a_site","killer":"eeiu","victim":"vo0kashu","side":"def","round":5},
+{"t":39,"type":"rotate","unit":"eeiu","to":"B","round":5},
+{"t":39,"type":"move","unit":"eeiu","side":"def","from":"a_site","to":"ct_a","ticks":3,"round":5},
+{"t":40,"type":"kill","node":"b_site","killer":"WsLeo","victim":"RieNs","side":"def","round":5},
+{"t":41,"type":"kill","node":"b_site","killer":"Asuna","victim":"WsLeo","side":"atk","round":5},
+{"t":42,"type":"move","unit":"eeiu","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":5},
+{"t":42,"type":"spike_pickup","node":"b_site","unit":"happywei","round":5},
+{"t":42,"type":"plant_start","node":"b_site","unit":"happywei","round":5},
+{"t":45,"type":"move","unit":"eeiu","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":5},
+{"t":46,"type":"plant","node":"b_site","unit":"happywei","site":"B","spikeTicks":45,"round":5},
+{"t":46,"type":"rotate","unit":"Veqaj","to":"B","round":5},
+{"t":46,"type":"move","unit":"Veqaj","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":5},
+{"t":46,"type":"rotate","unit":"Sato","to":"B","round":5},
+{"t":46,"type":"move","unit":"Sato","side":"def","from":"mid_bottom","to":"ct_b","ticks":3,"round":5},
+{"t":46,"type":"rotate","unit":"cb","to":"B","round":5},
+{"t":46,"type":"move","unit":"cb","side":"def","from":"market","to":"ct_b","ticks":3,"round":5},
+{"t":48,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":5},
+{"t":49,"type":"retake","site":"B","count":3,"round":5},
+{"t":49,"type":"move","unit":"eeiu","side":"def","from":"ct_b","to":"b_site","ticks":5,"round":5},
+{"t":49,"type":"move","unit":"Sato","side":"def","from":"ct_b","to":"b_site","ticks":5,"round":5},
+{"t":49,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"b_site","ticks":5,"round":5},
+{"t":51,"type":"move","unit":"Veqaj","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":5},
+{"t":54,"type":"move","unit":"Veqaj","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":5},
+{"t":54,"type":"flash","node":"b_site","side":"def","by":"eeiu","round":5},
+{"t":54,"type":"flash","node":"b_site","side":"def","by":"Sato","round":5},
+{"t":54,"type":"entry_shot","node":"b_site","holder":"happywei","entrant":"cb","round":5},
+{"t":54,"type":"kill","node":"b_site","killer":"happywei","victim":"cb","side":"atk","round":5},
+{"t":54,"type":"kill","node":"b_site","killer":"eeiu","victim":"Asuna","side":"def","round":5},
+{"t":56,"type":"kill","node":"b_site","killer":"Sato","victim":"happywei","side":"def","round":5},
+{"t":56,"type":"spike_drop","node":"b_site","round":5},
+{"t":56,"type":"round_end","winner":"def","reason":"defuse","round":5},
+{"t":56,"type":"score","round":5,"scoreA":0,"scoreB":5,"winner":"B","reason":"defuse"},
+{"t":-1,"type":"round_meta","round":6,"atkTeam":"金卡快攻队","defTeam":"银卡默认队","atkFamily":"rush","defFamily":"stack","atkPlan":"full","atkReason":"full","defPlan":"full","defReason":"full","scoreA":0,"scoreB":5,"atkMoney":600,"defMoney":10150},
+{"t":0,"type":"round_start","atkFamily":"rush","defFamily":"stack","units":[{"name":"brawk","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":1,"agent":"薇丝","igl":false},{"name":"happywei","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":2,"agent":"幽影","igl":true},{"name":"RieNs","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":2,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":2,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":1,"agent":"零","igl":false},{"name":"Veqaj","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"斯凯","igl":false},{"name":"Sato","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"幽影","igl":false},{"name":"WsLeo","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"猎枭","igl":false},{"name":"cb","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"奇乐","igl":true}],"round":6},
+{"t":0,"type":"move","unit":"brawk","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":6},
+{"t":0,"type":"move","unit":"happywei","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":6},
+{"t":0,"type":"move","unit":"RieNs","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":6},
+{"t":0,"type":"move","unit":"Asuna","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":6},
+{"t":0,"type":"move","unit":"vo0kashu","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":6},
+{"t":0,"type":"move","unit":"Veqaj","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":6},
+{"t":0,"type":"move","unit":"eeiu","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":6},
+{"t":0,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":6},
+{"t":0,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":6},
+{"t":0,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":6},
+{"t":3,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":6},
+{"t":3,"type":"move","unit":"eeiu","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":6},
+{"t":3,"type":"move","unit":"Sato","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":6},
+{"t":3,"type":"move","unit":"WsLeo","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":6},
+{"t":3,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":6},
+{"t":4,"type":"move","unit":"brawk","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":6},
+{"t":4,"type":"move","unit":"happywei","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":6},
+{"t":4,"type":"move","unit":"RieNs","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":6},
+{"t":4,"type":"move","unit":"Asuna","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":6},
+{"t":4,"type":"move","unit":"vo0kashu","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":6},
+{"t":6,"type":"move","unit":"Sato","side":"def","from":"a_site","to":"a_short","ticks":3,"round":6},
+{"t":7,"type":"move","unit":"brawk","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":6},
+{"t":7,"type":"move","unit":"happywei","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":6},
+{"t":7,"type":"move","unit":"RieNs","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":6},
+{"t":7,"type":"spotted","node":"a_lobby","unit":"Asuna","region":"A","round":6},
+{"t":7,"type":"move","unit":"Asuna","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":6},
+{"t":7,"type":"move","unit":"vo0kashu","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":6},
+{"t":10,"type":"trap","node":"a_site","unit":"brawk","region":"A","round":6},
+{"t":10,"type":"smoke","node":"a_site","edge":["ct_a","a_site"],"by":"brawk","until":22,"round":6},
+{"t":10,"type":"molly_entry","node":"a_site","preset":true,"round":6},
+{"t":10,"type":"molly_block","node":"a_site","unit":"brawk","round":6},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"WsLeo","entrant":"brawk","round":6},
+{"t":10,"type":"kill","node":"a_site","killer":"WsLeo","victim":"brawk","side":"def","round":6},
+{"t":10,"type":"spike_drop","node":"a_site","round":6},
+{"t":10,"type":"trap","node":"a_site","unit":"happywei","region":"A","round":6},
+{"t":10,"type":"spotted","node":"a_site","unit":"happywei","region":"A","round":6},
+{"t":10,"type":"molly_block","node":"a_site","unit":"happywei","round":6},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"happywei","round":6},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"Veqaj","entrant":"happywei","round":6},
+{"t":10,"type":"whiff","node":"a_site","unit":"Veqaj","agent":"蝰蛇","round":6},
+{"t":10,"type":"molly_block","node":"a_site","unit":"RieNs","round":6},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"RieNs","round":6},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"Veqaj","entrant":"RieNs","round":6},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"WsLeo","entrant":"RieNs","round":6},
+{"t":10,"type":"kill","node":"a_site","killer":"WsLeo","victim":"RieNs","side":"def","round":6},
+{"t":10,"type":"spotted","node":"a_site","unit":"Asuna","region":"A","round":6},
+{"t":10,"type":"molly_block","node":"a_site","unit":"Asuna","round":6},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"Asuna","round":6},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"Veqaj","entrant":"Asuna","round":6},
+{"t":10,"type":"kill","node":"a_site","killer":"Veqaj","victim":"Asuna","side":"def","round":6},
+{"t":10,"type":"kill","node":"a_site","killer":"happywei","victim":"Veqaj","side":"atk","round":6},
+{"t":10,"type":"molly_block","node":"a_site","unit":"vo0kashu","round":6},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"vo0kashu","round":6},
+{"t":10,"type":"kill","node":"a_site","killer":"WsLeo","victim":"happywei","side":"def","round":6},
+{"t":10,"type":"rotate","unit":"eeiu","to":"A","round":6},
+{"t":10,"type":"move","unit":"eeiu","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":6},
+{"t":10,"type":"rotate","unit":"Sato","to":"A","round":6},
+{"t":10,"type":"move","unit":"Sato","side":"def","from":"a_short","to":"a_site","ticks":3,"round":6},
+{"t":11,"type":"kill","node":"a_site","killer":"WsLeo","victim":"vo0kashu","side":"def","round":6},
+{"t":11,"type":"round_end","winner":"def","reason":"elimination","round":6},
+{"t":11,"type":"score","round":6,"scoreA":0,"scoreB":6,"winner":"B","reason":"elimination"},
+{"t":-1,"type":"round_meta","round":7,"atkTeam":"金卡快攻队","defTeam":"银卡默认队","atkFamily":"lurk","defFamily":"hold","atkPlan":"eco","atkReason":"eco","defPlan":"full","defReason":"full","scoreA":0,"scoreB":6,"atkMoney":15300,"defMoney":15250},
+{"t":0,"type":"round_start","atkFamily":"lurk","defFamily":"hold","units":[{"name":"brawk","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":0,"agent":"薇丝","igl":false},{"name":"happywei","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":0,"agent":"幽影","igl":true},{"name":"RieNs","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":0,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":0,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":0,"agent":"零","igl":false},{"name":"Veqaj","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"斯凯","igl":false},{"name":"Sato","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"幽影","igl":false},{"name":"WsLeo","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"猎枭","igl":false},{"name":"cb","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"奇乐","igl":true}],"round":7},
+{"t":0,"type":"move","unit":"brawk","side":"atk","from":"t_spawn","to":"a_main","ticks":6,"round":7},
+{"t":0,"type":"move","unit":"happywei","side":"atk","from":"t_spawn","to":"a_main","ticks":6,"round":7},
+{"t":0,"type":"move","unit":"RieNs","side":"atk","from":"t_spawn","to":"a_main","ticks":6,"round":7},
+{"t":0,"type":"move","unit":"Asuna","side":"atk","from":"t_spawn","to":"a_main","ticks":6,"round":7},
+{"t":0,"type":"move","unit":"vo0kashu","side":"atk","from":"t_spawn","to":"b_main","ticks":6,"round":7},
+{"t":0,"type":"move","unit":"Veqaj","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":7},
+{"t":0,"type":"move","unit":"eeiu","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":7},
+{"t":0,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"mid_bottom","ticks":4,"round":7},
+{"t":0,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":7},
+{"t":0,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":7},
+{"t":3,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":7},
+{"t":3,"type":"move","unit":"eeiu","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":7},
+{"t":3,"type":"move","unit":"WsLeo","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":7},
+{"t":3,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"market","ticks":3,"round":7},
+{"t":14,"type":"recon_empty","unit":"eeiu","round":7},
+{"t":14,"type":"recon_empty","unit":"Sato","round":7},
+{"t":15,"type":"recon_empty","unit":"Veqaj","round":7},
+{"t":15,"type":"recon_empty","unit":"WsLeo","round":7},
+{"t":15,"type":"recon_empty","unit":"cb","round":7},
+{"t":34,"type":"move","unit":"brawk","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":7},
+{"t":34,"type":"move","unit":"happywei","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":7},
+{"t":34,"type":"move","unit":"RieNs","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":7},
+{"t":34,"type":"move","unit":"Asuna","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":7},
+{"t":34,"type":"move","unit":"vo0kashu","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":7},
+{"t":37,"type":"trap_spotted","node":"a_lobby","unit":"brawk","round":7},
+{"t":37,"type":"move","unit":"brawk","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":7},
+{"t":37,"type":"trap","node":"a_lobby","unit":"happywei","region":"A","round":7},
+{"t":37,"type":"move","unit":"RieNs","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":7},
+{"t":37,"type":"move","unit":"Asuna","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":7},
+{"t":37,"type":"trap_spotted","node":"b_lobby","unit":"vo0kashu","round":7},
+{"t":37,"type":"move","unit":"vo0kashu","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":7},
+{"t":40,"type":"spotted","node":"a_site","unit":"brawk","region":"A","round":7},
+{"t":40,"type":"molly_entry","node":"a_site","by":"Veqaj","round":7},
+{"t":40,"type":"molly_block","node":"a_site","unit":"brawk","round":7},
+{"t":40,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"brawk","round":7},
+{"t":40,"type":"molly_block","node":"a_site","unit":"RieNs","round":7},
+{"t":40,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"RieNs","round":7},
+{"t":40,"type":"kill","node":"a_site","killer":"eeiu","victim":"RieNs","side":"def","round":7},
+{"t":40,"type":"spotted","node":"a_site","unit":"Asuna","region":"A","round":7},
+{"t":40,"type":"molly_block","node":"a_site","unit":"Asuna","round":7},
+{"t":40,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"Asuna","round":7},
+{"t":40,"type":"molly_entry","node":"b_site","by":"WsLeo","round":7},
+{"t":40,"type":"molly_block","node":"b_site","unit":"vo0kashu","round":7},
+{"t":40,"type":"entry_shot","node":"b_site","holder":"WsLeo","entrant":"vo0kashu","round":7},
+{"t":40,"type":"kill","node":"a_site","killer":"eeiu","victim":"Asuna","side":"def","round":7},
+{"t":40,"type":"move","unit":"happywei","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":7},
+{"t":42,"type":"kill","node":"b_site","killer":"vo0kashu","victim":"WsLeo","side":"atk","round":7},
+{"t":43,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"happywei","round":7},
+{"t":43,"type":"kill","node":"a_site","killer":"eeiu","victim":"happywei","side":"def","round":7},
+{"t":43,"type":"move","unit":"vo0kashu","side":"atk","from":"b_site","to":"ct_b","ticks":3,"round":7},
+{"t":46,"type":"move","unit":"vo0kashu","side":"atk","from":"ct_b","to":"ct_spawn","ticks":3,"round":7},
+{"t":47,"type":"kill","node":"a_site","killer":"eeiu","victim":"brawk","side":"def","round":7},
+{"t":47,"type":"spike_drop","node":"a_site","round":7},
+{"t":49,"type":"move","unit":"vo0kashu","side":"atk","from":"ct_spawn","to":"ct_a","ticks":3,"round":7},
+{"t":52,"type":"move","unit":"vo0kashu","side":"atk","from":"ct_a","to":"a_site","ticks":3,"round":7},
+{"t":55,"type":"spotted","node":"a_site","unit":"vo0kashu","region":"A","round":7},
+{"t":58,"type":"kill","node":"a_site","killer":"vo0kashu","victim":"eeiu","side":"atk","round":7},
+{"t":58,"type":"spike_pickup","node":"a_site","unit":"vo0kashu","round":7},
+{"t":58,"type":"plant_start","node":"a_site","unit":"vo0kashu","round":7},
+{"t":62,"type":"plant","node":"a_site","unit":"vo0kashu","site":"A","spikeTicks":45,"round":7},
+{"t":62,"type":"move","unit":"Veqaj","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":7},
+{"t":62,"type":"move","unit":"Sato","side":"def","from":"mid_bottom","to":"ct_spawn","ticks":4,"round":7},
+{"t":62,"type":"rotate","unit":"cb","to":"A","round":7},
+{"t":62,"type":"move","unit":"cb","side":"def","from":"market","to":"mid_bottom","ticks":2,"round":7},
+{"t":64,"type":"move","unit":"cb","side":"def","from":"mid_bottom","to":"ct_spawn","ticks":4,"round":7},
+{"t":66,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":7},
+{"t":68,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":7},
+{"t":69,"type":"retake","site":"A","count":2,"round":7},
+{"t":69,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":7},
+{"t":69,"type":"move","unit":"Sato","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":7},
+{"t":71,"type":"move","unit":"cb","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":7},
+{"t":72,"type":"entry_shot","node":"a_site","holder":"vo0kashu","entrant":"Veqaj","round":7},
+{"t":72,"type":"entry_shot","node":"a_site","holder":"vo0kashu","entrant":"Sato","round":7},
+{"t":74,"type":"flash","node":"a_site","side":"def","by":"Sato","round":7},
+{"t":74,"type":"kill","node":"a_site","killer":"Sato","victim":"vo0kashu","side":"def","round":7},
+{"t":74,"type":"spike_drop","node":"a_site","round":7},
+{"t":74,"type":"round_end","winner":"def","reason":"defuse","round":7},
+{"t":74,"type":"score","round":7,"scoreA":0,"scoreB":7,"winner":"B","reason":"defuse"},
+{"t":-1,"type":"round_meta","round":8,"atkTeam":"金卡快攻队","defTeam":"银卡默认队","atkFamily":"rush","defFamily":"hold","atkPlan":"full","atkReason":"full","defPlan":"full","defReason":"full","scoreA":0,"scoreB":7,"atkMoney":9500,"defMoney":17100},
+{"t":0,"type":"round_start","atkFamily":"rush","defFamily":"hold","units":[{"name":"brawk","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"薇丝","igl":false},{"name":"happywei","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"幽影","igl":true},{"name":"RieNs","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"零","igl":false},{"name":"Veqaj","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"斯凯","igl":false},{"name":"Sato","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"幽影","igl":false},{"name":"WsLeo","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"猎枭","igl":false},{"name":"cb","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"奇乐","igl":true}],"round":8},
+{"t":0,"type":"move","unit":"brawk","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":8},
+{"t":0,"type":"move","unit":"happywei","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":8},
+{"t":0,"type":"move","unit":"RieNs","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":8},
+{"t":0,"type":"move","unit":"Asuna","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":8},
+{"t":0,"type":"move","unit":"vo0kashu","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":8},
+{"t":0,"type":"move","unit":"Veqaj","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":8},
+{"t":0,"type":"move","unit":"eeiu","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":8},
+{"t":0,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"mid_bottom","ticks":4,"round":8},
+{"t":0,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":8},
+{"t":0,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":8},
+{"t":3,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":8},
+{"t":3,"type":"move","unit":"eeiu","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":8},
+{"t":3,"type":"move","unit":"WsLeo","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":8},
+{"t":3,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"market","ticks":3,"round":8},
+{"t":4,"type":"move","unit":"brawk","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":8},
+{"t":4,"type":"move","unit":"happywei","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":8},
+{"t":4,"type":"move","unit":"RieNs","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":8},
+{"t":4,"type":"move","unit":"Asuna","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":8},
+{"t":4,"type":"move","unit":"vo0kashu","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":8},
+{"t":7,"type":"trap","node":"a_lobby","unit":"brawk","region":"A","round":8},
+{"t":7,"type":"trap_spotted","node":"a_lobby","unit":"happywei","round":8},
+{"t":7,"type":"move","unit":"happywei","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":8},
+{"t":7,"type":"move","unit":"RieNs","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":8},
+{"t":7,"type":"move","unit":"Asuna","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":8},
+{"t":7,"type":"move","unit":"vo0kashu","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":8},
+{"t":10,"type":"spotted","node":"a_site","unit":"happywei","region":"A","round":8},
+{"t":10,"type":"molly_entry","node":"a_site","by":"eeiu","round":8},
+{"t":10,"type":"molly_block","node":"a_site","unit":"happywei","round":8},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"happywei","round":8},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"happywei","round":8},
+{"t":10,"type":"pop_off","node":"a_site","unit":"eeiu","agent":"斯凯","round":8},
+{"t":10,"type":"molly_block","node":"a_site","unit":"RieNs","round":8},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"RieNs","round":8},
+{"t":10,"type":"molly_block","node":"a_site","unit":"Asuna","round":8},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"Asuna","round":8},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"Asuna","round":8},
+{"t":10,"type":"kill","node":"a_site","killer":"eeiu","victim":"Asuna","side":"def","round":8},
+{"t":10,"type":"molly_block","node":"a_site","unit":"vo0kashu","round":8},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"vo0kashu","round":8},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"vo0kashu","round":8},
+{"t":10,"type":"kill","node":"a_site","killer":"eeiu","victim":"vo0kashu","side":"def","round":8},
+{"t":10,"type":"move","unit":"brawk","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":8},
+{"t":10,"type":"rotate","unit":"Veqaj","to":"A","round":8},
+{"t":10,"type":"move","unit":"Veqaj","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":8},
+{"t":10,"type":"rotate","unit":"Sato","to":"A","round":8},
+{"t":10,"type":"move","unit":"Sato","side":"def","from":"mid_bottom","to":"ct_spawn","ticks":4,"round":8},
+{"t":10,"type":"rotate","unit":"cb","to":"A","round":8},
+{"t":10,"type":"move","unit":"cb","side":"def","from":"market","to":"mid_bottom","ticks":2,"round":8},
+{"t":12,"type":"move","unit":"cb","side":"def","from":"mid_bottom","to":"ct_spawn","ticks":4,"round":8},
+{"t":12,"type":"push_in","unit":"Veqaj","site":"A","round":8},
+{"t":12,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":8},
+{"t":13,"type":"molly_block","node":"a_site","unit":"brawk","round":8},
+{"t":13,"type":"flash","node":"a_site","side":"atk","by":"brawk","round":8},
+{"t":14,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":8},
+{"t":14,"type":"kill","node":"a_site","killer":"eeiu","victim":"RieNs","side":"def","round":8},
+{"t":15,"type":"entry_shot","node":"a_site","holder":"happywei","entrant":"Veqaj","round":8},
+{"t":16,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":8},
+{"t":16,"type":"kill","node":"a_site","killer":"happywei","victim":"Veqaj","side":"atk","round":8},
+{"t":16,"type":"kill","node":"a_site","killer":"eeiu","victim":"brawk","side":"def","round":8},
+{"t":16,"type":"spike_drop","node":"a_site","round":8},
+{"t":17,"type":"push_in","unit":"Sato","site":"A","round":8},
+{"t":17,"type":"move","unit":"Sato","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":8},
+{"t":18,"type":"kill","node":"a_site","killer":"happywei","victim":"eeiu","side":"atk","round":8},
+{"t":18,"type":"spike_pickup","node":"a_site","unit":"happywei","round":8},
+{"t":18,"type":"molly","node":"a_site","by":"Sato","round":8},
+{"t":18,"type":"plant_start","node":"a_site","unit":"happywei","round":8},
+{"t":19,"type":"push_in","unit":"cb","site":"A","round":8},
+{"t":19,"type":"move","unit":"cb","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":8},
+{"t":22,"type":"rotate","unit":"WsLeo","to":"A","round":8},
+{"t":22,"type":"move","unit":"WsLeo","side":"def","from":"b_site","to":"ct_b","ticks":3,"round":8},
+{"t":23,"type":"kill","node":"a_site","killer":"cb","victim":"happywei","side":"def","round":8},
+{"t":23,"type":"spike_drop","node":"a_site","round":8},
+{"t":23,"type":"round_end","winner":"def","reason":"elimination","round":8},
+{"t":23,"type":"score","round":8,"scoreA":0,"scoreB":8,"winner":"B","reason":"elimination"},
+{"t":-1,"type":"round_meta","round":9,"atkTeam":"金卡快攻队","defTeam":"银卡默认队","atkFamily":"rush","defFamily":"hold","atkPlan":"full","atkReason":"full","defPlan":"full","defReason":"full","scoreA":0,"scoreB":8,"atkMoney":1900,"defMoney":17900},
+{"t":0,"type":"round_start","atkFamily":"rush","defFamily":"hold","units":[{"name":"brawk","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"薇丝","igl":false},{"name":"happywei","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"幽影","igl":true},{"name":"RieNs","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"零","igl":false},{"name":"Veqaj","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"斯凯","igl":false},{"name":"Sato","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"幽影","igl":false},{"name":"WsLeo","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"猎枭","igl":false},{"name":"cb","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"奇乐","igl":true}],"round":9},
+{"t":0,"type":"move","unit":"brawk","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":9},
+{"t":0,"type":"move","unit":"happywei","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":9},
+{"t":0,"type":"move","unit":"RieNs","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":9},
+{"t":0,"type":"move","unit":"Asuna","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":9},
+{"t":0,"type":"move","unit":"vo0kashu","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":9},
+{"t":0,"type":"move","unit":"Veqaj","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":9},
+{"t":0,"type":"move","unit":"eeiu","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":9},
+{"t":0,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"mid_bottom","ticks":4,"round":9},
+{"t":0,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":9},
+{"t":0,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":9},
+{"t":3,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":9},
+{"t":3,"type":"move","unit":"eeiu","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":9},
+{"t":3,"type":"move","unit":"WsLeo","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":9},
+{"t":3,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"market","ticks":3,"round":9},
+{"t":4,"type":"move","unit":"brawk","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":9},
+{"t":4,"type":"move","unit":"happywei","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":9},
+{"t":4,"type":"move","unit":"RieNs","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":9},
+{"t":4,"type":"move","unit":"Asuna","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":9},
+{"t":4,"type":"move","unit":"vo0kashu","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":9},
+{"t":7,"type":"trap_spotted","node":"a_lobby","unit":"brawk","round":9},
+{"t":7,"type":"move","unit":"brawk","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":9},
+{"t":7,"type":"trap","node":"a_lobby","unit":"happywei","region":"A","round":9},
+{"t":7,"type":"spotted","node":"a_lobby","unit":"RieNs","region":"A","round":9},
+{"t":7,"type":"move","unit":"RieNs","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":9},
+{"t":7,"type":"move","unit":"Asuna","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":9},
+{"t":7,"type":"move","unit":"vo0kashu","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":9},
+{"t":7,"type":"contract","unit":"Sato","to":"A","round":9},
+{"t":7,"type":"move","unit":"Sato","side":"def","from":"mid_bottom","to":"ct_spawn","ticks":4,"round":9},
+{"t":10,"type":"smoke","node":"a_site","edge":["ct_a","a_site"],"by":"brawk","until":22,"round":9},
+{"t":10,"type":"molly_entry","node":"a_site","by":"eeiu","round":9},
+{"t":10,"type":"molly_block","node":"a_site","unit":"brawk","round":9},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"brawk","round":9},
+{"t":10,"type":"molly_block","node":"a_site","unit":"RieNs","round":9},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"RieNs","round":9},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"RieNs","round":9},
+{"t":10,"type":"spotted","node":"a_site","unit":"Asuna","region":"A","round":9},
+{"t":10,"type":"molly_block","node":"a_site","unit":"Asuna","round":9},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"Asuna","round":9},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"Asuna","round":9},
+{"t":10,"type":"spotted","node":"a_site","unit":"vo0kashu","region":"A","round":9},
+{"t":10,"type":"molly_block","node":"a_site","unit":"vo0kashu","round":9},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"vo0kashu","round":9},
+{"t":10,"type":"kill","node":"a_site","killer":"eeiu","victim":"vo0kashu","side":"def","round":9},
+{"t":10,"type":"kill","node":"a_site","killer":"brawk","victim":"eeiu","side":"atk","round":9},
+{"t":10,"type":"move","unit":"happywei","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":9},
+{"t":10,"type":"rotate","unit":"Veqaj","to":"A","round":9},
+{"t":10,"type":"move","unit":"Veqaj","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":9},
+{"t":10,"type":"rotate","unit":"WsLeo","to":"A","round":9},
+{"t":10,"type":"move","unit":"WsLeo","side":"def","from":"b_site","to":"ct_b","ticks":3,"round":9},
+{"t":11,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":9},
+{"t":12,"type":"push_in","unit":"Veqaj","site":"A","round":9},
+{"t":12,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"a_site","ticks":5,"round":9},
+{"t":13,"type":"molly_block","node":"a_site","unit":"happywei","round":9},
+{"t":13,"type":"move","unit":"WsLeo","side":"def","from":"ct_b","to":"ct_spawn","ticks":3,"round":9},
+{"t":13,"type":"molly","node":"a_site","by":"Veqaj","round":9},
+{"t":13,"type":"plant_start","node":"a_site","unit":"brawk","round":9},
+{"t":14,"type":"push_in","unit":"Sato","site":"A","round":9},
+{"t":14,"type":"move","unit":"Sato","side":"def","from":"ct_a","to":"a_site","ticks":5,"round":9},
+{"t":16,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":9},
+{"t":17,"type":"entry_shot","node":"a_site","holder":"RieNs","entrant":"Veqaj","round":9},
+{"t":17,"type":"entry_shot","node":"a_site","holder":"Asuna","entrant":"Veqaj","round":9},
+{"t":17,"type":"entry_shot","node":"a_site","holder":"happywei","entrant":"Veqaj","round":9},
+{"t":17,"type":"rotate","unit":"cb","to":"A","round":9},
+{"t":17,"type":"move","unit":"cb","side":"def","from":"market","to":"mid_bottom","ticks":2,"round":9},
+{"t":19,"type":"entry_shot","node":"a_site","holder":"Asuna","entrant":"Sato","round":9},
+{"t":19,"type":"entry_shot","node":"a_site","holder":"happywei","entrant":"Sato","round":9},
+{"t":19,"type":"kill","node":"a_site","killer":"happywei","victim":"Sato","side":"atk","round":9},
+{"t":19,"type":"move","unit":"cb","side":"def","from":"mid_bottom","to":"ct_spawn","ticks":4,"round":9},
+{"t":19,"type":"kill","node":"a_site","killer":"Asuna","victim":"Veqaj","side":"atk","round":9},
+{"t":19,"type":"push_in","unit":"WsLeo","site":"A","round":9},
+{"t":19,"type":"move","unit":"WsLeo","side":"def","from":"ct_a","to":"a_site","ticks":5,"round":9},
+{"t":22,"type":"plant","node":"a_site","unit":"brawk","site":"A","spikeTicks":45,"round":9},
+{"t":23,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":9},
+{"t":24,"type":"flash","node":"a_site","side":"def","by":"WsLeo","round":9},
+{"t":24,"type":"entry_shot","node":"a_site","holder":"brawk","entrant":"WsLeo","round":9},
+{"t":24,"type":"kill","node":"a_site","killer":"brawk","victim":"WsLeo","side":"atk","round":9},
+{"t":26,"type":"retake","site":"A","count":1,"round":9},
+{"t":26,"type":"move","unit":"cb","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":9},
+{"t":29,"type":"entry_shot","node":"a_site","holder":"brawk","entrant":"cb","round":9},
+{"t":29,"type":"entry_shot","node":"a_site","holder":"RieNs","entrant":"cb","round":9},
+{"t":29,"type":"kill","node":"a_site","killer":"RieNs","victim":"cb","side":"atk","round":9},
+{"t":29,"type":"round_end","winner":"atk","reason":"elimination","round":9},
+{"t":29,"type":"score","round":9,"scoreA":1,"scoreB":8,"winner":"A","reason":"elimination"},
+{"t":-1,"type":"round_meta","round":10,"atkTeam":"金卡快攻队","defTeam":"银卡默认队","atkFamily":"rush","defFamily":"hold","atkPlan":"full","atkReason":"full","defPlan":"full","defReason":"full","scoreA":1,"scoreB":8,"atkMoney":7900,"defMoney":7050},
+{"t":0,"type":"round_start","atkFamily":"rush","defFamily":"hold","units":[{"name":"brawk","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"薇丝","igl":false},{"name":"happywei","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"幽影","igl":true},{"name":"RieNs","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":0,"agent":"零","igl":false},{"name":"Veqaj","side":"def","node":"ct_spawn","gun":1,"armor":"light","utils":0,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"斯凯","igl":false},{"name":"Sato","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"幽影","igl":false},{"name":"WsLeo","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"猎枭","igl":false},{"name":"cb","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"奇乐","igl":true}],"round":10},
+{"t":0,"type":"move","unit":"brawk","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":10},
+{"t":0,"type":"move","unit":"happywei","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":10},
+{"t":0,"type":"move","unit":"RieNs","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":10},
+{"t":0,"type":"move","unit":"Asuna","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":10},
+{"t":0,"type":"move","unit":"vo0kashu","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":10},
+{"t":0,"type":"move","unit":"Veqaj","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":10},
+{"t":0,"type":"move","unit":"eeiu","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":10},
+{"t":0,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"mid_bottom","ticks":4,"round":10},
+{"t":0,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":10},
+{"t":0,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":10},
+{"t":3,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":10},
+{"t":3,"type":"move","unit":"eeiu","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":10},
+{"t":3,"type":"move","unit":"WsLeo","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":10},
+{"t":3,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"market","ticks":3,"round":10},
+{"t":4,"type":"spotted","node":"b_main","unit":"brawk","region":"B","round":10},
+{"t":4,"type":"move","unit":"brawk","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":10},
+{"t":4,"type":"move","unit":"happywei","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":10},
+{"t":4,"type":"move","unit":"RieNs","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":10},
+{"t":4,"type":"move","unit":"Asuna","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":10},
+{"t":4,"type":"move","unit":"vo0kashu","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":10},
+{"t":7,"type":"trap_spotted","node":"b_lobby","unit":"brawk","round":10},
+{"t":7,"type":"move","unit":"brawk","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":10},
+{"t":7,"type":"move","unit":"happywei","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":10},
+{"t":7,"type":"move","unit":"RieNs","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":10},
+{"t":7,"type":"spotted","node":"b_lobby","unit":"Asuna","region":"B","round":10},
+{"t":7,"type":"move","unit":"Asuna","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":10},
+{"t":7,"type":"spotted","node":"b_lobby","unit":"vo0kashu","region":"B","round":10},
+{"t":7,"type":"move","unit":"vo0kashu","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":10},
+{"t":7,"type":"rotate","unit":"Veqaj","to":"B","round":10},
+{"t":7,"type":"move","unit":"Veqaj","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":10},
+{"t":9,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":10},
+{"t":10,"type":"smoke","node":"b_site","edge":["ct_b","b_site"],"by":"brawk","until":22,"round":10},
+{"t":10,"type":"molly_entry","node":"b_site","by":"WsLeo","round":10},
+{"t":10,"type":"molly_block","node":"b_site","unit":"brawk","round":10},
+{"t":10,"type":"flash","node":"b_site","side":"atk","by":"brawk","round":10},
+{"t":10,"type":"entry_shot","node":"b_site","holder":"WsLeo","entrant":"brawk","round":10},
+{"t":10,"type":"kill","node":"b_site","killer":"WsLeo","victim":"brawk","side":"def","round":10},
+{"t":10,"type":"spike_drop","node":"b_site","round":10},
+{"t":10,"type":"molly_block","node":"b_site","unit":"happywei","round":10},
+{"t":10,"type":"flash","node":"b_site","side":"atk","by":"happywei","round":10},
+{"t":10,"type":"molly_block","node":"b_site","unit":"RieNs","round":10},
+{"t":10,"type":"flash","node":"b_site","side":"atk","by":"RieNs","round":10},
+{"t":10,"type":"entry_shot","node":"b_site","holder":"WsLeo","entrant":"RieNs","round":10},
+{"t":10,"type":"spotted","node":"b_site","unit":"Asuna","region":"B","round":10},
+{"t":10,"type":"molly_block","node":"b_site","unit":"Asuna","round":10},
+{"t":10,"type":"flash","node":"b_site","side":"atk","by":"Asuna","round":10},
+{"t":10,"type":"entry_shot","node":"b_site","holder":"WsLeo","entrant":"Asuna","round":10},
+{"t":10,"type":"molly_block","node":"b_site","unit":"vo0kashu","round":10},
+{"t":10,"type":"rotate","unit":"Sato","to":"B","round":10},
+{"t":10,"type":"move","unit":"Sato","side":"def","from":"mid_bottom","to":"ct_b","ticks":3,"round":10},
+{"t":10,"type":"rotate","unit":"cb","to":"B","round":10},
+{"t":10,"type":"move","unit":"cb","side":"def","from":"market","to":"ct_b","ticks":3,"round":10},
+{"t":12,"type":"move","unit":"Veqaj","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":10},
+{"t":12,"type":"kill","node":"b_site","killer":"happywei","victim":"WsLeo","side":"atk","round":10},
+{"t":13,"type":"spike_pickup","node":"b_site","unit":"happywei","round":10},
+{"t":13,"type":"molly","node":"b_site","by":"Sato","round":10},
+{"t":13,"type":"plant_start","node":"b_site","unit":"happywei","round":10},
+{"t":13,"type":"push_in","unit":"Sato","site":"B","round":10},
+{"t":13,"type":"move","unit":"Sato","side":"def","from":"ct_b","to":"b_site","ticks":5,"round":10},
+{"t":13,"type":"push_in","unit":"cb","site":"B","round":10},
+{"t":13,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"b_site","ticks":5,"round":10},
+{"t":15,"type":"push_in","unit":"Veqaj","site":"B","round":10},
+{"t":15,"type":"move","unit":"Veqaj","side":"def","from":"ct_b","to":"b_site","ticks":5,"round":10},
+{"t":18,"type":"entry_shot","node":"b_site","holder":"RieNs","entrant":"Sato","round":10},
+{"t":18,"type":"kill","node":"b_site","killer":"RieNs","victim":"Sato","side":"atk","round":10},
+{"t":18,"type":"entry_shot","node":"b_site","holder":"RieNs","entrant":"cb","round":10},
+{"t":18,"type":"kill","node":"b_site","killer":"RieNs","victim":"cb","side":"atk","round":10},
+{"t":20,"type":"entry_shot","node":"b_site","holder":"RieNs","entrant":"Veqaj","round":10},
+{"t":20,"type":"kill","node":"b_site","killer":"RieNs","victim":"Veqaj","side":"atk","round":10},
+{"t":22,"type":"plant","node":"b_site","unit":"happywei","site":"B","spikeTicks":45,"round":10},
+{"t":22,"type":"move","unit":"eeiu","side":"def","from":"a_site","to":"ct_a","ticks":3,"round":10},
+{"t":25,"type":"move","unit":"eeiu","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":10},
+{"t":28,"type":"move","unit":"eeiu","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":10},
+{"t":31,"type":"retake","site":"B","count":1,"round":10},
+{"t":31,"type":"move","unit":"eeiu","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":10},
+{"t":34,"type":"flash","node":"b_site","side":"def","by":"eeiu","round":10},
+{"t":34,"type":"entry_shot","node":"b_site","holder":"happywei","entrant":"eeiu","round":10},
+{"t":34,"type":"entry_shot","node":"b_site","holder":"RieNs","entrant":"eeiu","round":10},
+{"t":34,"type":"entry_shot","node":"b_site","holder":"Asuna","entrant":"eeiu","round":10},
+{"t":35,"type":"save","unit":"eeiu","round":10},
+{"t":37,"type":"kill","node":"b_site","killer":"happywei","victim":"eeiu","side":"atk","round":10},
+{"t":37,"type":"round_end","winner":"atk","reason":"elimination","round":10},
+{"t":37,"type":"score","round":10,"scoreA":2,"scoreB":8,"winner":"A","reason":"elimination"},
+{"t":-1,"type":"round_meta","round":11,"atkTeam":"金卡快攻队","defTeam":"银卡默认队","atkFamily":"rush","defFamily":"hold","atkPlan":"full","atkReason":"full","defPlan":"full","defReason":"full","scoreA":2,"scoreB":8,"atkMoney":13300,"defMoney":2900},
+{"t":0,"type":"round_start","atkFamily":"rush","defFamily":"hold","units":[{"name":"brawk","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"薇丝","igl":false},{"name":"happywei","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"幽影","igl":true},{"name":"RieNs","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"零","igl":false},{"name":"Veqaj","side":"def","node":"ct_spawn","gun":1,"armor":"light","utils":0,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"def","node":"ct_spawn","gun":1,"armor":"light","utils":0,"agent":"斯凯","igl":false},{"name":"Sato","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"幽影","igl":false},{"name":"WsLeo","side":"def","node":"ct_spawn","gun":1,"armor":"light","utils":0,"agent":"猎枭","igl":false},{"name":"cb","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":1,"agent":"奇乐","igl":true}],"round":11},
+{"t":0,"type":"move","unit":"brawk","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":11},
+{"t":0,"type":"move","unit":"happywei","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":11},
+{"t":0,"type":"move","unit":"RieNs","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":11},
+{"t":0,"type":"move","unit":"Asuna","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":11},
+{"t":0,"type":"move","unit":"vo0kashu","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":11},
+{"t":0,"type":"move","unit":"Veqaj","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":11},
+{"t":0,"type":"move","unit":"eeiu","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":11},
+{"t":0,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"mid_bottom","ticks":4,"round":11},
+{"t":0,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":11},
+{"t":0,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":11},
+{"t":3,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":11},
+{"t":3,"type":"move","unit":"eeiu","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":11},
+{"t":3,"type":"move","unit":"WsLeo","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":11},
+{"t":3,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"market","ticks":3,"round":11},
+{"t":4,"type":"move","unit":"brawk","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":11},
+{"t":4,"type":"spotted","node":"a_main","unit":"happywei","region":"A","round":11},
+{"t":4,"type":"move","unit":"happywei","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":11},
+{"t":4,"type":"move","unit":"RieNs","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":11},
+{"t":4,"type":"move","unit":"Asuna","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":11},
+{"t":4,"type":"spotted","node":"a_main","unit":"vo0kashu","region":"A","round":11},
+{"t":4,"type":"move","unit":"vo0kashu","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":11},
+{"t":7,"type":"trap_spotted","node":"a_lobby","unit":"brawk","round":11},
+{"t":7,"type":"move","unit":"brawk","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":11},
+{"t":7,"type":"move","unit":"happywei","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":11},
+{"t":7,"type":"move","unit":"RieNs","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":11},
+{"t":7,"type":"move","unit":"Asuna","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":11},
+{"t":7,"type":"move","unit":"vo0kashu","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":11},
+{"t":10,"type":"spotted","node":"a_site","unit":"brawk","region":"A","round":11},
+{"t":10,"type":"smoke","node":"a_site","edge":["ct_a","a_site"],"by":"brawk","until":22,"round":11},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"brawk","round":11},
+{"t":10,"type":"spotted","node":"a_site","unit":"happywei","region":"A","round":11},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"happywei","round":11},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"happywei","round":11},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"RieNs","round":11},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"RieNs","round":11},
+{"t":10,"type":"kill","node":"a_site","killer":"eeiu","victim":"RieNs","side":"def","round":11},
+{"t":10,"type":"spotted","node":"a_site","unit":"Asuna","region":"A","round":11},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"Asuna","round":11},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"Asuna","round":11},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"vo0kashu","round":11},
+{"t":10,"type":"kill","node":"a_site","killer":"eeiu","victim":"Asuna","side":"def","round":11},
+{"t":10,"type":"kill","node":"a_site","killer":"vo0kashu","victim":"eeiu","side":"atk","round":11},
+{"t":10,"type":"plant_start","node":"a_site","unit":"brawk","round":11},
+{"t":10,"type":"rotate","unit":"Sato","to":"A","round":11},
+{"t":10,"type":"move","unit":"Sato","side":"def","from":"mid_bottom","to":"ct_spawn","ticks":4,"round":11},
+{"t":10,"type":"rotate","unit":"cb","to":"A","round":11},
+{"t":10,"type":"move","unit":"cb","side":"def","from":"market","to":"mid_bottom","ticks":2,"round":11},
+{"t":12,"type":"move","unit":"cb","side":"def","from":"mid_bottom","to":"ct_spawn","ticks":4,"round":11},
+{"t":14,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":11},
+{"t":14,"type":"plant","node":"a_site","unit":"brawk","site":"A","spikeTicks":45,"round":11},
+{"t":14,"type":"move","unit":"Veqaj","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":11},
+{"t":14,"type":"rotate","unit":"WsLeo","to":"A","round":11},
+{"t":14,"type":"move","unit":"WsLeo","side":"def","from":"b_site","to":"ct_b","ticks":3,"round":11},
+{"t":16,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":11},
+{"t":17,"type":"move","unit":"WsLeo","side":"def","from":"ct_b","to":"ct_spawn","ticks":3,"round":11},
+{"t":17,"type":"retake","site":"A","count":2,"round":11},
+{"t":17,"type":"move","unit":"Veqaj","side":"def","from":"ct_a","to":"a_site","ticks":5,"round":11},
+{"t":17,"type":"move","unit":"Sato","side":"def","from":"ct_a","to":"a_site","ticks":5,"round":11},
+{"t":19,"type":"move","unit":"cb","side":"def","from":"ct_a","to":"a_site","ticks":5,"round":11},
+{"t":20,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":11},
+{"t":22,"type":"entry_shot","node":"a_site","holder":"brawk","entrant":"Veqaj","round":11},
+{"t":22,"type":"entry_shot","node":"a_site","holder":"happywei","entrant":"Veqaj","round":11},
+{"t":22,"type":"entry_shot","node":"a_site","holder":"vo0kashu","entrant":"Veqaj","round":11},
+{"t":22,"type":"kill","node":"a_site","killer":"vo0kashu","victim":"Veqaj","side":"atk","round":11},
+{"t":22,"type":"flash","node":"a_site","side":"def","by":"Sato","round":11},
+{"t":22,"type":"entry_shot","node":"a_site","holder":"happywei","entrant":"Sato","round":11},
+{"t":22,"type":"kill","node":"a_site","killer":"happywei","victim":"Sato","side":"atk","round":11},
+{"t":23,"type":"move","unit":"WsLeo","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":11},
+{"t":24,"type":"flash","node":"a_site","side":"def","by":"cb","round":11},
+{"t":24,"type":"entry_shot","node":"a_site","holder":"brawk","entrant":"cb","round":11},
+{"t":24,"type":"entry_shot","node":"a_site","holder":"happywei","entrant":"cb","round":11},
+{"t":24,"type":"entry_shot","node":"a_site","holder":"vo0kashu","entrant":"cb","round":11},
+{"t":24,"type":"kill","node":"a_site","killer":"brawk","victim":"cb","side":"atk","round":11},
+{"t":26,"type":"entry_shot","node":"a_site","holder":"brawk","entrant":"WsLeo","round":11},
+{"t":26,"type":"entry_shot","node":"a_site","holder":"happywei","entrant":"WsLeo","round":11},
+{"t":26,"type":"kill","node":"a_site","killer":"happywei","victim":"WsLeo","side":"atk","round":11},
+{"t":26,"type":"round_end","winner":"atk","reason":"elimination","round":11},
+{"t":26,"type":"score","round":11,"scoreA":3,"scoreB":8,"winner":"A","reason":"elimination"},
+{"t":-1,"type":"round_meta","round":12,"atkTeam":"金卡快攻队","defTeam":"银卡默认队","atkFamily":"lurk","defFamily":"push","atkPlan":"full","atkReason":"full","defPlan":"full","defReason":"full","scoreA":3,"scoreB":8,"atkMoney":15800,"defMoney":1100},
+{"t":0,"type":"round_start","atkFamily":"lurk","defFamily":"push","units":[{"name":"brawk","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"薇丝","igl":false},{"name":"happywei","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"幽影","igl":true},{"name":"RieNs","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"零","igl":false},{"name":"Veqaj","side":"def","node":"ct_spawn","gun":2,"armor":"none","utils":0,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"def","node":"ct_spawn","gun":2,"armor":"none","utils":2,"agent":"斯凯","igl":false},{"name":"Sato","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":2,"agent":"幽影","igl":false},{"name":"WsLeo","side":"def","node":"ct_spawn","gun":2,"armor":"none","utils":0,"agent":"猎枭","igl":false},{"name":"cb","side":"def","node":"ct_spawn","gun":2,"armor":"none","utils":0,"agent":"奇乐","igl":true}],"round":12},
+{"t":0,"type":"move","unit":"brawk","side":"atk","from":"t_spawn","to":"b_main","ticks":6,"round":12},
+{"t":0,"type":"move","unit":"happywei","side":"atk","from":"t_spawn","to":"b_main","ticks":6,"round":12},
+{"t":0,"type":"move","unit":"RieNs","side":"atk","from":"t_spawn","to":"b_main","ticks":6,"round":12},
+{"t":0,"type":"move","unit":"Asuna","side":"atk","from":"t_spawn","to":"b_main","ticks":6,"round":12},
+{"t":0,"type":"move","unit":"vo0kashu","side":"atk","from":"t_spawn","to":"a_main","ticks":6,"round":12},
+{"t":0,"type":"move","unit":"Veqaj","side":"def","from":"ct_spawn","to":"mid_bottom","ticks":4,"round":12},
+{"t":0,"type":"move","unit":"eeiu","side":"def","from":"ct_spawn","to":"mid_bottom","ticks":4,"round":12},
+{"t":0,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":12},
+{"t":0,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":12},
+{"t":0,"type":"move","unit":"cb","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":12},
+{"t":3,"type":"move","unit":"Sato","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":12},
+{"t":3,"type":"move","unit":"WsLeo","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":12},
+{"t":3,"type":"move","unit":"cb","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":12},
+{"t":4,"type":"move","unit":"Veqaj","side":"def","from":"mid_bottom","to":"mid","ticks":3,"round":12},
+{"t":4,"type":"move","unit":"eeiu","side":"def","from":"mid_bottom","to":"mid","ticks":3,"round":12},
+{"t":14,"type":"recon_empty","unit":"Sato","round":12},
+{"t":35,"type":"move","unit":"brawk","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":12},
+{"t":35,"type":"move","unit":"happywei","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":12},
+{"t":35,"type":"move","unit":"RieNs","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":12},
+{"t":35,"type":"move","unit":"Asuna","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":12},
+{"t":35,"type":"move","unit":"vo0kashu","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":12},
+{"t":38,"type":"move","unit":"brawk","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":12},
+{"t":38,"type":"move","unit":"happywei","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":12},
+{"t":38,"type":"move","unit":"RieNs","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":12},
+{"t":38,"type":"move","unit":"Asuna","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":12},
+{"t":38,"type":"spotted","node":"a_lobby","unit":"vo0kashu","region":"A","round":12},
+{"t":38,"type":"move","unit":"vo0kashu","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":12},
+{"t":41,"type":"spotted","node":"b_site","unit":"brawk","region":"B","round":12},
+{"t":41,"type":"smoke","node":"b_site","edge":["ct_b","b_site"],"by":"brawk","until":53,"round":12},
+{"t":41,"type":"flash","node":"b_site","side":"atk","by":"brawk","round":12},
+{"t":41,"type":"spotted","node":"b_site","unit":"happywei","region":"B","round":12},
+{"t":41,"type":"flash","node":"b_site","side":"atk","by":"happywei","round":12},
+{"t":41,"type":"spotted","node":"b_site","unit":"RieNs","region":"B","round":12},
+{"t":41,"type":"flash","node":"b_site","side":"atk","by":"RieNs","round":12},
+{"t":41,"type":"flash","node":"b_site","side":"atk","by":"Asuna","round":12},
+{"t":41,"type":"entry_shot","node":"b_site","holder":"cb","entrant":"Asuna","round":12},
+{"t":41,"type":"pop_off","node":"b_site","unit":"cb","agent":"奇乐","round":12},
+{"t":41,"type":"molly_entry","node":"a_site","by":"Sato","round":12},
+{"t":41,"type":"molly_block","node":"a_site","unit":"vo0kashu","round":12},
+{"t":41,"type":"flash","node":"a_site","side":"atk","by":"vo0kashu","round":12},
+{"t":41,"type":"rotate","unit":"Veqaj","to":"B","round":12},
+{"t":41,"type":"move","unit":"Veqaj","side":"def","from":"mid","to":"mid_bottom","ticks":3,"round":12},
+{"t":42,"type":"kill","node":"a_site","killer":"WsLeo","victim":"vo0kashu","side":"def","round":12},
+{"t":43,"type":"kill","node":"b_site","killer":"happywei","victim":"cb","side":"atk","round":12},
+{"t":43,"type":"plant_start","node":"b_site","unit":"brawk","round":12},
+{"t":44,"type":"move","unit":"Veqaj","side":"def","from":"mid_bottom","to":"ct_b","ticks":3,"round":12},
+{"t":45,"type":"move","unit":"eeiu","side":"def","from":"mid","to":"mid_top","ticks":3,"round":12},
+{"t":47,"type":"plant","node":"b_site","unit":"brawk","site":"B","spikeTicks":45,"round":12},
+{"t":47,"type":"rotate","unit":"Sato","to":"B","round":12},
+{"t":47,"type":"move","unit":"Sato","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":12},
+{"t":47,"type":"rotate","unit":"WsLeo","to":"B","round":12},
+{"t":47,"type":"move","unit":"WsLeo","side":"def","from":"a_site","to":"ct_a","ticks":3,"round":12},
+{"t":48,"type":"move","unit":"eeiu","side":"def","from":"mid_top","to":"t_spawn","ticks":3,"round":12},
+{"t":49,"type":"move","unit":"Sato","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":12},
+{"t":50,"type":"move","unit":"WsLeo","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":12},
+{"t":51,"type":"move","unit":"eeiu","side":"def","from":"t_spawn","to":"mid_top","ticks":3,"round":12},
+{"t":52,"type":"move","unit":"Sato","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":12},
+{"t":53,"type":"move","unit":"WsLeo","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":12},
+{"t":54,"type":"move","unit":"eeiu","side":"def","from":"mid_top","to":"mid","ticks":3,"round":12},
+{"t":55,"type":"retake","site":"B","count":2,"round":12},
+{"t":55,"type":"move","unit":"Veqaj","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":12},
+{"t":55,"type":"move","unit":"Sato","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":12},
+{"t":56,"type":"move","unit":"WsLeo","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":12},
+{"t":57,"type":"move","unit":"eeiu","side":"def","from":"mid","to":"mid_bottom","ticks":3,"round":12},
+{"t":58,"type":"entry_shot","node":"b_site","holder":"brawk","entrant":"Veqaj","round":12},
+{"t":58,"type":"entry_shot","node":"b_site","holder":"happywei","entrant":"Veqaj","round":12},
+{"t":58,"type":"kill","node":"b_site","killer":"happywei","victim":"Veqaj","side":"atk","round":12},
+{"t":58,"type":"flash","node":"b_site","side":"def","by":"Sato","round":12},
+{"t":58,"type":"entry_shot","node":"b_site","holder":"brawk","entrant":"Sato","round":12},
+{"t":58,"type":"entry_shot","node":"b_site","holder":"happywei","entrant":"Sato","round":12},
+{"t":58,"type":"kill","node":"b_site","killer":"brawk","victim":"Sato","side":"atk","round":12},
+{"t":59,"type":"entry_shot","node":"b_site","holder":"brawk","entrant":"WsLeo","round":12},
+{"t":59,"type":"entry_shot","node":"b_site","holder":"happywei","entrant":"WsLeo","round":12},
+{"t":59,"type":"kill","node":"b_site","killer":"happywei","victim":"WsLeo","side":"atk","round":12},
+{"t":60,"type":"move","unit":"eeiu","side":"def","from":"mid_bottom","to":"ct_b","ticks":3,"round":12},
+{"t":63,"type":"move","unit":"eeiu","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":12},
+{"t":66,"type":"flash","node":"b_site","side":"def","by":"eeiu","round":12},
+{"t":66,"type":"entry_shot","node":"b_site","holder":"RieNs","entrant":"eeiu","round":12},
+{"t":68,"type":"kill","node":"b_site","killer":"brawk","victim":"eeiu","side":"atk","round":12},
+{"t":68,"type":"round_end","winner":"atk","reason":"elimination","round":12},
+{"t":68,"type":"score","round":12,"scoreA":4,"scoreB":8,"winner":"A","reason":"elimination"},
+{"t":-1,"type":"round_meta","round":13,"atkTeam":"银卡默认队","defTeam":"金卡快攻队","atkFamily":"lurk","defFamily":"stack","atkPlan":"pistol","atkReason":"pistol","defPlan":"pistol","defReason":"pistol","scoreA":4,"scoreB":8,"atkMoney":4000,"defMoney":4000},
+{"t":0,"type":"round_start","atkFamily":"lurk","defFamily":"stack","units":[{"name":"Veqaj","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":1,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":1,"agent":"斯凯","igl":false},{"name":"Sato","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":1,"agent":"幽影","igl":false},{"name":"WsLeo","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":1,"agent":"猎枭","igl":false},{"name":"cb","side":"atk","node":"t_spawn","gun":0,"armor":"none","utils":1,"agent":"奇乐","igl":true},{"name":"brawk","side":"def","node":"ct_spawn","gun":0,"armor":"none","utils":0,"agent":"薇丝","igl":false},{"name":"happywei","side":"def","node":"ct_spawn","gun":0,"armor":"none","utils":0,"agent":"幽影","igl":true},{"name":"RieNs","side":"def","node":"ct_spawn","gun":0,"armor":"none","utils":0,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"def","node":"ct_spawn","gun":0,"armor":"none","utils":0,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"def","node":"ct_spawn","gun":0,"armor":"none","utils":0,"agent":"零","igl":false}],"round":13},
+{"t":0,"type":"move","unit":"Veqaj","side":"atk","from":"t_spawn","to":"a_main","ticks":6,"round":13},
+{"t":0,"type":"move","unit":"eeiu","side":"atk","from":"t_spawn","to":"a_main","ticks":6,"round":13},
+{"t":0,"type":"move","unit":"Sato","side":"atk","from":"t_spawn","to":"a_main","ticks":6,"round":13},
+{"t":0,"type":"move","unit":"WsLeo","side":"atk","from":"t_spawn","to":"a_main","ticks":6,"round":13},
+{"t":0,"type":"move","unit":"cb","side":"atk","from":"t_spawn","to":"b_main","ticks":6,"round":13},
+{"t":0,"type":"move","unit":"brawk","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":13},
+{"t":0,"type":"move","unit":"happywei","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":13},
+{"t":0,"type":"move","unit":"RieNs","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":13},
+{"t":0,"type":"move","unit":"Asuna","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":13},
+{"t":0,"type":"move","unit":"vo0kashu","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":13},
+{"t":3,"type":"move","unit":"brawk","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":13},
+{"t":3,"type":"move","unit":"happywei","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":13},
+{"t":3,"type":"move","unit":"RieNs","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":13},
+{"t":3,"type":"move","unit":"Asuna","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":13},
+{"t":3,"type":"move","unit":"vo0kashu","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":13},
+{"t":6,"type":"move","unit":"RieNs","side":"def","from":"a_site","to":"a_short","ticks":3,"round":13},
+{"t":37,"type":"move","unit":"Veqaj","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":13},
+{"t":37,"type":"move","unit":"eeiu","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":13},
+{"t":37,"type":"move","unit":"Sato","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":13},
+{"t":37,"type":"move","unit":"WsLeo","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":13},
+{"t":37,"type":"move","unit":"cb","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":13},
+{"t":40,"type":"move","unit":"Veqaj","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":13},
+{"t":40,"type":"move","unit":"eeiu","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":13},
+{"t":40,"type":"spotted","node":"a_lobby","unit":"Sato","region":"A","round":13},
+{"t":40,"type":"move","unit":"Sato","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":13},
+{"t":40,"type":"move","unit":"WsLeo","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":13},
+{"t":40,"type":"move","unit":"cb","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":13},
+{"t":43,"type":"trap","node":"a_site","unit":"Veqaj","region":"A","round":13},
+{"t":43,"type":"smoke","node":"a_site","edge":["ct_a","a_site"],"by":"Veqaj","until":55,"round":13},
+{"t":43,"type":"entry_shot","node":"a_site","holder":"Asuna","entrant":"Veqaj","round":13},
+{"t":43,"type":"trap","node":"a_site","unit":"eeiu","region":"A","round":13},
+{"t":43,"type":"flash","node":"a_site","side":"atk","by":"Sato","round":13},
+{"t":43,"type":"entry_shot","node":"a_site","holder":"Asuna","entrant":"Sato","round":13},
+{"t":43,"type":"spotted","node":"a_site","unit":"WsLeo","region":"A","round":13},
+{"t":43,"type":"flash","node":"a_site","side":"atk","by":"eeiu","round":13},
+{"t":43,"type":"entry_shot","node":"a_site","holder":"Asuna","entrant":"WsLeo","round":13},
+{"t":43,"type":"kill","node":"a_site","killer":"Asuna","victim":"WsLeo","side":"def","round":13},
+{"t":43,"type":"trap","node":"b_site","unit":"cb","region":"B","round":13},
+{"t":43,"type":"flash","node":"b_site","side":"atk","by":"cb","round":13},
+{"t":43,"type":"entry_shot","node":"b_site","holder":"vo0kashu","entrant":"cb","round":13},
+{"t":43,"type":"kill","node":"a_site","killer":"Asuna","victim":"eeiu","side":"def","round":13},
+{"t":44,"type":"kill","node":"a_site","killer":"Veqaj","victim":"brawk","side":"atk","round":13},
+{"t":44,"type":"kill","node":"a_site","killer":"Asuna","victim":"Veqaj","side":"def","round":13},
+{"t":44,"type":"spike_drop","node":"a_site","round":13},
+{"t":47,"type":"kill","node":"a_site","killer":"Asuna","victim":"Sato","side":"def","round":13},
+{"t":47,"type":"kill","node":"b_site","killer":"cb","victim":"vo0kashu","side":"atk","round":13},
+{"t":47,"type":"move","unit":"cb","side":"atk","from":"b_site","to":"ct_b","ticks":3,"round":13},
+{"t":50,"type":"spotted","node":"ct_b","unit":"cb","region":"B","round":13},
+{"t":50,"type":"move","unit":"cb","side":"atk","from":"ct_b","to":"ct_spawn","ticks":3,"round":13},
+{"t":50,"type":"rotate","unit":"happywei","to":"A","round":13},
+{"t":50,"type":"move","unit":"happywei","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":13},
+{"t":52,"type":"push_in","unit":"happywei","site":"A","round":13},
+{"t":52,"type":"move","unit":"happywei","side":"def","from":"ct_a","to":"a_site","ticks":5,"round":13},
+{"t":53,"type":"move","unit":"cb","side":"atk","from":"ct_spawn","to":"ct_a","ticks":3,"round":13},
+{"t":56,"type":"move","unit":"cb","side":"atk","from":"ct_a","to":"a_site","ticks":3,"round":13},
+{"t":59,"type":"entry_shot","node":"a_site","holder":"Asuna","entrant":"cb","round":13},
+{"t":59,"type":"entry_shot","node":"a_site","holder":"happywei","entrant":"cb","round":13},
+{"t":59,"type":"kill","node":"a_site","killer":"happywei","victim":"cb","side":"def","round":13},
+{"t":59,"type":"round_end","winner":"def","reason":"elimination","round":13},
+{"t":59,"type":"score","round":13,"scoreA":5,"scoreB":8,"winner":"A","reason":"elimination"},
+{"t":-1,"type":"round_meta","round":14,"atkTeam":"银卡默认队","defTeam":"金卡快攻队","atkFamily":"mid","defFamily":"hold","atkPlan":"full","atkReason":"full","defPlan":"half","defReason":"pistol_follow","scoreA":5,"scoreB":8,"atkMoney":600,"defMoney":7250},
+{"t":0,"type":"round_start","atkFamily":"mid","defFamily":"hold","units":[{"name":"Veqaj","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":0,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":2,"agent":"斯凯","igl":false},{"name":"Sato","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":2,"agent":"幽影","igl":false},{"name":"WsLeo","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":2,"agent":"猎枭","igl":false},{"name":"cb","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":0,"agent":"奇乐","igl":true},{"name":"brawk","side":"def","node":"ct_spawn","gun":1,"armor":"light","utils":0,"agent":"薇丝","igl":false},{"name":"happywei","side":"def","node":"ct_spawn","gun":1,"armor":"light","utils":0,"agent":"幽影","igl":true},{"name":"RieNs","side":"def","node":"ct_spawn","gun":1,"armor":"light","utils":0,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"def","node":"ct_spawn","gun":1,"armor":"light","utils":0,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"def","node":"ct_spawn","gun":1,"armor":"light","utils":0,"agent":"零","igl":false}],"round":14},
+{"t":0,"type":"move","unit":"Veqaj","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":14},
+{"t":0,"type":"move","unit":"eeiu","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":14},
+{"t":0,"type":"move","unit":"Sato","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":14},
+{"t":0,"type":"move","unit":"WsLeo","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":14},
+{"t":0,"type":"move","unit":"cb","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":14},
+{"t":0,"type":"move","unit":"brawk","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":14},
+{"t":0,"type":"move","unit":"happywei","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":14},
+{"t":0,"type":"move","unit":"RieNs","side":"def","from":"ct_spawn","to":"mid_bottom","ticks":4,"round":14},
+{"t":0,"type":"move","unit":"Asuna","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":14},
+{"t":0,"type":"move","unit":"vo0kashu","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":14},
+{"t":3,"type":"move","unit":"brawk","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":14},
+{"t":3,"type":"move","unit":"happywei","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":14},
+{"t":3,"type":"move","unit":"Asuna","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":14},
+{"t":3,"type":"move","unit":"vo0kashu","side":"def","from":"ct_b","to":"market","ticks":3,"round":14},
+{"t":5,"type":"move","unit":"Veqaj","side":"atk","from":"mid_top","to":"mid","ticks":5,"round":14},
+{"t":5,"type":"move","unit":"eeiu","side":"atk","from":"mid_top","to":"mid","ticks":5,"round":14},
+{"t":5,"type":"move","unit":"Sato","side":"atk","from":"mid_top","to":"mid","ticks":5,"round":14},
+{"t":10,"type":"trap_spotted","node":"mid","unit":"Veqaj","round":14},
+{"t":10,"type":"spotted","node":"mid","unit":"eeiu","region":"mid","round":14},
+{"t":17,"type":"mid_read","site":"A","defAt":{"A":2,"B":2},"round":14},
+{"t":17,"type":"move","unit":"Veqaj","side":"atk","from":"mid","to":"a_short","ticks":3,"round":14},
+{"t":17,"type":"move","unit":"eeiu","side":"atk","from":"mid","to":"a_short","ticks":3,"round":14},
+{"t":17,"type":"move","unit":"Sato","side":"atk","from":"mid","to":"a_short","ticks":3,"round":14},
+{"t":17,"type":"move","unit":"WsLeo","side":"atk","from":"mid_top","to":"t_spawn","ticks":3,"round":14},
+{"t":17,"type":"move","unit":"cb","side":"atk","from":"mid_top","to":"t_spawn","ticks":3,"round":14},
+{"t":20,"type":"move","unit":"Veqaj","side":"atk","from":"a_short","to":"a_site","ticks":3,"round":14},
+{"t":20,"type":"spotted","node":"a_short","unit":"eeiu","region":"A","round":14},
+{"t":20,"type":"move","unit":"eeiu","side":"atk","from":"a_short","to":"a_site","ticks":3,"round":14},
+{"t":20,"type":"move","unit":"Sato","side":"atk","from":"a_short","to":"a_site","ticks":3,"round":14},
+{"t":20,"type":"move","unit":"WsLeo","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":14},
+{"t":20,"type":"move","unit":"cb","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":14},
+{"t":23,"type":"flash","node":"a_site","side":"atk","by":"eeiu","round":14},
+{"t":23,"type":"entry_shot","node":"a_site","holder":"happywei","entrant":"eeiu","round":14},
+{"t":23,"type":"spotted","node":"a_site","unit":"Sato","region":"A","round":14},
+{"t":23,"type":"flash","node":"a_site","side":"atk","by":"Sato","round":14},
+{"t":23,"type":"kill","node":"a_site","killer":"Sato","victim":"happywei","side":"atk","round":14},
+{"t":23,"type":"plant_start","node":"a_site","unit":"Veqaj","round":14},
+{"t":24,"type":"move","unit":"WsLeo","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":14},
+{"t":24,"type":"move","unit":"cb","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":14},
+{"t":27,"type":"trap_spotted","node":"a_lobby","unit":"WsLeo","round":14},
+{"t":27,"type":"move","unit":"WsLeo","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":14},
+{"t":27,"type":"trap_spotted","node":"a_lobby","unit":"cb","round":14},
+{"t":27,"type":"move","unit":"cb","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":14},
+{"t":27,"type":"plant","node":"a_site","unit":"Veqaj","site":"A","spikeTicks":45,"round":14},
+{"t":27,"type":"move","unit":"brawk","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":14},
+{"t":27,"type":"rotate","unit":"RieNs","to":"A","round":14},
+{"t":27,"type":"move","unit":"RieNs","side":"def","from":"mid_bottom","to":"ct_spawn","ticks":3,"round":14},
+{"t":27,"type":"move","unit":"Asuna","side":"def","from":"b_site","to":"ct_b","ticks":3,"round":14},
+{"t":27,"type":"move","unit":"vo0kashu","side":"def","from":"market","to":"mid_bottom","ticks":2,"round":14},
+{"t":29,"type":"move","unit":"vo0kashu","side":"def","from":"mid_bottom","to":"ct_spawn","ticks":3,"round":14},
+{"t":30,"type":"spotted","node":"a_site","unit":"WsLeo","region":"A","round":14},
+{"t":30,"type":"spotted","node":"a_site","unit":"cb","region":"A","round":14},
+{"t":30,"type":"move","unit":"RieNs","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":14},
+{"t":30,"type":"move","unit":"Asuna","side":"def","from":"ct_b","to":"ct_spawn","ticks":3,"round":14},
+{"t":30,"type":"save","unit":"brawk","round":14},
+{"t":30,"type":"move","unit":"brawk","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":14},
+{"t":32,"type":"move","unit":"vo0kashu","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":14},
+{"t":33,"type":"move","unit":"Asuna","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":14},
+{"t":35,"type":"retake","site":"A","count":2,"round":14},
+{"t":35,"type":"move","unit":"RieNs","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":14},
+{"t":35,"type":"move","unit":"vo0kashu","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":14},
+{"t":36,"type":"move","unit":"Asuna","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":14},
+{"t":38,"type":"entry_shot","node":"a_site","holder":"Veqaj","entrant":"RieNs","round":14},
+{"t":38,"type":"entry_shot","node":"a_site","holder":"Sato","entrant":"RieNs","round":14},
+{"t":38,"type":"kill","node":"a_site","killer":"Sato","victim":"RieNs","side":"atk","round":14},
+{"t":38,"type":"entry_shot","node":"a_site","holder":"Veqaj","entrant":"vo0kashu","round":14},
+{"t":38,"type":"entry_shot","node":"a_site","holder":"Sato","entrant":"vo0kashu","round":14},
+{"t":38,"type":"kill","node":"a_site","killer":"Sato","victim":"vo0kashu","side":"atk","round":14},
+{"t":39,"type":"entry_shot","node":"a_site","holder":"Veqaj","entrant":"Asuna","round":14},
+{"t":39,"type":"kill","node":"a_site","killer":"Veqaj","victim":"Asuna","side":"atk","round":14},
+{"t":72,"type":"round_end","winner":"atk","reason":"explosion","round":14},
+{"t":72,"type":"score","round":14,"scoreA":5,"scoreB":9,"winner":"B","reason":"explosion"},
+{"t":-1,"type":"round_meta","round":15,"atkTeam":"银卡默认队","defTeam":"金卡快攻队","atkFamily":"rush","defFamily":"stack","atkPlan":"eco","atkReason":"eco","defPlan":"eco","defReason":"eco","scoreA":5,"scoreB":9,"atkMoney":16700,"defMoney":16750},
+{"t":0,"type":"round_start","atkFamily":"rush","defFamily":"stack","units":[{"name":"Veqaj","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":0,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":0,"agent":"斯凯","igl":false},{"name":"Sato","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":0,"agent":"幽影","igl":false},{"name":"WsLeo","side":"atk","node":"t_spawn","gun":2,"armor":"none","utils":0,"agent":"猎枭","igl":false},{"name":"cb","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":0,"agent":"奇乐","igl":true},{"name":"brawk","side":"def","node":"ct_spawn","gun":1,"armor":"light","utils":0,"agent":"薇丝","igl":false},{"name":"happywei","side":"def","node":"ct_spawn","gun":0,"armor":"none","utils":0,"agent":"幽影","igl":true},{"name":"RieNs","side":"def","node":"ct_spawn","gun":0,"armor":"none","utils":0,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"def","node":"ct_spawn","gun":0,"armor":"none","utils":0,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"def","node":"ct_spawn","gun":0,"armor":"none","utils":0,"agent":"零","igl":false}],"round":15},
+{"t":0,"type":"move","unit":"Veqaj","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":15},
+{"t":0,"type":"move","unit":"eeiu","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":15},
+{"t":0,"type":"move","unit":"Sato","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":15},
+{"t":0,"type":"move","unit":"WsLeo","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":15},
+{"t":0,"type":"move","unit":"cb","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":15},
+{"t":0,"type":"move","unit":"brawk","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":15},
+{"t":0,"type":"move","unit":"happywei","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":15},
+{"t":0,"type":"move","unit":"RieNs","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":15},
+{"t":0,"type":"move","unit":"Asuna","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":15},
+{"t":0,"type":"move","unit":"vo0kashu","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":15},
+{"t":3,"type":"move","unit":"brawk","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":15},
+{"t":3,"type":"move","unit":"happywei","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":15},
+{"t":3,"type":"move","unit":"RieNs","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":15},
+{"t":3,"type":"move","unit":"Asuna","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":15},
+{"t":3,"type":"move","unit":"vo0kashu","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":15},
+{"t":4,"type":"move","unit":"Veqaj","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":15},
+{"t":4,"type":"move","unit":"eeiu","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":15},
+{"t":4,"type":"move","unit":"Sato","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":15},
+{"t":4,"type":"move","unit":"WsLeo","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":15},
+{"t":4,"type":"move","unit":"cb","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":15},
+{"t":6,"type":"move","unit":"RieNs","side":"def","from":"a_site","to":"a_short","ticks":3,"round":15},
+{"t":7,"type":"move","unit":"Veqaj","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":15},
+{"t":7,"type":"move","unit":"eeiu","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":15},
+{"t":7,"type":"move","unit":"Sato","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":15},
+{"t":7,"type":"move","unit":"WsLeo","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":15},
+{"t":7,"type":"move","unit":"cb","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":15},
+{"t":10,"type":"entry_shot","node":"b_site","holder":"vo0kashu","entrant":"eeiu","round":15},
+{"t":10,"type":"spotted","node":"b_site","unit":"Sato","region":"B","round":15},
+{"t":10,"type":"entry_shot","node":"b_site","holder":"vo0kashu","entrant":"WsLeo","round":15},
+{"t":10,"type":"rotate","unit":"brawk","to":"B","round":15},
+{"t":10,"type":"move","unit":"brawk","side":"def","from":"a_site","to":"ct_a","ticks":3,"round":15},
+{"t":10,"type":"rotate","unit":"happywei","to":"B","round":15},
+{"t":10,"type":"move","unit":"happywei","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":15},
+{"t":10,"type":"rotate","unit":"RieNs","to":"B","round":15},
+{"t":10,"type":"move","unit":"RieNs","side":"def","from":"a_short","to":"mid","ticks":3,"round":15},
+{"t":12,"type":"move","unit":"happywei","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":15},
+{"t":13,"type":"move","unit":"brawk","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":15},
+{"t":13,"type":"move","unit":"RieNs","side":"def","from":"mid","to":"mid_bottom","ticks":3,"round":15},
+{"t":13,"type":"kill","node":"b_site","killer":"cb","victim":"vo0kashu","side":"atk","round":15},
+{"t":13,"type":"plant_start","node":"b_site","unit":"Veqaj","round":15},
+{"t":15,"type":"move","unit":"happywei","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":15},
+{"t":16,"type":"move","unit":"brawk","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":15},
+{"t":16,"type":"move","unit":"RieNs","side":"def","from":"mid_bottom","to":"ct_b","ticks":3,"round":15},
+{"t":17,"type":"plant","node":"b_site","unit":"Veqaj","site":"B","spikeTicks":45,"round":15},
+{"t":17,"type":"move","unit":"Asuna","side":"def","from":"a_site","to":"ct_a","ticks":3,"round":15},
+{"t":19,"type":"retake","site":"B","count":3,"round":15},
+{"t":19,"type":"move","unit":"brawk","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":15},
+{"t":19,"type":"move","unit":"happywei","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":15},
+{"t":19,"type":"move","unit":"RieNs","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":15},
+{"t":20,"type":"move","unit":"Asuna","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":15},
+{"t":22,"type":"entry_shot","node":"b_site","holder":"Veqaj","entrant":"brawk","round":15},
+{"t":22,"type":"entry_shot","node":"b_site","holder":"eeiu","entrant":"brawk","round":15},
+{"t":22,"type":"entry_shot","node":"b_site","holder":"Sato","entrant":"brawk","round":15},
+{"t":22,"type":"entry_shot","node":"b_site","holder":"Veqaj","entrant":"happywei","round":15},
+{"t":22,"type":"entry_shot","node":"b_site","holder":"eeiu","entrant":"happywei","round":15},
+{"t":22,"type":"entry_shot","node":"b_site","holder":"Sato","entrant":"happywei","round":15},
+{"t":22,"type":"kill","node":"b_site","killer":"Sato","victim":"happywei","side":"atk","round":15},
+{"t":22,"type":"entry_shot","node":"b_site","holder":"Sato","entrant":"RieNs","round":15},
+{"t":22,"type":"kill","node":"b_site","killer":"Sato","victim":"RieNs","side":"atk","round":15},
+{"t":22,"type":"kill","node":"b_site","killer":"Sato","victim":"brawk","side":"atk","round":15},
+{"t":23,"type":"move","unit":"Asuna","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":15},
+{"t":26,"type":"move","unit":"Asuna","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":15},
+{"t":29,"type":"entry_shot","node":"b_site","holder":"eeiu","entrant":"Asuna","round":15},
+{"t":29,"type":"entry_shot","node":"b_site","holder":"WsLeo","entrant":"Asuna","round":15},
+{"t":29,"type":"entry_shot","node":"b_site","holder":"cb","entrant":"Asuna","round":15},
+{"t":29,"type":"kill","node":"b_site","killer":"cb","victim":"Asuna","side":"atk","round":15},
+{"t":29,"type":"round_end","winner":"atk","reason":"elimination","round":15},
+{"t":29,"type":"score","round":15,"scoreA":5,"scoreB":10,"winner":"B","reason":"elimination"},
+{"t":-1,"type":"round_meta","round":16,"atkTeam":"银卡默认队","defTeam":"金卡快攻队","atkFamily":"mid","defFamily":"stack","atkPlan":"full","atkReason":"full","defPlan":"full","defReason":"full","scoreA":5,"scoreB":10,"atkMoney":25000,"defMoney":6250},
+{"t":0,"type":"round_start","atkFamily":"mid","defFamily":"stack","units":[{"name":"Veqaj","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"斯凯","igl":false},{"name":"Sato","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"幽影","igl":false},{"name":"WsLeo","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"猎枭","igl":false},{"name":"cb","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"奇乐","igl":true},{"name":"brawk","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"薇丝","igl":false},{"name":"happywei","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"幽影","igl":true},{"name":"RieNs","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"零","igl":false}],"round":16},
+{"t":0,"type":"move","unit":"Veqaj","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":16},
+{"t":0,"type":"move","unit":"eeiu","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":16},
+{"t":0,"type":"move","unit":"Sato","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":16},
+{"t":0,"type":"move","unit":"WsLeo","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":16},
+{"t":0,"type":"move","unit":"cb","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":16},
+{"t":0,"type":"move","unit":"brawk","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":16},
+{"t":0,"type":"move","unit":"happywei","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":16},
+{"t":0,"type":"move","unit":"RieNs","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":16},
+{"t":0,"type":"move","unit":"Asuna","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":16},
+{"t":0,"type":"move","unit":"vo0kashu","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":16},
+{"t":3,"type":"move","unit":"brawk","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":16},
+{"t":3,"type":"move","unit":"happywei","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":16},
+{"t":3,"type":"move","unit":"RieNs","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":16},
+{"t":3,"type":"move","unit":"Asuna","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":16},
+{"t":3,"type":"move","unit":"vo0kashu","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":16},
+{"t":5,"type":"move","unit":"Veqaj","side":"atk","from":"mid_top","to":"mid","ticks":5,"round":16},
+{"t":5,"type":"move","unit":"eeiu","side":"atk","from":"mid_top","to":"mid","ticks":5,"round":16},
+{"t":5,"type":"move","unit":"Sato","side":"atk","from":"mid_top","to":"mid","ticks":5,"round":16},
+{"t":6,"type":"move","unit":"RieNs","side":"def","from":"a_site","to":"a_short","ticks":3,"round":16},
+{"t":18,"type":"mid_read","site":"B","defAt":{"A":4,"B":1},"round":16},
+{"t":18,"type":"move","unit":"Veqaj","side":"atk","from":"mid","to":"mid_bottom","ticks":3,"round":16},
+{"t":18,"type":"move","unit":"eeiu","side":"atk","from":"mid","to":"mid_bottom","ticks":3,"round":16},
+{"t":18,"type":"move","unit":"Sato","side":"atk","from":"mid","to":"mid_bottom","ticks":3,"round":16},
+{"t":18,"type":"move","unit":"WsLeo","side":"atk","from":"mid_top","to":"t_spawn","ticks":3,"round":16},
+{"t":18,"type":"move","unit":"cb","side":"atk","from":"mid_top","to":"t_spawn","ticks":3,"round":16},
+{"t":21,"type":"move","unit":"Veqaj","side":"atk","from":"mid_bottom","to":"market","ticks":2,"round":16},
+{"t":21,"type":"move","unit":"eeiu","side":"atk","from":"mid_bottom","to":"market","ticks":2,"round":16},
+{"t":21,"type":"move","unit":"Sato","side":"atk","from":"mid_bottom","to":"market","ticks":2,"round":16},
+{"t":21,"type":"move","unit":"WsLeo","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":16},
+{"t":21,"type":"move","unit":"cb","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":16},
+{"t":23,"type":"spotted","node":"market","unit":"Veqaj","region":"B","round":16},
+{"t":23,"type":"move","unit":"Veqaj","side":"atk","from":"market","to":"b_site","ticks":3,"round":16},
+{"t":23,"type":"move","unit":"eeiu","side":"atk","from":"market","to":"b_site","ticks":3,"round":16},
+{"t":23,"type":"spotted","node":"market","unit":"Sato","region":"B","round":16},
+{"t":23,"type":"move","unit":"Sato","side":"atk","from":"market","to":"b_site","ticks":3,"round":16},
+{"t":23,"type":"rotate","unit":"brawk","to":"B","round":16},
+{"t":23,"type":"move","unit":"brawk","side":"def","from":"a_site","to":"ct_a","ticks":3,"round":16},
+{"t":23,"type":"rotate","unit":"Asuna","to":"B","round":16},
+{"t":23,"type":"move","unit":"Asuna","side":"def","from":"a_site","to":"ct_a","ticks":3,"round":16},
+{"t":25,"type":"move","unit":"WsLeo","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":16},
+{"t":25,"type":"move","unit":"cb","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":16},
+{"t":26,"type":"trap","node":"b_site","unit":"Veqaj","region":"B","round":16},
+{"t":26,"type":"spotted","node":"b_site","unit":"Veqaj","region":"B","round":16},
+{"t":26,"type":"smoke","node":"b_site","edge":["ct_b","b_site"],"by":"Veqaj","until":38,"round":16},
+{"t":26,"type":"molly_entry","node":"b_site","preset":true,"round":16},
+{"t":26,"type":"molly_block","node":"b_site","unit":"Veqaj","round":16},
+{"t":26,"type":"flash","node":"b_site","side":"atk","by":"Veqaj","round":16},
+{"t":26,"type":"molly_block","node":"b_site","unit":"eeiu","round":16},
+{"t":26,"type":"flash","node":"b_site","side":"atk","by":"eeiu","round":16},
+{"t":26,"type":"spotted","node":"b_site","unit":"Sato","region":"B","round":16},
+{"t":26,"type":"molly_block","node":"b_site","unit":"Sato","round":16},
+{"t":26,"type":"flash","node":"b_site","side":"atk","by":"Sato","round":16},
+{"t":26,"type":"entry_shot","node":"b_site","holder":"vo0kashu","entrant":"Sato","round":16},
+{"t":26,"type":"move","unit":"brawk","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":16},
+{"t":26,"type":"move","unit":"Asuna","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":16},
+{"t":26,"type":"rotate","unit":"happywei","to":"B","round":16},
+{"t":26,"type":"move","unit":"happywei","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":16},
+{"t":28,"type":"spotted","node":"b_lobby","unit":"WsLeo","region":"B","round":16},
+{"t":28,"type":"move","unit":"WsLeo","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":16},
+{"t":28,"type":"move","unit":"cb","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":16},
+{"t":28,"type":"move","unit":"happywei","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":16},
+{"t":29,"type":"move","unit":"brawk","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":16},
+{"t":29,"type":"move","unit":"Asuna","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":16},
+{"t":30,"type":"kill","node":"b_site","killer":"eeiu","victim":"vo0kashu","side":"atk","round":16},
+{"t":30,"type":"plant_start","node":"b_site","unit":"Veqaj","round":16},
+{"t":31,"type":"molly_block","node":"b_site","unit":"WsLeo","round":16},
+{"t":31,"type":"molly_block","node":"b_site","unit":"cb","round":16},
+{"t":31,"type":"move","unit":"happywei","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":16},
+{"t":32,"type":"push_in","unit":"brawk","site":"B","round":16},
+{"t":32,"type":"move","unit":"brawk","side":"def","from":"ct_b","to":"b_site","ticks":5,"round":16},
+{"t":32,"type":"push_in","unit":"Asuna","site":"B","round":16},
+{"t":32,"type":"move","unit":"Asuna","side":"def","from":"ct_b","to":"b_site","ticks":5,"round":16},
+{"t":34,"type":"plant","node":"b_site","unit":"Veqaj","site":"B","spikeTicks":45,"round":16},
+{"t":34,"type":"move","unit":"RieNs","side":"def","from":"a_short","to":"mid","ticks":3,"round":16},
+{"t":35,"type":"save","unit":"happywei","round":16},
+{"t":35,"type":"move","unit":"happywei","side":"def","from":"ct_b","to":"ct_spawn","ticks":3,"round":16},
+{"t":37,"type":"entry_shot","node":"b_site","holder":"eeiu","entrant":"brawk","round":16},
+{"t":37,"type":"entry_shot","node":"b_site","holder":"Sato","entrant":"brawk","round":16},
+{"t":37,"type":"kill","node":"b_site","killer":"Sato","victim":"brawk","side":"atk","round":16},
+{"t":37,"type":"move","unit":"RieNs","side":"def","from":"mid","to":"mid_bottom","ticks":3,"round":16},
+{"t":37,"type":"entry_shot","node":"b_site","holder":"Veqaj","entrant":"Asuna","round":16},
+{"t":37,"type":"pop_off","node":"b_site","unit":"Veqaj","agent":"蝰蛇","round":16},
+{"t":37,"type":"entry_shot","node":"b_site","holder":"WsLeo","entrant":"Asuna","round":16},
+{"t":37,"type":"entry_shot","node":"b_site","holder":"cb","entrant":"Asuna","round":16},
+{"t":37,"type":"kill","node":"b_site","killer":"cb","victim":"Asuna","side":"atk","round":16},
+{"t":40,"type":"move","unit":"RieNs","side":"def","from":"mid_bottom","to":"ct_b","ticks":3,"round":16},
+{"t":43,"type":"retake","site":"B","count":1,"round":16},
+{"t":43,"type":"move","unit":"RieNs","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":16},
+{"t":46,"type":"entry_shot","node":"b_site","holder":"Veqaj","entrant":"RieNs","round":16},
+{"t":46,"type":"entry_shot","node":"b_site","holder":"eeiu","entrant":"RieNs","round":16},
+{"t":46,"type":"entry_shot","node":"b_site","holder":"cb","entrant":"RieNs","round":16},
+{"t":46,"type":"kill","node":"b_site","killer":"cb","victim":"RieNs","side":"atk","round":16},
+{"t":79,"type":"round_end","winner":"atk","reason":"explosion","round":16},
+{"t":79,"type":"score","round":16,"scoreA":5,"scoreB":11,"winner":"B","reason":"explosion"},
+{"t":-1,"type":"round_meta","round":17,"atkTeam":"银卡默认队","defTeam":"金卡快攻队","atkFamily":"rush","defFamily":"push","atkPlan":"full","atkReason":"full","defPlan":"full","defReason":"full","scoreA":5,"scoreB":11,"atkMoney":33100,"defMoney":2950},
+{"t":0,"type":"round_start","atkFamily":"rush","defFamily":"push","units":[{"name":"Veqaj","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"斯凯","igl":false},{"name":"Sato","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"幽影","igl":false},{"name":"WsLeo","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"猎枭","igl":false},{"name":"cb","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"奇乐","igl":true},{"name":"brawk","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"薇丝","igl":false},{"name":"happywei","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":2,"agent":"幽影","igl":true},{"name":"RieNs","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":2,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"零","igl":false}],"round":17},
+{"t":0,"type":"move","unit":"Veqaj","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":17},
+{"t":0,"type":"move","unit":"eeiu","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":17},
+{"t":0,"type":"move","unit":"Sato","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":17},
+{"t":0,"type":"move","unit":"WsLeo","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":17},
+{"t":0,"type":"move","unit":"cb","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":17},
+{"t":0,"type":"move","unit":"brawk","side":"def","from":"ct_spawn","to":"mid_bottom","ticks":4,"round":17},
+{"t":0,"type":"move","unit":"happywei","side":"def","from":"ct_spawn","to":"mid_bottom","ticks":4,"round":17},
+{"t":0,"type":"move","unit":"RieNs","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":17},
+{"t":0,"type":"move","unit":"Asuna","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":17},
+{"t":0,"type":"move","unit":"vo0kashu","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":17},
+{"t":3,"type":"move","unit":"RieNs","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":17},
+{"t":3,"type":"move","unit":"Asuna","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":17},
+{"t":3,"type":"move","unit":"vo0kashu","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":17},
+{"t":4,"type":"move","unit":"Veqaj","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":17},
+{"t":4,"type":"move","unit":"eeiu","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":17},
+{"t":4,"type":"move","unit":"Sato","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":17},
+{"t":4,"type":"move","unit":"WsLeo","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":17},
+{"t":4,"type":"move","unit":"cb","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":17},
+{"t":4,"type":"move","unit":"brawk","side":"def","from":"mid_bottom","to":"mid","ticks":3,"round":17},
+{"t":4,"type":"move","unit":"happywei","side":"def","from":"mid_bottom","to":"mid","ticks":3,"round":17},
+{"t":7,"type":"move","unit":"Veqaj","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":17},
+{"t":7,"type":"spotted","node":"a_lobby","unit":"eeiu","region":"A","round":17},
+{"t":7,"type":"move","unit":"eeiu","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":17},
+{"t":7,"type":"move","unit":"Sato","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":17},
+{"t":7,"type":"move","unit":"WsLeo","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":17},
+{"t":7,"type":"move","unit":"cb","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":17},
+{"t":10,"type":"molly_entry","node":"a_site","by":"Asuna","round":17},
+{"t":10,"type":"molly_block","node":"a_site","unit":"Veqaj","round":17},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"Veqaj","round":17},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"Asuna","entrant":"Veqaj","round":17},
+{"t":10,"type":"molly_block","node":"a_site","unit":"eeiu","round":17},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"eeiu","round":17},
+{"t":10,"type":"spotted","node":"a_site","unit":"Sato","region":"A","round":17},
+{"t":10,"type":"molly_block","node":"a_site","unit":"Sato","round":17},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"Sato","round":17},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"Asuna","entrant":"Sato","round":17},
+{"t":10,"type":"molly_block","node":"a_site","unit":"WsLeo","round":17},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"WsLeo","round":17},
+{"t":10,"type":"entry_shot","node":"a_site","holder":"Asuna","entrant":"WsLeo","round":17},
+{"t":10,"type":"molly_block","node":"a_site","unit":"cb","round":17},
+{"t":10,"type":"flash","node":"a_site","side":"atk","by":"cb","round":17},
+{"t":10,"type":"rotate","unit":"brawk","to":"A","round":17},
+{"t":10,"type":"move","unit":"brawk","side":"def","from":"mid","to":"a_short","ticks":3,"round":17},
+{"t":13,"type":"move","unit":"brawk","side":"def","from":"a_short","to":"a_site","ticks":3,"round":17},
+{"t":13,"type":"kill","node":"a_site","killer":"cb","victim":"Asuna","side":"atk","round":17},
+{"t":13,"type":"plant_start","node":"a_site","unit":"Veqaj","round":17},
+{"t":16,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"brawk","round":17},
+{"t":16,"type":"kill","node":"a_site","killer":"eeiu","victim":"brawk","side":"atk","round":17},
+{"t":17,"type":"plant","node":"a_site","unit":"Veqaj","site":"A","spikeTicks":45,"round":17},
+{"t":17,"type":"rotate","unit":"happywei","to":"A","round":17},
+{"t":17,"type":"move","unit":"happywei","side":"def","from":"mid","to":"a_short","ticks":3,"round":17},
+{"t":17,"type":"rotate","unit":"RieNs","to":"A","round":17},
+{"t":17,"type":"move","unit":"RieNs","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":17},
+{"t":17,"type":"move","unit":"vo0kashu","side":"def","from":"b_site","to":"ct_b","ticks":3,"round":17},
+{"t":20,"type":"move","unit":"happywei","side":"def","from":"a_short","to":"a_site","ticks":3,"round":17},
+{"t":20,"type":"move","unit":"vo0kashu","side":"def","from":"ct_b","to":"ct_spawn","ticks":3,"round":17},
+{"t":23,"type":"flash","node":"a_site","side":"def","by":"happywei","round":17},
+{"t":23,"type":"entry_shot","node":"a_site","holder":"Sato","entrant":"happywei","round":17},
+{"t":23,"type":"entry_shot","node":"a_site","holder":"cb","entrant":"happywei","round":17},
+{"t":23,"type":"move","unit":"vo0kashu","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":17},
+{"t":23,"type":"retake","site":"A","count":2,"round":17},
+{"t":23,"type":"move","unit":"RieNs","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":17},
+{"t":25,"type":"save","unit":"happywei","round":17},
+{"t":26,"type":"entry_shot","node":"a_site","holder":"Veqaj","entrant":"RieNs","round":17},
+{"t":26,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"RieNs","round":17},
+{"t":26,"type":"kill","node":"a_site","killer":"eeiu","victim":"RieNs","side":"atk","round":17},
+{"t":26,"type":"move","unit":"vo0kashu","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":17},
+{"t":29,"type":"entry_shot","node":"a_site","holder":"Veqaj","entrant":"vo0kashu","round":17},
+{"t":29,"type":"entry_shot","node":"a_site","holder":"eeiu","entrant":"vo0kashu","round":17},
+{"t":29,"type":"entry_shot","node":"a_site","holder":"Sato","entrant":"vo0kashu","round":17},
+{"t":29,"type":"pop_off","node":"a_site","unit":"Sato","agent":"幽影","round":17},
+{"t":29,"type":"entry_shot","node":"a_site","holder":"cb","entrant":"vo0kashu","round":17},
+{"t":29,"type":"kill","node":"a_site","killer":"Sato","victim":"happywei","side":"atk","round":17},
+{"t":29,"type":"kill","node":"a_site","killer":"vo0kashu","victim":"Veqaj","side":"def","round":17},
+{"t":29,"type":"spike_drop","node":"a_site","round":17},
+{"t":29,"type":"kill","node":"a_site","killer":"WsLeo","victim":"vo0kashu","side":"atk","round":17},
+{"t":29,"type":"round_end","winner":"atk","reason":"elimination","round":17},
+{"t":29,"type":"score","round":17,"scoreA":5,"scoreB":12,"winner":"B","reason":"elimination"},
+{"t":-1,"type":"round_meta","round":18,"atkTeam":"银卡默认队","defTeam":"金卡快攻队","atkFamily":"mid","defFamily":"stack","atkPlan":"full","atkReason":"full","defPlan":"full","defReason":"full","scoreA":5,"scoreB":12,"atkMoney":34100,"defMoney":1550},
+{"t":0,"type":"round_start","atkFamily":"mid","defFamily":"stack","units":[{"name":"Veqaj","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"斯凯","igl":false},{"name":"Sato","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"幽影","igl":false},{"name":"WsLeo","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"猎枭","igl":false},{"name":"cb","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"奇乐","igl":true},{"name":"brawk","side":"def","node":"ct_spawn","gun":2,"armor":"none","utils":0,"agent":"薇丝","igl":false},{"name":"happywei","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"幽影","igl":true},{"name":"RieNs","side":"def","node":"ct_spawn","gun":2,"armor":"none","utils":0,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"def","node":"ct_spawn","gun":2,"armor":"none","utils":0,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"def","node":"ct_spawn","gun":2,"armor":"none","utils":0,"agent":"零","igl":false}],"round":18},
+{"t":0,"type":"move","unit":"Veqaj","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":18},
+{"t":0,"type":"move","unit":"eeiu","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":18},
+{"t":0,"type":"move","unit":"Sato","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":18},
+{"t":0,"type":"move","unit":"WsLeo","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":18},
+{"t":0,"type":"move","unit":"cb","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":18},
+{"t":0,"type":"move","unit":"brawk","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":18},
+{"t":0,"type":"move","unit":"happywei","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":18},
+{"t":0,"type":"move","unit":"RieNs","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":18},
+{"t":0,"type":"move","unit":"Asuna","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":18},
+{"t":0,"type":"move","unit":"vo0kashu","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":18},
+{"t":3,"type":"move","unit":"brawk","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":18},
+{"t":3,"type":"move","unit":"happywei","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":18},
+{"t":3,"type":"move","unit":"RieNs","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":18},
+{"t":3,"type":"move","unit":"Asuna","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":18},
+{"t":3,"type":"move","unit":"vo0kashu","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":18},
+{"t":5,"type":"move","unit":"Veqaj","side":"atk","from":"mid_top","to":"mid","ticks":5,"round":18},
+{"t":5,"type":"move","unit":"eeiu","side":"atk","from":"mid_top","to":"mid","ticks":5,"round":18},
+{"t":5,"type":"move","unit":"Sato","side":"atk","from":"mid_top","to":"mid","ticks":5,"round":18},
+{"t":6,"type":"move","unit":"RieNs","side":"def","from":"a_site","to":"a_short","ticks":3,"round":18},
+{"t":14,"type":"mid_read","site":"A","defAt":{"A":4,"B":1},"round":18},
+{"t":14,"type":"move","unit":"Veqaj","side":"atk","from":"mid","to":"a_short","ticks":3,"round":18},
+{"t":14,"type":"move","unit":"eeiu","side":"atk","from":"mid","to":"a_short","ticks":3,"round":18},
+{"t":14,"type":"move","unit":"Sato","side":"atk","from":"mid","to":"a_short","ticks":3,"round":18},
+{"t":14,"type":"move","unit":"WsLeo","side":"atk","from":"mid_top","to":"t_spawn","ticks":3,"round":18},
+{"t":14,"type":"move","unit":"cb","side":"atk","from":"mid_top","to":"t_spawn","ticks":3,"round":18},
+{"t":17,"type":"entry_shot","node":"a_short","holder":"RieNs","entrant":"Veqaj","round":18},
+{"t":17,"type":"kill","node":"a_short","killer":"RieNs","victim":"Veqaj","side":"def","round":18},
+{"t":17,"type":"spike_drop","node":"a_short","round":18},
+{"t":17,"type":"entry_shot","node":"a_short","holder":"RieNs","entrant":"eeiu","round":18},
+{"t":17,"type":"entry_shot","node":"a_short","holder":"RieNs","entrant":"Sato","round":18},
+{"t":17,"type":"move","unit":"WsLeo","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":18},
+{"t":17,"type":"move","unit":"cb","side":"atk","from":"t_spawn","to":"a_main","ticks":4,"round":18},
+{"t":17,"type":"kill","node":"a_short","killer":"Sato","victim":"RieNs","side":"atk","round":18},
+{"t":17,"type":"spike_pickup","node":"a_short","unit":"eeiu","round":18},
+{"t":17,"type":"move","unit":"eeiu","side":"atk","from":"a_short","to":"a_site","ticks":3,"round":18},
+{"t":17,"type":"move","unit":"Sato","side":"atk","from":"a_short","to":"a_site","ticks":3,"round":18},
+{"t":20,"type":"smoke","node":"a_site","edge":["ct_a","a_site"],"by":"eeiu","until":32,"round":18},
+{"t":20,"type":"flash","node":"a_site","side":"atk","by":"eeiu","round":18},
+{"t":20,"type":"entry_shot","node":"a_site","holder":"Asuna","entrant":"eeiu","round":18},
+{"t":20,"type":"flash","node":"a_site","side":"atk","by":"Sato","round":18},
+{"t":20,"type":"entry_shot","node":"a_site","holder":"brawk","entrant":"Sato","round":18},
+{"t":20,"type":"entry_shot","node":"a_site","holder":"Asuna","entrant":"Sato","round":18},
+{"t":20,"type":"kill","node":"a_site","killer":"eeiu","victim":"brawk","side":"atk","round":18},
+{"t":20,"type":"rotate","unit":"happywei","to":"A","round":18},
+{"t":20,"type":"move","unit":"happywei","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":18},
+{"t":21,"type":"move","unit":"WsLeo","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":18},
+{"t":21,"type":"move","unit":"cb","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":18},
+{"t":21,"type":"kill","node":"a_site","killer":"Asuna","victim":"eeiu","side":"def","round":18},
+{"t":21,"type":"spike_drop","node":"a_site","round":18},
+{"t":22,"type":"push_in","unit":"happywei","site":"A","round":18},
+{"t":22,"type":"move","unit":"happywei","side":"def","from":"ct_a","to":"a_site","ticks":5,"round":18},
+{"t":24,"type":"spotted","node":"a_lobby","unit":"WsLeo","region":"A","round":18},
+{"t":24,"type":"move","unit":"WsLeo","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":18},
+{"t":24,"type":"spotted","node":"a_lobby","unit":"cb","region":"A","round":18},
+{"t":24,"type":"move","unit":"cb","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":18},
+{"t":27,"type":"spotted","node":"a_site","unit":"WsLeo","region":"A","round":18},
+{"t":27,"type":"flash","node":"a_site","side":"atk","by":"WsLeo","round":18},
+{"t":27,"type":"entry_shot","node":"a_site","holder":"Asuna","entrant":"WsLeo","round":18},
+{"t":27,"type":"flash","node":"a_site","side":"atk","by":"cb","round":18},
+{"t":27,"type":"entry_shot","node":"a_site","holder":"Asuna","entrant":"cb","round":18},
+{"t":28,"type":"kill","node":"a_site","killer":"Asuna","victim":"cb","side":"def","round":18},
+{"t":29,"type":"kill","node":"a_site","killer":"Sato","victim":"happywei","side":"atk","round":18},
+{"t":32,"type":"kill","node":"a_site","killer":"Asuna","victim":"WsLeo","side":"def","round":18},
+{"t":34,"type":"kill","node":"a_site","killer":"Sato","victim":"Asuna","side":"atk","round":18},
+{"t":34,"type":"spike_pickup","node":"a_site","unit":"Sato","round":18},
+{"t":34,"type":"plant_start","node":"a_site","unit":"Sato","round":18},
+{"t":38,"type":"plant","node":"a_site","unit":"Sato","site":"A","spikeTicks":45,"round":18},
+{"t":38,"type":"rotate","unit":"vo0kashu","to":"A","round":18},
+{"t":38,"type":"move","unit":"vo0kashu","side":"def","from":"b_site","to":"ct_b","ticks":3,"round":18},
+{"t":41,"type":"move","unit":"vo0kashu","side":"def","from":"ct_b","to":"ct_spawn","ticks":3,"round":18},
+{"t":44,"type":"move","unit":"vo0kashu","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":18},
+{"t":47,"type":"retake","site":"A","count":1,"round":18},
+{"t":47,"type":"move","unit":"vo0kashu","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":18},
+{"t":50,"type":"entry_shot","node":"a_site","holder":"Sato","entrant":"vo0kashu","round":18},
+{"t":50,"type":"save","unit":"vo0kashu","round":18},
+{"t":52,"type":"kill","node":"a_site","killer":"vo0kashu","victim":"Sato","side":"def","round":18},
+{"t":52,"type":"spike_drop","node":"a_site","round":18},
+{"t":52,"type":"round_end","winner":"def","reason":"defuse","round":18},
+{"t":52,"type":"score","round":18,"scoreA":6,"scoreB":12,"winner":"A","reason":"defuse"},
+{"t":-1,"type":"round_meta","round":19,"atkTeam":"银卡默认队","defTeam":"金卡快攻队","atkFamily":"mid","defFamily":"stack","atkPlan":"full","atkReason":"full","defPlan":"full","defReason":"full","scoreA":6,"scoreB":12,"atkMoney":20200,"defMoney":2450},
+{"t":0,"type":"round_start","atkFamily":"mid","defFamily":"stack","units":[{"name":"Veqaj","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"斯凯","igl":false},{"name":"Sato","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"幽影","igl":false},{"name":"WsLeo","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"猎枭","igl":false},{"name":"cb","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"奇乐","igl":true},{"name":"brawk","side":"def","node":"ct_spawn","gun":2,"armor":"none","utils":0,"agent":"薇丝","igl":false},{"name":"happywei","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"幽影","igl":true},{"name":"RieNs","side":"def","node":"ct_spawn","gun":2,"armor":"none","utils":0,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"def","node":"ct_spawn","gun":2,"armor":"none","utils":0,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"零","igl":false}],"round":19},
+{"t":0,"type":"move","unit":"Veqaj","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":19},
+{"t":0,"type":"move","unit":"eeiu","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":19},
+{"t":0,"type":"move","unit":"Sato","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":19},
+{"t":0,"type":"move","unit":"WsLeo","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":19},
+{"t":0,"type":"move","unit":"cb","side":"atk","from":"t_spawn","to":"mid_top","ticks":5,"round":19},
+{"t":0,"type":"move","unit":"brawk","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":19},
+{"t":0,"type":"move","unit":"happywei","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":19},
+{"t":0,"type":"move","unit":"RieNs","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":19},
+{"t":0,"type":"move","unit":"Asuna","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":19},
+{"t":0,"type":"move","unit":"vo0kashu","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":19},
+{"t":3,"type":"move","unit":"brawk","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":19},
+{"t":3,"type":"move","unit":"happywei","side":"def","from":"ct_a","to":"a_heaven","ticks":2,"round":19},
+{"t":3,"type":"move","unit":"RieNs","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":19},
+{"t":3,"type":"move","unit":"Asuna","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":19},
+{"t":3,"type":"move","unit":"vo0kashu","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":19},
+{"t":5,"type":"move","unit":"Veqaj","side":"atk","from":"mid_top","to":"mid","ticks":5,"round":19},
+{"t":5,"type":"move","unit":"eeiu","side":"atk","from":"mid_top","to":"mid","ticks":5,"round":19},
+{"t":5,"type":"move","unit":"Sato","side":"atk","from":"mid_top","to":"mid","ticks":5,"round":19},
+{"t":6,"type":"move","unit":"RieNs","side":"def","from":"a_site","to":"a_short","ticks":3,"round":19},
+{"t":14,"type":"mid_read","site":"B","defAt":{"A":4,"B":1},"round":19},
+{"t":14,"type":"move","unit":"Veqaj","side":"atk","from":"mid","to":"mid_bottom","ticks":3,"round":19},
+{"t":14,"type":"move","unit":"eeiu","side":"atk","from":"mid","to":"mid_bottom","ticks":3,"round":19},
+{"t":14,"type":"move","unit":"Sato","side":"atk","from":"mid","to":"mid_bottom","ticks":3,"round":19},
+{"t":14,"type":"move","unit":"WsLeo","side":"atk","from":"mid_top","to":"t_spawn","ticks":3,"round":19},
+{"t":14,"type":"move","unit":"cb","side":"atk","from":"mid_top","to":"t_spawn","ticks":3,"round":19},
+{"t":17,"type":"spotted","node":"mid_bottom","unit":"Veqaj","region":"mid","round":19},
+{"t":17,"type":"move","unit":"Veqaj","side":"atk","from":"mid_bottom","to":"market","ticks":2,"round":19},
+{"t":17,"type":"move","unit":"eeiu","side":"atk","from":"mid_bottom","to":"market","ticks":2,"round":19},
+{"t":17,"type":"spotted","node":"mid_bottom","unit":"Sato","region":"mid","round":19},
+{"t":17,"type":"move","unit":"Sato","side":"atk","from":"mid_bottom","to":"market","ticks":2,"round":19},
+{"t":17,"type":"move","unit":"WsLeo","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":19},
+{"t":17,"type":"move","unit":"cb","side":"atk","from":"t_spawn","to":"b_main","ticks":4,"round":19},
+{"t":19,"type":"move","unit":"Veqaj","side":"atk","from":"market","to":"b_site","ticks":3,"round":19},
+{"t":19,"type":"move","unit":"eeiu","side":"atk","from":"market","to":"b_site","ticks":3,"round":19},
+{"t":19,"type":"move","unit":"Sato","side":"atk","from":"market","to":"b_site","ticks":3,"round":19},
+{"t":21,"type":"move","unit":"WsLeo","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":19},
+{"t":21,"type":"move","unit":"cb","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":19},
+{"t":22,"type":"trap_spotted","node":"b_site","unit":"Veqaj","round":19},
+{"t":22,"type":"smoke","node":"b_site","edge":["ct_b","b_site"],"by":"Veqaj","until":34,"round":19},
+{"t":22,"type":"molly_entry","node":"b_site","preset":true,"round":19},
+{"t":22,"type":"molly_block","node":"b_site","unit":"Veqaj","round":19},
+{"t":22,"type":"flash","node":"b_site","side":"atk","by":"Veqaj","round":19},
+{"t":22,"type":"molly_block","node":"b_site","unit":"eeiu","round":19},
+{"t":22,"type":"flash","node":"b_site","side":"atk","by":"eeiu","round":19},
+{"t":22,"type":"molly_block","node":"b_site","unit":"Sato","round":19},
+{"t":22,"type":"flash","node":"b_site","side":"atk","by":"Sato","round":19},
+{"t":22,"type":"rotate","unit":"brawk","to":"B","round":19},
+{"t":22,"type":"move","unit":"brawk","side":"def","from":"a_site","to":"ct_a","ticks":3,"round":19},
+{"t":22,"type":"rotate","unit":"happywei","to":"B","round":19},
+{"t":22,"type":"move","unit":"happywei","side":"def","from":"a_heaven","to":"ct_a","ticks":2,"round":19},
+{"t":24,"type":"move","unit":"WsLeo","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":19},
+{"t":24,"type":"spotted","node":"b_lobby","unit":"cb","region":"B","round":19},
+{"t":24,"type":"move","unit":"cb","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":19},
+{"t":24,"type":"move","unit":"happywei","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":19},
+{"t":24,"type":"kill","node":"b_site","killer":"vo0kashu","victim":"Sato","side":"def","round":19},
+{"t":24,"type":"rotate","unit":"RieNs","to":"B","round":19},
+{"t":24,"type":"move","unit":"RieNs","side":"def","from":"a_short","to":"mid","ticks":3,"round":19},
+{"t":24,"type":"rotate","unit":"Asuna","to":"B","round":19},
+{"t":24,"type":"move","unit":"Asuna","side":"def","from":"a_site","to":"ct_a","ticks":3,"round":19},
+{"t":25,"type":"move","unit":"brawk","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":19},
+{"t":26,"type":"kill","node":"b_site","killer":"vo0kashu","victim":"Veqaj","side":"def","round":19},
+{"t":26,"type":"spike_drop","node":"b_site","round":19},
+{"t":27,"type":"molly_block","node":"b_site","unit":"WsLeo","round":19},
+{"t":27,"type":"flash","node":"b_site","side":"atk","by":"WsLeo","round":19},
+{"t":27,"type":"entry_shot","node":"b_site","holder":"vo0kashu","entrant":"WsLeo","round":19},
+{"t":27,"type":"molly_block","node":"b_site","unit":"cb","round":19},
+{"t":27,"type":"flash","node":"b_site","side":"atk","by":"cb","round":19},
+{"t":27,"type":"move","unit":"happywei","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":19},
+{"t":27,"type":"move","unit":"RieNs","side":"def","from":"mid","to":"mid_bottom","ticks":3,"round":19},
+{"t":27,"type":"move","unit":"Asuna","side":"def","from":"ct_a","to":"ct_spawn","ticks":3,"round":19},
+{"t":28,"type":"move","unit":"brawk","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":19},
+{"t":30,"type":"move","unit":"RieNs","side":"def","from":"mid_bottom","to":"ct_b","ticks":3,"round":19},
+{"t":30,"type":"move","unit":"Asuna","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":19},
+{"t":30,"type":"push_in","unit":"happywei","site":"B","round":19},
+{"t":30,"type":"move","unit":"happywei","side":"def","from":"ct_b","to":"b_site","ticks":5,"round":19},
+{"t":31,"type":"kill","node":"b_site","killer":"cb","victim":"vo0kashu","side":"atk","round":19},
+{"t":31,"type":"spike_pickup","node":"b_site","unit":"eeiu","round":19},
+{"t":31,"type":"plant_start","node":"b_site","unit":"eeiu","round":19},
+{"t":31,"type":"push_in","unit":"brawk","site":"B","round":19},
+{"t":31,"type":"move","unit":"brawk","side":"def","from":"ct_b","to":"b_site","ticks":5,"round":19},
+{"t":33,"type":"push_in","unit":"RieNs","site":"B","round":19},
+{"t":33,"type":"move","unit":"RieNs","side":"def","from":"ct_b","to":"b_site","ticks":5,"round":19},
+{"t":33,"type":"push_in","unit":"Asuna","site":"B","round":19},
+{"t":33,"type":"move","unit":"Asuna","side":"def","from":"ct_b","to":"b_site","ticks":5,"round":19},
+{"t":35,"type":"entry_shot","node":"b_site","holder":"cb","entrant":"happywei","round":19},
+{"t":35,"type":"plant","node":"b_site","unit":"eeiu","site":"B","spikeTicks":45,"round":19},
+{"t":36,"type":"entry_shot","node":"b_site","holder":"eeiu","entrant":"brawk","round":19},
+{"t":36,"type":"kill","node":"b_site","killer":"eeiu","victim":"brawk","side":"atk","round":19},
+{"t":38,"type":"entry_shot","node":"b_site","holder":"WsLeo","entrant":"RieNs","round":19},
+{"t":38,"type":"entry_shot","node":"b_site","holder":"cb","entrant":"RieNs","round":19},
+{"t":38,"type":"entry_shot","node":"b_site","holder":"eeiu","entrant":"Asuna","round":19},
+{"t":38,"type":"entry_shot","node":"b_site","holder":"WsLeo","entrant":"Asuna","round":19},
+{"t":38,"type":"retake","site":"B","count":3,"round":19},
+{"t":39,"type":"kill","node":"b_site","killer":"happywei","victim":"eeiu","side":"def","round":19},
+{"t":39,"type":"spike_drop","node":"b_site","round":19},
+{"t":39,"type":"kill","node":"b_site","killer":"cb","victim":"RieNs","side":"atk","round":19},
+{"t":40,"type":"kill","node":"b_site","killer":"happywei","victim":"WsLeo","side":"def","round":19},
+{"t":41,"type":"kill","node":"b_site","killer":"cb","victim":"Asuna","side":"atk","round":19},
+{"t":41,"type":"whiff","node":"b_site","unit":"happywei","agent":"幽影","round":19},
+{"t":41,"type":"whiff","node":"b_site","unit":"happywei","agent":"幽影","round":19},
+{"t":44,"type":"kill","node":"b_site","killer":"happywei","victim":"cb","side":"def","round":19},
+{"t":44,"type":"round_end","winner":"def","reason":"defuse","round":19},
+{"t":44,"type":"score","round":19,"scoreA":7,"scoreB":12,"winner":"A","reason":"defuse"},
+{"t":-1,"type":"round_meta","round":20,"atkTeam":"银卡默认队","defTeam":"金卡快攻队","atkFamily":"lurk","defFamily":"stack","atkPlan":"full","atkReason":"full","defPlan":"full","defReason":"full","scoreA":7,"scoreB":12,"atkMoney":12300,"defMoney":3350},
+{"t":0,"type":"round_start","atkFamily":"lurk","defFamily":"stack","units":[{"name":"Veqaj","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"蝰蛇","igl":false},{"name":"eeiu","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"斯凯","igl":false},{"name":"Sato","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"幽影","igl":false},{"name":"WsLeo","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"猎枭","igl":false},{"name":"cb","side":"atk","node":"t_spawn","gun":2,"armor":"heavy","utils":2,"agent":"奇乐","igl":true},{"name":"brawk","side":"def","node":"ct_spawn","gun":2,"armor":"none","utils":0,"agent":"薇丝","igl":false},{"name":"happywei","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"幽影","igl":true},{"name":"RieNs","side":"def","node":"ct_spawn","gun":2,"armor":"none","utils":0,"agent":"蝰蛇","igl":false},{"name":"Asuna","side":"def","node":"ct_spawn","gun":2,"armor":"none","utils":0,"agent":"不死鸟","igl":false},{"name":"vo0kashu","side":"def","node":"ct_spawn","gun":2,"armor":"heavy","utils":0,"agent":"零","igl":false}],"round":20},
+{"t":0,"type":"move","unit":"Veqaj","side":"atk","from":"t_spawn","to":"b_main","ticks":6,"round":20},
+{"t":0,"type":"move","unit":"eeiu","side":"atk","from":"t_spawn","to":"b_main","ticks":6,"round":20},
+{"t":0,"type":"move","unit":"Sato","side":"atk","from":"t_spawn","to":"b_main","ticks":6,"round":20},
+{"t":0,"type":"move","unit":"WsLeo","side":"atk","from":"t_spawn","to":"b_main","ticks":6,"round":20},
+{"t":0,"type":"move","unit":"cb","side":"atk","from":"t_spawn","to":"a_main","ticks":6,"round":20},
+{"t":0,"type":"move","unit":"brawk","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":20},
+{"t":0,"type":"move","unit":"happywei","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":20},
+{"t":0,"type":"move","unit":"RieNs","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":20},
+{"t":0,"type":"move","unit":"Asuna","side":"def","from":"ct_spawn","to":"ct_b","ticks":3,"round":20},
+{"t":0,"type":"move","unit":"vo0kashu","side":"def","from":"ct_spawn","to":"ct_a","ticks":3,"round":20},
+{"t":3,"type":"move","unit":"brawk","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":20},
+{"t":3,"type":"move","unit":"happywei","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":20},
+{"t":3,"type":"move","unit":"RieNs","side":"def","from":"ct_b","to":"market","ticks":3,"round":20},
+{"t":3,"type":"move","unit":"Asuna","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":20},
+{"t":3,"type":"move","unit":"vo0kashu","side":"def","from":"ct_a","to":"a_site","ticks":3,"round":20},
+{"t":6,"type":"move","unit":"happywei","side":"def","from":"b_site","to":"b_back","ticks":2,"round":20},
+{"t":37,"type":"move","unit":"Veqaj","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":20},
+{"t":37,"type":"move","unit":"eeiu","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":20},
+{"t":37,"type":"move","unit":"Sato","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":20},
+{"t":37,"type":"move","unit":"WsLeo","side":"atk","from":"b_main","to":"b_lobby","ticks":3,"round":20},
+{"t":37,"type":"move","unit":"cb","side":"atk","from":"a_main","to":"a_lobby","ticks":3,"round":20},
+{"t":40,"type":"move","unit":"Veqaj","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":20},
+{"t":40,"type":"move","unit":"eeiu","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":20},
+{"t":40,"type":"move","unit":"Sato","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":20},
+{"t":40,"type":"move","unit":"WsLeo","side":"atk","from":"b_lobby","to":"b_site","ticks":3,"round":20},
+{"t":40,"type":"move","unit":"cb","side":"atk","from":"a_lobby","to":"a_site","ticks":3,"round":20},
+{"t":43,"type":"trap_spotted","node":"b_site","unit":"Veqaj","round":20},
+{"t":43,"type":"smoke","node":"b_site","edge":["ct_b","b_site"],"by":"Veqaj","until":55,"round":20},
+{"t":43,"type":"flash","node":"b_site","side":"atk","by":"Veqaj","round":20},
+{"t":43,"type":"spotted","node":"b_site","unit":"eeiu","region":"B","round":20},
+{"t":43,"type":"flash","node":"b_site","side":"atk","by":"eeiu","round":20},
+{"t":43,"type":"entry_shot","node":"b_site","holder":"brawk","entrant":"eeiu","round":20},
+{"t":43,"type":"entry_shot","node":"b_site","holder":"Asuna","entrant":"eeiu","round":20},
+{"t":43,"type":"entry_shot","node":"b_site","holder":"brawk","entrant":"Sato","round":20},
+{"t":43,"type":"entry_shot","node":"b_site","holder":"Asuna","entrant":"Sato","round":20},
+{"t":43,"type":"flash","node":"b_site","side":"atk","by":"WsLeo","round":20},
+{"t":43,"type":"entry_shot","node":"b_site","holder":"brawk","entrant":"WsLeo","round":20},
+{"t":43,"type":"kill","node":"b_site","killer":"brawk","victim":"WsLeo","side":"def","round":20},
+{"t":43,"type":"trap_spotted","node":"a_site","unit":"cb","round":20},
+{"t":43,"type":"molly_entry","node":"a_site","preset":true,"round":20},
+{"t":43,"type":"molly_block","node":"a_site","unit":"cb","round":20},
+{"t":43,"type":"entry_shot","node":"a_site","holder":"vo0kashu","entrant":"cb","round":20},
+{"t":44,"type":"kill","node":"b_site","killer":"Asuna","victim":"Veqaj","side":"def","round":20},
+{"t":44,"type":"spike_drop","node":"b_site","round":20},
+{"t":46,"type":"kill","node":"a_site","killer":"cb","victim":"vo0kashu","side":"atk","round":20},
+{"t":46,"type":"move","unit":"cb","side":"atk","from":"a_site","to":"ct_a","ticks":3,"round":20},
+{"t":49,"type":"move","unit":"cb","side":"atk","from":"ct_a","to":"ct_spawn","ticks":3,"round":20},
+{"t":49,"type":"kill","node":"b_site","killer":"eeiu","victim":"Asuna","side":"atk","round":20},
+{"t":49,"type":"kill","node":"b_site","killer":"brawk","victim":"Sato","side":"def","round":20},
+{"t":51,"type":"kill","node":"b_site","killer":"eeiu","victim":"brawk","side":"atk","round":20},
+{"t":51,"type":"spike_pickup","node":"b_site","unit":"eeiu","round":20},
+{"t":51,"type":"plant_start","node":"b_site","unit":"eeiu","round":20},
+{"t":52,"type":"move","unit":"cb","side":"atk","from":"ct_spawn","to":"ct_b","ticks":3,"round":20},
+{"t":55,"type":"move","unit":"cb","side":"atk","from":"ct_b","to":"b_site","ticks":3,"round":20},
+{"t":55,"type":"plant","node":"b_site","unit":"eeiu","site":"B","spikeTicks":45,"round":20},
+{"t":55,"type":"move","unit":"happywei","side":"def","from":"b_back","to":"b_site","ticks":2,"round":20},
+{"t":55,"type":"rotate","unit":"RieNs","to":"B","round":20},
+{"t":55,"type":"move","unit":"RieNs","side":"def","from":"market","to":"ct_b","ticks":3,"round":20},
+{"t":57,"type":"entry_shot","node":"b_site","holder":"eeiu","entrant":"happywei","round":20},
+{"t":58,"type":"flash","node":"b_site","side":"atk","by":"cb","round":20},
+{"t":58,"type":"kill","node":"b_site","killer":"eeiu","victim":"happywei","side":"atk","round":20},
+{"t":58,"type":"retake","site":"B","count":1,"round":20},
+{"t":58,"type":"move","unit":"RieNs","side":"def","from":"ct_b","to":"b_site","ticks":3,"round":20},
+{"t":61,"type":"entry_shot","node":"b_site","holder":"eeiu","entrant":"RieNs","round":20},
+{"t":61,"type":"entry_shot","node":"b_site","holder":"cb","entrant":"RieNs","round":20},
+{"t":61,"type":"kill","node":"b_site","killer":"eeiu","victim":"RieNs","side":"atk","round":20},
+{"t":61,"type":"round_end","winner":"atk","reason":"elimination","round":20},
+{"t":61,"type":"score","round":20,"scoreA":7,"scoreB":13,"winner":"B","reason":"elimination"}];
+
+const FAMILY_NAME = { rush: '爆弹冲点', mid: '中路接触', lurk: '边线渗透', fake: '假打转点', push: '防守前压', hold: '默认架点', stack: '赌点防守' };
+const PLAN_NAME = { pistol: '手枪局', eco: 'ECO', half: '混起', full: '长枪局' };
+const REASON_NAME = { elimination: '歼灭', explosion: '爆能器引爆', defuse: '拆包', timeout: '超时' };
+const GUN_NAME = ['手枪', '冲锋枪', '步枪'];
+
+// ===== 日志解析：按回合分段 =====
+function parseLog(lines) {
+  const rounds = [];
+  let cur = null, teamNames = null;
+  for (const e of lines) {
+    if (e.type === 'round_meta') {
+      cur = { meta: e, events: [], moves: [], duration: 100 };
+      rounds.push(cur);
+      if (!teamNames) teamNames = { A: e.atkTeam, B: e.defTeam }; // 首回合攻=A队
+    } else if (e.type === 'round_start') {
+      cur.start = e;
+      cur.atkFamily = e.atkFamily; cur.defFamily = e.defFamily;
+    } else if (e.type === 'score') {
+      if (cur) { cur.scoreA = e.scoreA; cur.scoreB = e.scoreB; cur.winner = e.winner; cur.reason = e.reason; }
+    } else if (e.type === 'round_end') {
+      if (cur) { cur.duration = Math.max(e.t, 1); cur.events.push(e); }
+    } else if (cur) {
+      cur.events.push(e);
+      if (e.type === 'move') cur.moves.push(e);
+    }
+  }
+  // 每回合按 tick 索引事件
+  for (const r of rounds) {
+    r.byTick = {};
+    for (const e of r.events) {
+      const t = e.t;
+      (r.byTick[t] = r.byTick[t] || []).push(e);
+    }
+  }
+  return { rounds, teamNames };
+}
+
+// ===== 回放器 =====
+const canvas = document.getElementById('map');
+const ctx = canvas.getContext('2d');
+let DATA = null;
+let roundIdx = 0, tick = 0, playing = true, speed = 1;
+let shownKills = 0, shownEvents = 0, bannerUntil = -1;
+
+function cur() { return DATA.rounds[roundIdx]; }
+
+// 单位在指定 tick 的位置（移动插值）
+function unitStates(r, t) {
+  const states = {};
+  for (const u of r.start.units) {
+    states[u.name] = { ...u, x: nodePos(u.node).x, y: nodePos(u.node).y, dead: false, deadTick: -1, deadNode: null };
+  }
+  for (const m of r.moves) {
+    if (m.t > t) break;
+    const s = states[m.unit];
+    if (!s || s.dead) continue;
+    const from = nodePos(m.from), to = nodePos(m.to);
+    const f = Math.min((t - m.t) / m.ticks, 1);
+    if (f >= 1) { s.x = to.x; s.y = to.y; s.node = m.to; }
+    else { s.x = from.x + (to.x - from.x) * f; s.y = from.y + (to.y - from.y) * f; s.node = null; }
+  }
+  for (const e of r.events) {
+    if (e.t > t) break;
+    if (e.type === 'kill') {
+      const v = states[e.victim];
+      if (v && !v.dead) { v.dead = true; v.deadTick = e.t; v.deadNode = e.node; }
+    }
+  }
+  return states;
+}
+
+function nodePos(id) { const n = window.MAP_DATA.nodes[id]; return { x: n.x, y: n.y }; }
+
+// ===== 地图绘制 =====
+const COLORS = {
+  A: '#3a2a4a', B: '#2a3a4a', mid: '#2a3440', spawn: '#22302a',
+  atk: '#ff6b6b', def: '#4ecdc4', edge: '#263042'
+};
+
+function drawMap() {
+  const M = window.MAP_DATA;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // 边
+  ctx.lineWidth = 3;
+  for (const e of M.edges) {
+    const a = M.nodes[e.a], b = M.nodes[e.b];
+    ctx.strokeStyle = COLORS.edge;
+    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+  }
+  // 节点
+  for (const [id, n] of Object.entries(M.nodes)) {
+    const isSite = id === 'a_site' || id === 'b_site';
+    const r = isSite ? 26 : (n.capacity >= 8 ? 20 : 15);
+    ctx.fillStyle = COLORS[n.region] || '#2a3440';
+    ctx.strokeStyle = isSite ? '#c8a86b' : '#3a4a60';
+    ctx.lineWidth = isSite ? 2.5 : 1.5;
+    ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#d5dbe3';
+    ctx.font = (isSite ? 'bold 15px' : '11px') + ' sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(isSite ? id[0].toUpperCase() + '点' : n.name, n.x, n.y - r - 5);
+    if (isSite) { ctx.fillStyle = '#c8a86b'; ctx.fillText(id === 'a_site' ? 'A' : 'B', n.x, n.y + 5); }
+  }
+}
+
+// ===== 单位与事件绘制 =====
+function drawFrame() {
+  if (!DATA) return;
+  const r = cur();
+  if (!r || !r.start) return;
+  drawMap();
+  const t = tick;
+  const states = unitStates(r, t);
+
+  // 持续型事件：烟 / 火 / 闪 / 标记
+  for (const e of r.events) {
+    if (e.t > t) break;
+    const age = t - e.t;
+    if (e.type === 'smoke' && t < (e.until || e.t + 12)) {
+      const a = nodePos(e.edge[0]), b = nodePos(e.edge[1]);
+      ctx.fillStyle = 'rgba(150,150,160,0.4)';
+      ctx.beginPath(); ctx.arc((a.x + b.x) / 2, (a.y + b.y) / 2, 26, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#aab';
+      ctx.font = '10px sans-serif'; ctx.fillText('烟', (a.x + b.x) / 2, (a.y + b.y) / 2 + 3);
+    }
+    if ((e.type === 'molly_entry' || e.type === 'molly') && age < 6) {
+      const p = nodePos(e.node);
+      ctx.fillStyle = `rgba(255,120,30,${0.5 * (1 - age / 6)})`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, 30, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ffd0a0'; ctx.font = '10px sans-serif'; ctx.fillText('火', p.x, p.y - 32);
+    }
+    if (e.type === 'flash' && age < 2) {
+      const p = nodePos(e.node);
+      ctx.strokeStyle = `rgba(255,240,120,${1 - age / 2})`; ctx.lineWidth = 3;
+      for (let i = 0; i < 8; i++) {
+        const ang = i * Math.PI / 4;
+        ctx.beginPath(); ctx.moveTo(p.x + 30 * Math.cos(ang), p.y + 30 * Math.sin(ang));
+        ctx.lineTo(p.x + 42 * Math.cos(ang), p.y + 42 * Math.sin(ang)); ctx.stroke();
+      }
+    }
+    if (e.type === 'kill') {
+      const p = nodePos(e.node);
+      ctx.strokeStyle = '#ff4655'; ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(p.x - 7, p.y - 7); ctx.lineTo(p.x + 7, p.y + 7);
+      ctx.moveTo(p.x + 7, p.y - 7); ctx.lineTo(p.x - 7, p.y + 7);
+      ctx.stroke();
+    }
+    if (e.type === 'trap' && age < 3) {
+      const p = nodePos(e.node);
+      ctx.fillStyle = 'rgba(190,110,255,0.85)';
+      ctx.font = 'bold 13px sans-serif'; ctx.fillText('⚡警戒', p.x, p.y - 24);
+    }
+    if (e.type === 'fake_noise' && age < 4) {
+      const p = nodePos(e.node);
+      ctx.strokeStyle = `rgba(255,150,60,${0.8 - age * 0.2})`; ctx.setLineDash([4, 4]); ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(p.x, p.y, 34 + age * 4, 0, Math.PI * 2); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#ffaa55'; ctx.font = '10px sans-serif'; ctx.fillText('假打?', p.x, p.y - 38);
+    }
+    if (e.type === 'fake_read' && age < 3) {
+      const s = states[e.unit];
+      if (s && !s.dead) { ctx.fillStyle = '#7fe0a0'; ctx.font = 'bold 12px sans-serif'; ctx.fillText('识破!', s.x, s.y - 22); }
+    }
+    if (e.type === 'pop_off' && age < 3) {
+      const p = nodePos(e.node);
+      ctx.fillStyle = '#ffd700'; ctx.font = 'bold 15px sans-serif'; ctx.fillText('★爆种', p.x, p.y - 34);
+    }
+    if (e.type === 'whiff' && age < 3) {
+      const p = nodePos(e.node);
+      ctx.fillStyle = '#b48cff'; ctx.font = 'bold 13px sans-serif'; ctx.fillText('▼失误', p.x, p.y - 34);
+    }
+    if (e.type === 'spike_drop' && age >= 0 && !r.planted) {
+      const p = nodePos(e.node);
+      ctx.fillStyle = '#ffb454'; ctx.font = 'bold 14px sans-serif'; ctx.fillText('◆包', p.x + 14, p.y + 16);
+    }
+  }
+
+  // 下包/拆包进度与爆能器
+  const plantStart = r.events.find((e) => e.type === 'plant_start');
+  const planted = r.events.find((e) => e.type === 'plant');
+  const defuseStart = r.events.find((e) => e.type === 'defuse_start');
+  const spikeNode = planted ? nodePos(planted.node) : (plantStart ? nodePos(plantStart.node) : null);
+  if (plantStart && t >= plantStart.t && !planted) {
+    drawProgress(spikeNode, (t - plantStart.t) / 4, '#ffb454', '下包中');
+  }
+  if (planted && t >= planted.t && t < r.duration) {
+    ctx.fillStyle = '#ffb454'; ctx.font = 'bold 16px sans-serif';
+    ctx.fillText('◆', spikeNode.x, spikeNode.y - 34);
+    const left = planted.t + (planted.spikeTicks || 45) - t;
+    document.getElementById('spikeBox').style.display = 'block';
+    document.getElementById('spikeT').textContent = Math.max(left, 0).toFixed(0);
+    document.getElementById('spikefill').style.width = Math.max(left / (planted.spikeTicks || 45) * 100, 0) + '%';
+  } else {
+    document.getElementById('spikeBox').style.display = 'none';
+  }
+  if (defuseStart && t >= defuseStart.t && !r.events.some((e) => e.type === 'defuse' || (e.type === 'defuse_abort' && e.t >= defuseStart.t && e.t <= t))) {
+    const dn = nodePos(defuseStart.node);
+    drawProgress(dn, (t - defuseStart.t) / 7, '#4ecdc4', '拆包中');
+  }
+
+  // 单位（同节点单位环形散开避免重叠）
+  const groups = {};
+  for (const [name, s] of Object.entries(states)) {
+    if (s.dead && t - s.deadTick > 2) continue; // 尸体 2 tick 后消失
+    const key = `${Math.round(s.x)},${Math.round(s.y)}`;
+    (groups[key] = groups[key] || []).push(s);
+  }
+  for (const g of Object.values(groups)) {
+    g.forEach((s, i) => {
+      if (g.length > 1) {
+        const ang = (i / g.length) * Math.PI * 2;
+        s.dx = 13 * Math.cos(ang); s.dy = 13 * Math.sin(ang);
+      } else { s.dx = 0; s.dy = 0; }
+    });
+  }
+  for (const [name, s] of Object.entries(states)) {
+    if (s.dead && t - s.deadTick > 2) continue;
+    const col = s.side === 'atk' ? COLORS.atk : COLORS.def;
+    const x = s.x + s.dx, y = s.y + s.dy;
+    if (s.dead) {
+      ctx.fillStyle = 'rgba(120,120,130,0.6)';
+      ctx.beginPath(); ctx.arc(x, y, 8, 0, Math.PI * 2); ctx.fill();
+      continue;
+    }
+    ctx.fillStyle = col;
+    ctx.strokeStyle = s.igl ? '#ffd700' : '#0d1117';
+    ctx.lineWidth = s.igl ? 2.5 : 1.5;
+    ctx.beginPath(); ctx.arc(x, y, 8, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#0d1117'; ctx.font = 'bold 8px sans-serif';
+    ctx.fillText(GUN_NAME[s.gun] ? GUN_NAME[s.gun][0] : '', x, y + 3);
+    ctx.fillStyle = col; ctx.font = '10px sans-serif';
+    ctx.fillText(name, x, y - 12);
+  }
+}
+
+function drawProgress(p, frac, color, label) {
+  frac = Math.min(Math.max(frac, 0), 1);
+  ctx.strokeStyle = color; ctx.lineWidth = 4;
+  ctx.beginPath(); ctx.arc(p.x, p.y, 34, -Math.PI / 2, -Math.PI / 2 + frac * Math.PI * 2); ctx.stroke();
+  ctx.fillStyle = color; ctx.font = '11px sans-serif'; ctx.fillText(label, p.x, p.y + 48);
+}
+
+// ===== HUD =====
+function drawHUD() {
+  const r = cur();
+  if (!r) return;
+  const m = r.meta;
+  document.getElementById('teamA').textContent = DATA.teamNames.A + (m.atkTeam === DATA.teamNames.A ? ' (攻)' : ' (守)');
+  document.getElementById('teamB').textContent = DATA.teamNames.B + (m.atkTeam === DATA.teamNames.B ? ' (攻)' : ' (守)');
+  document.getElementById('scoreA').textContent = r.scoreA != null ? r.scoreA : m.scoreA;
+  document.getElementById('scoreB').textContent = r.scoreB != null ? r.scoreB : m.scoreB;
+  document.getElementById('roundInfo').innerHTML =
+    `回合 ${m.round} · ${FAMILY_NAME[r.atkFamily] || ''} vs ${FAMILY_NAME[r.defFamily] || ''}<br>` +
+    `${PLAN_NAME[m.atkPlan] || ''} / ${PLAN_NAME[m.defPlan] || ''}`;
+  document.getElementById('econ').innerHTML =
+    `经济 攻 $${m.atkMoney ?? '-'}<br>守 $${m.defMoney ?? '-'}`;
+  document.getElementById('clock').textContent = `R${m.round} t=${tick.toFixed(0)}s`;
+  // 进度条
+  const totalRounds = DATA.rounds.length;
+  document.getElementById('scrubfill').style.width = ((roundIdx + tick / r.duration) / totalRounds * 100) + '%';
+  // 击杀信息流
+  const kills = r.events.filter((e) => e.type === 'kill' && e.t <= tick);
+  const kf = document.getElementById('killfeed');
+  if (kills.length !== shownKills) {
+    shownKills = kills.length;
+    kf.innerHTML = kills.slice(-8).map((e) =>
+      `<div class="kf"><span class="${e.side}">${e.killer}</span> ✕ <span class="${e.side === 'atk' ? 'def' : 'atk'}">${e.victim}</span> <span class="dim">@${e.t}s</span></div>`
+    ).join('');
+  }
+  // 事件流
+  const evs = r.events.filter((e) => e.t <= tick && ['plant', 'defuse', 'defuse_start', 'flash', 'smoke', 'molly', 'molly_entry', 'trap', 'trap_spotted', 'recon', 'fake_noise', 'fake_read', 'fake_pulled', 'pop_off', 'whiff', 'save', 'retake', 'force_commit', 'spike_drop', 'spike_pickup', 'mid_read'].includes(e.type));
+  const ef = document.getElementById('eventfeed');
+  if (evs.length !== shownEvents) {
+    shownEvents = evs.length;
+    const EVNAME = { plant: '下包', defuse: '拆包成功', defuse_start: '开始拆包', flash: '闪光', smoke: '烟雾', molly: '燃烧拖包', molly_entry: '燃烧封点', trap: '警戒触发', trap_spotted: '识破警戒', recon: '侦察', fake_noise: '假打佯动', fake_read: '识破假打', fake_pulled: '中计拉动', pop_off: '★爆种', whiff: '▼失误', save: '保枪', retake: '回防同步', force_commit: '强行进点', spike_drop: '爆能器掉落', spike_pickup: '拾取爆能器', mid_read: '中路读取' };
+    ef.innerHTML = evs.slice(-10).map((e) =>
+      `<div class="kf"><span class="dim">t${e.t}</span> ${EVNAME[e.type] || e.type} <span class="dim">${e.unit || e.by || ''}</span></div>`
+    ).join('');
+  }
+  // 回合结果横幅
+  if (tick >= r.duration && r.winner) {
+    const name = r.winner === 'A' ? DATA.teamNames.A : DATA.teamNames.B;
+    const b = document.getElementById('banner');
+    b.style.display = 'block';
+    b.innerHTML = `${name} 拿下回合 ${m.round}<small>${REASON_NAME[r.reason] || r.reason} · ${r.scoreA} : ${r.scoreB}</small>`;
+    bannerUntil = -1;
+  } else {
+    document.getElementById('banner').style.display = 'none';
+  }
+}
+
+// ===== 播放控制 =====
+let lastTs = 0;
+function loop(ts) {
+  if (!DATA) { requestAnimationFrame(loop); return; }
+  const dt = Math.min((ts - lastTs) / 1000, 0.1);
+  lastTs = ts;
+  if (playing) {
+    const r = cur();
+    tick += dt * speed;
+    if (tick > r.duration + 2.2) { // 回合结果横幅停留 ~2.2s
+      if (roundIdx < DATA.rounds.length - 1) { setRound(roundIdx + 1); }
+      else { playing = false; document.getElementById('btnPlay').textContent = '▶ 播放'; tick = r.duration + 2.2; }
+    }
+  }
+  drawFrame();
+  drawHUD();
+  requestAnimationFrame(loop);
+}
+
+function setRound(i, t) {
+  roundIdx = Math.max(0, Math.min(i, DATA.rounds.length - 1));
+  tick = t || 0;
+  shownKills = -1; shownEvents = -1;
+  document.getElementById('banner').style.display = 'none';
+}
+
+document.getElementById('btnPlay').onclick = () => {
+  playing = !playing;
+  document.getElementById('btnPlay').textContent = playing ? '⏸ 暂停' : '▶ 播放';
+};
+document.getElementById('btnPrev').onclick = () => setRound(roundIdx - 1);
+document.getElementById('btnNext').onclick = () => setRound(roundIdx + 1);
+const SPEEDS = [0.5, 1, 2, 4, 8];
+const speedsBox = document.getElementById('speeds');
+for (const s of SPEEDS) {
+  const b = document.createElement('button');
+  b.textContent = s + 'x';
+  b.className = s === 1 ? 'active' : '';
+  b.onclick = () => { speed = s; [...speedsBox.children].forEach((c) => c.classList.remove('active')); b.classList.add('active'); };
+  speedsBox.appendChild(b);
+}
+document.getElementById('scrub').onclick = (ev) => {
+  const rect = ev.target.getBoundingClientRect();
+  const frac = (ev.clientX - rect.left) / rect.width;
+  const idx = Math.floor(frac * DATA.rounds.length);
+  setRound(idx);
+};
+window.addEventListener('keydown', (e) => {
+  if (e.code === 'Space') { e.preventDefault(); document.getElementById('btnPlay').click(); }
+  if (e.code === 'ArrowLeft') setRound(roundIdx - 1);
+  if (e.code === 'ArrowRight') setRound(roundIdx + 1);
+});
+
+// ===== 数据加载 =====
+function loadText(text) {
+  const lines = text.trim().split('\n').map((l) => JSON.parse(l));
+  DATA = parseLog(lines);
+  // 回合计刻度
+  const marks = document.getElementById('roundmarks');
+  marks.innerHTML = '';
+  for (let i = 0; i < DATA.rounds.length; i++) {
+    const d = document.createElement('div');
+    d.style.flex = '1';
+    marks.appendChild(d);
+  }
+  document.getElementById('dropzone').style.display = 'none';
+  // URL 参数定位（截图/调试用）：?round=N&tick=M&paused=1
+  const q = new URLSearchParams(location.search);
+  if (q.get('round')) setRound(parseInt(q.get('round')) - 1, parseFloat(q.get('tick') || 0));
+  if (q.get('paused')) { playing = false; document.getElementById('btnPlay').textContent = '▶ 播放'; }
+  setRound(roundIdx, tick);
+}
+
+document.getElementById('fileInput').onchange = (ev) => {
+  const f = ev.target.files[0];
+  if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => loadText(rd.result);
+  rd.readAsText(f);
+};
+document.getElementById('mapwrap').ondragover = (e) => e.preventDefault();
+document.getElementById('mapwrap').ondrop = (e) => {
+  e.preventDefault();
+  const f = e.dataTransfer.files[0];
+  if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => loadText(rd.result);
+  rd.readAsText(f);
+};
+
+if (window.EMBEDDED_EVENTS) loadText(window.EMBEDDED_EVENTS.map((e) => JSON.stringify(e)).join('\n'));
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
