@@ -4,7 +4,7 @@ const path = require('path');
 let AGENT_NAMES = null;
 function allAgents() {
   if (!AGENT_NAMES) {
-    const raw = JSON.parse(require('fs').readFileSync(path.join(__dirname, '..', '数据源', 'agents.json'), 'utf8'));
+    const raw = require('../数据源/agents.json'); // lazy require：Node 与观赛页打包器通用
     AGENT_NAMES = [...new Set(Object.values(raw))];
   }
   return AGENT_NAMES;

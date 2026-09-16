@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>无畏契约 · 沙盘观赛</title>
+<style>
+  :root { --bg:#0b0f14; --panel:#131a22; --line:#1f2a36; --txt:#d7e0e8; --dim:#7a8a99;
+          --A:#3fa9f5; --B:#f0584d; --gold:#ffcf5c; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--txt); font-family:"Microsoft YaHei",sans-serif; overflow:hidden; }
+  #app { display:flex; height:100vh; }
+  #left { flex:1; display:flex; flex-direction:column; min-width:0; }
+  #topbar { display:flex; align-items:center; gap:14px; padding:8px 14px; background:var(--panel); border-bottom:1px solid var(--line); }
+  #topbar .team { font-weight:bold; font-size:15px; }
+  #score { font-size:22px; font-weight:bold; letter-spacing:2px; }
+  #roundInfo { color:var(--dim); font-size:12px; }
+  #timer { margin-left:auto; font-size:18px; font-family:Consolas,monospace; color:var(--gold); }
+  #mapwrap { flex:1; position:relative; display:flex; align-items:center; justify-content:center; }
+  canvas#map { max-width:100%; max-height:100%; cursor:pointer; }
+  #speedbar { display:flex; gap:8px; align-items:center; padding:6px 14px; background:var(--panel); border-top:1px solid var(--line); font-size:12px; color:var(--dim); }
+  #speedbar button { background:#1c2836; color:var(--txt); border:1px solid var(--line); border-radius:4px; padding:3px 10px; cursor:pointer; }
+  #speedbar button.active { background:var(--A); color:#04121f; font-weight:bold; }
+  #summaryBar { padding:4px 14px 8px; font-size:12px; color:var(--gold); background:var(--panel); min-height:24px; }
+  #right { width:300px; background:var(--panel); border-left:1px solid var(--line); display:flex; flex-direction:column; }
+  #right h3 { font-size:12px; color:var(--dim); padding:8px 10px 4px; letter-spacing:1px; }
+  #killfeed { max-height:180px; overflow-y:auto; padding:0 10px; font-size:12px; }
+  #killfeed div { padding:2px 0; }
+  #eventfeed { flex:1; overflow-y:auto; padding:0 10px; font-size:12px; color:#b8c4d0; }
+  #eventfeed div { padding:1px 0; }
+  #keyrounds { max-height:150px; overflow-y:auto; padding:0 10px 8px; font-size:12px; }
+  #keyrounds div { padding:2px 0; cursor:pointer; color:var(--gold); }
+  #keyrounds div:hover { text-decoration:underline; }
+  /* 教练窗口 */
+  #coachWin { position:fixed; inset:0; background:rgba(4,8,12,.82); display:none; align-items:center; justify-content:center; z-index:10; }
+  #coachPanel { width:560px; max-height:88vh; overflow-y:auto; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:18px 22px; }
+  #coachPanel h2 { font-size:17px; margin-bottom:4px; }
+  #coachPanel .sub { color:var(--dim); font-size:12px; margin-bottom:10px; }
+  #coachSummary { color:var(--gold); font-size:13px; margin-bottom:12px; }
+  .wrow { display:flex; align-items:center; gap:8px; margin:3px 0; font-size:13px; }
+  .wrow .fname { width:90px; }
+  .wrow button { width:26px; height:22px; background:#1c2836; color:var(--txt); border:1px solid var(--line); border-radius:4px; cursor:pointer; }
+  .wrow .wval { width:44px; text-align:center; font-family:Consolas,monospace; }
+  .wcol { display:inline-block; vertical-align:top; width:48%; }
+  #coachPanel select { background:#1c2836; color:var(--txt); border:1px solid var(--line); border-radius:4px; padding:4px 6px; width:100%; margin-top:4px; }
+  #coachBtns { margin-top:16px; display:flex; gap:10px; }
+  #coachBtns button { flex:1; padding:9px 0; border-radius:5px; border:none; cursor:pointer; font-size:14px; }
+  #btnGo { background:#2a3a4c; color:var(--txt); }
+  #btnTimeout { background:var(--gold); color:#221a00; font-weight:bold; }
+  #btnTimeout:disabled { background:#3a352a; color:#777; cursor:not-allowed; }
+  /* 终局面板 */
+  #finalWin { position:fixed; inset:0; background:rgba(4,8,12,.9); display:none; align-items:center; justify-content:center; z-index:20; }
+  #finalPanel { width:620px; max-height:88vh; overflow-y:auto; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:20px 26px; }
+  #finalPanel h2 { margin-bottom:8px; }
+  #finalReport { font-size:13px; line-height:1.7; color:#c4d0dc; }
+  #reviewTag { position:fixed; top:52px; left:14px; background:var(--gold); color:#221a00; font-size:12px; padding:3px 10px; border-radius:4px; display:none; z-index:5; cursor:pointer; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="left">
+    <div id="topbar">
+      <span class="team" id="nameA"></span><span id="score">0 : 0</span><span class="team" id="nameB"></span>
+      <span id="roundInfo"></span>
+      <span id="timer"></span>
+    </div>
+    <div id="mapwrap"><canvas id="map" width="1000" height="720"></canvas></div>
+    <div id="speedbar">
+      倍速
+      <button data-s="0.5">0.5x</button><button data-s="1" class="active">1x</button>
+      <button data-s="2">2x</button><button data-s="4">4x</button><button data-s="8">8x</button>
+      <span style="margin-left:12px">点击选手查看枪线 · 回合间可叫暂停调整战术</span>
+    </div>
+    <div id="summaryBar"></div>
+  </div>
+  <div id="right">
+    <h3>击杀信息</h3><div id="killfeed"></div>
+    <h3>事件流</h3><div id="eventfeed"></div>
+    <h3>关键回合（点击回看）</h3><div id="keyrounds"></div>
+  </div>
+</div>
+<div id="reviewTag">▶ 回看模式 · 点击返回直播</div>
+
+<div id="coachWin"><div id="coachPanel">
+  <h2 id="cwTitle">教练窗口</h2>
+  <div class="sub" id="cwSub"></div>
+  <div id="coachSummary"></div>
+  <div>
+    <div class="wcol"><h3 style="color:var(--dim);font-size:12px;margin-bottom:4px">进攻战术比重</h3><div id="wAtk"></div></div>
+    <div class="wcol"><h3 style="color:var(--dim);font-size:12px;margin-bottom:4px">防守战术比重</h3><div id="wDef"></div></div>
+  </div>
+  <div style="margin-top:10px;font-size:13px">场上指挥（IGL）</div>
+  <select id="iglSel"></select>
+  <div id="coachBtns">
+    <button id="btnGo">直接继续</button>
+    <button id="btnTimeout">叫暂停并调整</button>
+  </div>
+</div></div>
+
+<div id="finalWin"><div id="finalPanel">
+  <h2 id="finalTitle"></h2>
+  <div id="finalReport"></div>
+</div></div>
+
+<script>
+'use strict';
+/* ========== 模块 shim：把 CommonJS 引擎整个搬进浏览器 ========== */
+const __modules = {}, __moduleCache = {};
+function __define(id, fn) { __modules[id] = fn; }
+function __req(from, request) {
+  const p = request.startsWith('./') ? request.slice(2) : request;
+  for (const c of [p, p + '.js', p + '.json']) {
+    if (!__modules[c]) continue;
+    if (!__moduleCache[c]) {
+      const m = { exports: {} };
+      __moduleCache[c] = m;
+      __modules[c](m, m.exports, (r) => __req(c, r));
+    }
+    return __moduleCache[c].exports;
+  }
+  throw new Error('模块未打包: ' + request + '（来自 ' + from + '）');
+}
+const requireModule = (id) => __req('', id);
+/*%%BUNDLE%%*/
+
+/* ========== 烘焙数据：队伍（已解析）/ 地图 / 种子 / 教练 ========== */
+const SPECT = /*%%SPECT_DATA%%*/null;
+
+/* ========== 引擎装配 ========== */
+const { mulberry32 } = requireModule('rng.js');
+const { GameMap } = requireModule('gamemap.js');
+const { matchGen } = requireModule('match.js');
+const { matchReport } = requireModule('report.js');
+const cfg = requireModule('config.js');
+
+const MAP = new GameMap(SPECT.map);
+const FAMILY_NAME = { rush:'爆弹冲点', mid:'中路接触', lurk:'边线渗透', fake:'假打转点', push:'防守前压', hold:'默认架点', stack:'赌点防守' };
+const REASON_NAME = { elimination:'歼灭', explosion:'爆能器引爆', defuse:'拆包', timeout:'超时' };
+const PLAN_NAME = { pistol:'手枪局', eco:'ECO局', half:'混起局', full:'长枪局' };
+const BASE_TPS = 5; // 1x 倍速 = 每秒 5 tick
+
+/* ========== 全局状态 ========== */
+const allEvents = [];            // 全场事件流（logger 收集）
+const roundEvents = {};          // round -> 本回合事件数组
+const keyRounds = [];            // { round, tags[] }
+let gen = null, windowInfo = null, matchResult = null;
+let phase = 'init';              // playing | coach | final
+let animTick = 0, animRound = 0, animDur = 0, lastTs = 0, speed = 1;
+let review = null;               // { round } 回看模式
+let selectedUnit = null;         // 枪线高亮选中的选手
+let roster = {};                 // name -> { agent, igl, team }
+
+/* ========== 画布 ========== */
+const canvas = document.getElementById('map');
+const ctx = canvas.getContext('2d');
+const VW = SPECT.map.view.width, VH = SPECT.map.view.height;
+
+function nodePos(id) { const n = MAP.nodes[id]; return { x: n.x, y: n.y }; }
+function postPos(pid) { const p = MAP.posts[pid]; return p ? { x: p.x, y: p.y } : null; }
+function unitRestPos(u) { return (u.post && postPos(u.post)) || nodePos(u.node); }
+
+const REGION_COLOR = { A:'#23405a', B:'#4a2f35', mid:'#33453a', spawn:'#2a3138' };
+
+function drawMapBase() {
+  if (window.MAP_IMAGE) { ctx.drawImage(window.MAP_IMAGE, 0, 0, VW, VH); return; }
+  // 示意底图：通道走廊 + 节点区域
+  ctx.lineCap = 'round';
+  for (const e of SPECT.map.edges) {
+    const a = nodePos(e.a), b = nodePos(e.b);
+    ctx.strokeStyle = 'rgba(90,120,150,.16)'; ctx.lineWidth = 26;
+    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+  }
+  for (const [id, n] of Object.entries(MAP.nodes)) {
+    const r = 14 + n.capacity * 3.2;
+    ctx.fillStyle = REGION_COLOR[n.region] || '#2a3138';
+    ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, 7); ctx.fill();
+    ctx.strokeStyle = 'rgba(140,170,200,.35)'; ctx.lineWidth = 1.5; ctx.stroke();
+  }
+  // 对枪点
+  for (const [pid, p] of Object.entries(MAP.posts)) {
+    ctx.fillStyle = 'rgba(180,200,220,.4)';
+    ctx.beginPath(); ctx.arc(p.x, p.y, 2.5, 0, 7); ctx.fill();
+  }
+  // 包点标记
+  ctx.font = 'bold 22px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  for (const [letter, nid] of Object.entries(SPECT.map.sites)) {
+    const n = nodePos(nid);
+    ctx.fillStyle = 'rgba(255,207,92,.85)';
+    ctx.fillText(letter, n.x, n.y - 34);
+  }
+  // 节点名
+  ctx.font = '11px sans-serif'; ctx.fillStyle = 'rgba(190,205,220,.55)';
+  for (const [id, n] of Object.entries(MAP.nodes)) ctx.fillText(n.name, n.x, n.y + 14 + n.capacity * 3.2 + 10);
+}
+
+/* ---- 回合时间线：由事件重建 tick 时刻的场上状态 ---- */
+function buildStates(evs, t) {
+  const st = {};
+  for (const e of evs) {
+    if (e.type === 'round_start') {
+      for (const u of e.units) st[u.name] = { name: u.name, side: u.side, node: u.node, post: null, gun: u.gun, armor: u.armor, agent: u.agent, igl: u.igl, alive: true, moving: null, carrier: false };
+    }
+  }
+  const effects = [];
+  let plantInfo = null;
+  for (const e of evs) {
+    if (e.t < 0 || e.t > t) continue;
+    const u = e.unit && st[e.unit];
+    switch (e.type) {
+      case 'move': {
+        const s = st[e.unit]; if (!s || !s.alive) break;
+        if (t < e.t + e.ticks) {
+          const from = nodePos(e.from), to = e.post ? (postPos(e.post) || nodePos(e.to)) : nodePos(e.to);
+          const k = Math.min(1, (t - e.t) / e.ticks);
+          s.pos = { x: from.x + (to.x - from.x) * k, y: from.y + (to.y - from.y) * k };
+          s.moving = true;
+        } else { s.node = e.to; s.post = e.post || null; s.pos = null; s.moving = false; }
+        break;
+      }
+      case 'kill': { const v = st[e.victim]; if (v) { v.alive = false; v.moving = false; } break; }
+      case 'ability':
+        if (e.archetype === 'revive' && e.done) { const v = st[e.unit]; if (v) v.alive = true; }
+        if (['smoke','wall'].includes(e.archetype)) effects.push({ kind: e.archetype, node: e.node, until: e.t + (e.archetype === 'wall' ? 14 : cfg.utility.smokeTicks) });
+        if (e.archetype === 'molly') effects.push({ kind: 'molly', node: e.node, until: e.t + cfg.utility.mollyZoneTicks });
+        if (e.archetype === 'flash' || e.archetype === 'stun') effects.push({ kind: 'flash', node: e.node, until: e.t + 1.2 });
+        if (e.archetype === 'recon') effects.push({ kind: 'recon', node: e.node, t0: e.t, until: e.t + 2.5 });
+        if (e.archetype === 'turret') effects.push({ kind: 'turret', node: e.node, until: 1e9 });
+        if (e.archetype === 'heal') effects.push({ kind: 'heal', node: e.node, until: e.t + 1.5 });
+        break;
+      case 'smoke': effects.push({ kind: 'smoke', node: e.node, until: e.until }); break;
+      case 'molly': case 'molly_entry': effects.push({ kind: 'molly', node: e.node, until: e.t + cfg.utility.mollyZoneTicks }); break;
+      case 'flash': effects.push({ kind: 'flash', node: e.node, until: e.t + 1.2 }); break;
+      case 'recon': effects.push({ kind: 'recon', node: (st[e.unit] || {}).node, t0: e.t, until: e.t + 2.5 }); break;
+      case 'trap': effects.push({ kind: 'trap', node: e.node, until: e.t + 2 }); break;
+      case 'plant': plantInfo = { t: e.t, site: e.site, spikeTicks: e.spikeTicks }; break;
+      case 'spike_drop': if (plantInfo === null) break; break;
+    }
+  }
+  return { st, effects: effects.filter((x) => x.until >= t), plantInfo };
+}
+
+function unitXY(s) { return s.pos || unitRestPos(s); }
+
+function drawEffects(effects, t) {
+  for (const ef of effects) {
+    if (!ef.node || !MAP.nodes[ef.node]) continue;
+    const p = nodePos(ef.node);
+    if (ef.kind === 'smoke') {
+      ctx.fillStyle = 'rgba(160,165,175,.38)';
+      ctx.beginPath(); ctx.arc(p.x, p.y, 34, 0, 7); ctx.fill();
+      ctx.strokeStyle = 'rgba(200,205,215,.5)'; ctx.lineWidth = 2; ctx.stroke();
+    } else if (ef.kind === 'wall') {
+      ctx.strokeStyle = 'rgba(120,220,255,.7)'; ctx.lineWidth = 7;
+      ctx.beginPath(); ctx.moveTo(p.x - 30, p.y); ctx.lineTo(p.x + 30, p.y); ctx.stroke();
+    } else if (ef.kind === 'molly') {
+      const fl = 3 * Math.sin(t * 9);
+      ctx.fillStyle = 'rgba(255,120,40,.4)';
+      ctx.beginPath(); ctx.arc(p.x, p.y, 24 + fl, 0, 7); ctx.fill();
+    } else if (ef.kind === 'flash') {
+      ctx.fillStyle = 'rgba(255,255,230,.75)';
+      ctx.beginPath(); ctx.arc(p.x, p.y, 20, 0, 7); ctx.fill();
+    } else if (ef.kind === 'recon') {
+      const k = (t - ef.t0) / 2.5;
+      ctx.strokeStyle = `rgba(80,220,220,${0.8 - k * 0.7})`; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.arc(p.x, p.y, 12 + k * 70, 0, 7); ctx.stroke();
+    } else if (ef.kind === 'turret') {
+      ctx.fillStyle = '#ffd27a'; ctx.fillRect(p.x - 5, p.y - 5, 10, 10);
+    } else if (ef.kind === 'trap') {
+      ctx.strokeStyle = 'rgba(255,80,80,.8)'; ctx.lineWidth = 2;
+      ctx.strokeRect(p.x - 12, p.y - 12, 24, 24);
+    } else if (ef.kind === 'heal') {
+      ctx.strokeStyle = 'rgba(120,255,150,.8)'; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.arc(p.x, p.y, 16, 0, 7); ctx.stroke();
+    }
+  }
+}
+
+function drawUnits(st) {
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  for (const s of Object.values(st)) {
+    const p = unitXY(s);
+    const color = s.side === 'atk' ? '#ff9d5c' : '#5cc8ff'; // 本回合攻橙守蓝
+    if (!s.alive) {
+      ctx.strokeStyle = 'rgba(150,150,150,.5)'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(p.x - 6, p.y - 6); ctx.lineTo(p.x + 6, p.y + 6);
+      ctx.moveTo(p.x + 6, p.y - 6); ctx.lineTo(p.x - 6, p.y + 6); ctx.stroke();
+      continue;
+    }
+    ctx.fillStyle = color;
+    ctx.beginPath(); ctx.arc(p.x, p.y, 9, 0, 7); ctx.fill();
+    ctx.strokeStyle = s.igl ? '#ffcf5c' : 'rgba(255,255,255,.35)'; ctx.lineWidth = s.igl ? 2.5 : 1.2; ctx.stroke();
+    ctx.fillStyle = '#0b0f14'; ctx.font = 'bold 9px sans-serif';
+    ctx.fillText((s.agent || s.name)[0], p.x, p.y + 0.5);
+    ctx.fillStyle = 'rgba(220,230,240,.85)'; ctx.font = '10px sans-serif';
+    ctx.fillText(s.name, p.x, p.y - 15);
+    if (s.igl) { ctx.fillStyle = '#ffcf5c'; ctx.font = '9px sans-serif'; ctx.fillText('★', p.x + 11, p.y - 8); }
+  }
+}
+
+function drawSightlines(st) {
+  if (!selectedUnit || !st[selectedUnit]) return;
+  const s = st[selectedUnit];
+  if (!s.post) return;
+  for (const [pid] of Object.entries(MAP.posts)) {
+    if (pid === s.post || !MAP.canSee(s.post, pid)) continue;
+    const a = postPos(s.post), b = postPos(pid);
+    const exp = MAP.exposureBetween(s.post, pid);
+    ctx.strokeStyle = `rgba(255,${Math.round(220 - exp * 300)},80,.55)`;
+    ctx.lineWidth = 1 + exp * 3;
+    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+  }
+}
+
+/* ---- 帧渲染 ---- */
+function render(evs, t, meta) {
+  ctx.clearRect(0, 0, VW, VH);
+  drawMapBase();
+  const { st, effects, plantInfo } = buildStates(evs, t);
+  drawEffects(effects, t);
+  drawSightlines(st);
+  drawUnits(st);
+  // 下包/拆包进度与爆能器倒计时
+  if (plantInfo) {
+    const left = plantInfo.spikeTicks - (t - plantInfo.t);
+    ctx.fillStyle = left <= 10 ? '#ff5c5c' : '#ffcf5c';
+    ctx.font = 'bold 16px Consolas,monospace'; ctx.textAlign = 'left';
+    ctx.fillText('爆能器 ' + Math.max(0, left).toFixed(0) + 's', 16, VH - 18);
+  }
+  updateHud(evs, t, meta);
+}
+
+function updateHud(evs, t, meta) {
+  if (!meta) return;
+  document.getElementById('score').textContent = `${meta.scoreA} : ${meta.scoreB}`;
+  document.getElementById('roundInfo').textContent =
+    `R${meta.round} · ${meta.atkFamily ? FAMILY_NAME[meta.atkFamily] : ''} vs ${meta.defFamily ? FAMILY_NAME[meta.defFamily] : ''} · ${PLAN_NAME[meta.atkPlan] || ''}/${PLAN_NAME[meta.defPlan] || ''}`;
+  let timeLeft = Math.max(0, cfg.round.maxTicks - t);
+  document.getElementById('timer').textContent = timeLeft.toFixed(0) + 's';
+}
+
+/* ---- 信息栏 ---- */
+const EV_TEXT = {
+  plant: (e) => `${e.unit} 在 ${e.site} 点完成下包`,
+  plant_start: (e) => `${e.unit} 开始下包`,
+  defuse: (e) => `${e.unit} 拆包成功！`,
+  defuse_start: (e) => `${e.unit} 开始拆包`,
+  defuse_abort: (e) => `${e.unit} 拆包被打断`,
+  recon: (e) => `${e.unit} 侦察扫描 ${e.region || ''}`,
+  trap: (e) => `${e.unit} 触发警戒陷阱`,
+  trap_spotted: (e) => `${e.unit} 识破陷阱`,
+  fake_noise: (e) => `${e.unit} 制造假打动静`,
+  fake_read: (e) => `${e.unit} 识破假打`,
+  fake_pulled: (e) => `${e.unit} 被假打调动`,
+  save: (e) => `${e.unit} 选择保枪`,
+  retake: (e) => `${e.site} 点回防集结（${e.count}人）`,
+  force_commit: (e) => `时间压力，强攻 ${e.site} 点`,
+  mid_read: (e) => `中路读取：判断进攻 ${e.site}`,
+  ability: (e) => `${e.ult ? '◆大招·' : ''}${e.agent}「${e.skill}」${e.fumble ? '（失误！）' : ''}`,
+  timeout: (e) => `${e.side === 'A' ? SPECT.teamA.name : SPECT.teamB.name} ${e.kind === 'halftime' ? '中场调整' : '叫暂停'}${e.manual ? '（你）' : ''}`,
+};
+function feedPush(html, isKill) {
+  const box = isKill ? document.getElementById('killfeed') : document.getElementById('eventfeed');
+  const d = document.createElement('div');
+  d.innerHTML = html;
+  box.prepend(d);
+  while (box.children.length > 60) box.lastChild.remove();
+}
+
+/* ---- 关键回合判定 ---- */
+function judgeKeyRound(evs, meta) {
+  const tags = [];
+  let atkDeaths = 0, defDeaths = 0;
+  for (const e of evs) {
+    if (e.type === 'kill') (e.side === 'atk' ? defDeaths++ : atkDeaths++);
+  }
+  const end = evs.find((e) => e.type === 'round_end');
+  const score = evs.find((e) => e.type === 'score');
+  if (!end || !meta) return tags;
+  const winAtk = end.winner === 'atk';
+  const winDeaths = winAtk ? atkDeaths : defDeaths;
+  const loseDeaths = winAtk ? defDeaths : atkDeaths;
+  if (winDeaths >= 4 && loseDeaths >= 3) tags.push('残局逆转');
+  const winPlan = winAtk ? meta.atkPlan : meta.defPlan;
+  const losePlan = winAtk ? meta.defPlan : meta.atkPlan;
+  if ((winPlan === 'eco' || winPlan === 'half') && losePlan === 'full') tags.push('经济局翻盘');
+  if (score && (score.scoreA === cfg.match.firstTo - 1 || score.scoreB === cfg.match.firstTo - 1)) tags.push('赛点');
+  if (score && (score.scoreA === cfg.match.firstTo || score.scoreB === cfg.match.firstTo)) tags.push('终局');
+  return tags;
+}
+
+/* ---- 比赛驱动：生成器逐回合推进，回合结束后进教练窗口 ---- */
+function stepMatch(input) {
+  const before = allEvents.length;
+  const r = gen.next(input || undefined);
+  const fresh = allEvents.slice(before);
+  const rs = fresh.find((e) => e.type === 'round_start'); // 花名册：英雄分配在生成器内部完成，从事件取回
+  if (rs) for (const u of rs.units) roster[u.name] = { agent: u.agent };
+  if (r.done) { matchResult = r.value; showFinal(); return; }
+  windowInfo = r.value;
+  const meta = fresh.find((e) => e.type === 'round_meta');
+  const rn = meta ? meta.round : windowInfo.round;
+  roundEvents[rn] = fresh.filter((e) => e.type !== 'coach_window');
+  const tags = judgeKeyRound(roundEvents[rn], meta);
+  if (tags.length) {
+    keyRounds.push({ round: rn, tags });
+    const d = document.createElement('div');
+    d.textContent = `R${rn} ${tags.join('·')}`;
+    d.onclick = () => enterReview(rn);
+    document.getElementById('keyrounds').appendChild(d);
+  }
+  phase = 'playing';
+  animRound = rn;
+  animTick = 0;
+  const end = roundEvents[rn].find((e) => e.type === 'round_end');
+  animDur = end ? end.t + 2 : 100;
+  lastTs = 0;
+}
+
+function animLoop(ts) {
+  requestAnimationFrame(animLoop);
+  if (phase !== 'playing' && !review) return;
+  if (!lastTs) lastTs = ts;
+  let dt = (ts - lastTs) / 1000;
+  if (dt > 0.12) dt = 0.12; // 教练窗口/切标签后回来不跳帧
+  lastTs = ts;
+  if (review) {
+    review.tick += dt * BASE_TPS * speed;
+    if (review.tick > review.dur) review.tick = 0; // 回看循环播放
+    render(roundEvents[review.round], review.tick, metaOf(review.round));
+    return;
+  }
+  animTick += dt * BASE_TPS * speed;
+  const evs = roundEvents[animRound] || [];
+  const upto = evs.filter((e) => e.t >= 0 && e.t <= animTick);
+  for (const e of upto) {
+    if (e._fed) continue;
+    e._fed = true;
+    if (e.type === 'kill') feedPush(`<b style="color:${e.side === 'atk' ? '#ff9d5c' : '#5cc8ff'}">${e.killer}</b> 击杀 ${e.victim}`, true);
+    else if (EV_TEXT[e.type]) feedPush(`R${animRound} ${EV_TEXT[e.type](e)}`);
+  }
+  render(evs, Math.min(animTick, animDur), metaOf(animRound));
+  const end = evs.find((e) => e.type === 'round_end');
+  if (end && end.summary) document.getElementById('summaryBar').textContent = end.summary;
+  if (animTick >= animDur) {
+    phase = 'coach';
+    if (windowInfo.matchOver) { stepMatch({ timeout: false }); return; }
+    openCoachWindow();
+  }
+}
+
+function metaOf(rn) {
+  const evs = roundEvents[rn] || [];
+  const m = evs.find((e) => e.type === 'round_meta');
+  const s = evs.find((e) => e.type === 'score');
+  return m ? { ...m, scoreA: s ? s.scoreA : m.scoreA, scoreB: s ? s.scoreB : m.scoreB } : null;
+}
+
+/* ---- 回看模式 ---- */
+function enterReview(rn) {
+  const end = (roundEvents[rn] || []).find((e) => e.type === 'round_end');
+  review = { round: rn, tick: 0, dur: end ? end.t + 2 : 100 };
+  document.getElementById('reviewTag').style.display = 'block';
+}
+document.getElementById('reviewTag').onclick = () => {
+  review = null;
+  document.getElementById('reviewTag').style.display = 'none';
+};
+
+/* ---- 教练窗口 ---- */
+function weightRows(boxId, weights) {
+  const box = document.getElementById(boxId);
+  box.innerHTML = '';
+  for (const [fam, w] of Object.entries(weights)) {
+    const row = document.createElement('div');
+    row.className = 'wrow';
+    row.innerHTML = `<span class="fname">${FAMILY_NAME[fam] || fam}</span>
+      <button data-d="-0.05">−</button><span class="wval">${Math.round(w * 100)}%</span><button data-d="0.05">＋</button>`;
+    row.dataset.fam = fam;
+    row.dataset.w = w;
+    row.querySelectorAll('button').forEach((b) => {
+      b.onclick = () => {
+        row.dataset.w = Math.max(0, Math.min(1, parseFloat(row.dataset.w) + parseFloat(b.dataset.d)));
+        row.querySelector('.wval').textContent = Math.round(row.dataset.w * 100) + '%';
+      };
+    });
+    box.appendChild(row);
+  }
+}
+function collectWeights(boxId) {
+  const out = {};
+  let sum = 0;
+  document.getElementById(boxId).querySelectorAll('.wrow').forEach((r) => { out[r.dataset.fam] = parseFloat(r.dataset.w); sum += parseFloat(r.dataset.w); });
+  if (sum <= 0) return out;
+  for (const k of Object.keys(out)) out[k] /= sum; // 归一化
+  return out;
+}
+
+function openCoachWindow() {
+  const info = windowInfo;
+  const me = 'A';
+  document.getElementById('cwTitle').textContent = info.isHalftime ? '中场暂停 · 战术调整' : `教练窗口 · R${info.round} 结束`;
+  document.getElementById('cwSub').textContent =
+    `比分 ${info.scoreA}:${info.scoreB} · 经济 我方${info.economy.A} / 对方${info.economy.B} · 剩余暂停 ${info.timeoutsLeft[me]}` + (info.isHalftime ? ' · 中场调整不耗暂停' : '');
+  const end = (roundEvents[animRound] || []).find((e) => e.type === 'round_end');
+  document.getElementById('coachSummary').textContent = end && end.summary ? '上回合：' + end.summary : '';
+  weightRows('wAtk', info.weights[me].atk);
+  weightRows('wDef', info.weights[me].def);
+  const sel = document.getElementById('iglSel');
+  sel.innerHTML = '';
+  for (const p of SPECT.teamA.players) {
+    const o = document.createElement('option');
+    o.value = p.name;
+    o.textContent = `${p.name}（枪法${p.AIM} 意识${p.SEN} 协同${p.SYN}）${roster[p.name] ? ' · ' + roster[p.name].agent : ''}`;
+    if (p.name === info.iglPick[me]) o.selected = true;
+    sel.appendChild(o);
+  }
+  const btnT = document.getElementById('btnTimeout');
+  if (info.isHalftime) {
+    btnT.textContent = '完成调整，开始下半场';
+    btnT.disabled = false;
+  } else {
+    btnT.textContent = `叫暂停并调整（剩 ${info.timeoutsLeft[me]} 次）`;
+    btnT.disabled = info.timeoutsLeft[me] <= 0;
+  }
+  document.getElementById('coachWin').style.display = 'flex';
+}
+
+document.getElementById('btnGo').onclick = () => {
+  document.getElementById('coachWin').style.display = 'none';
+  stepMatch({ timeout: false });
+};
+document.getElementById('btnTimeout').onclick = () => {
+  const input = {
+    timeout: true,
+    weights: { atk: collectWeights('wAtk'), def: collectWeights('wDef') },
+    iglPick: document.getElementById('iglSel').value
+  };
+  document.getElementById('coachWin').style.display = 'none';
+  stepMatch(input);
+};
+
+/* ---- 终局 ---- */
+function showFinal() {
+  phase = 'final';
+  const r = matchResult;
+  const winName = r.winner === 'A' ? SPECT.teamA.name : SPECT.teamB.name;
+  document.getElementById('finalTitle').textContent = `${winName} ${Math.max(r.scoreA, r.scoreB)} : ${Math.min(r.scoreA, r.scoreB)} 获胜`;
+  const lines = matchReport(allEvents);
+  // 击杀王
+  const kills = {};
+  for (const e of allEvents) if (e.type === 'kill') kills[e.killer] = (kills[e.killer] || 0) + 1;
+  const mvp = Object.entries(kills).sort((a, b) => b[1] - a[1])[0];
+  document.getElementById('finalReport').innerHTML =
+    (mvp ? `<p style="color:var(--gold)">击杀王：${mvp[0]}（${mvp[1]} 杀）</p>` : '')
+    + lines.map((l) => `<p>${l}</p>`).join('');
+  document.getElementById('finalWin').style.display = 'flex';
+}
+
+/* ---- 控件 ---- */
+document.querySelectorAll('#speedbar button').forEach((b) => {
+  b.onclick = () => {
+    speed = parseFloat(b.dataset.s);
+    document.querySelectorAll('#speedbar button').forEach((x) => x.classList.remove('active'));
+    b.classList.add('active');
+  };
+});
+canvas.onclick = (ev) => {
+  const rect = canvas.getBoundingClientRect();
+  const x = (ev.clientX - rect.left) * (VW / rect.width);
+  const y = (ev.clientY - rect.top) * (VH / rect.height);
+  const evs = review ? roundEvents[review.round] : roundEvents[animRound] || [];
+  const t = review ? review.tick : Math.min(animTick, animDur);
+  const { st } = buildStates(evs, t);
+  let best = null, bd = 400;
+  for (const s of Object.values(st)) {
+    if (!s.alive) continue;
+    const p = unitXY(s);
+    const d = (p.x - x) ** 2 + (p.y - y) ** 2;
+    if (d < bd) { bd = d; best = s.name; }
+  }
+  selectedUnit = best === selectedUnit ? null : best;
+};
+
+/* ---- 启动 ---- */
+document.getElementById('nameA').textContent = SPECT.teamA.name + '（你执教）';
+document.getElementById('nameA').style.color = 'var(--A)';
+document.getElementById('nameB').textContent = SPECT.teamB.name;
+document.getElementById('nameB').style.color = 'var(--B)';
+gen = matchGen({
+  teamA: SPECT.teamA, teamB: SPECT.teamB, map: MAP,
+  rng: mulberry32(SPECT.seed),
+  logger: (ev) => allEvents.push(ev),
+  coachScores: { A: SPECT.coachTacticsA, B: SPECT.coachTacticsB },
+  playerCoach: 'A'
+});
+// 选手花名册（头像字符用）
+for (const p of [...SPECT.teamA.players, ...SPECT.teamB.players]) roster[p.name] = { agent: null };
+stepMatch();
+requestAnimationFrame(animLoop);
+</script>
+</body>
+</html>

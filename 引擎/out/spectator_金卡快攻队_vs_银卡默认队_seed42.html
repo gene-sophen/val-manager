@@ -1,0 +1,3616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>无畏契约 · 沙盘观赛</title>
+<style>
+  :root { --bg:#0b0f14; --panel:#131a22; --line:#1f2a36; --txt:#d7e0e8; --dim:#7a8a99;
+          --A:#3fa9f5; --B:#f0584d; --gold:#ffcf5c; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--txt); font-family:"Microsoft YaHei",sans-serif; overflow:hidden; }
+  #app { display:flex; height:100vh; }
+  #left { flex:1; display:flex; flex-direction:column; min-width:0; }
+  #topbar { display:flex; align-items:center; gap:14px; padding:8px 14px; background:var(--panel); border-bottom:1px solid var(--line); }
+  #topbar .team { font-weight:bold; font-size:15px; }
+  #score { font-size:22px; font-weight:bold; letter-spacing:2px; }
+  #roundInfo { color:var(--dim); font-size:12px; }
+  #timer { margin-left:auto; font-size:18px; font-family:Consolas,monospace; color:var(--gold); }
+  #mapwrap { flex:1; position:relative; display:flex; align-items:center; justify-content:center; }
+  canvas#map { max-width:100%; max-height:100%; cursor:pointer; }
+  #speedbar { display:flex; gap:8px; align-items:center; padding:6px 14px; background:var(--panel); border-top:1px solid var(--line); font-size:12px; color:var(--dim); }
+  #speedbar button { background:#1c2836; color:var(--txt); border:1px solid var(--line); border-radius:4px; padding:3px 10px; cursor:pointer; }
+  #speedbar button.active { background:var(--A); color:#04121f; font-weight:bold; }
+  #summaryBar { padding:4px 14px 8px; font-size:12px; color:var(--gold); background:var(--panel); min-height:24px; }
+  #right { width:300px; background:var(--panel); border-left:1px solid var(--line); display:flex; flex-direction:column; }
+  #right h3 { font-size:12px; color:var(--dim); padding:8px 10px 4px; letter-spacing:1px; }
+  #killfeed { max-height:180px; overflow-y:auto; padding:0 10px; font-size:12px; }
+  #killfeed div { padding:2px 0; }
+  #eventfeed { flex:1; overflow-y:auto; padding:0 10px; font-size:12px; color:#b8c4d0; }
+  #eventfeed div { padding:1px 0; }
+  #keyrounds { max-height:150px; overflow-y:auto; padding:0 10px 8px; font-size:12px; }
+  #keyrounds div { padding:2px 0; cursor:pointer; color:var(--gold); }
+  #keyrounds div:hover { text-decoration:underline; }
+  /* 教练窗口 */
+  #coachWin { position:fixed; inset:0; background:rgba(4,8,12,.82); display:none; align-items:center; justify-content:center; z-index:10; }
+  #coachPanel { width:560px; max-height:88vh; overflow-y:auto; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:18px 22px; }
+  #coachPanel h2 { font-size:17px; margin-bottom:4px; }
+  #coachPanel .sub { color:var(--dim); font-size:12px; margin-bottom:10px; }
+  #coachSummary { color:var(--gold); font-size:13px; margin-bottom:12px; }
+  .wrow { display:flex; align-items:center; gap:8px; margin:3px 0; font-size:13px; }
+  .wrow .fname { width:90px; }
+  .wrow button { width:26px; height:22px; background:#1c2836; color:var(--txt); border:1px solid var(--line); border-radius:4px; cursor:pointer; }
+  .wrow .wval { width:44px; text-align:center; font-family:Consolas,monospace; }
+  .wcol { display:inline-block; vertical-align:top; width:48%; }
+  #coachPanel select { background:#1c2836; color:var(--txt); border:1px solid var(--line); border-radius:4px; padding:4px 6px; width:100%; margin-top:4px; }
+  #coachBtns { margin-top:16px; display:flex; gap:10px; }
+  #coachBtns button { flex:1; padding:9px 0; border-radius:5px; border:none; cursor:pointer; font-size:14px; }
+  #btnGo { background:#2a3a4c; color:var(--txt); }
+  #btnTimeout { background:var(--gold); color:#221a00; font-weight:bold; }
+  #btnTimeout:disabled { background:#3a352a; color:#777; cursor:not-allowed; }
+  /* 终局面板 */
+  #finalWin { position:fixed; inset:0; background:rgba(4,8,12,.9); display:none; align-items:center; justify-content:center; z-index:20; }
+  #finalPanel { width:620px; max-height:88vh; overflow-y:auto; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:20px 26px; }
+  #finalPanel h2 { margin-bottom:8px; }
+  #finalReport { font-size:13px; line-height:1.7; color:#c4d0dc; }
+  #reviewTag { position:fixed; top:52px; left:14px; background:var(--gold); color:#221a00; font-size:12px; padding:3px 10px; border-radius:4px; display:none; z-index:5; cursor:pointer; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="left">
+    <div id="topbar">
+      <span class="team" id="nameA"></span><span id="score">0 : 0</span><span class="team" id="nameB"></span>
+      <span id="roundInfo"></span>
+      <span id="timer"></span>
+    </div>
+    <div id="mapwrap"><canvas id="map" width="1000" height="720"></canvas></div>
+    <div id="speedbar">
+      倍速
+      <button data-s="0.5">0.5x</button><button data-s="1" class="active">1x</button>
+      <button data-s="2">2x</button><button data-s="4">4x</button><button data-s="8">8x</button>
+      <span style="margin-left:12px">点击选手查看枪线 · 回合间可叫暂停调整战术</span>
+    </div>
+    <div id="summaryBar"></div>
+  </div>
+  <div id="right">
+    <h3>击杀信息</h3><div id="killfeed"></div>
+    <h3>事件流</h3><div id="eventfeed"></div>
+    <h3>关键回合（点击回看）</h3><div id="keyrounds"></div>
+  </div>
+</div>
+<div id="reviewTag">▶ 回看模式 · 点击返回直播</div>
+
+<div id="coachWin"><div id="coachPanel">
+  <h2 id="cwTitle">教练窗口</h2>
+  <div class="sub" id="cwSub"></div>
+  <div id="coachSummary"></div>
+  <div>
+    <div class="wcol"><h3 style="color:var(--dim);font-size:12px;margin-bottom:4px">进攻战术比重</h3><div id="wAtk"></div></div>
+    <div class="wcol"><h3 style="color:var(--dim);font-size:12px;margin-bottom:4px">防守战术比重</h3><div id="wDef"></div></div>
+  </div>
+  <div style="margin-top:10px;font-size:13px">场上指挥（IGL）</div>
+  <select id="iglSel"></select>
+  <div id="coachBtns">
+    <button id="btnGo">直接继续</button>
+    <button id="btnTimeout">叫暂停并调整</button>
+  </div>
+</div></div>
+
+<div id="finalWin"><div id="finalPanel">
+  <h2 id="finalTitle"></h2>
+  <div id="finalReport"></div>
+</div></div>
+
+<script>
+'use strict';
+/* ========== 模块 shim：把 CommonJS 引擎整个搬进浏览器 ========== */
+const __modules = {}, __moduleCache = {};
+function __define(id, fn) { __modules[id] = fn; }
+function __req(from, request) {
+  const p = request.startsWith('./') ? request.slice(2) : request;
+  for (const c of [p, p + '.js', p + '.json']) {
+    if (!__modules[c]) continue;
+    if (!__moduleCache[c]) {
+      const m = { exports: {} };
+      __moduleCache[c] = m;
+      __modules[c](m, m.exports, (r) => __req(c, r));
+    }
+    return __moduleCache[c].exports;
+  }
+  throw new Error('模块未打包: ' + request + '（来自 ' + from + '）');
+}
+const requireModule = (id) => __req('', id);
+__define('path', function(module) { module.exports = { join: function() { return [].join.call(arguments, '/'); } }; });
+__define("rng.js", function(module, exports, require) {
+// 可复现随机数：mulberry32
+function mulberry32(seed) {
+  let a = seed >>> 0;
+  return function () {
+    a |= 0; a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// 由主种子派生第 i 场子种子
+function derive(seed, i) {
+  return (seed * 2654435761 + i * 40503) >>> 0;
+}
+
+module.exports = { mulberry32, derive };
+
+});
+__define("config.js", function(module, exports, require) {
+// 战斗推演引擎 v0 · 全部可调数值集中在此，便于平衡迭代
+module.exports = {
+  match: {
+    firstTo: 13,        // 先到 N 胜（可压缩为 9 等）
+    halfRounds: 12,     // 半场回合数，之后换边
+    overtimeMoney: 5000 // 加时局双方经济
+  },
+  round: {
+    maxTicks: 100,      // 回合时长（1 tick = 1 秒）
+    spikeTicks: 45,     // 爆能器引爆倒计时
+    plantTicks: 4,      // 下包耗时
+    defuseTicks: 7,     // 拆包耗时（无拆包器）
+    timePressure: 25    // 剩余秒数低于此值进攻方强行进点
+  },
+  eco: {
+    startMoney: 800,
+    winReward: 3000,
+    lossBase: 1900,         // 连败首档
+    lossStreakStep: 500,    // 每多一连败 +500
+    lossStreakMax: 2,       // 连败补偿封顶档数（1900/2400/2900）
+    killReward: 200,
+    plantReward: 300,       // 下包者
+    defuseReward: 300,      // 拆包者
+    lossPlantBonus: 300,    // 进攻方下包后落败，每人补偿
+    maxMoney: 9000,
+    rifleCost: 2900,
+    smgCost: 1600,
+    heavyArmorCost: 1000,
+    lightArmorCost: 650,
+    fullBuyAvg: 3400,       // 团队人均达到则全起
+    halfBuyAvg: 2100        // 达到则半起，否则 eco
+  },
+  gun: {
+    // 档位 0 手枪 / 1 冲锋枪（半起）/ 2 步枪；作为击杀概率乘子
+    mod: [0.78, 1.0, 1.32]
+  },
+  armor: {
+    // 目标护甲对"被击杀概率"的乘子
+    none: 1.0,
+    light: 0.88,
+    heavy: 0.72
+  },
+  combat: {
+    baseKill: 0.14,         // 每 tick 单对交火基础击杀概率
+    aimCoef: 0.0009,         // AIM 差对击杀概率的线性系数
+    settledBonus: 1.22,     // 架枪（驻留>=2 tick）加成
+    moverPenalty: 0.84,     // 移动/刚进点惩罚
+    advBonus: 1.25,         // 节点架枪优势方加成
+    disadvPenalty: 0.85,     // 节点劣势方惩罚
+    coverResist: 0.35,       // 掩体质量减免比例（仅驻守目标享受）
+    entryShotBase: 0.55,    // 架点者对进点者抢先一枪的基础概率
+    entryShotSen: 0.002,    // 每点 SEN 增加抢先概率
+    entryBonus: 1.6,       // 抢先一枪的伤害乘子
+    tradeBase: 0.4,        // 补枪基础概率（乘 SYN/100）
+    syncReduce: 0.003,      // 同步进点（>=2人同到）按平均 SYN 降低被抢先概率
+    multiTargetPenalty: 0.12 // 同节点每多一个敌人，单人输出分散惩罚（暂不启用）
+  },
+  move: {
+    silentTickMult: 1.5,    // 静音慢摸耗时倍率
+    silentExposureMult: 0.35, // 静音慢摸暴露度倍率
+    rotateSynCoef: 0.0015   // 回防耗时倍率 = 1 - SYN*coef
+  },
+  ai: {
+    senBase: 0.45,          // 决策质量 = senBase + senRange*(SEN-30)/66
+    senRange: 0.16,
+    rotateNeedInfo: 5,
+    spotInfo: 3,            // 每次暴露给的信息强度
+    contractInfo: 9,        // 分站防守：信息强度达此为全面回防，低于此为局部收缩
+    saveEvalInterval: 5,    // 保枪判定间隔（tick）
+    defuseHesitate: 2,      // 低 SEN 拆包犹豫 tick 数
+    utilThinkBase: 0.45,    // 道具自主决策：想到要使用的基础概率
+    utilThinkSen: 0.005     // 每点 SEN 增加想到概率
+  },
+  // 教练系统（coach.js）：赛前布置 / 局间暂停 / 中场调整 / IGL 任命
+  coach: {
+    tacticsDefault: 60,     // 缺省三维（战术/声望/临场，本期只有战术维生效）
+    timeouts: 2,            // 每队局内暂停次数（中场暂停另计 1 次）
+    readBase: 0.55,         // 暂停读取对手倾向的准确率 = readBase + (战术-30)*readTacticsCoef
+    readTacticsCoef: 0.008, // 战术 99 → 1.10(封顶)，战术 30 → 0.55
+    counterShift: 0.25,     // 暂停调整后克制族比重提升量（过大暴露倾向会被对手教练反读）
+    timeoutComposure: 0.2,  // 暂停稳心态：叫暂停方全员心态回升（打断对手势头）
+    loseStreakTrigger: 2,   // AI 教练：连败 N 局叫暂停
+    sameFamilyTrigger: 4,   // AI 教练：对手同族连续 N 回合叫暂停
+    iglSwapGap: 4,          // 中场落后 N 分考虑换 IGL（换帅求变）
+    // 赛前布置：战术分越高，初始比重越贴近版本强势族（meta），k = (战术-30)/69*metaBlend
+    metaBlend: 0.65,
+    metaAtk: { rush: 0.45, mid: 0.1, lurk: 0.1, fake: 0.3 },  // 依 BALANCE 各族回合胜率
+    metaDef: { push: 0.25, hold: 0.25, stack: 0.5 },
+    // 克制表（依据 BALANCE 克制矩阵）：对手守族 -> 我方攻族 / 对手攻族 -> 我方守族
+    counterAtk: { push: 'rush', hold: 'rush', stack: 'mid' },
+    counterDef: { rush: 'stack', mid: 'push', lurk: 'stack', fake: 'stack' }
+  },
+  // 战术意图先验（tactics.js）：各族节奏时点与道具倾向，输出意图而非指令链
+  tactics: {
+    rush: { contactTick: 0, commitTick: 0, utilPosture: 0.8 },      // 爆弹冲点：立即全员直冲
+    mid:  { contactTick: 12, contactJit: 5, commitLag: 6, utilPosture: 0.5 }, // 中控后读取弱点，commit=contact+lag
+    lurk: { contactTick: 25, contactJit: 8, commitLag: 4, utilPosture: 0.4 },  // 边线渗透：慢热后一波
+    fake: { utilPosture: 0.5 },                                     // 假打时点沿用 fake 组
+    push: { roamTick: 45, utilPosture: 0.4 },                       // 防守前压：roamTick 后向匪家游猎
+    hold: { utilPosture: 0.5 },
+    stack: { utilPosture: 0.7 }                                     // 赌点：道具全押
+  },
+  // 个体效用 AI（brain.js）：每个选手每 thinkInterval tick 独立决策
+  // 打分 = 战术意图先验 × (0.5 + 决策质量) + 态势项 + 个性项 + 执行偏差噪声
+  brain: {
+    thinkInterval: 3,     // 思考间隔（tick）
+    noiseCoef: 0.03,      // 执行偏差噪声幅度 = (100-SEN)*noiseCoef，SEN 越低决策越摇摆
+    postCoverW: 1.0,      // 选位评分：掩体质量权重
+    postSightW: 0.05,     // 选位评分：每多一条可用枪线的权重（掩体主导，枪线只做同档 tiebreak）
+    postPickBase: 0.30,   // 选位决策质量 = postPickBase + postPickRange*(SEN-30)/66
+    postPickRange: 0.68,  // SEN 99 时 0.98 选中最优槽，SEN 30 时 0.30（低 SEN 常站开阔位）
+    priorBase: 2.0,       // 符合战术意图的动作基础分
+    peekAimW: 0.04,       // 个性：peek 加分 = (AIM-70)*peekAimW（炮台选手爱主动对枪）
+    followSynW: 0.03,     // 个性：协同动作加分 = (SYN-70)*followSynW
+    saveLeadW: 1.5,       // 保枪倾向：人数劣势权重
+    timePushW: 0.08,      // 时间压力：越过安全线后每 tick 进攻推进加分
+    crossFireResist: 0.65, // 跨节点枪线交火：按目标暴露度减免击杀概率
+    crossFireProb: 0.3    // 跨节点枪线每 tick 实际交火概率（架枪并非时刻开火）
+  },
+  // 假打转点（第 4 进攻族）
+  fake: {
+    fakeTick: 18,           // 假打组开始制造动静的 tick（±4 随机）
+    hitTick: 40,            // 真打组启动的 tick（±6 随机）
+    noiseInfo: 5,           // 假动静产生的信息强度（标记为可疑）
+    readBase: 0.3,          // 识破假打基础概率（挂 SEN）
+    readSen: 0.005,         // 每点 SEN 增加识破概率
+    decoyUtilThink: 0.7     // 假打组交道具佯攻的意愿概率
+  },
+  // IGL 指挥加成（队内 IGL 存活时生效；强度按 IGL 本人 SEN/SYN 缩放，70 为基准）
+  igl: {
+    syncSynBonus: 14,       // 同步进点等效 SYN 加成
+    rotateTicksMult: 0.88,  // 回防/转点耗时乘子（按 IGL SYN/70 缩放）
+    fakeReadBonus: 0.10,    // 识破/假打质量加成（按 IGL SEN/70 缩放）
+    readBonus: 0.10,        // 中路读取等战术决策质量加成
+    priorBoost: 0.18,       // IGL 存活时队友的战术意图先验倍率（按 IGL SEN/70 缩放）
+    aimPenalty: 0.98        // IGL 自身击杀概率乘子基准（实际代价再按 70/SEN 缩放）
+  },
+  // 默认战术比重（队伍配置缺省时使用）
+  defaultTactics: {
+    atk: { rush: 0.25, mid: 0.25, lurk: 0.25, fake: 0.25 },
+    def: { push: 0.3, hold: 0.4, stack: 0.3 }
+  },
+  // 道具系统（区域抽象，不做弹道）；每点charge一次使用
+  utility: {
+    costPerPoint: 300,
+    points: { pistol: 1, eco: 0, half: 1, full: 2 }, // 各局型每人的道具点数
+    flashReduce: 0.28,     // 闪光降低抢先枪概率（乘道具效率）
+    smokeTicks: 12,        // 烟雾持续 tick
+    smokeRotateDelay: 2,   // 防守穿越烟雾边每边 +tick
+    mollyDelay: 4,         // 燃烧拖延下包 tick（乘道具效率）
+    mollyZoneTicks: 6,     // 进点燃烧弹封锁窗口
+    reconTick: 14,         // 防守侦察启动 tick（无信息时）
+    reconInfo: 4,          // 侦察给出的信息强度
+    trapInfo: 4,           // 哨卫警戒给出的信息强度（低于回防阈值，需佐证）
+    trapStun: 3,           // 触发警戒的进攻方滞留 tick
+    trapAvoidBase: 0.3,    // 进攻方识破警戒的基础概率
+    trapAvoidSen: 0.003,   // 每点 SEN 增加识破概率
+    stunFirePenalty: 0.3,  // 被震驻时开火概率乘子
+    synBase: 0.7,          // 道具效率 = synBase + synCoef*SYN/100
+    synCoef: 0.6
+  },
+  // 英雄技能系统（abilities.js + agent_kits.json）：原型族默认数值；kit params 可覆盖
+  abilities: {
+    fumbleMult: 1.0,      // 释放失误概率 = proficiency.whiffIn/whiffOut × fumbleMult（心态调制）
+    fumblePower: 0.4,     // 失误时效果倍率
+    smokeSightTicks: 10,  // 烟雾封枪线持续 tick（复用 utility.smokeTicks 作边封锁）
+    wallTickDelay: 2,     // 穿越墙体封锁边的额外耗时
+    stunTicks: 2,         // 震荡滞留 tick
+    turretKillP: 0.04,    // 炮台每 2 tick 对每个可见敌人的击杀判定
+    turretInfo: 2,        // 炮台预警信息强度
+    reviveDelay: 3,       // 复活落地延迟 tick
+    reviveStun: 3,        // 复活落地滞留 tick
+    decoyInfo: 3,         // 假身动静的信息强度（可疑标记）
+    aimbuffTicks: 8,      // 自增益持续 tick
+    aimbuffMult: 1.15,    // 自增益击杀概率乘子
+    mollyDenyDelay: 4,    // 守包燃烧对拆包开始的额外拖延
+    healResist: 0.08,     // 治疗后短期受击减免
+    healMentality: 0.2,   // 治疗心态恢复
+    healTicks: 12,        // 治疗增益默认持续 tick
+    atkReconReadP: 0.85   // 进攻侦察揭示后改打薄弱点的概率
+  },
+  // 英雄池熟练度驱动的突发事件（高光/失误）
+  proficiency: {
+    popOffIn: 0.022,        // 池内高光概率（关键交火判定）
+    popOffOut: 0.01,       // 池外高光概率
+    whiffIn: 0.02,        // 池内失误概率
+    whiffOut: 0.07,        // 池外失误概率
+    popOffMult: 1.6,       // 高光：本次击杀概率乘子
+    whiffMult: 0.55        // 失误：本次击杀概率乘子
+  },
+  // 心态：每选手 [-1,1]，小幅修正战力并调制爆种/爆冷概率
+  mentality: {
+    combatSwing: 0.05,     // 心态对交火战力的最大修正
+    winGain: 0.12,
+    lossDrop: 0.12,
+    streakBonus: 0.04,     // 连赢/连输每档追加
+    gapPressure: 0.05,     // 每落后 3 分追加承压
+    killBoost: 0.05,       // 个人击杀升温
+    deathDrop: 0.03,       // 白给降温
+    eventSwing: 0.8        // 心态对高光/失误概率的调制幅度
+  }
+};
+
+});
+__define("hooks.js", function(module, exports, require) {
+// 修正钩子：v0 全部为空，预留给突发事件 / 暗属性触发器 / 特性 / 明星时刻 / 教练三维
+// 每个钩子是一个函数数组，按注册顺序调用
+module.exports = function createHooks() {
+  return {
+    // 交火判定前：fn(ctx, p) => p'；ctx = { att, tgt, node, round }
+    beforeKillRoll: [],
+    // 决策前：fn(ctx, utilities) => utilities'；ctx = { unit, round, options }
+    beforeDecision: [],
+    // 回合开始：fn(round)
+    onRoundStart: [],
+    // 击杀发生后：fn(ctx) ctx = { killer, victim, node, round }
+    onKill: []
+  };
+};
+
+});
+__define("events.js", function(module, exports, require) {
+// 突发事件（爆种/爆冷）+ 心态：通过钩子接入交战判定
+// 高光：关键交火中超常发挥；失误：关键时机掉链子。概率由熟练度档位与心态共同调制
+const cfg = require('./config');
+
+const P = cfg.proficiency;
+const M = cfg.mentality;
+
+// 是否关键时机：进点抢先/反抢先、残局 1vN
+function isKeyMoment(ctx) {
+  if (ctx.entry) return true;
+  return ctx.round.aliveCount(ctx.att.side) === 1; // 残局
+}
+
+function combatHook(ctx, p) {
+  const u = ctx.att;
+  const round = ctx.round;
+  // 心态对战力的小幅修正
+  p *= 1 + (u.mentality || 0) * M.combatSwing;
+  if (!isKeyMoment(ctx)) return p;
+  // 爆种 / 爆冷
+  const popP = (u.inPool ? P.popOffIn : P.popOffOut) * (1 + (u.mentality || 0) * M.eventSwing);
+  const whiffP = (u.inPool ? P.whiffIn : P.whiffOut) * (1 - (u.mentality || 0) * M.eventSwing);
+  const r = round.rng();
+  if (r < popP) {
+    round.emit('pop_off', { node: u.node, unit: u.name, agent: u.agent });
+    round.stats.popOffs++;
+    return p * P.popOffMult;
+  }
+  if (r < popP + whiffP) {
+    round.emit('whiff', { node: u.node, unit: u.name, agent: u.agent });
+    round.stats.whiffs++;
+    return p * P.whiffMult;
+  }
+  return p;
+}
+
+// 回合结束后的心态更新（在 match 层调用）
+function updateMentality(units, won, scoreUs, scoreThem, streak) {
+  for (const u of units) {
+    let m = u.mentality || 0;
+    if (won) m += M.winGain + M.streakBonus * Math.max(streak - 1, 0);
+    else m -= M.lossDrop + M.streakBonus * Math.max(streak - 1, 0);
+    const gap = scoreUs - scoreThem;
+    if (gap <= -3) m -= M.gapPressure * Math.floor(-gap / 3); // 落后承压
+    if (gap >= 3) m += M.gapPressure * Math.floor(gap / 3) * 0.5; // 领先略松
+    m += M.killBoost * (u.roundKills || 0);
+    if (!u.alive && !(u.roundKills > 0)) m -= M.deathDrop;
+    u.mentality = Math.max(-1, Math.min(1, m));
+  }
+}
+
+function attachHooks(hooks) {
+  hooks.beforeKillRoll.push(combatHook);
+}
+
+module.exports = { attachHooks, updateMentality };
+
+});
+__define("gamemap.js", function(module, exports, require) {
+// 地图节点图：加载、邻接表、BFS 寻路、对枪点与枪线
+class GameMap {
+  constructor(data) {
+    this.data = data;
+    this.nodes = data.nodes;
+    this.adj = {};   // node -> [{to, ticks, exposure}]
+    for (const id of Object.keys(data.nodes)) this.adj[id] = [];
+    for (const e of data.edges) {
+      this.adj[e.a].push({ to: e.b, ticks: e.ticks, exposure: e.exposure });
+      this.adj[e.b].push({ to: e.a, ticks: e.ticks, exposure: e.exposure });
+    }
+    // 全源 BFS 下一跳表（图小，直接全量预计算）
+    this.nextHop = {};
+    for (const from of Object.keys(this.nodes)) {
+      this.nextHop[from] = this.bfs(from);
+    }
+    // 对枪点（站位槽）与枪线可见性矩阵
+    this.posts = data.posts || {};
+    this.postsByNode = {};
+    for (const [pid, p] of Object.entries(this.posts)) {
+      (this.postsByNode[p.node] = this.postsByNode[p.node] || []).push(pid);
+    }
+    this.sight = {}; // postKey(a,b) -> exposure（对称）
+    for (const [a, b, exposure] of data.sightlines || []) {
+      this.sight[this.postKey(a, b)] = exposure;
+    }
+  }
+
+  bfs(from) {
+    const prev = { [from]: null };
+    const queue = [from];
+    while (queue.length) {
+      const cur = queue.shift();
+      for (const { to } of this.adj[cur]) {
+        if (!(to in prev)) { prev[to] = cur; queue.push(to); }
+      }
+    }
+    // hop[to] = 从 from 到 to 的第一步
+    const hop = {};
+    for (const to of Object.keys(prev)) {
+      if (to === from) { hop[to] = null; continue; }
+      let cur = to;
+      while (prev[cur] !== from) cur = prev[cur];
+      hop[to] = cur;
+    }
+    return hop;
+  }
+
+  edgeBetween(a, b) {
+    return this.adj[a].find((x) => x.to === b) || null;
+  }
+
+  region(node) { return this.nodes[node].region; }
+  siteNode(letter) { return this.data.sites[letter]; }
+
+  postKey(a, b) { return a < b ? `${a}|${b}` : `${b}|${a}`; }
+
+  // 节点内的对枪点 id 列表
+  postsAt(node) { return this.postsByNode[node] || []; }
+
+  // 同节点内任意两个对枪点互相可见；跨节点需显式标注 sightline
+  canSee(postA, postB) {
+    if (postA === postB) return true;
+    const a = this.posts[postA], b = this.posts[postB];
+    if (!a || !b) return false;
+    if (a.node === b.node) return true;
+    return this.postKey(postA, postB) in this.sight;
+  }
+
+  // 目标在对枪点暴露度：同节点取目标 cover 的补数基准 0.3，跨节点取标注值
+  exposureBetween(postA, postB) {
+    if (postA === postB) return 0.2;
+    const a = this.posts[postA], b = this.posts[postB];
+    if (!a || !b) return 1;
+    if (a.node === b.node) return 0.3;
+    const v = this.sight[this.postKey(postA, postB)];
+    return v === undefined ? 1 : v;
+  }
+}
+
+function loadMap(path) {
+  const data = JSON.parse(require('fs').readFileSync(path, 'utf8'));
+  return new GameMap(data);
+}
+
+module.exports = { GameMap, loadMap };
+
+});
+__define("tactics.js", function(module, exports, require) {
+// 战术意图：战术族 -> 意图先验（取代 playbooks.js 的指令链；个体如何执行由 brain.js 决定）
+// 输出：{ family, side, siteWeights, pace, utilPosture, regions, fakeout,
+//         carrier, roles[5], homes[5], routes: { role -> [节点链] } }
+// routes 表达各族习惯的走位路线（第一阶段集合点 -> 包点），brain 沿链推进，
+// pace.commitTick 前只许推进到路线入口（limitIdx），之后放开全程。
+const cfg = require('./config');
+const T = cfg.tactics;
+const F = cfg.fake;
+
+const OFFENSE = ['rush', 'mid', 'lurk', 'fake']; // 爆弹冲点 / 中路接触 / 边线渗透 / 假打转点
+const DEFENSE = ['push', 'hold', 'stack']; // 防守前压 / 默认架点 / 赌点防守
+
+function pickSite(rng, avoid) {
+  const s = rng() < 0.5 ? 'A' : 'B';
+  return s === avoid ? (s === 'A' ? 'B' : 'A') : s;
+}
+
+// 节点名助手：按目标点取对应侧节点
+function sideNodes(site) {
+  return site === 'A'
+    ? { main: 'a_main', lobby: 'a_lobby', short: 'a_short' }
+    : { main: 'b_main', lobby: 'b_lobby', short: 'market' };
+}
+
+function buildOffense(map, family, rng) {
+  const site = pickSite(rng);
+  const other = site === 'A' ? 'B' : 'A';
+  const S = map.siteNode(site);
+  const oS = map.siteNode(other);
+  const n = sideNodes(site);
+  const o = sideNodes(other);
+  const sw = site === 'A' ? { A: 1, B: 0 } : { A: 0, B: 1 };
+
+  if (family === 'rush') {
+    // 爆弹冲点：全员跑步直冲包点，无埋伏期
+    return {
+      family, side: 'atk', site, siteWeights: sw,
+      pace: { contactTick: T.rush.contactTick, commitTick: T.rush.commitTick },
+      utilPosture: T.rush.utilPosture, regions: [site], fakeout: null,
+      carrier: 0,
+      roles: ['hit', 'hit', 'hit', 'hit', 'hit'],
+      homes: [n.main, n.main, n.main, n.main, n.main],
+      routes: { hit: [n.main, n.lobby, S] },
+      limitIdx: { hit: 0 } // commit 前最多到入口
+    };
+  }
+
+  if (family === 'mid') {
+    // 中路接触：三人慢摸控中，两人在匪口待命；contact 时 IGL 读取薄弱侧，commit 后展开
+    const contact = T.mid.contactTick + Math.floor(rng() * T.mid.contactJit);
+    return {
+      family, side: 'atk', site, siteWeights: sw,
+      pace: { contactTick: contact, commitTick: contact + T.mid.commitLag },
+      utilPosture: T.mid.utilPosture, regions: ['mid', site], fakeout: null,
+      carrier: 0,
+      roles: ['mid', 'mid', 'mid', 'flank', 'flank'],
+      homes: ['mid_top', 'mid_top', 'mid_top', 'mid_top', 'mid_top'],
+      routes: {
+        mid: ['mid_top', 'mid', n.short, S],       // 中控组从 A小/市场 进点
+        flank: ['mid_top', n.main, n.lobby, S]     // 待命组绕主方向进点
+      },
+      limitIdx: { mid: 1, flank: 0 } // commit 前：中控组控到中路，待命组停在匪口
+    };
+  }
+
+  if (family === 'lurk') {
+    // 边线渗透：四人在入口外静音待命，执行后一波打进；单摸手绕另一侧断回防
+    const contact = T.lurk.contactTick + Math.floor(rng() * T.lurk.contactJit);
+    return {
+      family, side: 'atk', site, siteWeights: sw,
+      pace: { contactTick: contact, commitTick: contact + T.lurk.commitLag },
+      utilPosture: T.lurk.utilPosture, regions: [site, other], fakeout: null,
+      carrier: 0,
+      roles: ['hit', 'hit', 'hit', 'hit', 'lurk'],
+      homes: [n.main, n.main, n.main, n.main, o.main],
+      routes: {
+        hit: [n.main, n.lobby, S],
+        lurk: [o.main, oS, 'ct_spawn', S] // 穿空点绕后，截回防后夹击主攻点
+      },
+      limitIdx: { hit: 0, lurk: 0 } // commit 前都停在入口外
+    };
+  }
+
+  // fake 假打转点：1 人在佯攻点交动静拉扯防守，4 人埋伏真点入口等窗口一波打进
+  const fakeTick = F.fakeTick + Math.floor(rng() * 8) - 4;
+  const hitTick = fakeTick + 9 + Math.floor(rng() * 4); // 真打必须跟上假象的窗口期
+  return {
+    family, side: 'atk', site: other, siteWeights: other === 'A' ? { A: 1, B: 0 } : { A: 0, B: 1 },
+    pace: { contactTick: fakeTick, commitTick: hitTick },
+    utilPosture: T.fake.utilPosture, regions: [other], 
+    fakeout: { fakeRegion: site, realRegion: other, fakeTick, hitTick },
+    carrier: 1, // 下包者在真打组
+    roles: ['decoy', 'real', 'real', 'real', 'real'],
+    homes: [n.main, o.main, o.main, o.main, o.main],
+    routes: {
+      decoy: [n.main, n.lobby],          // 佯攻组推进到佯攻点入口制造动静
+      real: [o.main, o.lobby, oS]        // 真打组埋伏真点入口
+    },
+    limitIdx: { decoy: 1, real: 0 }
+  };
+}
+
+function buildDefense(map, family, rng) {
+  const sw = { A: 0.5, B: 0.5 };
+
+  if (family === 'push') {
+    // 防守前压：双人顶中路拦截慢摸，roamTick 后向匪家游猎绕后；其余三人收缩架点
+    return {
+      family, side: 'def', siteWeights: sw,
+      pace: { contactTick: 0, commitTick: T.push.roamTick },
+      utilPosture: T.push.utilPosture, regions: ['mid', 'A', 'B'], fakeout: null,
+      carrier: -1,
+      roles: ['roam', 'roam', 'home', 'home', 'home'],
+      homes: ['mid', 'mid', 'a_heaven', 'a_site', 'b_site'],
+      routes: { roam: ['mid_bottom', 'mid', 'mid_top', 't_spawn'] },
+      limitIdx: { roam: 1 } // roamTick 前顶到中路，之后放开向匪家游猎
+    };
+  }
+
+  if (family === 'stack') {
+    // 赌点防守：四人重防一点，单人锚点另一点（锚点只在下包后回防）
+    const site = pickSite(rng);
+    const strong = site === 'A'
+      ? ['a_site', 'a_heaven', 'a_short', 'a_site']
+      : ['b_site', 'b_back', 'market', 'b_site'];
+    const anchor = site === 'A' ? 'b_site' : 'a_site';
+    return {
+      family, side: 'def', siteWeights: site === 'A' ? { A: 0.8, B: 0.2 } : { A: 0.2, B: 0.8 },
+      pace: { contactTick: 0, commitTick: 0 },
+      utilPosture: T.stack.utilPosture, regions: [site], fakeout: null,
+      carrier: -1, site,
+      roles: ['home', 'home', 'home', 'home', 'anchor'],
+      homes: [...strong, anchor],
+      routes: {},
+      limitIdx: {}
+    };
+  }
+
+  // hold 默认架点：2A 1中 2B 标准站位
+  return {
+    family, side: 'def', siteWeights: sw,
+    pace: { contactTick: 0, commitTick: 0 },
+    utilPosture: T.hold.utilPosture, regions: ['A', 'mid', 'B'], fakeout: null,
+    carrier: -1,
+    roles: ['home', 'home', 'home', 'home', 'home'],
+    homes: ['a_heaven', 'a_site', 'mid_bottom', 'b_site', 'market'],
+    routes: {},
+    limitIdx: {}
+  };
+}
+
+function buildIntent(map, side, family, rng) {
+  return side === 'atk'
+    ? buildOffense(map, family, rng)
+    : buildDefense(map, family, rng);
+}
+
+// 临场改换主攻方向：重建点位倾向与角色路线（mid 族读取薄弱侧后调用）
+function aimAt(intent, map, site) {
+  const S = map.siteNode(site);
+  const n = sideNodes(site);
+  intent.site = site;
+  intent.siteWeights = site === 'A' ? { A: 1, B: 0 } : { A: 0, B: 1 };
+  if (intent.family === 'mid') {
+    intent.routes.mid = ['mid_top', 'mid', n.short, S];
+    intent.routes.flank = ['mid_top', n.main, n.lobby, S];
+  } else if (intent.family === 'rush' || intent.family === 'lurk') {
+    intent.routes.hit = [n.main, n.lobby, S];
+  }
+}
+
+module.exports = { OFFENSE, DEFENSE, buildIntent, aimAt };
+
+});
+__define("brain.js", function(module, exports, require) {
+// 个体效用 AI（Phase2-B 核心）：每个选手是独立的效用 AI 个体
+// 战术意图（tactics.js）只是先验；选手靠自己的 AIM/SEN/SYN + 战场感知做决策，执行有偏差
+// 打分 = 战术意图先验 × (0.5 + 决策质量) + 态势项 + 个性项 + 执行偏差噪声（SEN 越低噪声越大）
+const cfg = require('./config');
+const abilities = require('./abilities');
+
+const B = cfg.brain;
+
+// 决策质量：SEN -> 选中效用最优项的概率
+function decisionQuality(sen) {
+  return cfg.ai.senBase + cfg.ai.senRange * (sen - 30) / 66;
+}
+
+// 沿角色路线取下一节点；limit 为 commit 前允许推进到的路线进度
+// 进度按单位记忆（u.routeProg）：处于路线节点之间的中转跳点上时继续向前，不会回头
+function routeNext(u, route, limit) {
+  if (!route || !route.length) return null;
+  const lim = Math.min(limit, route.length - 1);
+  const i = route.indexOf(u.node);
+  if (i >= 0) u.routeProg = Math.max(u.routeProg || 0, i);
+  const prog = u.routeProg || 0;
+  if (prog < lim) return route[prog + 1];
+  return null;
+}
+
+module.exports = {
+  decisionQuality,
+
+  // ---- 对枪点（post）----
+  releasePost(u) {
+    if (u.post && this.postOcc[u.post] === u) delete this.postOcc[u.post];
+    u.post = null;
+  },
+
+  // 该对枪点跨节点可用的枪线数量（缓存）
+  sightCount(pid) {
+    if (!this._sightN) {
+      this._sightN = {};
+      for (const key of Object.keys(this.map.sight)) {
+        const [a, b] = key.split('|');
+        this._sightN[a] = (this._sightN[a] || 0) + 1;
+        this._sightN[b] = (this._sightN[b] || 0) + 1;
+      }
+    }
+    return this._sightN[pid] || 0;
+  },
+
+  // 选位：掩体质量 × postCoverW ± 枪线数 × postSightW；决策质量决定选中最优槽的概率
+  // defer=true 时只预订槽位不落到单位身上（移动中 post 保持 null）
+  // hide=true 时回避枪线（埋伏期：宁选无视线角落也不暴露在敌方枪线下）
+  pickPost(u, node, defer, hide) {
+    const free = this.map.postsAt(node).filter((p) => !this.postOcc[p] || this.postOcc[p] === u);
+    if (!free.length) return null;
+    const sightSign = hide ? -1 : 1;
+    let best = null, bestS = -1e9, bestCov = -1;
+    for (const pid of free) {
+      const p = this.map.posts[pid];
+      const s = p.cover * B.postCoverW + sightSign * this.sightCount(pid) * B.postSightW;
+      // 平分取掩体更高者（掩体主导，枪线只做 tiebreak）
+      if (s > bestS + 1e-6 || (Math.abs(s - bestS) <= 1e-6 && p.cover > bestCov)) {
+        bestS = s; best = pid; bestCov = p.cover;
+      }
+    }
+    const q = B.postPickBase + B.postPickRange * (u.sen - 30) / 66;
+    let pick = best;
+    if (this.rng() >= q) pick = free[Math.floor(this.rng() * free.length)]; // 低 SEN 乱站位
+    if (u.post && this.postOcc[u.post] === u) delete this.postOcc[u.post];
+    this.postOcc[pick] = u;
+    if (!defer) u.post = pick;
+    this.emit('post_pick', { unit: u.name, node, post: pick, quality: +bestS.toFixed(2), hide: !!hide });
+    return pick;
+  },
+
+  // 是否有可交火的敌人（同节点或跨节点枪线互见）
+  hasVisibleEnemy(u) {
+    for (const e of this.units) {
+      if (!e.alive || e.side === u.side || e.moving) continue;
+      if (e.node === u.node) return true;
+      if (u.post && e.post && this.map.canSee(u.post, e.post) && !this.sightBlocked(u.post, e.post)) return true;
+    }
+    return false;
+  },
+
+  // 按意图点位倾向选目标点（每单位缓存，mid 读取后重置；进攻侦察揭示后改打薄弱点）
+  pickTargetSite(u, intent) {
+    if (!u.targetSite) {
+      const kr = this.flags.atkRecon;
+      if (kr) {
+        const weaker = kr.A <= kr.B ? 'A' : 'B';
+        u.targetSite = this.rng() < cfg.abilities.atkReconReadP ? weaker : (weaker === 'A' ? 'B' : 'A');
+      } else {
+        const w = intent.siteWeights;
+        u.targetSite = this.rng() * (w.A + w.B) < w.A ? 'A' : 'B';
+      }
+    }
+    return u.targetSite;
+  },
+
+  // 时间压力：越过安全线后推进/下包持续加分
+  timePressure() {
+    const over = this.t - (cfg.round.maxTicks - cfg.round.timePressure);
+    return over > 0 ? 3 + over * B.timePushW : 0;
+  },
+
+  // ---- 主决策 ----
+  think(u, force) {
+    if (!u.alive || u.moving || u.planting || u.defusing) return;
+    if (u.stun > 0) return;
+    if (!force && ((this.t + u.sideIdx + (u.side === 'def' ? 1 : 0)) % B.thinkInterval) !== 0) return;
+    let cands = u.side === 'atk' ? this.atkCandidates(u) : this.defCandidates(u);
+    if (!u.saved) cands = cands.concat(abilities.candidates(this, u)); // 英雄技能候选
+    if (!cands.length) return;
+    for (const fn of this.hooks.beforeDecision) cands = fn({ unit: u, round: this }, cands) || cands;
+    const dq = decisionQuality(u.sen);
+    // IGL 存活时队友的战术意图先验增强（指挥让行动更贴合计划；强度按 IGL 本人 SEN 缩放）
+    const igl = this.iglUnit(u.side);
+    const iglBoost = (!u.isIGL && igl) ? 1 + cfg.igl.priorBoost * (igl.sen / 60) : 1;
+    let best = null, bestScore = -1e9;
+    for (const c of cands) {
+      const s = c.prior * iglBoost * (0.5 + dq) + (c.situ || 0) + (c.pers || 0)
+        + (this.rng() * 2 - 1) * (100 - u.sen) * B.noiseCoef;
+      if (s > bestScore) { bestScore = s; best = c; }
+    }
+    this.execAction(u, best);
+  },
+
+  // ---- 进攻方候选动作 ----
+  atkCandidates(u) {
+    const intent = this.atkIntent;
+    const t = this.t;
+    const out = [];
+    if (u.saved) { out.push({ action: 'hold', prior: 5 }); return out; }
+    // 爆能器掉落：被指派的捡拾者压倒一切（即使在交火中也要去捡）
+    if (u.assignedPickup && this.spike.node && !this.spike.carrier) {
+      out.push({ action: 'pickup', prior: 50 });
+      return out;
+    }
+    if (this.spike.node && !this.spike.carrier && u.node === this.spike.node) {
+      out.push({ action: 'pickup', prior: 30 });
+    }
+    if (this.enemiesAt(u.node, u.side).length > 0) {
+      // 遭遇战：架枪或对枪（高 AIM 炮台倾向主动 peek）
+      out.push({ action: 'hold', prior: 1.5 });
+      out.push({ action: 'peek', prior: 1.2, pers: (u.aim - 70) * B.peekAimW });
+      return out;
+    }
+    // fake 族佯攻组：制造动静拉扯，随后长途转点汇合真打
+    const fo = intent.fakeout;
+    if (fo && u.role === 'decoy') {
+      if (!u.fakeDone && t >= fo.fakeTick && this.map.region(u.node) === fo.fakeRegion) {
+        out.push({ action: 'fakeNoise', prior: 100 });
+        return out;
+      }
+      const realNode = this.map.siteNode(fo.realRegion);
+      if (u.fakeDone && t >= fo.hitTick + 8 && u.node !== realNode) {
+        out.push({ action: 'rotate', prior: 50, node: realNode });
+        return out;
+      }
+    }
+    // 已下包：守包——点内向位置架枪，点外落位收拢（绕后者顺势断回防路线）
+    if (this.planted) {
+      const siteNode = this.map.siteNode(this.plantSite);
+      if (this.map.region(u.node) === this.plantSite) {
+        out.push({ action: 'hold', prior: 3 });
+      } else {
+        out.push({ action: 'push', prior: 3.2, node: siteNode, mode: 'run', pers: (u.syn - 70) * B.followSynW });
+        out.push({ action: 'hold', prior: 1.2 });
+      }
+      if (this.hasVisibleEnemy(u)) out.push({ action: 'peek', prior: 1.5, pers: (u.aim - 70) * B.peekAimW });
+      return out;
+    }
+    const commit = t >= intent.pace.commitTick || this.forceCommitted || !!this.committedSite;
+    const site = this.committedSite || this.pickTargetSite(u, intent);
+    const siteNode = this.map.siteNode(site);
+    const press = this.timePressure();
+    // 推进决心：已迈出推进步伐的单位不为噪声所动摇（执行有偏差 ≠ 抽风式摇摆）
+    const cBoost = u.committed ? 2.0 : 0;
+    // 下包者：直奔包点下包
+    if (u.isCarrier && commit) {
+      if (u.node === siteNode) out.push({ action: 'plant', prior: 4, situ: press });
+      else out.push({ action: 'push', prior: 3 + cBoost, node: siteNode, mode: 'run', situ: press });
+    }
+    // 沿角色路线推进（commit 前静音慢摸且只到入口，commit 后跑步放开全程）
+    const route = intent.routes[u.role] || [];
+    const limit = commit ? route.length - 1 : (intent.limitIdx[u.role] || 0);
+    const nextNode = routeNext(u, route, limit);
+    if (nextNode) {
+      out.push({
+        action: 'push', prior: B.priorBase + (commit ? 1.5 : 0) + cBoost, node: nextNode,
+        mode: commit ? 'run' : 'walk', situ: press,
+        pers: (u.syn - 70) * B.followSynW // 高 SYN 更愿意跟上团队节奏
+      });
+    } else if (commit && !u.isCarrier && u.node !== siteNode) {
+      // 路线走完但未到场（转点/驰援）：直接向主攻点靠拢
+      out.push({ action: 'push', prior: B.priorBase + 1.0 + cBoost, node: siteNode, mode: 'run', situ: press });
+    }
+    // 驻守（埋伏期主推；埋伏时避开敌方枪线选位）
+    out.push({ action: 'hold', prior: commit ? 0.8 : 2.0, hide: !commit });
+    // 主动对枪
+    if (this.hasVisibleEnemy(u)) out.push({ action: 'peek', prior: 1.2, pers: (u.aim - 70) * B.peekAimW });
+    // 保枪：残局人数劣势且时间无多
+    const atkAlive = this.aliveCount('atk'), defAlive = this.aliveCount('def');
+    if (t > 60 && atkAlive <= 2 && defAlive >= atkAlive + 2) {
+      out.push({ action: 'save', prior: 1, situ: (defAlive - atkAlive) * 2 });
+    }
+    return out;
+  },
+
+  // ---- 防守方候选动作 ----
+  defCandidates(u) {
+    const intent = this.defIntent;
+    const t = this.t;
+    const out = [];
+    if (u.saved) { out.push({ action: 'hold', prior: 5 }); return out; }
+    if (this.enemiesAt(u.node, u.side).length > 0) {
+      out.push({ action: 'hold', prior: 1.5 });
+      out.push({ action: 'peek', prior: 1.2, pers: (u.aim - 70) * B.peekAimW });
+      return out;
+    }
+    // 已下包：回防 / 拆包 / 保枪
+    if (this.planted) {
+      const siteNode = this.map.siteNode(this.plantSite);
+      const staging = this.map.data.staging[this.plantSite];
+      if (u.node === siteNode) {
+        u.retaking = true;
+        // 拆包 vs 架枪警戒：低 SEN 会犹豫（等队友掩护/多架一会儿再拆）
+        // 守包燃烧封锁期间无法开始拆包（火线封住爆能器）
+        const denied = this.mollyZone && this.mollyZone.deny && this.mollyZone.node === u.node && this.t < this.mollyZone.until;
+        if (!denied && this.enemiesAt(u.node, 'def').length === 0
+          && this.rng() < decisionQuality(u.sen) + 0.3) out.push({ action: 'defuse', prior: 10 });
+        out.push({ action: 'hold', prior: 7 });
+        return out;
+      }
+      // 保枪判定：回防无望（时间/人数/道具不足）
+      const dist = this.bfsDist(u.node, siteNode);
+      let teamUtils = 0;
+      for (const d of this.def) if (d.alive) teamUtils += d.utils;
+      const atkAlive = this.aliveCount('atk'), defAlive = this.aliveCount('def');
+      const canRetake = this.spikeLeft > cfg.round.defuseTicks + dist + 2 && defAlive >= atkAlive && teamUtils > 0;
+      if (!canRetake && u.node !== this.map.data.spawns.def) {
+        out.push({
+          action: 'save', prior: 1,
+          situ: (atkAlive - defAlive) * 2 + (this.spikeLeft < cfg.round.defuseTicks + dist ? 10 : 0)
+        });
+      }
+      // 回防：集结信号后直接进点，否则先到集结点汇合
+      if (this.flags.retakeHit) out.push({ action: 'push', prior: 8, node: siteNode, mode: 'run' });
+      else if (u.node === staging) { u.waitRetake = true; out.push({ action: 'hold', prior: 8 }); }
+      else out.push({ action: 'retake', prior: 8, node: staging });
+      return out;
+    }
+    // 集结点支援：确认真实交火后进点；虚警消退则归位
+    if (u.support && u.node === this.map.data.staging[u.support]) {
+      const R = u.support;
+      const info = this.defInfo[R];
+      if (info.strength >= cfg.ai.contractInfo && !info.suspicious) {
+        out.push({ action: 'push', prior: 6, node: this.map.siteNode(R), mode: 'run', event: ['push_in', { site: R }], clearSupport: true });
+      } else if (info.strength < cfg.ai.rotateNeedInfo && u.homeNode && this.map.region(u.homeNode) !== R) {
+        out.push({ action: 'rotate', prior: 4, node: u.homeNode, event: ['return_home', { from: R }], clearSupport: true });
+      } else {
+        out.push({ action: 'hold', prior: 5 });
+      }
+      return out;
+    }
+    // 信息反应（回防/局部收缩/识破假打）：弱接触信息不拉动阵型，
+    // 只有强真实交火、可疑假象（假打博弈）或进攻已展开时才触发
+    const react = this.defReactCandidate(u);
+    if (react) out.push(react);
+    // 前压游荡：roamTick 前顶中路，之后向匪家游猎（已出发的单位不为噪声回头）
+    const cBoost = u.committed ? 1.0 : 0;
+    if (u.role === 'roam') {
+      const route = intent.routes.roam;
+      const limit = t >= intent.pace.commitTick ? route.length - 1 : intent.limitIdx.roam;
+      const nextNode = routeNext(u, route, limit);
+      if (nextNode) out.push({ action: 'push', prior: 3 + cBoost, node: nextNode, mode: 'run' });
+      else out.push({ action: 'hold', prior: 2 });
+    } else if (u.node !== u.homeNode) {
+      out.push({ action: 'push', prior: 3 + cBoost, node: u.homeNode, mode: 'run' });
+    } else {
+      out.push({ action: 'hold', prior: 2.5 });
+    }
+    // 侦察道具：无信息时自主扫描（优先 recon 技能；只捕捉近期跑动/交战过的进攻方）
+    if ((u.utils > 0 || abilities.findSkill(u, 'recon')) && !u.reconUsed && t >= cfg.utility.reconTick && u.node === u.homeNode) {
+      const maxInfo = Math.max(this.defInfo.A.strength, this.defInfo.B.strength);
+      if (maxInfo < cfg.ai.rotateNeedInfo) out.push({ action: 'useRecon', prior: 2 });
+    }
+    if (this.hasVisibleEnemy(u)) out.push({ action: 'peek', prior: 1.2, pers: (u.aim - 70) * B.peekAimW });
+    return out;
+  },
+
+  // 防守方信息反应候选：强真实信息全面回防，中等/可疑信息局部收缩；可疑信息先挂 SEN 识破判定
+  defReactCandidate(u) {
+    if (!this.newInfo || u.rotating) return null;
+    if (u.role === 'anchor') return null; // 赌点锚兵只在下包后回防
+    let target = null, strength = 0;
+    for (const r of ['A', 'B']) {
+      const info = this.defInfo[r];
+      if (info.strength > strength) { strength = info.strength; target = r; }
+    }
+    if (!target || strength < cfg.ai.rotateNeedInfo) return null;
+    if (u.node === this.map.siteNode(target)) return null;
+    const info = this.defInfo[target];
+    // 触发门槛：进攻已展开 / 强真实交火 / 可疑假象才拉动阵型（零星暴露不回防）
+    if (!this.planted && !this.forceCommitted && !info.suspicious && strength < cfg.ai.contractInfo) return null;
+    // 假打识破：可疑信息（只有动静没有接触）挂 SEN 判定，识破则不被拉扯
+    if (info.suspicious && u.fakeReadTick !== info.tick) {
+      u.fakeReadTick = info.tick;
+      const iglD = this.iglUnit('def');
+      let pRead = cfg.fake.readBase + u.sen * cfg.fake.readSen + (iglD ? cfg.igl.fakeReadBonus * (iglD.sen / 60) : 0);
+      if (this.defIntent.family === 'stack') pRead *= 0.6; // 赌点队信息面窄，更难识破假打
+      if (this.rng() < pRead) {
+        this.stats.fakeReads++;
+        this.emit('fake_read', { unit: u.name, region: target });
+        return null;
+      }
+      this.stats.fakePulled++;
+      this.emit('fake_pulled', { unit: u.name, region: target });
+    }
+    return { action: 'react', prior: strength * 0.5, target, strength, suspicious: info.suspicious };
+  },
+
+  // ---- 动作执行 ----
+  execAction(u, c) {
+    u.concealed = c.action === 'hold' && !!c.hide; // 埋伏隐蔽：不进跨节点枪线
+    switch (c.action) {
+      case 'hold': {
+        const posts = this.map.postsAt(u.node);
+        if (posts.length) {
+          if (!u.post) this.pickPost(u, u.node, false, c.hide);
+          else if (c.hide && this.sightCount(u.post) > 0) this.pickPost(u, u.node, false, true); // 埋伏期换掉暴露在枪线下的槽位
+        }
+        break;
+      }
+      case 'peek': // 主动对枪：驻守并优先占枪线位（交火由 combat.js 统一结算）
+        if (!u.post && this.map.postsAt(u.node).length) this.pickPost(u, u.node);
+        u.peeking = this.t;
+        break;
+      case 'push':
+        if (c.clearSupport) u.support = null;
+        u.committed = true; // 推进决心：后续思考不被噪声动摇
+        if (this.startMove(u, c.node, c.mode || 'run') && c.event) this.emit(c.event[0], { unit: u.name, ...c.event[1] });
+        break;
+      case 'rotate':
+        if (c.clearSupport) u.support = null;
+        u.rotating = true;
+        if (this.startMove(u, c.node, 'run') && c.event) this.emit(c.event[0], { unit: u.name, ...c.event[1] });
+        break;
+      case 'react':
+        this.reactToInfo(u, c.target, c.strength, c.suspicious);
+        break;
+      case 'retake':
+        u.retaking = true;
+        u.waitRetake = true;
+        u.rotating = true;
+        this.startMove(u, c.node, 'run');
+        break;
+      case 'save': {
+        u.saved = true;
+        u.rotating = false;
+        const spawn = this.map.data.spawns[u.side];
+        if (u.node !== spawn) this.startMove(u, spawn, 'run');
+        this.emit('save', { unit: u.name });
+        break;
+      }
+      case 'defuse':
+        u.defusing = cfg.round.defuseTicks;
+        // 守包燃烧封锁：拆包被迫晚开始
+        if (this.mollyZone && this.mollyZone.deny && this.mollyZone.node === u.node && this.t < this.mollyZone.until) {
+          u.defusing += cfg.abilities.mollyDenyDelay;
+        }
+        abilities.onDefuseSmoke(this, u); // 队友封烟掩护拆包（阻断指向包点枪线）
+        this.emit('defuse_start', { node: u.node, unit: u.name });
+        break;
+      case 'useAbility':
+        abilities.exec(this, u, c.skill);
+        break;
+      case 'plant':
+        this.doPlant(u);
+        break;
+      case 'pickup':
+        this.doPickup(u);
+        break;
+      case 'fakeNoise':
+        this.doFakeNoise(u);
+        break;
+      case 'useRecon':
+        this.doRecon(u);
+        break;
+    }
+  },
+
+  // 下包（含燃烧拖延：预置燃烧或点内守军自主现场投掷）
+  doPlant(u) {
+    if (!u.isCarrier || this.planted) return;
+    const siteNode = this.map.siteNode(this.committedSite || this.pickTargetSite(u, this.atkIntent));
+    if (u.node !== siteNode) { this.startMove(u, siteNode, 'run'); return; }
+    if (this.enemiesAt(u.node, 'atk').length > 0) return;
+    u.planting = cfg.round.plantTicks;
+    if (this.presetMolly[u.node] > 0) {
+      this.presetMolly[u.node]--;
+      u.planting += cfg.utility.mollyDelay;
+      this.emit('molly', { node: u.node, preset: true });
+    } else {
+      const siteRegion = this.map.region(u.node);
+      const candidates = [];
+      for (const d of this.def) {
+        if (d.alive && (d.utils > 0 || abilities.findSkill(d, 'molly')) && this.map.region(d.node) === siteRegion) candidates.push(d);
+      }
+      candidates.sort((a, b) => b.syn - a.syn);
+      for (const thrower of candidates) {
+        const r = abilities.triggerCast(this, thrower, 'molly', { node: u.node, delayPlant: true });
+        if (r) {
+          // 拖延下包：技能威力不放大拖延时长（时长封顶通用值，只体现 SYN 效率）
+          u.planting += Math.round(cfg.utility.mollyDelay * this.synFactor(thrower.syn) * Math.min(r.power, 1));
+          this.emit('molly', { node: u.node, by: thrower.name });
+          break;
+        }
+      }
+    }
+    this.emit('plant_start', { node: u.node, unit: u.name });
+  },
+
+  // 拾取爆能器
+  doPickup(u) {
+    if (!this.spike.node || this.spike.carrier) { u.assignedPickup = false; return; }
+    if (u.node === this.spike.node) {
+      this.spike.node = null;
+      this.spike.carrier = u;
+      u.isCarrier = true;
+      u.assignedPickup = false;
+      this.pickupAssigned = true;
+      this.emit('spike_pickup', { node: u.node, unit: u.name });
+    } else {
+      this.startMove(u, this.spike.node, 'run');
+    }
+  },
+
+  // 假打制造动静：跑动暴露 + 交道具佯攻，信息标记为可疑（防守方可识破）
+  doFakeNoise(u) {
+    u.fakeDone = true;
+    u.loudUntil = this.t + 8;
+    const region = this.map.region(u.node);
+    const iglBoost = this.iglAlive('atk') ? 1 : 0; // IGL 在佯攻更逼真
+    this.addInfo(region, cfg.fake.noiseInfo + iglBoost, true);
+    this.emit('fake_noise', { node: u.node, unit: u.name, region });
+    if (u.utils > 0 && this.rng() < cfg.fake.decoyUtilThink) {
+      u.utils--;
+      this.stats.utilsAtk++;
+      this.addInfo(region, 2, true); // 道具声响让假象更可信
+      this.emit('fake_util', { node: u.node, unit: u.name });
+    }
+  },
+
+  // 防守侦察道具
+  // 防守侦察道具：优先消耗 recon 技能（猎枭侦察箭 deep 可捕捉隐蔽目标，信息量更大）
+  doRecon(u) {
+    if (u.reconUsed) return;
+    const sk = abilities.findSkill(u, 'recon') || abilities.findSkill(u, 'ult_recon');
+    if (!sk && u.utils <= 0) return;
+    u.reconUsed = true;
+    const deep = sk && sk.def.params.deep; // 跨节点深侦察：无视隐蔽，捕捉所有存活进攻方
+    const count = { A: 0, B: 0, mid: 0 };
+    let loud = 0;
+    for (const a of this.atk) {
+      if (!a.alive) continue;
+      if (deep || (a.loudUntil || 0) >= this.t) {
+        loud++;
+        count[this.map.region(a.node)] = (count[this.map.region(a.node)] || 0) + 1;
+      }
+    }
+    if (loud === 0) {
+      this.emit('recon_empty', { unit: u.name }); // 扫描无果，道具保留
+      return;
+    }
+    const power = sk ? (abilities.cast(this, u, sk, { recon: true }) || {}).power : null;
+    if (!sk) { u.utils--; this.stats.utilsDef++; this.stats.utilsByType.recon++; }
+    let region = 'A';
+    if (count.B > count.A) region = 'B';
+    else if (count.B === count.A && this.rng() < 0.5) region = 'B';
+    this.addInfo(region, Math.round(cfg.utility.reconInfo * (power || 1)), null); // 侦察不辨真伪，保留可疑标记
+    this.emit('recon', { unit: u.name, region });
+  }
+};
+
+});
+__define("movement.js", function(module, exports, require) {
+// 机动：节点间移动、边暴露、静音慢摸、警戒/燃烧触发、进点连锁（从 round.js 拆出，纯代码移动）
+const cfg = require('./config');
+const abilities = require('./abilities');
+
+module.exports = {
+  startMove(u, dest, mode) {
+    const next = this.map.nextHop[u.node][dest];
+    if (!next || next === u.node) return false;
+    const edge = this.map.edgeBetween(u.node, next);
+    let ticks = edge.ticks;
+    let exposure = edge.exposure;
+    if (mode === 'walk') {
+      ticks = Math.ceil(ticks * cfg.move.silentTickMult);
+      exposure *= cfg.move.silentExposureMult;
+    }
+    if (u.rotating) {
+      ticks = Math.max(1, Math.round(ticks * (1 - u.syn * cfg.move.rotateSynCoef)));
+      // IGL 指挥机动（效率按 IGL 本人 SYN 缩放）
+      const igl = this.iglUnit(u.side);
+      if (igl) ticks = Math.max(1, Math.round(ticks * (1 - (1 - cfg.igl.rotateTicksMult) * (igl.syn / 60))));
+    }
+    if (mode === 'run') u.loudUntil = this.t + 6; // 跑动暴露行踪，可被侦察捕捉
+    // 烟雾封锁：防守回防穿越烟雾边减速
+    const smokeUntil = this.smokedEdges[this.edgeKey(u.node, next)];
+    if (u.side === 'def' && smokeUntil && this.t < smokeUntil) ticks += cfg.utility.smokeRotateDelay;
+    // 墙体封锁（冰墙类）：双方穿越都大幅减速
+    const wallUntil = this.walledEdges[this.edgeKey(u.node, next)];
+    if (wallUntil && this.t < wallUntil) ticks += cfg.abilities.wallTickDelay;
+    this.occ[u.node].delete(u);
+    this.releasePost(u); // 移动中 post=null，离开节点释放对枪点
+    // 预选到达节点的对枪点（高 SEN 偏好掩体好/枪线多的槽位；进攻慢摸埋伏时回避枪线）
+    const hide = mode === 'walk' && u.side === 'atk';
+    const post = this.map.postsAt(next).length ? this.pickPost(u, next, true, hide) : null;
+    u.moving = { from: u.node, to: next, dest, left: ticks, mode, exposure, post };
+    u.holdTicks = 0;
+    this.emit('move', { unit: u.name, side: u.side, from: u.node, to: next, ticks, post }); // 观赛回放用
+    return true;
+  },
+
+  updateMovement() {
+    for (const u of this.units) {
+      if (!u.alive) continue;
+      if (u.stun > 0) { u.stun--; continue; } // 被警戒道具滞留
+      if (!u.moving) continue;
+      u.moving.left--;
+      if (u.moving.left > 0) continue;
+      const mv = u.moving;
+      u.moving = null;
+      u.node = mv.to;
+      u.post = mv.post || null; // 落位到预选的对枪点（无 posts 的节点保持节点级）
+      u.holdTicks = 0;
+      this.occ[u.node].add(u);
+      // 哨卫警戒：进攻方踩点触发；高 SEN 可识破规避，静音慢摸更谨慎
+      if (u.side === 'atk' && this.traps[u.node] > 0) {
+        this.traps[u.node]--;
+        const region = this.map.region(u.node);
+        const avoidP = cfg.utility.trapAvoidBase + u.sen * cfg.utility.trapAvoidSen + (mv.mode === 'walk' ? 0.15 : 0);
+        if (this.rng() < avoidP) {
+          this.emit('trap_spotted', { node: u.node, unit: u.name });
+        } else {
+          this.addInfo(region, cfg.utility.trapInfo);
+          u.stun = cfg.utility.trapStun + (this.trapPower[u.node] || 0); // 招牌陷阱（零绊线等）滞留更久
+          this.emit('trap', { node: u.node, unit: u.name, region });
+        }
+      }
+      // 信息暴露：进攻方过点被防守方察觉
+      if (u.side === 'atk') {
+        const region = this.map.region(u.node);
+        if (region !== 'spawn' && this.rng() < mv.exposure) {
+          this.addInfo(region, cfg.ai.spotInfo);
+          this.emit('spotted', { node: u.node, unit: u.name, region });
+        }
+        // 进攻方踩进包点 => 进攻方向落实；到位选手自主决定是否封烟掩护（阻断回防路线）
+        if ((u.node === 'a_site' || u.node === 'b_site') && !this.committedSite) {
+          this.committedSite = this.map.region(u.node);
+          if (!this.atkSmokeUsed && abilities.onCommitSmoke(this, u)) this.atkSmokeUsed = true;
+        }
+      }
+      // 预置燃烧（赌点全押）：进攻踩进该点即激活火线封锁，预置火线持续更久
+      if (u.side === 'atk' && this.presetMolly[u.node] > 0 && !(this.mollyZone && this.t < this.mollyZone.until)) {
+        this.presetMolly[u.node]--;
+        this.mollyZone = { node: u.node, until: this.t + cfg.utility.mollyZoneTicks + 2 };
+        this.emit('molly_entry', { node: u.node, preset: true });
+      }
+      // 进点燃烧弹：点内守军自主决定是否封火（优先 molly 技能），后续进点者被火线逼停
+      if (u.side === 'atk' && (u.node === 'a_site' || u.node === 'b_site') && this.enemiesAt(u.node, 'atk').length > 0) {
+        const region = this.map.region(u.node);
+        if (!this.defEntryMolly[region]) {
+          const candidates = [];
+          for (const d of this.def) {
+            if (d.alive && (d.utils > 0 || abilities.findSkill(d, 'molly')) && this.map.region(d.node) === region) candidates.push(d);
+          }
+          candidates.sort((a, b) => b.syn - a.syn);
+          for (const thrower of candidates) {
+            const r = abilities.triggerCast(this, thrower, 'molly', { node: u.node, entry: true });
+            if (r) {
+              this.defEntryMolly[region] = true;
+              this.mollyZone = { node: u.node, until: this.t + cfg.utility.mollyZoneTicks };
+              this.emit('molly_entry', { node: u.node, by: thrower.name });
+              break;
+            }
+          }
+        }
+      }
+      // 穿越火线：被燃烧弹逼停（deny=守包燃烧拦防守，普通=进点燃烧拦进攻）
+      if (this.mollyZone && this.t < this.mollyZone.until && u.node === this.mollyZone.node
+        && (this.mollyZone.deny ? u.side === 'def' : u.side === 'atk')) {
+        u.stun = Math.max(u.stun, 3);
+        this.emit('molly_block', { node: u.node, unit: u.name });
+      }
+      // 进点遭遇：架点方抢先枪
+      this.entryFight(u);
+      // 到达后立即做一次决策（继续推进/落位驻守）
+      if (u.alive) this.think(u, true);
+    }
+  }
+};
+
+});
+__define("combat.js", function(module, exports, require) {
+// 交火结算：击杀概率模型、补枪、进点抢先枪、每 tick 同节点交火（从 round.js 拆出，纯代码移动）
+const cfg = require('./config');
+const abilities = require('./abilities');
+
+const C = cfg.combat;
+
+module.exports = {
+  aliveCount(side) {
+    const arr = side === 'atk' ? this.atk : this.def;
+    let n = 0;
+    for (const u of arr) if (u.alive) n++;
+    return n;
+  },
+
+  enemiesAt(node, side) {
+    const out = [];
+    for (const u of this.occ[node]) if (u.alive && u.side !== side) out.push(u);
+    return out;
+  },
+
+  isContested(node) {
+    let a = false, d = false;
+    for (const u of this.occ[node]) {
+      if (!u.alive) continue;
+      if (u.side === 'atk') a = true; else d = true;
+      if (a && d) return true;
+    }
+    return false;
+  },
+
+  // ---- 击杀概率模型 ----
+  // crossFire：跨节点枪线交火（双方 post 互见），目标暴露度减免击杀概率
+  killP(att, tgt, entry, crossFire) {
+    const node = this.map.nodes[att.node];
+    let p = C.baseKill;
+    p *= 1 + (att.aim - tgt.aim) * C.aimCoef;
+    p *= cfg.gun.mod[att.gun];
+    p *= tgt.armor === 'heavy' ? cfg.armor.heavy : (tgt.armor === 'light' ? cfg.armor.light : cfg.armor.none);
+    p *= att.holdTicks >= 2 ? C.settledBonus : (att.dashUntil >= this.t ? 1.0 : C.moverPenalty); // dash 位移进点抹平移动惩罚
+    const adv = node.advantage;
+    p *= adv === att.side ? C.advBonus : (adv === 'neutral' ? 1 : C.disadvPenalty);
+    // 掩体减免：目标占了对枪点则用 post.cover（高 SEN 选位好直接受益），否则节点级
+    const tgtCover = (tgt.post && this.map.posts[tgt.post]) ? this.map.posts[tgt.post].cover : node.cover;
+    if (tgt.holdTicks >= 2) p *= 1 - tgtCover * C.coverResist;
+    if (crossFire && att.post && tgt.post) p *= 1 - this.map.exposureBetween(att.post, tgt.post) * cfg.brain.crossFireResist;
+    if (entry) p *= C.entryBonus;
+    if (att.aimbuffUntil >= this.t) p *= (att.aimbuffMult || cfg.abilities.aimbuffMult); // 自增益技能（猎头/心流/大招）
+    if (tgt.healUntil >= this.t) p *= 1 - cfg.abilities.healResist; // 治疗后的短期受击减免
+    if (att.stun > 0) p *= cfg.utility.stunFirePenalty; // 被警戒/燃烧/震荡滞留时开火不稳
+    if (att.isIGL) p *= 1 - (1 - cfg.igl.aimPenalty) * (70 / att.sen); // IGL 指挥分心代价（意识差的选手分心更严重）
+    for (const fn of this.hooks.beforeKillRoll) p = fn({ att, tgt, node, round: this, entry }, p);
+    return Math.min(Math.max(p, 0.01), 0.9);
+  },
+
+  tryKill(att, tgt, entry, crossFire) {
+    if (!att.alive || !tgt.alive) return false;
+    const p = this.killP(att, tgt, entry, crossFire);
+    if (this.rng() < p) {
+      this.applyKill(att, tgt);
+      return true;
+    }
+    return false;
+  },
+
+  applyKill(killer, victim) {
+    victim.alive = false;
+    victim.moving = null;
+    victim.planting = 0;
+    victim.defusing = 0;
+    killer.roundKills++;
+    this.occ[victim.node].delete(victim);
+    this.releasePost(victim); // 释放对枪点槽位
+    this.emit('kill', { node: victim.node, killer: killer.name, victim: victim.name, side: killer.side });
+    for (const fn of this.hooks.onKill) fn({ killer, victim, node: victim.node, round: this });
+    // 爆能器掉落
+    if (victim.isCarrier) {
+      victim.isCarrier = false;
+      this.spike.carrier = null;
+      this.spike.node = victim.node;
+      this.pickupAssigned = false;
+      this.emit('spike_drop', { node: victim.node });
+    }
+    // 补枪（SYN）：受害者同节点队友立即反打一枪
+    for (const tm of this.occ[victim.node]) {
+      if (!tm.alive || tm.side !== victim.side || tm.planting || tm.defusing) continue;
+      if (this.rng() < C.tradeBase * tm.syn / 100) {
+        if (this.tryKill(tm, killer, false)) break;
+      }
+    }
+    // 复活技能判定（不死鸟/暮蝶自我复活，贤者复活队友）
+    abilities.onDeath(this, victim);
+  },
+
+  entryFight(entrant) {
+    const enemies = this.enemiesAt(entrant.node, entrant.side);
+    if (!enemies.length) return;
+    // 同步进点：3 tick 内同节点友方人数 >=2 时降低被抢先概率（IGL 提升等效协同）
+    // （think 节拍相位差会让同批进点者落点错开 0~2 tick，窗口比指令链时代放宽 1 tick）
+    let sync = 0, synSum = 0;
+    for (const u of this.occ[entrant.node]) {
+      if (u.alive && u.side === entrant.side && u.holdTicks <= 3) { sync++; synSum += u.syn; }
+    }
+    if (sync > 0 && this.iglAlive(entrant.side)) synSum += cfg.igl.syncSynBonus * sync;
+    // 闪光道具：进点/回防进包点时，在场同方选手自主决定是否丢闪（SYN 决定效果；技能闪更强）
+    const isSite = entrant.node === 'a_site' || entrant.node === 'b_site';
+    const isAtkHit = entrant.side === 'atk' && isSite;
+    const isDefRetake = entrant.side === 'def' && this.planted && isSite;
+    let flash = 0;
+    if (isAtkHit || isDefRetake) flash = abilities.onEntryFlash(this, entrant);
+    for (const holder of enemies) {
+      if (!holder.alive || holder.planting || holder.defusing || holder.stun > 0) continue;
+      if (holder.holdTicks < 2) continue; // 只有已架好枪的单位才有抢先枪
+      let pSpot = C.entryShotBase + holder.sen * C.entryShotSen;
+      if (sync >= C.syncMin) pSpot -= (synSum / sync) * C.syncReduce;
+      pSpot -= flash; // 被致盲
+      if (entrant.dashUntil >= this.t) pSpot -= entrant.dashDodge || 0; // dash 位移闪避抢先枪
+      if (this.rng() < Math.max(pSpot, 0.05)) {
+        this.emit('entry_shot', { node: entrant.node, holder: holder.name, entrant: entrant.name });
+        this.tryKill(holder, entrant, true);
+        if (!entrant.alive) return;
+      }
+    }
+    if (this.isContested(entrant.node)) {
+      const region = this.map.region(entrant.node);
+      if (region === 'A' || region === 'B') this.addInfo(region, 5);
+    }
+  },
+
+  // ---- 每 tick 交火 ----
+  resolveCombat() {
+    for (const nodeId of Object.keys(this.occ)) {
+      if (!this.isContested(nodeId)) continue;
+      const fighters = [];
+      for (const u of this.occ[nodeId]) {
+        if (u.alive && !u.planting && !u.defusing) fighters.push(u);
+      }
+      // 随机出手顺序
+      for (let i = fighters.length - 1; i > 0; i--) {
+        const j = Math.floor(this.rng() * (i + 1));
+        [fighters[i], fighters[j]] = [fighters[j], fighters[i]];
+      }
+      for (const u of fighters) {
+        if (!u.alive) continue;
+        const enemies = this.enemiesAt(nodeId, u.side);
+        if (!enemies.length) break;
+        const tgt = enemies[Math.floor(this.rng() * enemies.length)];
+        this.tryKill(u, tgt, false);
+      }
+    }
+    // 跨节点枪线交火：双方已架好枪且 post 互相可见才能对枪；每对每 tick 按概率交火
+    // 同节点混战中的单位无暇跨节点对枪（节点正在交火则跳过）
+    const contested = {};
+    for (const nodeId of Object.keys(this.occ)) {
+      if (this.isContested(nodeId)) contested[nodeId] = true;
+    }
+    const holders = [];
+    for (const u of this.units) {
+      if (u.alive && !u.moving && !u.planting && !u.defusing && u.stun <= 0 && u.post && u.holdTicks >= 2 && !contested[u.node]) holders.push(u);
+    }
+    for (let i = 0; i < holders.length; i++) {
+      for (let j = i + 1; j < holders.length; j++) {
+        const a = holders[i], b = holders[j];
+        if (a.side === b.side || !a.alive || !b.alive) continue;
+        if (a.node === b.node) continue; // 同节点已在上面结算
+        if (a.concealed || b.concealed) continue; // 埋伏隐蔽中的单位不被枪线锁定（也不探身开枪）
+        if (!this.map.canSee(a.post, b.post)) continue;
+        if (this.sightBlocked(a.post, b.post)) continue; // 烟/墙封枪线
+        if (this.rng() >= cfg.brain.crossFireProb) continue;
+        // 随机先后各开一枪
+        if (this.rng() < 0.5) {
+          this.tryKill(a, b, false, true);
+          if (b.alive) this.tryKill(b, a, false, true);
+        } else {
+          this.tryKill(b, a, false, true);
+          if (a.alive) this.tryKill(a, b, false, true);
+        }
+      }
+    }
+  }
+};
+
+});
+__define("perception.js", function(module, exports, require) {
+// 感知与信息：信息写入（含假打可疑标记）、防守方对信息反应的执行（从 round.js 拆出）
+// Phase2-B：回防/收缩的"决策"已移至 brain.js 效用评分，reactToInfo 只负责执行移动与状态标记
+const cfg = require('./config');
+
+module.exports = {
+  // 信息写入：真实信息（暴露/警戒/交战/侦察/下包）会洗掉假打的可疑标记
+  addInfo(region, amount, suspicious = false) {
+    const info = this.defInfo[region];
+    if (!info) return;
+    info.strength = Math.min(info.strength + amount, 12);
+    info.tick = this.t;
+    info.suspicious = suspicious === null ? info.suspicious : suspicious; // 侦察传 null 保留可疑标记
+    this.newInfo = true;
+  },
+
+  // 防守方信息反应执行：强真实信息（或赌点队本性）全面回防到受威胁侧集结点待命；
+  // 中等/可疑信息只做局部收缩——只有中路自由人靠拢（站点锚兵不动，否则被假打拉空），每方向限一人
+  reactToInfo(u, target, strength, suspicious) {
+    const staging = this.map.data.staging[target];
+    const fullRotate = (!suspicious && strength >= cfg.ai.contractInfo) || this.defIntent.family === 'stack';
+    if (fullRotate) {
+      u.rotating = true;
+      u.support = target;
+      if (u.node !== staging) this.startMove(u, staging, 'run');
+      this.emit('rotate', { unit: u.name, to: target });
+    } else {
+      if (this.map.region(u.node) !== 'mid' || this.contracted[target]) return;
+      this.contracted[target] = true;
+      u.support = target; // 收缩后仍可升级为全面回防
+      if (u.node !== staging) this.startMove(u, staging, 'run');
+      this.emit('contract', { unit: u.name, to: target });
+    }
+  }
+};
+
+});
+__define("abilities.js", function(module, exports, require) {
+// 英雄技能系统：kit 挂载 / 释放决策 / 效果落地
+// 建模：原型族(archetype) + 专属参数(params) + 招牌机制(sig)
+// 释放时机挂 SEN（utilThink 判定），效果效率挂 SYN（沿用 config.utility 的 synBase/synCoef），
+// 池外英雄失误率更高（衔接 config.proficiency 的 whiff 体系）
+// 反应式技能（闪光/落点烟/燃烧拖延/防守侦察/哨卫预置）在既有触发点施放；
+// 主动技能（炮台/治疗/幕墙/假身/位移/自增益/进攻侦察/守包燃烧）并入 brain 候选动作
+const cfg = require('./config');
+const KITS = require('./agent_kits.json');
+
+const A = cfg.abilities;
+const U = cfg.utility;
+
+// ---- 挂载 ----
+// 回合开始挂载技能实例：小技能每回合刷新，大招整场一次（ultSpent 持久）
+// kit 由 agents.js 分配英雄时挂到单位上（u.kit），池内/池外熟练度标记 u.inPool 供失误判定
+function mount(u) {
+  const kit = u.kit || KITS[u.agent];
+  u.skills = {};
+  if (!kit) return;
+  for (const s of kit.skills) {
+    u.skills[s.key] = { def: s, left: s.key === 'x' ? (u.ultSpent ? 0 : 1) : s.charges };
+  }
+}
+
+function readySkills(u) {
+  const out = [];
+  for (const k of Object.keys(u.skills || {})) {
+    const sk = u.skills[k];
+    if (sk.left > 0) out.push(sk);
+  }
+  return out;
+}
+
+function findSkill(u, archetype) {
+  for (const sk of readySkills(u)) if (sk.def.archetype === archetype) return sk;
+  return null;
+}
+
+// 时机判定（SEN）：该用时能不能想到用
+function thinkCast(round, u) {
+  return round.rng() < cfg.ai.utilThinkBase + u.sen * cfg.ai.utilThinkSen;
+}
+
+// 施放结算：消耗 charge + 失误判定 + ability 事件 + 记账；返回 { power, fumble, skill }
+function cast(round, u, sk, extra = {}) {
+  if (!sk || sk.left <= 0) return null;
+  sk.left--;
+  const ult = sk.def.key === 'x';
+  if (ult) u.ultSpent = true;
+  const P = cfg.proficiency, M = cfg.mentality;
+  // 池内/池外失误概率，心态调制（沿用 whiff 体系）
+  const fumbleP = (u.inPool ? P.whiffIn : P.whiffOut) * A.fumbleMult * (1 - (u.mentality || 0) * M.eventSwing * 0.5);
+  const fumble = round.rng() < fumbleP;
+  const power = (fumble ? A.fumblePower : 1) * (sk.def.params.power || 1);
+  const arch = sk.def.archetype;
+  round.stats[u.side === 'atk' ? 'utilsAtk' : 'utilsDef']++;
+  if (arch in round.stats.utilsByType) round.stats.utilsByType[arch]++;
+  round.stats.abilityByArchetype[arch] = (round.stats.abilityByArchetype[arch] || 0) + 1;
+  round.emit('ability', {
+    side: u.side, unit: u.name, agent: u.agent, skill: sk.def.name, key: sk.def.key,
+    archetype: arch, node: u.node, post: u.post || null, ult, fumble, ...extra
+  });
+  return { power, fumble, skill: sk };
+}
+
+// 触发点施放：有技能优先用技能（SEN 时机判定），无技能回退通用道具（原 thinkUse 路径）
+// force=true 跳过时机判定（预置/已由 brain 决策过的场合）；调用方负责用 power 缩放效果
+function triggerCast(round, u, archetype, extra = {}, force = false) {
+  const sk = findSkill(u, archetype);
+  if (sk) {
+    if (!force && !thinkCast(round, u)) return null;
+    const r = cast(round, u, sk, extra);
+    return r ? { power: r.power, via: 'skill', skill: sk } : null;
+  }
+  if (!u.utils || u.utils <= 0) return null;
+  if (!force && !round.thinkUse(u)) return null;
+  u.utils--;
+  round.stats[u.side === 'atk' ? 'utilsAtk' : 'utilsDef']++;
+  if (archetype in round.stats.utilsByType) round.stats.utilsByType[archetype]++;
+  return { power: 1, via: 'generic' };
+}
+
+// ---- 枪线封锁 ----
+function blockSight(round, a, b, ticks) {
+  round.smokedSight[round.map.postKey(a, b)] = round.t + ticks;
+}
+
+// 封锁指向某节点的枪线：取暴露度最低（最致命）的 n 条
+function smokeSightlinesInto(round, node, ticks, n) {
+  const lines = [];
+  for (const [a, b, exposure] of round.map.data.sightlines || []) {
+    const pa = round.map.posts[a], pb = round.map.posts[b];
+    if (!pa || !pb) continue;
+    if (pa.node === node || pb.node === node) lines.push([a, b, exposure]);
+  }
+  lines.sort((x, y) => x[2] - y[2]);
+  for (const [a, b] of lines.slice(0, n)) blockSight(round, a, b, ticks);
+}
+
+// 区域幕墙（蝰蛇毒幕/星礈大招）：封锁所有一端在 region 内、一端在外的枪线
+function wallRegion(round, region, ticks) {
+  for (const [a, b] of round.map.data.sightlines || []) {
+    const pa = round.map.posts[a], pb = round.map.posts[b];
+    if (!pa || !pb) continue;
+    const ra = round.map.region(pa.node), rb = round.map.region(pb.node);
+    if ((ra === region) !== (rb === region)) blockSight(round, a, b, ticks);
+  }
+}
+
+// ---- 反应式触发点 ----
+// 进攻落点封烟：阻断回防路线；技能烟额外封锁指向包点的守方枪线（炼狱三连烟封 3 条）
+function onCommitSmoke(round, u) {
+  const r = triggerCast(round, u, 'smoke', { site: round.committedSite });
+  if (!r) return false;
+  const staging = round.map.data.staging[round.committedSite];
+  round.smokedEdges[round.edgeKey(staging, u.node)] = round.t + U.smokeTicks;
+  if (r.skill) {
+    const P = r.skill.def.params;
+    const multi = P.multi || 1;
+    smokeSightlinesInto(round, u.node, Math.round((P.ticks || A.smokeSightTicks) * r.power), multi);
+  }
+  round.emit('smoke', { node: u.node, edge: [staging, u.node], by: u.name, until: round.t + U.smokeTicks });
+  return true;
+}
+
+// 进点闪光（含大招闪）：返回致盲强度；隔墙闪招牌（铁臂/斯凯）让点内敌人额外震荡滞留
+function onEntryFlash(round, entrant) {
+  // 每方每 6 tick 最多一颗闪（技能充能脱离了经济约束，防止回防闪连发）
+  if (round.t - (round.lastFlashTick[entrant.side] || -99) <= 6) return 0;
+  const candidates = [];
+  for (const u of round.occ[entrant.node]) {
+    if (u.alive && u.side === entrant.side && !u.flashUsedRound && (u.utils > 0 || findSkill(u, 'flash'))) candidates.push(u);
+  }
+  candidates.sort((a, b) => b.syn - a.syn); // 道具效率高的先想
+  for (const c of candidates) {
+    const r = triggerCast(round, c, 'flash', { node: entrant.node });
+    if (!r) continue;
+    c.flashUsedRound = true;
+    const flash = U.flashReduce * round.synFactor(c.syn) * r.power;
+    round.lastFlashTick[entrant.side] = round.t;
+    round.emit('flash', { node: entrant.node, side: entrant.side, by: c.name });
+    if (r.skill && r.skill.def.params.throughWall) {
+      // 隔墙闪招牌（铁臂/斯凯）：点内敌人短暂失衡（1 tick，避免回防团战一边倒）
+      for (const e of round.enemiesAt(entrant.node, entrant.side)) {
+        e.stun = Math.max(e.stun, 1);
+      }
+    }
+    return flash;
+  }
+  return 0;
+}
+
+// 拆包掩护烟：同区队友用 smoke 封锁指向拆包点的枪线
+function onDefuseSmoke(round, defuser) {
+  const R = round.map.region(defuser.node);
+  const mates = round.def.filter((d) => d.alive && round.map.region(d.node) === R);
+  for (const m of mates) {
+    const sk = findSkill(m, 'smoke');
+    if (!sk || !thinkCast(round, m)) continue;
+    const r = cast(round, m, sk, { cover: defuser.name });
+    if (!r) continue;
+    smokeSightlinesInto(round, defuser.node, cfg.round.defuseTicks + 3, 2); // 封最致命的 2 条
+    return;
+  }
+}
+
+// 阵亡处理：不死鸟/暮蝶自我复活（大招），贤者复活队友（大招，SEN 时机判定）
+function onDeath(round, victim) {
+  const selfUlt = victim.skills && victim.skills.x;
+  if (selfUlt && selfUlt.left > 0 && selfUlt.def.archetype === 'ult_revive' && selfUlt.def.params.self) {
+    const r = cast(round, victim, selfUlt, { self: true });
+    if (r) round.reviveQueue.push({ unit: victim, node: victim.node, at: round.t + (selfUlt.def.params.delay || A.reviveDelay), skillName: selfUlt.def.name, agent: victim.agent });
+    return;
+  }
+  for (const u of round.units) {
+    if (!u.alive || u.side !== victim.side || u === victim) continue;
+    const sk = u.skills && u.skills.x;
+    if (!sk || sk.left <= 0 || sk.def.archetype !== 'ult_revive' || sk.def.params.self) continue;
+    if (!thinkCast(round, u)) return; // 没想到用就浪费掉时机
+    const r = cast(round, u, sk, { target: victim.name });
+    if (r) round.reviveQueue.push({ unit: victim, node: victim.node, at: round.t + (sk.def.params.delay || A.reviveDelay), skillName: sk.def.name, agent: u.agent });
+    return;
+  }
+}
+
+// 奇乐炮台：部署在本人对枪点，自动警戒 sightline 覆盖的区域
+function deployTurret(round, u, sk, power) {
+  const post = u.post || round.map.postsAt(u.node)[0] || null;
+  round.turrets.push({ owner: u, node: u.node, post, power, seen: new Set() });
+}
+
+// ---- 每 tick 被动：复活队列 + 炮台扫视 ----
+function tick(round) {
+  for (let i = round.reviveQueue.length - 1; i >= 0; i--) {
+    const rv = round.reviveQueue[i];
+    if (round.t < rv.at || round.result) continue;
+    round.reviveQueue.splice(i, 1);
+    const v = rv.unit;
+    if (v.alive) continue;
+    v.alive = true;
+    v.stun = A.reviveStun;
+    v.holdTicks = 0;
+    v.node = rv.node;
+    v.post = null;
+    round.occ[rv.node].add(v);
+    round.emit('ability', { side: v.side, unit: v.name, agent: rv.agent, skill: rv.skillName, key: 'x', archetype: 'revive', node: rv.node, ult: true, done: true });
+  }
+  // 炮台：每 2 tick 对可见敌人做一次低伤害判定；首次发现给信息
+  if (round.t % 2) return;
+  for (const t of round.turrets) {
+    if (!t.owner.alive) continue;
+    for (const e of round.units) {
+      if (!e.alive || e.side === t.owner.side) continue;
+      const visible = e.node === t.node
+        || (t.post && e.post && round.map.canSee(t.post, e.post) && !round.sightBlocked(t.post, e.post));
+      if (!visible) continue;
+      if (!t.seen.has(e)) {
+        t.seen.add(e);
+        round.addInfo(round.map.region(e.node), A.turretInfo);
+        round.emit('ability', { side: t.owner.side, unit: t.owner.name, agent: t.owner.agent, skill: '哨戒炮台', key: 'c', archetype: 'turret', node: e.node, spot: e.name });
+      }
+      if (round.rng() < A.turretKillP * t.power) round.applyKill(t.owner, e);
+    }
+  }
+}
+
+// ---- brain 主动技能候选 ----
+function scoreSkill(round, u, sk) {
+  const P = sk.def.params, arch = sk.def.archetype, t = round.t;
+  switch (arch) {
+    case 'turret': // 奇乐炮台：到防位即部署
+      if (u.side !== 'def' || u.node !== u.homeNode) return null;
+      if (round.turrets.some((x) => x.owner === u)) return null;
+      return { prior: 3 };
+    case 'heal': { // 贤者/斯凯：净化同节点被滞留的队友（缠斗后补状态）
+      const hurt = [...round.occ[u.node]].some((x) => x.alive && x.side === u.side && x.stun > 0);
+      if (hurt) return { prior: 3 };
+      return null;
+    }
+    case 'wall': case 'ult_wall': { // 幕墙/冰墙：防守感知本区来袭时封锁；进攻落点后封守方枪线
+      if (u.side === 'def' && !round.planted) {
+        const info = round.defInfo[round.map.region(u.node)];
+        if (!info || info.strength < cfg.ai.rotateNeedInfo) return null;
+        return { prior: arch === 'ult_wall' ? 3.0 : 2.2 };
+      }
+      if (u.side === 'atk' && round.committedSite && round.map.region(u.node) === round.committedSite && !P.edge) {
+        return { prior: 2.2 };
+      }
+      return null;
+    }
+    case 'stun': case 'ult_stun': { // 震荡：同节点有敌时（先手的震慑工具，分值压低避免团战一边倒）
+      if (round.enemiesAt(u.node, u.side).length === 0) return null;
+      return { prior: arch === 'ult_stun' ? 2.6 : 1.8 };
+    }
+    case 'molly': case 'ult_molly': { // 进攻守包：守方集结完毕反扑瞬间燃烧封锁包点（拦回防+封拆包）
+      if (u.side === 'atk' && round.planted && round.map.region(u.node) === round.plantSite
+        && round.flags.retakeHit
+        && !(round.mollyZone && round.t < round.mollyZone.until)) return { prior: arch === 'ult_molly' ? 3.4 : 3.0 };
+      return null;
+    }
+    case 'decoy': { // 假身：埋伏期制造可疑动静拉扯防守
+      if (u.side !== 'atk' || round.planted || round.committedSite) return null;
+      if (round.map.region(u.node) === 'spawn') return null;
+      return { prior: 1.2 };
+    }
+    case 'dash': case 'ult_dash': { // 位移进点：进攻方总攻启动时（防守回防不提供——实战价值偏向进点方）
+      if (u.side !== 'atk') return null;
+      const commit = t >= round.atkIntent.pace.commitTick || round.forceCommitted || !!round.committedSite;
+      if (!commit) return null;
+      return { prior: arch === 'ult_dash' ? 2.4 : 1.8 };
+    }
+    case 'aimbuff': case 'ult_aimbuff': { // 自增益：交战中或刚对完枪
+      if (round.enemiesAt(u.node, u.side).length > 0 || u.peeking >= t - 3) return { prior: arch === 'ult_aimbuff' ? 2.2 : 1.6 };
+      return null;
+    }
+    case 'recon': { // 进攻侦察：展开前揭示守军分布（防守侦察走 doRecon 通道）
+      if (u.side !== 'atk' || round.planted || round.flags.atkRecon) return null;
+      if (t < 6 || t > round.atkIntent.pace.commitTick + 6) return null;
+      return { prior: 2.0 };
+    }
+    case 'ult_recon': { // 侦察大招：双方可用——进攻揭示守军，防守无信息时全盘扫描
+      if (u.side === 'atk') {
+        if (round.planted || round.flags.atkRecon) return null;
+        if (t < 6 || t > round.atkIntent.pace.commitTick + 6) return null;
+        return { prior: 2.2 };
+      }
+      const maxInfo = Math.max(round.defInfo.A.strength, round.defInfo.B.strength);
+      if (round.planted || maxInfo >= cfg.ai.rotateNeedInfo || t < U.reconTick) return null;
+      return { prior: 2.2 };
+    }
+    default: return null; // smoke/flash/trap/revive 走反应式触发
+  }
+}
+
+function candidates(round, u) {
+  const out = [];
+  for (const sk of readySkills(u)) {
+    const c = scoreSkill(round, u, sk);
+    if (c) out.push({ action: 'useAbility', skill: sk, prior: c.prior });
+  }
+  return out;
+}
+
+// ---- 主动技能执行 ----
+function exec(round, u, sk) {
+  const P = sk.def.params, arch = sk.def.archetype, t = round.t;
+  const r = cast(round, u, sk, {});
+  if (!r) return;
+  const power = r.power * round.synFactor(u.syn); // 效果效率挂 SYN
+  switch (arch) {
+    case 'turret':
+      deployTurret(round, u, sk, power);
+      break;
+    case 'heal': {
+      const mates = [...round.occ[u.node]].filter((x) => x.alive && x.side === u.side);
+      const targets = P.multi ? mates : [mates.find((x) => x.stun > 0) || u];
+      for (const m of targets) {
+        m.stun = 0;
+        m.mentality = Math.max(-1, Math.min(1, (m.mentality || 0) + (P.mentality || A.healMentality) * power));
+        m.healUntil = t + (P.ticks || A.healTicks);
+      }
+      break;
+    }
+    case 'wall': case 'ult_wall': {
+      const ticks = Math.round((P.ticks || 12) * power);
+      const R = u.side === 'atk' ? round.committedSite : round.map.region(u.node);
+      if (P.region) {
+        wallRegion(round, R, ticks); // 蝰蛇毒幕：封一片跨界枪线
+      } else {
+        // 冰墙类：封锁本区入口边（穿越大幅减速）
+        const staging = round.map.data.staging[R];
+        const siteNode = round.map.siteNode(R);
+        if (staging && siteNode) round.walledEdges[round.edgeKey(staging, siteNode)] = t + ticks;
+      }
+      break;
+    }
+    case 'stun': case 'ult_stun': {
+      const ticks = P.ticks || A.stunTicks;
+      for (const e of round.enemiesAt(u.node, u.side)) e.stun = Math.max(e.stun, ticks);
+      if (P.throughWall) { // 铁臂招牌：隔墙震荡波及相邻节点
+        for (const { to } of round.map.adj[u.node]) {
+          for (const e of round.enemiesAt(to, u.side)) e.stun = Math.max(e.stun, ticks);
+        }
+      }
+      break;
+    }
+    case 'molly': case 'ult_molly': // 守包燃烧：封锁包点，拖延拆包
+      round.mollyZone = { node: round.map.siteNode(round.plantSite), until: t + Math.round((P.zoneTicks || U.mollyZoneTicks) * power), deny: true };
+      break;
+    case 'decoy': {
+      const R = round.map.region(u.node);
+      round.addInfo(R, (P.info || A.decoyInfo) * power, true); // 可疑信息，防守方可识破
+      u.loudUntil = t + 5;
+      break;
+    }
+    case 'dash': case 'ult_dash': // 位移进点：抹平移动惩罚 + 闪避抢先枪
+      u.dashUntil = t + (P.ticks || 3);
+      u.dashDodge = P.dodge || 0.2;
+      break;
+    case 'aimbuff': case 'ult_aimbuff':
+      u.aimbuffUntil = t + (P.ticks || A.aimbuffTicks);
+      u.aimbuffMult = P.mult || A.aimbuffMult;
+      break;
+    case 'recon': case 'ult_recon': {
+      if (u.side === 'atk') {
+        // 揭示守军两点分布，全队改打薄弱点（brain.pickTargetSite 消费）
+        const count = { A: 0, B: 0 };
+        for (const d of round.def) {
+          if (!d.alive) continue;
+          const R = round.map.region(d.node);
+          if (R === 'A' || R === 'B') count[R]++;
+        }
+        round.flags.atkRecon = count;
+      } else {
+        // 防守侦察大招：全盘扫描（deep 无视隐蔽），真实信息
+        const count = { A: 0, B: 0, mid: 0 };
+        for (const a of round.atk) {
+          if (!a.alive) continue;
+          count[round.map.region(a.node)] = (count[round.map.region(a.node)] || 0) + 1;
+        }
+        let region = 'A';
+        if (count.B > count.A) region = 'B';
+        else if (count.B === count.A && round.rng() < 0.5) region = 'B';
+        round.addInfo(region, Math.round(U.reconInfo * power), null);
+      }
+      break;
+    }
+  }
+}
+
+module.exports = { mount, readySkills, findSkill, cast, triggerCast, thinkCast, onCommitSmoke, onEntryFlash, onDefuseSmoke, onDeath, tick, candidates, exec, smokeSightlinesInto, wallRegion };
+
+});
+__define("round.js", function(module, exports, require) {
+// 回合推演编排：tick 时钟 + 队伍级状态机；个体决策在 brain.js（效用 AI）
+// 模块：movement.js 机动 / combat.js 交火 / perception.js 信息感知 / brain.js 个体决策 / abilities.js 英雄技能
+const cfg = require('./config');
+const { aimAt } = require('./tactics');
+const brain = require('./brain');
+const abilities = require('./abilities');
+
+const { decisionQuality } = brain;
+
+class RoundSim {
+  constructor({ map, atkUnits, defUnits, atkFamily, defFamily, atkIntent, defIntent, rng, hooks, logger, onRoundEnd }) {
+    this.map = map;
+    this.rng = rng;
+    this.hooks = hooks;
+    // 事件采集：供回合战报（report.js）渲染；onRoundEnd 在 round_end 发出前回调取摘要
+    this._roundEvents = logger ? [] : null;
+    this.log = logger ? (ev) => { this._roundEvents.push(ev); logger(ev); } : null;
+    this.onRoundEnd = onRoundEnd || null;
+    this.atkFamily = atkFamily;
+    this.defFamily = defFamily;
+    // 战术意图（tactics.js 输出，取代指令链剧本）
+    this.atkIntent = atkIntent;
+    this.defIntent = defIntent;
+    this.units = [...atkUnits, ...defUnits];
+    this.atk = atkUnits;
+    this.def = defUnits;
+
+    // 回合状态
+    this.t = 0;
+    this.planted = false;
+    this.spikeLeft = 0;
+    this.plantSite = null;
+    this.planter = null;
+    this.defuser = null;
+    this.committedSite = null;   // 进攻方实际落实的包点
+    this.spike = { carrier: null, node: null };
+    this.flags = {};
+    this.defInfo = { A: { strength: 0, tick: -99, suspicious: false }, B: { strength: 0, tick: -99, suspicious: false }, mid: { strength: 0, tick: -99, suspicious: false } };
+    this.newInfo = false;
+    this.forceCommitted = false;
+    this.pickupAssigned = false;
+    this.contracted = { A: false, B: false }; // 局部收缩每方向限一人
+    // 道具层状态
+    this.traps = {};        // node -> 警戒点数量（哨卫道具）
+    this.presetMolly = {};  // node -> 预置燃烧数量（赌点全押）
+    this.smokedEdges = {};  // "a|b" -> 失效 tick
+    this.atkSmokeUsed = false;
+    this.lastFlashTick = { atk: -99, def: -99 };
+    this.lastStunTick = { atk: -99, def: -99 }; // 震荡技能每方冷却
+    this.defEntryMolly = { A: false, B: false }; // 进点燃烧弹每点限一次
+    this.mollyZone = null; // { node, until, deny? }（deny=守包燃烧，拖延拆包）
+    // 英雄技能层状态
+    this.turrets = [];      // 奇乐炮台 [{ owner, node, post, power, seen }]
+    this.reviveQueue = [];  // 复活队列 [{ unit, node, at, skillName, agent }]
+    this.smokedSight = {};  // postKey -> 失效 tick（烟/墙封枪线）
+    this.walledEdges = {};  // "a|b" -> 失效 tick（冰墙类封锁边，双方穿越减速）
+    this.trapPower = {};    // node -> 警戒额外滞留（零绊线等招牌加成）
+    this.stats = { popOffs: 0, whiffs: 0, utilsAtk: 0, utilsDef: 0, fakeReads: 0, fakePulled: 0, utilsByType: { flash: 0, smoke: 0, molly: 0, recon: 0, trap: 0 }, abilityByArchetype: {} };
+
+    // 占位表：node -> Set(unit)；对枪点占用表：postId -> unit
+    this.occ = {};
+    for (const id of Object.keys(map.nodes)) this.occ[id] = new Set();
+    this.postOcc = {};
+    for (const u of this.atk) this.resetUnit(u, map.data.spawns.atk, this.atkIntent);
+    for (const u of this.def) this.resetUnit(u, map.data.spawns.def, this.defIntent);
+    this.spike.carrier = this.atk[this.atkIntent.carrier] || this.atk[0];
+    this.spike.carrier.isCarrier = true;
+    this.preplaceUtility();
+  }
+
+  // 防守道具预置：默认架点预置 1 点警戒；赌点把全部道具押在赌的点；前压不预置
+  // 哨卫英雄优先消耗 trap/molly 技能充能（招牌陷阱更疼），其余回退通用道具点
+  preplaceUtility() {
+    const fam = this.defIntent.family;
+    for (const u of this.def) {
+      if (!u.utils || u.utils <= 0) continue;
+      const home = u.homeNode;
+      if (!home) continue;
+      let n = 0;
+      if (fam === 'hold') n = Math.min(1, u.utils);
+      else if (fam === 'stack') n = u.utils; // 道具全押赌点
+      if (n <= 0) continue;
+      // 分站防守的警戒放在入口通道（提前预警）；赌点全押在包点本身
+      const trapNode = fam === 'hold' ? ((this.map.data.trapSpots || {})[home] || home) : home;
+      const trapSk = abilities.findSkill(u, 'trap');
+      if (trapSk) { // 哨卫技能警戒（零绊线/奇乐警报机器人等）
+        abilities.cast(this, u, trapSk, { node: trapNode, preset: true });
+        const snare = trapSk.def.params.snare || 0;
+        if (snare) this.trapPower[trapNode] = Math.max(this.trapPower[trapNode] || 0, snare);
+      } else {
+        u.utils--;
+        this.stats.utilsDef++;
+        this.stats.utilsByType.trap++;
+      }
+      this.traps[trapNode] = (this.traps[trapNode] || 0) + 1;           // 第一点为警戒
+      if (n > 1) {
+        const mollySk = abilities.findSkill(u, 'molly');
+        if (mollySk && fam === 'stack') abilities.cast(this, u, mollySk, { node: home, preset: true });
+        else { u.utils -= n - 1; this.stats.utilsDef += n - 1; this.stats.utilsByType.molly += n - 1; }
+        this.presetMolly[home] = (this.presetMolly[home] || 0) + (n - 1); // 其余预置燃烧
+      }
+    }
+  }
+
+  edgeKey(a, b) { return a < b ? `${a}|${b}` : `${b}|${a}`; }
+
+  spendUtils(side) { // v2 起道具由选手自主决策，此函数保留给外部钩子调用
+    const arr = side === 'atk' ? this.atk : this.def;
+    let best = null;
+    for (const u of arr) {
+      if (u.alive && u.utils > 0 && (!best || u.syn > best.syn)) best = u;
+    }
+    if (best) {
+      best.utils--;
+      this.stats[side === 'atk' ? 'utilsAtk' : 'utilsDef']++;
+    }
+    return best;
+  }
+
+  synFactor(syn) {
+    return cfg.utility.synBase + cfg.utility.synCoef * syn / 100;
+  }
+
+  // IGL 存活才有指挥加成；iglUnit 供加成强度按 IGL 本人 SEN/SYN 缩放
+  iglUnit(side) {
+    const arr = side === 'atk' ? this.atk : this.def;
+    for (const u of arr) if (u.alive && u.isIGL) return u;
+    return null;
+  }
+
+  iglAlive(side) {
+    return !!this.iglUnit(side);
+  }
+
+  // 道具自主决策：SEN 决定"该用时能不能想到用"，战术道具倾向（utilPosture）调制意愿
+  thinkUse(u) {
+    const posture = (u.side === 'atk' ? this.atkIntent : this.defIntent).utilPosture;
+    return u.utils > 0 && this.rng() < (cfg.ai.utilThinkBase + u.sen * cfg.ai.utilThinkSen) * (0.5 + 0.5 * posture);
+  }
+
+  resetUnit(u, spawn, intent) {
+    u.node = spawn;
+    u.post = null; // 当前对枪点 id（spawn 无 posts 则为节点级抽象位置）
+    u.alive = true;
+    u.moving = null;
+    u.holdTicks = 0;
+    u.planting = 0;
+    u.defusing = 0;
+    u.rotating = false;
+    u.saved = false;
+    u.retaking = false;
+    u.stun = 0;
+    u.reconUsed = false;
+    u.loudUntil = 0;
+    u.fakeReadTick = -99;
+    u.flashUsedRound = false;
+    u.roundKills = 0;
+    u.isCarrier = false;
+    // 个体战术状态
+    u.role = intent.roles[u.sideIdx];
+    u.homeNode = intent.homes[u.sideIdx] || spawn; // 防守=初始防位；进攻=第一阶段集合点
+    u.targetSite = null;    // 主攻目标点缓存（按 siteWeights 首次抽取）
+    u.assignedPickup = false;
+    u.support = null;       // 集结点支援方向
+    u.waitRetake = false;   // 在集结点等回防同步信号
+    u.fakeDone = false;     // fake 族佯攻组是否已制造动静
+    u.peeking = -99;
+    u.committed = false;    // 推进决心（brain：已开始推进后不再摇摆）
+    u.routeProg = 0;        // 角色路线推进进度
+    u.concealed = false;    // 埋伏隐蔽中（brain：不进跨节点枪线）
+    // 英雄技能运行时状态（ultSpent 跨回合持久，大招整场一次）
+    u.dashUntil = -99; u.dashDodge = 0;
+    u.aimbuffUntil = -99; u.aimbuffMult = 1;
+    u.healUntil = -99;
+    abilities.mount(u);
+    this.occ[spawn].add(u);
+  }
+
+  emit(type, data) {
+    if (this.log) this.log({ t: this.t, type, ...data });
+  }
+
+  // 枪线是否被烟/墙阻断
+  sightBlocked(postA, postB) {
+    return (this.smokedSight[this.map.postKey(postA, postB)] || 0) > this.t;
+  }
+
+  // ---- 下包 / 拆包 ----
+  updatePlantDefuse() {
+    for (const u of this.units) {
+      if (!u.alive) continue;
+      if (u.planting > 0) {
+        u.planting--;
+        if (u.planting === 0) {
+          this.planted = true;
+          this.spikeLeft = cfg.round.spikeTicks;
+          this.plantSite = this.map.region(u.node);
+          this.planter = u;
+          this.defInfo[this.plantSite].strength = 12;
+          this.defInfo[this.plantSite].tick = this.t;
+          this.defInfo[this.plantSite].suspicious = false;
+          this.newInfo = true;
+          this.emit('plant', { node: u.node, unit: u.name, site: this.plantSite, spikeTicks: cfg.round.spikeTicks });
+          // 下包后进攻方迅速落位守包阵型（立即进入架枪状态）
+          for (const a of this.atk) if (a.alive) a.holdTicks = 2;
+        }
+      }
+      if (u.defusing > 0) {
+        if (this.enemiesAt(u.node, 'def').length > 0) {
+          u.defusing = 0; // 被打断
+          this.emit('defuse_abort', { node: u.node, unit: u.name });
+        } else {
+          u.defusing--;
+          if (u.defusing === 0 && this.planted) {
+            this.planted = false;
+            this.defuser = u;
+            this.emit('defuse', { node: u.node, unit: u.name });
+            this.endRound('def', 'defuse');
+          }
+        }
+      }
+    }
+  }
+
+  // ---- 队伍级状态机（每 tick）：执行信号 / 信息衰退 / 集结同步 / 时间压力 / 捡包指派 ----
+  updateTeamState() {
+    const intent = this.atkIntent;
+    // 中路接触：中控在手时 IGL 读取两点守军分布，选薄弱侧（SEN 决策质量）
+    if (intent.family === 'mid' && !this.flags.execute && this.t >= intent.pace.contactTick) {
+      this.flags.execute = true;
+      const midControlled = this.atk.some((a) => a.alive && this.map.region(a.node) === 'mid');
+      if (midControlled) {
+        const defAt = { A: 0, B: 0 };
+        for (const d of this.def) {
+          if (!d.alive) continue;
+          const r = this.map.region(d.node);
+          if (r === 'A' || r === 'B') defAt[r]++;
+        }
+        const weaker = defAt.A <= defAt.B ? 'A' : 'B';
+        const carrier = this.spike.carrier;
+        let q = decisionQuality(carrier ? carrier.sen : 60);
+        if (this.iglAlive('atk')) q = Math.min(q + cfg.igl.readBonus, 0.98); // IGL 读取更准
+        if (this.rng() < q) {
+          aimAt(intent, this.map, weaker); // 读对则打薄弱点
+          for (const u of this.atk) { u.targetSite = null; u.routeProg = 0; }
+        }
+        this.emit('mid_read', { site: intent.site, defAt });
+      }
+    }
+
+    // 可疑信息（假打）无后续接触会快速衰退：防守方逐渐回过味来
+    for (const r of ['A', 'B']) {
+      const info = this.defInfo[r];
+      if (info.suspicious && info.strength > 0 && this.t - info.tick > 5) {
+        info.strength = Math.max(0, info.strength - 0.5);
+      }
+    }
+
+    // 已下包：守方集结同步（凑齐至少 2 人或爆能器将爆才一起进点）
+    if (this.planted && !this.flags.retakeHit) {
+      const siteNode = this.map.siteNode(this.plantSite);
+      const stagingNode = this.map.data.staging[this.plantSite];
+      let gathered = 0, available = 0;
+      for (const u of this.def) {
+        if (!u.alive || u.saved || u.defusing) continue;
+        available++;
+        if (!u.moving && (u.node === stagingNode || u.node === siteNode)) gathered++;
+      }
+      if (available > 0 && (gathered >= Math.min(2, available) || this.spikeLeft <= cfg.round.defuseTicks + 6)) {
+        this.flags.retakeHit = true;
+        this.emit('retake', { site: this.plantSite, count: gathered });
+      }
+    }
+
+    // 进攻方：时间压力强行进点（个体推进/下包先验在 brain 内随时间加压）
+    if (!this.planted && !this.forceCommitted && this.t >= cfg.round.maxTicks - cfg.round.timePressure) {
+      this.forceCommitted = true;
+      this.emit('force_commit', { site: this.committedSite || intent.site });
+    }
+
+    // 进攻方：爆能器掉落拾取指派（最近的存活进攻方）
+    if (!this.planted && !this.spike.carrier && this.spike.node && !this.pickupAssigned) {
+      let best = null, bestDist = 1e9;
+      for (const u of this.atk) {
+        if (!u.alive) continue;
+        const d = this.bfsDist(u.node, this.spike.node);
+        if (d < bestDist) { bestDist = d; best = u; }
+      }
+      if (best) {
+        this.pickupAssigned = true;
+        best.assignedPickup = true;
+      }
+    }
+  }
+
+  // ---- 个体决策：驻守累积 + 每 thinkInterval tick 一次效用决策 ----
+  updateBrains() {
+    for (const u of this.units) {
+      if (!u.alive || u.moving || u.planting || u.defusing) continue;
+      u.holdTicks++;
+      this.think(u);
+    }
+    this.newInfo = false;
+  }
+
+  bfsDist(from, to) {
+    if (from === to) return 0;
+    // 借助 nextHop 表计步数
+    let cur = from, n = 0;
+    while (cur !== to && n < 30) {
+      const next = this.map.nextHop[cur][to];
+      if (!next) return 30;
+      cur = next;
+      n++;
+    }
+    return n;
+  }
+
+  endRound(winner, reason) {
+    this.result = { winner, reason, ticks: this.t, planted: this.planted || reason === 'explosion' || reason === 'defuse', planter: this.planter, defuser: this.defuser, stats: this.stats };
+  }
+
+  run() {
+    this.emit('round_start', {
+      atkFamily: this.atkFamily, defFamily: this.defFamily,
+      // 观赛回放用：初始站位与装备
+      units: this.units.map((u) => ({ name: u.name, side: u.side, node: u.node, gun: u.gun, armor: u.armor, utils: u.utils, agent: u.agent, igl: !!u.isIGL }))
+    });
+    for (const fn of this.hooks.onRoundStart) fn(this);
+    while (!this.result) {
+      if (this.planted) {
+        this.spikeLeft--;
+        if (this.spikeLeft <= 0) { this.endRound('atk', 'explosion'); break; }
+      } else if (this.t >= cfg.round.maxTicks) {
+        this.endRound('def', 'timeout');
+        break;
+      }
+      this.updateMovement();
+      this.resolveCombat();
+      this.updatePlantDefuse();
+      if (this.result) break;
+      // 歼灭判定
+      const atkAlive = this.aliveCount('atk');
+      const defAlive = this.aliveCount('def');
+      if (defAlive === 0) { this.endRound('atk', 'elimination'); break; }
+      if (atkAlive === 0) {
+        // 进攻方全灭：无论是否下包守方都赢（无人守包则守方拆包）
+        this.endRound('def', this.planted ? 'defuse' : 'elimination');
+        if (this.planted) this.defuser = this.def.find((u) => u.alive) || null;
+        break;
+      }
+      this.updateTeamState();
+      abilities.tick(this); // 技能被动：复活队列 + 炮台扫视
+      this.updateBrains();
+      this.t++;
+    }
+    const summary = this.onRoundEnd ? this.onRoundEnd(this.result, this._roundEvents || []) : null;
+    this.emit('round_end', { winner: this.result.winner, reason: this.result.reason, ...(summary ? { summary } : {}) });
+    return this.result;
+  }
+}
+
+// 混入模块：movement 机动 / combat 交火 / perception 信息感知 / brain 个体效用 AI
+Object.assign(RoundSim.prototype,
+  require('./movement'),
+  require('./combat'),
+  require('./perception'),
+  brain
+);
+
+module.exports = { RoundSim, decisionQuality };
+
+});
+__define("economy.js", function(module, exports, require) {
+// 经济系统：钱包、回合结算、购买策略
+// v1 局型规则：手枪局与长枪局为主；混起（强起/半起）只出现在
+//   ① 手枪局获胜后的次回合（强起扩大优势）② 对方逼近赛点且己方经济不良（孤注一掷）
+const cfg = require('./config');
+
+class Wallet {
+  constructor() { this.money = cfg.eco.startMoney; }
+}
+
+// 购买结果：{ gun, armor, utils }；团队结果 { plan, reason, loadout }
+// ctx: { isPistol, wonPistolFollow, desperate }
+function buyPhase(units, ctx) {
+  const e = cfg.eco;
+  const U = cfg.utility;
+  if (ctx.isPistol) {
+    for (const u of units) { u.wallet.money = e.startMoney; u.savedGun = null; }
+    return {
+      plan: 'pistol', reason: 'pistol',
+      loadout: units.map(() => ({ gun: 0, armor: 'none', utils: U.points.pistol }))
+    };
+  }
+  const avg = units.reduce((s, u) => s + u.wallet.money, 0) / units.length;
+  let plan, reason;
+  if (ctx.wonPistolFollow) { plan = 'half'; reason = 'pistol_follow'; }        // ① 手枪局获胜次回合强起
+  else if (ctx.desperate && avg < e.fullBuyAvg) { plan = 'half'; reason = 'desperate'; } // ② 孤注一掷
+  else if (avg >= e.fullBuyAvg) { plan = 'full'; reason = 'full'; }
+  else { plan = 'eco'; reason = 'eco'; }
+
+  const wantUtils = U.points[plan];
+  const loadout = units.map((u) => {
+    const m = u.wallet.money;
+    const buyUtils = (base) => {
+      // 道具点在枪械护甲之后按余钱购买
+      let utils = 0;
+      for (let k = 0; k < wantUtils; k++) {
+        if (u.wallet.money - base >= U.costPerPoint) { utils++; base += U.costPerPoint; }
+      }
+      return utils;
+    };
+    if (plan === 'full') {
+      if (u.savedGun && u.savedGun.gun === 2) {
+        const armor = m >= e.heavyArmorCost ? 'heavy' : (m >= e.lightArmorCost ? 'light' : 'none');
+        u.wallet.money -= armor === 'heavy' ? e.heavyArmorCost : (armor === 'light' ? e.lightArmorCost : 0);
+        const utils = buyUtils(0);
+        u.wallet.money -= utils * U.costPerPoint;
+        return { gun: 2, armor, utils };
+      }
+      if (m >= e.rifleCost + e.heavyArmorCost) {
+        u.wallet.money -= e.rifleCost + e.heavyArmorCost;
+        const utils = buyUtils(0);
+        u.wallet.money -= utils * U.costPerPoint;
+        return { gun: 2, armor: 'heavy', utils };
+      }
+      if (m >= e.rifleCost) {
+        u.wallet.money -= e.rifleCost;
+        const utils = buyUtils(0);
+        u.wallet.money -= utils * U.costPerPoint;
+        return { gun: 2, armor: 'none', utils };
+      }
+      // 钱不够的队员半起
+      if (m >= e.smgCost + e.lightArmorCost) {
+        u.wallet.money -= e.smgCost + e.lightArmorCost;
+        const utils = buyUtils(0);
+        u.wallet.money -= utils * U.costPerPoint;
+        return { gun: 1, armor: 'light', utils };
+      }
+      return { gun: 0, armor: 'none', utils: 0 };
+    }
+    if (plan === 'half') {
+      if (u.savedGun && u.savedGun.gun >= 1) return { ...u.savedGun, utils: 0 };
+      if (m >= e.smgCost + e.lightArmorCost + U.costPerPoint) {
+        u.wallet.money -= e.smgCost + e.lightArmorCost + U.costPerPoint;
+        return { gun: 1, armor: 'light', utils: 1 };
+      }
+      if (m >= e.smgCost + e.lightArmorCost) {
+        u.wallet.money -= e.smgCost + e.lightArmorCost;
+        return { gun: 1, armor: 'light', utils: 0 };
+      }
+      if (m >= e.smgCost) { u.wallet.money -= e.smgCost; return { gun: 1, armor: 'none', utils: 0 }; }
+      return { gun: 0, armor: 'none', utils: 0 };
+    }
+    // eco：纯存钱，只用保下的枪
+    if (u.savedGun) return { ...u.savedGun, utils: 0 };
+    return { gun: 0, armor: 'none', utils: 0 };
+  });
+  // 局型标签直接采用购买决策（v1 规则：混起只由 pistol_follow / desperate 触发）
+  return { plan, reason, loadout };
+}
+
+// 回合结束经济结算
+function settleRound(atkUnits, defUnits, result) {
+  const e = cfg.eco;
+  const atkWin = result.winner === 'atk';
+  const apply = (units, won) => {
+    for (const u of units) {
+      u.lossStreak = won ? 0 : (u.lossStreak || 0) + 1;
+      const gain = won
+        ? e.winReward
+        : e.lossBase + e.lossStreakStep * Math.min(Math.max(u.lossStreak - 1, 0), e.lossStreakMax);
+      u.wallet.money = Math.min(u.wallet.money + gain, e.maxMoney);
+    }
+  };
+  apply(atkUnits, atkWin);
+  apply(defUnits, !atkWin);
+  // 击杀奖励
+  for (const u of [...atkUnits, ...defUnits]) {
+    u.wallet.money = Math.min(u.wallet.money + (u.roundKills || 0) * e.killReward, e.maxMoney);
+  }
+  // 下包奖励与补偿
+  if (result.planted) {
+    if (result.planter) result.planter.wallet.money = Math.min(result.planter.wallet.money + e.plantReward, e.maxMoney);
+    if (!atkWin) for (const u of atkUnits) u.wallet.money = Math.min(u.wallet.money + e.lossPlantBonus, e.maxMoney);
+  }
+  if (result.defuser) result.defuser.wallet.money = Math.min(result.defuser.wallet.money + e.defuseReward, e.maxMoney);
+  // 存活者保留枪械到下一回合（真实规则；保枪决策只影响是否冒险，不影响保留）
+  for (const u of [...atkUnits, ...defUnits]) {
+    u.savedGun = u.alive ? { gun: u.gun, armor: u.armor } : null;
+  }
+}
+
+module.exports = { Wallet, buyPhase, settleRound };
+
+});
+__define("agents.js", function(module, exports, require) {
+// 英雄分配：每队 5 人从各自英雄池内分配互不重复的特工；分配不了则用池外（低熟练度）
+const path = require('path');
+
+let AGENT_NAMES = null;
+function allAgents() {
+  if (!AGENT_NAMES) {
+    const raw = require('../数据源/agents.json'); // lazy require：Node 与观赛页打包器通用
+    AGENT_NAMES = [...new Set(Object.values(raw))];
+  }
+  return AGENT_NAMES;
+}
+
+let KITS = null;
+// 英雄技能组（agent_kits.json）；无 kit 的英雄走原型通用行为之外的基础道具
+function kitOf(agent) {
+  if (!KITS) KITS = require('./agent_kits.json');
+  return KITS[agent] || null;
+}
+
+// 回溯分配：优先池内不重复；失败的选手落到池外（inPool=false）
+function assignAgents(players, rng) {
+  const used = new Set();
+  const result = new Array(5).fill(null);
+  // 池子小的先分，降低冲突
+  const order = players.map((p, i) => ({ p, i })).sort((a, b) => a.p.agents.length - b.p.agents.length);
+  for (const { p, i } of order) {
+    const avail = p.agents.filter((a) => !used.has(a));
+    if (avail.length) {
+      const pick = avail[Math.floor(rng() * avail.length)];
+      used.add(pick);
+      result[i] = { agent: pick, inPool: true, kit: kitOf(pick) };
+    }
+  }
+  // 池外补位
+  for (let i = 0; i < 5; i++) {
+    if (result[i]) continue;
+    const outside = allAgents().filter((a) => !used.has(a) && !players[i].agents.includes(a));
+    const pick = outside[Math.floor(rng() * outside.length)];
+    used.add(pick);
+    result[i] = { agent: pick, inPool: false, kit: kitOf(pick) };
+  }
+  return result;
+}
+
+module.exports = { assignAgents, allAgents, kitOf };
+
+});
+__define("coach.js", function(module, exports, require) {
+// 教练系统：赛前布置 / 局间暂停 / 中场调整 / IGL 任命
+// 教练三维：战术 / 声望 / 临场（30~99）；本期只有"战术"维生效——
+// 战术分越高，暂停时读取对手战术族倾向越准，给出的克制调整越靠谱
+const cfg = require('./config');
+const { OFFENSE, DEFENSE } = require('./tactics');
+
+function clampAttr(v) {
+  return Math.max(30, Math.min(99, v == null ? cfg.coach.tacticsDefault : v));
+}
+
+function makeCoach({ name, tactics, prestige, clutch }) {
+  return {
+    name: name || '教练',
+    tactics: clampAttr(tactics),
+    prestige: clampAttr(prestige), // 建档，本期未启用
+    clutch: clampAttr(clutch)      // 建档，本期未启用
+  };
+}
+
+// 赛前布置：战术比重 + IGL 任命 + 英雄确认标记
+// 战术比重：队伍配置与版本强势族（meta）按战术分加权混合——好教练的赛前布置更贴近版本
+// IGL 任命：好教练看意识与协同（SEN+SYN）；战术分低的教练偏爱枪男当指挥（aimPenalty 反噬）
+function preMatchSetup({ coach, team }) {
+  const base = team.tactics || cfg.defaultTactics;
+  const k = (coach.tactics - 30) / 69 * cfg.coach.metaBlend;
+  const blend = (b, meta) => {
+    const out = {};
+    for (const f of Object.keys(meta)) out[f] = (b[f] || 0) * (1 - k) + meta[f] * k;
+    return out;
+  };
+  const tacticWeights = { atk: blend(base.atk, cfg.coach.metaAtk), def: blend(base.def, cfg.coach.metaDef) };
+  const aimBias = 1 - coach.tactics / 100; // 战术 99 → 0，战术 30 → 0.7
+  let iglPick = null, bestScore = -1e9;
+  for (const p of team.players) {
+    const s = p.SEN + p.SYN * 0.5 - p.AIM * aimBias;
+    if (s > bestScore) { bestScore = s; iglPick = p.name; }
+  }
+  return { tacticWeights, iglPick, agentConfirm: true }; // 英雄分配见 agents.js，此处只做确认标记
+}
+
+// 教练状态初始化（每队一个，贯穿整场）
+// tacticsScore：CLI/调用方指定的战术分；teams 配置 coach.tactics 优先
+function initCoachState(team, tacticsScore) {
+  const coach = makeCoach({ name: `${team.name}教练`, tactics: team.coach && team.coach.tactics != null ? team.coach.tactics : tacticsScore });
+  const setup = preMatchSetup({ coach, team });
+  return {
+    coach,
+    weights: setup.tacticWeights,
+    baseWeights: { atk: { ...setup.tacticWeights.atk }, def: { ...setup.tacticWeights.def } }, // 初始布置（无信号暂停时回摆用）
+    iglPick: (team.coach && team.coach.igl) || setup.iglPick, // 队伍配置可指定 IGL 覆盖
+    timeoutsLeft: cfg.coach.timeouts,
+    halftimeUsed: false
+  };
+}
+
+// 暂停调整：战术分决定读取对手倾向的准确率；读对则克制族比重提升，读错则随机调歪
+// 攻防两侧一起重排：我方进攻针对对手防守倾向，我方防守针对对手进攻倾向
+// 无明确信号（无连出/无明显多数）时暂停只回摆到初始布置（重整旗鼓，不瞎调）
+// 暂停同时稳住全队心态（打断对手势头，模仿真实暂停的势头阻断作用）
+// ctx: { oppTendency: { atk, def }, oppSignal: { atk, def }, rng, scoreGap, units }
+function adjust(state, ctx, kind) {
+  const pRead = cfg.coach.readBase + (state.coach.tactics - 30) * cfg.coach.readTacticsCoef;
+  if (ctx.units) {
+    for (const u of ctx.units) {
+      u.mentality = Math.max(-1, Math.min(1, (u.mentality || 0) + cfg.coach.timeoutComposure));
+    }
+  }
+  const out = {};
+  const reads = {};
+  for (const mySide of ['atk', 'def']) {
+    const oppSide = mySide === 'atk' ? 'def' : 'atk';
+    const oppFamilies = mySide === 'atk' ? DEFENSE : OFFENSE; // 读的是对手在 oppSide 侧的族
+    if (!ctx.oppSignal || !ctx.oppSignal[oppSide]) {
+      state.weights[mySide] = { ...state.baseWeights[mySide] }; // 无信号：回摆初始布置
+      out[mySide] = { ...state.weights[mySide] };
+      reads[mySide] = { read: null, readOk: false, counter: null };
+      continue;
+    }
+    let read = ctx.oppTendency && ctx.oppTendency[oppSide];
+    let readOk = true;
+    if (!read || ctx.rng() >= pRead) {
+      read = oppFamilies[Math.floor(ctx.rng() * oppFamilies.length)]; // 读错：随机抓一个
+      readOk = false;
+    }
+    const counter = (mySide === 'atk' ? cfg.coach.counterAtk : cfg.coach.counterDef)[read];
+    if (!counter) { // 防御：读到的族不在克制表则不调整
+      reads[mySide] = { read, readOk: false, counter: null };
+      out[mySide] = { ...state.weights[mySide] };
+      continue;
+    }
+    const cur = state.weights[mySide];
+    const next = {};
+    for (const [k, w] of Object.entries(cur)) next[k] = w * (1 - cfg.coach.counterShift);
+    next[counter] = (next[counter] || 0) + cfg.coach.counterShift; // 克制族绝对加重，总量保持 1
+    state.weights[mySide] = next;
+    out[mySide] = { ...next };
+    reads[mySide] = { read, readOk, counter };
+  }
+
+  // 中场大比分落后：换帅求变（仅真人/API 暂停允许；AI 教练不换——测量显示换高 SEN 指挥是负收益）
+  let iglSwap = null;
+  if (ctx.allowSwap && kind === 'halftime' && ctx.scoreGap <= -cfg.coach.iglSwapGap && ctx.units) {
+    let best = null, bestScore = -1e9;
+    for (const u of ctx.units) {
+      if (u.name === state.iglPick) continue;
+      const s = u.sen + (u.mentality || 0) * 20;
+      if (s > bestScore) { bestScore = s; best = u; }
+    }
+    if (best) { iglSwap = best.name; state.iglPick = best.name; }
+  }
+  return { kind, reads, weights: out, iglSwap };
+}
+
+// AI 教练策略（无真人输入时）：连败或对手同族连出时叫暂停；中场自动用掉中场暂停
+// ctx: { loseStreak, oppSameStreak, isHalftime, oppTendency, rng, scoreGap, units }
+function aiDecide(state, ctx) {
+  if (ctx.isHalftime && !state.halftimeUsed) {
+    state.halftimeUsed = true;
+    return adjust(state, ctx, 'halftime');
+  }
+  if (state.timeoutsLeft <= 0) return null;
+  if (ctx.loseStreak >= cfg.coach.loseStreakTrigger || ctx.oppSameStreak >= cfg.coach.sameFamilyTrigger) {
+    state.timeoutsLeft--;
+    return adjust(state, ctx, 'timeout');
+  }
+  return null;
+}
+
+module.exports = { makeCoach, preMatchSetup, initCoachState, aiDecide, adjust };
+
+});
+__define("report.js", function(module, exports, require) {
+// 极简战报：每回合一句话中文摘要（模板渲染事件流，只读不改）
+// 样例："R7｜金卡快攻 爆弹冲点打A｜brawk 三杀破点｜金卡快攻 5:2 银卡默认（拆包）"
+const FAMILY_NAME = {
+  rush: '爆弹冲点', mid: '中路接触', lurk: '边线渗透', fake: '假打转点',
+  push: '防守前压', hold: '默认架点', stack: '赌点防守'
+};
+const REASON_NAME = { elimination: '歼灭', explosion: '爆能器引爆', defuse: '拆包', timeout: '超时' };
+const NUM = ['', '', '双', '三', '四', '五'];
+
+// 队名缩短：去掉常见后缀/前缀，便于一句话阅读
+function shortName(name) {
+  return String(name || '').replace(/^tiers:/, '').replace(/队$/, '');
+}
+
+// ctx: { round, atkTeam, defTeam, atkFamily, scoreA, scoreB, nameA, nameB, reason, winnerSide }
+// events: 本回合事件数组
+function roundSummary(events, ctx) {
+  const kills = events.filter((e) => e.type === 'kill');
+  // 高光：优先多杀，其次首杀
+  const byKiller = {};
+  for (const k of kills) byKiller[k.killer] = (byKiller[k.killer] || 0) + 1;
+  const top = Object.entries(byKiller).sort((a, b) => b[1] - a[1])[0];
+  let highlight;
+  if (top && top[1] >= 2) highlight = `${top[0]} ${NUM[Math.min(top[1], 5)]}杀${top[1] >= 3 ? '破点' : ''}`;
+  else if (kills.length) highlight = `${kills[0].killer} 首杀`;
+  else highlight = '无交火';
+  const plant = events.find((e) => e.type === 'plant');
+  const site = plant ? plant.site : '';
+  const reason = REASON_NAME[ctx.reason];
+  const tail = reason && reason !== '歼灭' ? `（${reason}）` : '';
+  return `R${ctx.round}｜${shortName(ctx.atkTeam)} ${FAMILY_NAME[ctx.atkFamily] || ctx.atkFamily}${site ? '打' + site : ''}`
+    + `｜${highlight}｜${shortName(ctx.nameA)} ${ctx.scoreA}:${ctx.scoreB} ${shortName(ctx.nameB)}${tail}`;
+}
+
+// 整场战报：按回合分组渲染（round_end.summary 已生成则直接取用）
+function matchReport(matchEvents) {
+  const metas = {};
+  for (const e of matchEvents) {
+    if (e.type === 'round_meta') metas[e.round] = e;
+  }
+  const byRound = {};
+  for (const e of matchEvents) {
+    if (e.round == null || e.type === 'round_meta') continue;
+    (byRound[e.round] = byRound[e.round] || []).push(e);
+  }
+  const out = [];
+  for (const r of Object.keys(byRound).map(Number).sort((a, b) => a - b)) {
+    const end = byRound[r].find((e) => e.type === 'round_end');
+    const meta = metas[r];
+    if (!end || !meta) continue;
+    if (end.summary) { out.push(end.summary); continue; }
+    const score = byRound[r].find((e) => e.type === 'score');
+    out.push(roundSummary(byRound[r], {
+      round: r, atkTeam: meta.atkTeam, defTeam: meta.defTeam, atkFamily: meta.atkFamily,
+      scoreA: score ? score.scoreA : meta.scoreA, scoreB: score ? score.scoreB : meta.scoreB,
+      nameA: meta.atkTeam, nameB: meta.defTeam, reason: end.reason
+    }));
+  }
+  return out;
+}
+
+module.exports = { roundSummary, matchReport };
+
+});
+__define("match.js", function(module, exports, require) {
+// 整局比赛：经济、换边、战术比重、英雄分配、心态、胜负判定；教练系统（赛前布置/暂停/战报）
+// matchGen 是生成器：每回合结束后的教练窗口处 yield，供观赛页（spectator）逐回合驱动并介入；
+// simulateMatch 是其自动播放器包装（两队均 AI 教练），Node 批量行为与逐回合驱动完全一致
+const cfg = require('./config');
+const { RoundSim } = require('./round');
+const { buildIntent } = require('./tactics');
+const { buyPhase, settleRound } = require('./economy');
+const createHooks = require('./hooks');
+const { assignAgents } = require('./agents');
+const coach = require('./coach');
+const report = require('./report');
+const events = require('./events');
+
+// 按比重抽战术族
+function sampleFamily(weights, rng) {
+  let r = rng(), acc = 0;
+  for (const [k, w] of Object.entries(weights)) {
+    acc += w;
+    if (r <= acc) return k;
+  }
+  return Object.keys(weights)[0];
+}
+
+function makeUnits(team, side) {
+  return team.players.map((p, i) => ({
+    player: p, name: p.name, side, sideIdx: i,
+    aim: p.AIM, syn: p.SYN, sen: p.SEN,
+    wallet: { money: cfg.eco.startMoney },
+    lossStreak: 0, savedGun: null,
+    mentality: 0, agent: null, inPool: true,
+    isIGL: team.iglName === p.name
+  }));
+}
+
+// 玩家教练决策落地：面板给的战术比重/IGL 直接热更新（暂停照扣次数、心态照稳）
+function playerDecision(state, input, ctx) {
+  if (ctx.isHalftime && !state.halftimeUsed) state.halftimeUsed = true; // 中场窗口经过即消耗
+  if (!input || !input.timeout) return null;
+  if (!ctx.isHalftime) {
+    if (state.timeoutsLeft <= 0) return null;
+    state.timeoutsLeft--;
+  }
+  if (ctx.units) { // 暂停稳心态（与 AI 暂停一致）
+    for (const u of ctx.units) u.mentality = Math.max(-1, Math.min(1, (u.mentality || 0) + cfg.coach.timeoutComposure));
+  }
+  if (input.weights) state.weights = { atk: { ...input.weights.atk }, def: { ...input.weights.def } };
+  let iglSwap = null;
+  if (input.iglPick && input.iglPick !== state.iglPick) {
+    iglSwap = input.iglPick;
+    state.iglPick = input.iglPick;
+  }
+  return { kind: ctx.isHalftime ? 'halftime' : 'timeout', manual: true, reads: null, weights: { ...state.weights }, iglSwap };
+}
+
+// matchCfg 可覆盖赛制：{ firstTo, halfRounds }；coachScores 指定两队教练战术分 {A, B}
+// playerCoach：'A'/'B' 时该队在教练窗口由调用方（观赛页）决策——yield 窗口信息，恢复值为面板输入
+function* matchGen({ teamA, teamB, map, rng, logger, matchCfg, coachScores, playerCoach }) {
+  const mc = { ...cfg.match, ...(matchCfg || {}) };
+  const hooks = createHooks();
+  events.attachHooks(hooks); // 突发事件（爆种/爆冷）+ 心态修正
+
+  // 教练赛前布置：战术比重 + IGL 任命（覆盖自动识别；teams 配置 coach.igl 可再覆盖）
+  const coachSt = {
+    A: coach.initCoachState(teamA, coachScores && coachScores.A),
+    B: coach.initCoachState(teamB, coachScores && coachScores.B)
+  };
+  teamA.iglName = coachSt.A.iglPick;
+  teamB.iglName = coachSt.B.iglPick;
+  // 战术族使用轨迹（教练读取对手倾向用）
+  const famSeq = { A: { atk: [], def: [] }, B: { atk: [], def: [] } };
+
+  const unitsA = makeUnits(teamA, 'atk');
+  const unitsB = makeUnits(teamB, 'def');
+
+  // 英雄分配：各自池内互不重复，分不到则池外低熟练度
+  for (const [units, team] of [[unitsA, teamA], [unitsB, teamB]]) {
+    const assign = assignAgents(team.players, rng);
+    units.forEach((u, i) => { u.agent = assign[i].agent; u.inPool = assign[i].inPool; u.kit = assign[i].kit; });
+  }
+
+  let scoreA = 0, scoreB = 0;
+  let roundIdx = 0;
+  let totalTicks = 0;
+  const roundDetails = [];
+  const agg = { popOffs: 0, whiffs: 0, utilsAtk: 0, utilsDef: 0, fakeReads: 0, fakePulled: 0, utilsByType: { flash: 0, smoke: 0, molly: 0, recon: 0, trap: 0 }, abilityByArchetype: {} };
+  // 心态用的连赢/连输计数
+  const streak = { A: 0, B: 0 };
+  // 手枪局结果（两个半场各一次），用于次回合强起规则
+  const pistolWinner = {};
+  const moneyOf = (units) => units.reduce((s, u) => s + u.wallet.money, 0);
+
+  const maxNormal = mc.halfRounds * 2;
+  while (true) {
+    const isOT = roundIdx >= maxNormal; // 平局一加时局
+    const secondHalf = roundIdx >= mc.halfRounds;
+    const atkTeam = isOT
+      ? (rng() < 0.5 ? 'A' : 'B')                 // 加时掷硬币定攻方
+      : (secondHalf ? 'B' : 'A');
+    const atkUnits = atkTeam === 'A' ? unitsA : unitsB;
+    const defUnits = atkTeam === 'A' ? unitsB : unitsA;
+    for (const u of atkUnits) u.side = 'atk';
+    for (const u of defUnits) u.side = 'def';
+
+    const atkTeamObj = atkTeam === 'A' ? teamA : teamB;
+    const defTeamObj = atkTeam === 'A' ? teamB : teamA;
+    const defTeamKey = atkTeam === 'A' ? 'B' : 'A';
+
+    // 战术比重：来自教练当前布置；换边时若队伍配置了 tactics2 则先整套换用
+    for (const [key, teamObj] of [['A', teamA], ['B', teamB]]) {
+      if (secondHalf && !coachSt[key].swapped && teamObj.tactics2) {
+        coachSt[key].weights = { atk: { ...teamObj.tactics2.atk }, def: { ...teamObj.tactics2.def } };
+        coachSt[key].baseWeights = { atk: { ...teamObj.tactics2.atk }, def: { ...teamObj.tactics2.def } };
+        coachSt[key].swapped = true;
+      }
+    }
+    const atkFamily = sampleFamily(coachSt[atkTeam].weights.atk, rng);
+    const defFamily = sampleFamily(coachSt[defTeamKey].weights.def, rng);
+    famSeq[atkTeam].atk.push(atkFamily);
+    famSeq[defTeamKey].def.push(defFamily);
+
+    // 购买：手枪局 / 强起（手枪局获胜次回合）/ 孤注一掷（对方逼近赛点且经济不良）
+    const isPistol = roundIdx === 0 || roundIdx === mc.halfRounds;
+    if (isOT) {
+      for (const u of [...unitsA, ...unitsB]) { u.wallet.money = mc.overtimeMoney; u.savedGun = null; }
+    }
+    const buyCtxFor = (teamKey, units) => {
+      const myScore = teamKey === 'A' ? scoreA : scoreB;
+      const oppScore = teamKey === 'A' ? scoreB : scoreA;
+      const halfKey = secondHalf ? 'second' : 'first';
+      return {
+        isPistol,
+        wonPistolFollow: (roundIdx === 1 || roundIdx === mc.halfRounds + 1) && pistolWinner[halfKey] === teamKey,
+        desperate: oppScore >= mc.firstTo - 2
+      };
+    };
+    const buyA = buyPhase(atkUnits, buyCtxFor(atkTeam, atkUnits));
+    const buyB = buyPhase(defUnits, buyCtxFor(atkTeam === 'A' ? 'B' : 'A', defUnits));
+    atkUnits.forEach((u, i) => { u.gun = buyA.loadout[i].gun; u.armor = buyA.loadout[i].armor; u.utils = buyA.loadout[i].utils; });
+    defUnits.forEach((u, i) => { u.gun = buyB.loadout[i].gun; u.armor = buyB.loadout[i].armor; u.utils = buyB.loadout[i].utils; });
+
+    // 回合日志
+    let roundLogger = null;
+    if (logger) {
+      logger({ t: -1, type: 'round_meta', round: roundIdx + 1, atkTeam: atkTeamObj.name, defTeam: defTeamObj.name, atkFamily, defFamily, atkPlan: buyA.plan, atkReason: buyA.reason, defPlan: buyB.plan, defReason: buyB.reason, scoreA, scoreB, atkMoney: moneyOf(atkUnits), defMoney: moneyOf(defUnits) });
+      roundLogger = (ev) => { ev.round = roundIdx + 1; logger(ev); };
+    }
+
+    // 战术族 -> 战术意图（个体执行由 brain.js 效用 AI 决定）
+    const atkIntent = buildIntent(map, 'atk', atkFamily, rng);
+    const defIntent = buildIntent(map, 'def', defFamily, rng);
+    const sim = new RoundSim({
+      map, atkUnits, defUnits, atkFamily, defFamily, atkIntent, defIntent,
+      rng, hooks, logger: roundLogger,
+      // 极简战报：回合结束时渲染一句话摘要（挂到 round_end.summary）
+      onRoundEnd: logger ? (res, evs) => {
+        const wTeam = res.winner === 'atk' ? atkTeam : defTeamKey;
+        return report.roundSummary(evs, {
+          round: roundIdx + 1, atkTeam: atkTeamObj.name, defTeam: defTeamObj.name, atkFamily,
+          scoreA: scoreA + (wTeam === 'A' ? 1 : 0), scoreB: scoreB + (wTeam === 'B' ? 1 : 0),
+          nameA: teamA.name, nameB: teamB.name, reason: res.reason
+        });
+      } : null
+    });
+    const result = sim.run();
+    settleRound(atkUnits, defUnits, result);
+    agg.popOffs += result.stats.popOffs;
+    agg.whiffs += result.stats.whiffs;
+    agg.utilsAtk += result.stats.utilsAtk;
+    agg.utilsDef += result.stats.utilsDef;
+    agg.fakeReads += result.stats.fakeReads;
+    agg.fakePulled += result.stats.fakePulled;
+    for (const k of Object.keys(agg.utilsByType)) agg.utilsByType[k] += result.stats.utilsByType[k];
+    for (const [k, v] of Object.entries(result.stats.abilityByArchetype || {})) {
+      agg.abilityByArchetype[k] = (agg.abilityByArchetype[k] || 0) + v;
+    }
+
+    const winnerTeam = (result.winner === 'atk') ? atkTeam : defTeamKey;
+    if (winnerTeam === 'A') { scoreA++; streak.A = Math.max(streak.A, 0) + 1; streak.B = Math.min(streak.B, 0) - 1; }
+    else { scoreB++; streak.B = Math.max(streak.B, 0) + 1; streak.A = Math.min(streak.A, 0) - 1; }
+    if (isPistol) pistolWinner[secondHalf ? 'second' : 'first'] = winnerTeam;
+
+    // 心态更新（比分与连续得失分驱动）
+    events.updateMentality(unitsA, winnerTeam === 'A', scoreA, scoreB, Math.abs(streak.A));
+    events.updateMentality(unitsB, winnerTeam === 'B', scoreB, scoreA, Math.abs(streak.B));
+
+    totalTicks += result.ticks;
+    roundDetails.push({
+      round: roundIdx + 1, atkTeam, winner: winnerTeam, reason: result.reason,
+      ticks: result.ticks, planted: result.planted,
+      atkFamily, defFamily, atkPlan: buyA.plan, defPlan: buyB.plan,
+      atkReason: buyA.reason, defReason: buyB.reason
+    });
+    if (logger) logger({ t: result.ticks, type: 'score', round: roundIdx + 1, scoreA, scoreB, winner: winnerTeam, reason: result.reason });
+
+    // ---- 教练窗口（仅回合之间）：暂停状态播报 + 决策（玩家侧 yield 给观赛页） ----
+    if (logger) logger({ t: result.ticks, type: 'coach_window', round: roundIdx + 1, scoreA, scoreB, timeoutsLeft: { A: coachSt.A.timeoutsLeft, B: coachSt.B.timeoutsLeft } });
+    const nextIdx = roundIdx + 1;
+    const isHalftime = nextIdx === mc.halfRounds; // 第 12 回合后进入中场窗口
+    let playerInput = null;
+    if (playerCoach) {
+      // 真人教练窗口：yield 窗口快照，恢复值 = 面板输入 { timeout, weights?, iglPick? }
+      playerInput = yield {
+        type: 'coach_window', round: roundIdx + 1, scoreA, scoreB, isHalftime, result,
+        timeoutsLeft: { A: coachSt.A.timeoutsLeft, B: coachSt.B.timeoutsLeft },
+        weights: { A: JSON.parse(JSON.stringify(coachSt.A.weights)), B: JSON.parse(JSON.stringify(coachSt.B.weights)) },
+        iglPick: { A: coachSt.A.iglPick, B: coachSt.B.iglPick },
+        economy: { A: moneyOf(unitsA), B: moneyOf(unitsB) },
+        matchOver: scoreA + 1 > mc.firstTo || scoreB + 1 > mc.firstTo || nextIdx > maxNormal
+      };
+    }
+    for (const key of ['A', 'B']) {
+      // 中场窗口先落 tactics2 换套，再做暂停调整（调整作用于下半场实际使用的比重）
+      const teamObj = key === 'A' ? teamA : teamB;
+      if (isHalftime && !coachSt[key].swapped && teamObj.tactics2) {
+        coachSt[key].weights = { atk: { ...teamObj.tactics2.atk }, def: { ...teamObj.tactics2.def } };
+        coachSt[key].baseWeights = { atk: { ...teamObj.tactics2.atk }, def: { ...teamObj.tactics2.def } };
+        coachSt[key].swapped = true;
+      }
+      const oppKey = key === 'A' ? 'B' : 'A';
+      const myScore = key === 'A' ? scoreA : scoreB, oppScore = key === 'A' ? scoreB : scoreA;
+      const myUnits = key === 'A' ? unitsA : unitsB;
+      let dec = null;
+      if (playerCoach === key) {
+        dec = playerDecision(coachSt[key], playerInput, { isHalftime, units: myUnits });
+      } else {
+        // 对手两侧的连出场次与倾向（我方进攻针对其防守倾向，反之亦然）
+        const seqs = famSeq[oppKey];
+        const tend = {}, streaks = {}, signal = {};
+        for (const side of ['atk', 'def']) {
+          const seq = seqs[side];
+          let run = 0;
+          for (let i = seq.length - 1; i >= 0 && seq[i] === seq[seq.length - 1]; i--) run++;
+          streaks[side] = run;
+          const counts = {};
+          for (const f of seq) counts[f] = (counts[f] || 0) + 1;
+          const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0] || [null, 0];
+          tend[side] = top[0];
+          // 明确信号：样本 ≥6 且（同族连出 ≥3 或多数族占比 ≥60%）；不足则暂停只回摆/稳心态不针对
+          // （均匀对手的短期噪声不是信号，针对幻影倾向调整只会自伤）
+          signal[side] = seq.length >= 6 && (run >= 3 || top[1] / seq.length >= 0.6);
+        }
+        dec = coach.aiDecide(coachSt[key], {
+          loseStreak: Math.max(0, -streak[key]), oppSameStreak: Math.max(streaks.atk, streaks.def), isHalftime,
+          oppTendency: tend, oppSignal: signal, rng, scoreGap: myScore - oppScore, units: myUnits
+        });
+      }
+      if (!dec) continue;
+      if (dec.iglSwap) { // 换 IGL 热更新
+        for (const u of myUnits) u.isIGL = u.name === dec.iglSwap;
+      }
+      if (logger) logger({
+        t: result.ticks, type: 'timeout', round: roundIdx + 1, side: key, kind: dec.kind,
+        coach: coachSt[key].coach.name + (dec.manual ? '(你)' : ''), tactics: coachSt[key].coach.tactics,
+        reads: dec.reads, weights: dec.weights, manual: !!dec.manual,
+        iglPick: dec.iglSwap || undefined
+      });
+    }
+
+    roundIdx++;
+    if (scoreA >= mc.firstTo || scoreB >= mc.firstTo) break;
+    if (isOT) break; // 加时一局定胜负
+  }
+
+  return {
+    winner: scoreA > scoreB ? 'A' : 'B',
+    scoreA, scoreB,
+    rounds: roundIdx,
+    totalTicks,
+    roundDetails,
+    agg
+  };
+}
+
+// 自动播放包装：两队均 AI 教练（Node 批量模式，行为与逐回合驱动一致）
+function simulateMatch(opts) {
+  const g = matchGen(opts);
+  let r = g.next();
+  while (!r.done) r = g.next();
+  return r.value;
+}
+
+module.exports = { simulateMatch, matchGen, sampleFamily };
+
+});
+__define('agent_kits.json', function(module) { module.exports = {
+  "//": "英雄技能组：3 小技能(c/q/e，每回合刷新 charges) + 大招(x，整场一次)。archetype 为原型族，params 覆盖 config.abilities 默认值，sig 英雄在 abilities.js 有专属逻辑",
+  "哈泊":   { "role": "控场", "skills": [
+    {"key": "c", "name": "高涌潮", "archetype": "smoke", "charges": 2, "cost": 150, "params": {}},
+    {"key": "q", "name": "瀑布",   "archetype": "wall",  "charges": 1, "cost": 200, "params": {"ticks": 12, "region": true}},
+    {"key": "e", "name": "狂澜",   "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "风暴",   "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 3}}
+  ]},
+  "黑梦":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "恐狼",   "archetype": "recon", "charges": 1, "cost": 200, "params": {}},
+    {"key": "q", "name": "幽爪",   "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "徘徊者", "archetype": "recon", "charges": 1, "cost": 250, "params": {"power": 1.2}},
+    {"key": "x", "name": "夜幕降临", "archetype": "ult_recon", "charges": 1, "cost": 0, "params": {"deep": true, "power": 2}}
+  ]},
+  "K/O":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "闪光弹", "archetype": "flash", "charges": 2, "cost": 200, "params": {}},
+    {"key": "q", "name": "碎片手雷", "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "零点嗅探", "archetype": "recon", "charges": 1, "cost": 250, "params": {}},
+    {"key": "x", "name": "无效命令", "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 3}}
+  ]},
+  "星礈":   { "role": "控场", "skills": [
+    {"key": "c", "name": "星云",   "archetype": "smoke", "charges": 2, "cost": 150, "params": {}},
+    {"key": "q", "name": "引力井", "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "新星震荡", "archetype": "stun", "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "星体屏障", "archetype": "ult_wall", "charges": 1, "cost": 0, "params": {"ticks": 16, "region": true}}
+  ]},
+  "尚勃勒": { "role": "哨卫", "skills": [
+    {"key": "c", "name": "商标陷阱", "archetype": "trap", "charges": 1, "cost": 200, "params": {"snare": 1}},
+    {"key": "q", "name": "猎头",   "archetype": "aimbuff", "charges": 1, "cost": 150, "params": {"ticks": 8, "mult": 1.15}},
+    {"key": "e", "name": "游走",   "archetype": "dash",  "charges": 1, "cost": 200, "params": {"ticks": 3, "dodge": 0.2}},
+    {"key": "x", "name": "孤高火力", "archetype": "ult_aimbuff", "charges": 1, "cost": 0, "params": {"ticks": 12, "mult": 1.2}}
+  ]},
+  "不死鸟": { "role": "决斗", "skills": [
+    {"key": "c", "name": "火墙",   "archetype": "wall",  "charges": 1, "cost": 200, "params": {"ticks": 10, "edge": true}},
+    {"key": "q", "name": "闪光曲球", "archetype": "flash", "charges": 2, "cost": 200, "params": {"power": 1.1}},
+    {"key": "e", "name": "火球",   "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "再来一局", "archetype": "ult_revive", "charges": 1, "cost": 0, "params": {"self": true, "delay": 2}}
+  ]},
+  "贤者":   { "role": "哨卫", "skills": [
+    {"key": "c", "name": "冰墙",   "archetype": "wall",  "charges": 1, "cost": 300, "params": {"ticks": 15, "edge": true}},
+    {"key": "q", "name": "缓速球", "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "治愈",   "archetype": "heal",  "charges": 1, "cost": 200, "params": {"ticks": 15, "resist": 0.10, "mentality": 0.2}},
+    {"key": "x", "name": "复苏",   "archetype": "ult_revive", "charges": 1, "cost": 0, "params": {"self": false, "delay": 3}}
+  ]},
+  "斯凯":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "引路之隼", "archetype": "flash", "charges": 2, "cost": 200, "params": {"throughWall": true}},
+    {"key": "q", "name": "疗愈之芽", "archetype": "heal",  "charges": 1, "cost": 200, "params": {"ticks": 10, "resist": 0.06, "mentality": 0.15, "multi": true}},
+    {"key": "e", "name": "追猎狼",  "archetype": "recon", "charges": 1, "cost": 250, "params": {}},
+    {"key": "x", "name": "追踪者",  "archetype": "ult_recon", "charges": 1, "cost": 0, "params": {"deep": true, "power": 2}}
+  ]},
+  "霓虹":   { "role": "决斗", "skills": [
+    {"key": "c", "name": "闪电滑行", "archetype": "dash",  "charges": 1, "cost": 200, "params": {"ticks": 3, "dodge": 0.25}},
+    {"key": "q", "name": "闪电箭",  "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "高速通道", "archetype": "wall",  "charges": 1, "cost": 200, "params": {"ticks": 8, "edge": true}},
+    {"key": "x", "name": "超限暴走", "archetype": "ult_aimbuff", "charges": 1, "cost": 0, "params": {"ticks": 12, "mult": 1.2}}
+  ]},
+  "奇乐":   { "role": "哨卫", "skills": [
+    {"key": "c", "name": "哨戒炮台", "archetype": "turret", "charges": 1, "cost": 200, "params": {"killP": 0.04}},
+    {"key": "q", "name": "警报机器人", "archetype": "trap", "charges": 1, "cost": 200, "params": {"snare": 1}},
+    {"key": "e", "name": "纳米蜂群", "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "封锁区",  "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 3}}
+  ]},
+  "幽影":   { "role": "控场", "skills": [
+    {"key": "c", "name": "阴影遮蔽", "archetype": "smoke", "charges": 2, "cost": 150, "params": {"ranged": true}},
+    {"key": "q", "name": "妄想",   "archetype": "flash", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "暗影步",  "archetype": "dash",  "charges": 1, "cost": 200, "params": {"ticks": 3, "dodge": 0.2}},
+    {"key": "x", "name": "来自暗影", "archetype": "ult_dash", "charges": 1, "cost": 0, "params": {"ticks": 6, "dodge": 0.4}}
+  ]},
+  "雷兹":   { "role": "决斗", "skills": [
+    {"key": "c", "name": "爆破包",  "archetype": "dash",  "charges": 1, "cost": 200, "params": {"ticks": 3, "dodge": 0.2}},
+    {"key": "q", "name": "颜料手雷", "archetype": "molly", "charges": 1, "cost": 200, "params": {"power": 1.2}},
+    {"key": "e", "name": "爆爆机器人", "archetype": "recon", "charges": 1, "cost": 250, "params": {}},
+    {"key": "x", "name": "扫射火箭筒", "archetype": "ult_molly", "charges": 1, "cost": 0, "params": {"delay": 6, "zoneTicks": 10}}
+  ]},
+  "捷风":   { "role": "决斗", "skills": [
+    {"key": "c", "name": "瞬云",   "archetype": "smoke", "charges": 2, "cost": 150, "params": {"ticks": 6}},
+    {"key": "q", "name": "逐风",   "archetype": "dash",  "charges": 1, "cost": 200, "params": {"ticks": 4, "dodge": 0.35}},
+    {"key": "e", "name": "上升气流", "archetype": "dash", "charges": 1, "cost": 150, "params": {"ticks": 3, "dodge": 0.2}},
+    {"key": "x", "name": "旋风飞刀", "archetype": "ult_aimbuff", "charges": 1, "cost": 0, "params": {"ticks": 12, "mult": 1.2}}
+  ]},
+  "铁臂":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "闪点",   "archetype": "flash", "charges": 2, "cost": 200, "params": {"throughWall": true}},
+    {"key": "q", "name": "震荡冲击", "archetype": "stun",  "charges": 1, "cost": 200, "params": {"throughWall": true}},
+    {"key": "e", "name": "滚雷",   "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "大地震",  "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 3, "throughWall": true}}
+  ]},
+  "零":     { "role": "哨卫", "skills": [
+    {"key": "c", "name": "绊线",   "archetype": "trap",  "charges": 2, "cost": 200, "params": {"snare": 1}},
+    {"key": "q", "name": "电子烟雾", "archetype": "smoke", "charges": 1, "cost": 150, "params": {}},
+    {"key": "e", "name": "间谍摄像头", "archetype": "recon", "charges": 1, "cost": 250, "params": {}},
+    {"key": "x", "name": "神经窃析", "archetype": "ult_recon", "charges": 1, "cost": 0, "params": {"deep": true, "power": 2}}
+  ]},
+  "蝰蛇":   { "role": "控场", "skills": [
+    {"key": "c", "name": "毒幕",   "archetype": "wall",  "charges": 1, "cost": 200, "params": {"ticks": 14, "region": true}},
+    {"key": "q", "name": "毒云",   "archetype": "smoke", "charges": 1, "cost": 150, "params": {}},
+    {"key": "e", "name": "蛇吻",   "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "毒巢",   "archetype": "ult_smoke", "charges": 1, "cost": 0, "params": {"ticks": 18, "multi": 3}}
+  ]},
+  "猎枭":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "侦察箭",  "archetype": "recon", "charges": 2, "cost": 250, "params": {"deep": true, "power": 1.5}},
+    {"key": "q", "name": "电击箭",  "archetype": "molly", "charges": 1, "cost": 200, "params": {"power": 1.2}},
+    {"key": "e", "name": "猫头鹰无人机", "archetype": "recon", "charges": 1, "cost": 300, "params": {}},
+    {"key": "x", "name": "猎枭之怒", "archetype": "ult_molly", "charges": 1, "cost": 0, "params": {"delay": 6, "zoneTicks": 10}}
+  ]},
+  "夜露":   { "role": "决斗", "skills": [
+    {"key": "c", "name": "假身",   "archetype": "decoy", "charges": 1, "cost": 200, "params": {"info": 3}},
+    {"key": "q", "name": "盲闪",   "archetype": "flash", "charges": 2, "cost": 200, "params": {}},
+    {"key": "e", "name": "出其不意", "archetype": "dash",  "charges": 1, "cost": 200, "params": {"ticks": 3, "dodge": 0.2}},
+    {"key": "x", "name": "次元漫游", "archetype": "ult_recon", "charges": 1, "cost": 0, "params": {"deep": true, "power": 1.5}}
+  ]},
+  "暮蝶":   { "role": "控场", "skills": [
+    {"key": "c", "name": "诡计之烟", "archetype": "smoke", "charges": 2, "cost": 150, "params": {}},
+    {"key": "q", "name": "腐朽",   "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "扰域",   "archetype": "decoy", "charges": 1, "cost": 200, "params": {"info": 2}},
+    {"key": "x", "name": "化蝶",   "archetype": "ult_revive", "charges": 1, "cost": 0, "params": {"self": true, "delay": 2}}
+  ]},
+  "薇丝":   { "role": "哨卫", "skills": [
+    {"key": "c", "name": "刀藤",   "archetype": "trap",  "charges": 1, "cost": 200, "params": {"snare": 1}},
+    {"key": "q", "name": "弧光玫瑰", "archetype": "flash", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "铁壁",   "archetype": "wall",  "charges": 1, "cost": 200, "params": {"ticks": 12, "edge": true}},
+    {"key": "x", "name": "封锁",   "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 3}}
+  ]},
+  "钛狐":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "隐形无人机", "archetype": "recon", "charges": 1, "cost": 250, "params": {}},
+    {"key": "q", "name": "制导导弹", "archetype": "molly", "charges": 1, "cost": 200, "params": {"power": 1.2}},
+    {"key": "e", "name": "震荡弹",  "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "末日审判", "archetype": "ult_molly", "charges": 1, "cost": 0, "params": {"delay": 6, "zoneTicks": 10}}
+  ]},
+  "盖可":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "晕眩兽",  "archetype": "flash", "charges": 1, "cost": 200, "params": {}},
+    {"key": "q", "name": "翼龙",   "archetype": "decoy", "charges": 1, "cost": 200, "params": {"info": 2}},
+    {"key": "e", "name": "爆爆",   "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "鲨鲨",   "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 3}}
+  ]},
+  "炼狱":   { "role": "控场", "skills": [
+    {"key": "c", "name": "三连烟幕", "archetype": "smoke", "charges": 1, "cost": 300, "params": {"multi": 3}},
+    {"key": "q", "name": "燃烧弹",  "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "士气鼓舞", "archetype": "aimbuff", "charges": 1, "cost": 150, "params": {"ticks": 8, "mult": 1.1}},
+    {"key": "x", "name": "轨道打击", "archetype": "ult_molly", "charges": 1, "cost": 0, "params": {"delay": 6, "zoneTicks": 10}}
+  ]},
+  "钢锁":   { "role": "哨卫", "skills": [
+    {"key": "c", "name": "感应网",  "archetype": "trap",  "charges": 1, "cost": 200, "params": {"snare": 1}},
+    {"key": "q", "name": "声呐",   "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "重力捕网", "archetype": "trap",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "湮灭",   "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 3}}
+  ]},
+  "壹决":   { "role": "决斗", "skills": [
+    {"key": "c", "name": "绝对屏障", "archetype": "wall",  "charges": 1, "cost": 200, "params": {"ticks": 10, "edge": true}},
+    {"key": "q", "name": "削弱",   "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "心流",   "archetype": "aimbuff", "charges": 1, "cost": 150, "params": {"ticks": 8, "mult": 1.15}},
+    {"key": "x", "name": "决斗领域", "archetype": "ult_stun", "charges": 1, "cost": 0, "params": {"ticks": 2}}
+  ]},
+  "幻棱":   { "role": "决斗", "skills": [
+    {"key": "c", "name": "光速",   "archetype": "dash",  "charges": 1, "cost": 200, "params": {"ticks": 3, "dodge": 0.25}},
+    {"key": "q", "name": "饱和",   "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "折射",   "archetype": "flash", "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "光速审判", "archetype": "ult_aimbuff", "charges": 1, "cost": 0, "params": {"ticks": 12, "mult": 1.2}}
+  ]},
+  "禁灭":   { "role": "控场", "skills": [
+    {"key": "c", "name": "禁灭烟域", "archetype": "smoke", "charges": 2, "cost": 150, "params": {}},
+    {"key": "q", "name": "蚀能",   "archetype": "molly", "charges": 1, "cost": 200, "params": {}},
+    {"key": "e", "name": "绝域",   "archetype": "wall",  "charges": 1, "cost": 200, "params": {"ticks": 12, "region": true}},
+    {"key": "x", "name": "湮灭禁区", "archetype": "ult_smoke", "charges": 1, "cost": 0, "params": {"ticks": 16, "multi": 2}}
+  ]},
+  "迷核":   { "role": "先锋", "skills": [
+    {"key": "c", "name": "核芯探测", "archetype": "recon", "charges": 1, "cost": 250, "params": {}},
+    {"key": "q", "name": "脉冲闪",  "archetype": "flash", "charges": 2, "cost": 200, "params": {}},
+    {"key": "e", "name": "共振震荡", "archetype": "stun",  "charges": 1, "cost": 200, "params": {}},
+    {"key": "x", "name": "全域核视", "archetype": "ult_recon", "charges": 1, "cost": 0, "params": {"deep": true, "power": 2}}
+  ]}
+}
+; });
+__define('../数据源/agents.json', function(module) { module.exports = {
+ "1688449854754.png": "哈泊",
+ "1688450018377.png": "黑梦",
+ "1688450023389.png": "K/O",
+ "1688450033031.png": "星礈",
+ "1688450039267.png": "尚勃勒",
+ "1688450052424.png": "不死鸟",
+ "1688450058253.png": "贤者",
+ "1688450064754.png": "斯凯",
+ "1688450070312.png": "霓虹",
+ "1688450077170.png": "奇乐",
+ "1688450092152.png": "幽影",
+ "1688450099283.png": "雷兹",
+ "1688450106179.png": "捷风",
+ "1688450113156.png": "铁臂",
+ "1688450120784.png": "零",
+ "1688450128573.png": "蝰蛇",
+ "1688450134462.png": "猎枭",
+ "1688450140124.png": "夜露",
+ "1712455415859.png": "暮蝶",
+ "1726019301433.png": "薇丝",
+ "1736404558645.png": "钛狐",
+ "1688450010778.png": "盖可",
+ "1688450086146.png": "炼狱",
+ "1691141886983.png": "钢锁",
+ "1699943892169.jpg": "壹决",
+ "1741598188505.jpg": "幻棱",
+ "1760083682769.png": "禁灭",
+ "1773977939355.png": "迷核"
+}; });
+
+/* ========== 烘焙数据：队伍（已解析）/ 地图 / 种子 / 教练 ========== */
+const SPECT = {"teamA":{"name":"金卡快攻队","tactics":{"atk":{"rush":0.6,"mid":0.2,"lurk":0.2},"def":{"push":0.2,"hold":0.5,"stack":0.3}},"tactics2":{"atk":{"rush":0.34,"mid":0.33,"lurk":0.33},"def":{"push":0.3,"hold":0.4,"stack":0.3}},"coach":{"tactics":82},"iglName":"happywei","players":[{"name":"brawk","AIM":89,"SYN":89,"SEN":87,"agents":["猎枭","薇丝"],"igl":false,"tier":"金"},{"name":"happywei","AIM":89,"SYN":87,"SEN":88,"agents":["蝰蛇","幽影","零"],"igl":true,"tier":"金"},{"name":"RieNs","AIM":89,"SYN":88,"SEN":85,"agents":["猎枭","黑梦","蝰蛇"],"igl":false,"tier":"金"},{"name":"Asuna","AIM":90,"SYN":88,"SEN":87,"agents":["不死鸟","幽影"],"igl":false,"tier":"金"},{"name":"vo0kashu","AIM":90,"SYN":87,"SEN":85,"agents":["零","蝰蛇"],"igl":false,"tier":"金"}]},"teamB":{"name":"银卡默认队","tactics":{"atk":{"rush":0.2,"mid":0.4,"lurk":0.4},"def":{"push":0.4,"hold":0.4,"stack":0.2}},"tactics2":null,"coach":{"tactics":58},"iglName":"cb","players":[{"name":"Veqaj","AIM":78,"SYN":76,"SEN":70,"agents":["蝰蛇","K/O"],"igl":false,"tier":"银"},{"name":"eeiu","AIM":75,"SYN":79,"SEN":69,"agents":["猎枭","斯凯"],"igl":false,"tier":"银"},{"name":"Sato","AIM":79,"SYN":74,"SEN":70,"agents":["不死鸟","幽影","夜露"],"igl":false,"tier":"银"},{"name":"WsLeo","AIM":74,"SYN":79,"SEN":71,"agents":["黑梦","猎枭","斯凯"],"igl":false,"tier":"银"},{"name":"cb","AIM":74,"SYN":72,"SEN":77,"agents":["不死鸟","斯凯","奇乐"],"igl":true,"tier":"银"}]},"map":{"id":"ascent","name":"亚海悬城","sites":{"A":"a_site","B":"b_site"},"spawns":{"atk":"t_spawn","def":"ct_spawn"},"staging":{"A":"ct_a","B":"ct_b"},"trapSpots":{"a_site":"a_lobby","a_heaven":"a_lobby","a_short":"a_short","b_site":"b_lobby","b_back":"b_lobby","market":"market","mid_bottom":"mid"},"view":{"width":1000,"height":720},"nodes":{"t_spawn":{"name":"T出生点","region":"spawn","cover":0.2,"advantage":"neutral","capacity":8,"x":500,"y":655},"a_main":{"name":"A大入口","region":"A","cover":0.3,"advantage":"neutral","capacity":6,"x":95,"y":600},"a_lobby":{"name":"A大","region":"A","cover":0.4,"advantage":"neutral","capacity":6,"x":115,"y":450},"a_site":{"name":"A包点","region":"A","cover":0.5,"advantage":"def","capacity":6,"x":155,"y":285},"a_heaven":{"name":"A高点","region":"A","cover":0.6,"advantage":"def","capacity":3,"x":265,"y":200},"a_short":{"name":"A小","region":"A","cover":0.3,"advantage":"neutral","capacity":3,"x":330,"y":350},"mid_top":{"name":"中路匪侧","region":"mid","cover":0.3,"advantage":"neutral","capacity":4,"x":500,"y":530},"mid":{"name":"中路","region":"mid","cover":0.3,"advantage":"neutral","capacity":4,"x":470,"y":400},"mid_bottom":{"name":"中路警侧","region":"mid","cover":0.3,"advantage":"def","capacity":4,"x":470,"y":270},"market":{"name":"市场","region":"B","cover":0.5,"advantage":"def","capacity":3,"x":645,"y":330},"b_main":{"name":"B大入口","region":"B","cover":0.3,"advantage":"neutral","capacity":6,"x":905,"y":600},"b_lobby":{"name":"B大","region":"B","cover":0.4,"advantage":"neutral","capacity":6,"x":885,"y":450},"b_site":{"name":"B包点","region":"B","cover":0.5,"advantage":"def","capacity":6,"x":845,"y":285},"b_back":{"name":"B点后","region":"B","cover":0.5,"advantage":"neutral","capacity":4,"x":920,"y":190},"ct_spawn":{"name":"CT出生点","region":"spawn","cover":0.2,"advantage":"def","capacity":8,"x":560,"y":85},"ct_a":{"name":"警家A连接","region":"A","cover":0.4,"advantage":"def","capacity":4,"x":300,"y":115},"ct_b":{"name":"警家B连接","region":"B","cover":0.4,"advantage":"def","capacity":4,"x":770,"y":115}},"edges":[{"a":"t_spawn","b":"a_main","ticks":4,"exposure":0.1},{"a":"a_main","b":"a_lobby","ticks":3,"exposure":0.15},{"a":"a_lobby","b":"a_site","ticks":3,"exposure":0.35},{"a":"a_site","b":"a_heaven","ticks":2,"exposure":0.2},{"a":"a_short","b":"a_site","ticks":3,"exposure":0.3},{"a":"t_spawn","b":"mid_top","ticks":3,"exposure":0.1},{"a":"mid_top","b":"mid","ticks":3,"exposure":0.25},{"a":"mid","b":"a_short","ticks":3,"exposure":0.25},{"a":"mid","b":"mid_bottom","ticks":3,"exposure":0.3},{"a":"mid_bottom","b":"market","ticks":2,"exposure":0.25},{"a":"t_spawn","b":"b_main","ticks":4,"exposure":0.1},{"a":"b_main","b":"b_lobby","ticks":3,"exposure":0.15},{"a":"b_lobby","b":"b_site","ticks":3,"exposure":0.35},{"a":"b_site","b":"b_back","ticks":2,"exposure":0.2},{"a":"market","b":"b_site","ticks":3,"exposure":0.3},{"a":"ct_spawn","b":"ct_a","ticks":3,"exposure":0.05},{"a":"ct_spawn","b":"ct_b","ticks":3,"exposure":0.05},{"a":"ct_a","b":"a_site","ticks":3,"exposure":0.2},{"a":"ct_a","b":"a_heaven","ticks":2,"exposure":0.15},{"a":"ct_b","b":"b_site","ticks":3,"exposure":0.2},{"a":"ct_b","b":"market","ticks":3,"exposure":0.2},{"a":"ct_spawn","b":"mid_bottom","ticks":4,"exposure":0.15},{"a":"mid_bottom","b":"ct_b","ticks":3,"exposure":0.15}],"posts":{"a_main_outside":{"node":"a_main","name":"A大入口外","x":100,"y":590,"cover":0.2},"a_main_door":{"node":"a_main","name":"A大门口","x":105,"y":565,"cover":0.3},"a_lobby_car":{"node":"a_lobby","name":"A大车后","x":120,"y":470,"cover":0.5},"a_lobby_open":{"node":"a_lobby","name":"A大开阔","x":110,"y":425,"cover":0.15},"a_lobby_link":{"node":"a_lobby","name":"A大靠小侧","x":150,"y":420,"cover":0.3},"a_site_default":{"node":"a_site","name":"A点默认位","x":150,"y":300,"cover":0.4},"a_site_dice":{"node":"a_site","name":"A点箱后","x":170,"y":268,"cover":0.6},"a_site_gen":{"node":"a_site","name":"A点发电机","x":138,"y":260,"cover":0.5},"a_site_open":{"node":"a_site","name":"A点开阔","x":165,"y":295,"cover":0.15},"a_heaven_rail":{"node":"a_heaven","name":"高台栏杆","x":258,"y":212,"cover":0.5},"a_heaven_deep":{"node":"a_heaven","name":"高台深处","x":285,"y":185,"cover":0.4},"a_short_tree":{"node":"a_short","name":"A小树位","x":322,"y":362,"cover":0.4},"a_short_entry":{"node":"a_short","name":"A小出点口","x":300,"y":330,"cover":0.2},"mid_top_cat":{"node":"mid_top","name":"猫道口","x":490,"y":518,"cover":0.3},"mid_top_open":{"node":"mid_top","name":"中路匪侧开阔","x":512,"y":542,"cover":0.15},"mid_catwalk":{"node":"mid","name":"猫道","x":458,"y":388,"cover":0.3},"mid_courtyard":{"node":"mid","name":"中庭","x":482,"y":412,"cover":0.2},"mid_bot_arch":{"node":"mid_bottom","name":"拱门下","x":468,"y":282,"cover":0.3},"mid_bot_link":{"node":"mid_bottom","name":"警家连接口","x":482,"y":256,"cover":0.35},"market_door":{"node":"market","name":"市场门口","x":640,"y":342,"cover":0.4},"market_window":{"node":"market","name":"市场窗口","x":660,"y":318,"cover":0.5},"b_main_outside":{"node":"b_main","name":"B大入口外","x":900,"y":590,"cover":0.2},"b_main_door":{"node":"b_main","name":"B大门口","x":895,"y":562,"cover":0.3},"b_lobby_lane":{"node":"b_lobby","name":"B大车道","x":880,"y":470,"cover":0.3},"b_lobby_open":{"node":"b_lobby","name":"B大开阔","x":890,"y":428,"cover":0.15},"b_site_default":{"node":"b_site","name":"B点默认位","x":840,"y":300,"cover":0.4},"b_site_boat":{"node":"b_site","name":"B点箱后","x":860,"y":268,"cover":0.6},"b_site_open":{"node":"b_site","name":"B点开阔","x":835,"y":278,"cover":0.15},"b_back_lane":{"node":"b_back","name":"B点后巷","x":915,"y":200,"cover":0.4},"b_back_corner":{"node":"b_back","name":"B点死角","x":935,"y":175,"cover":0.5},"ct_a_ramp":{"node":"ct_a","name":"A连接斜坡","x":305,"y":132,"cover":0.35},"ct_a_heavenlink":{"node":"ct_a","name":"高台连接","x":285,"y":152,"cover":0.3},"ct_b_ramp":{"node":"ct_b","name":"B连接斜坡","x":765,"y":132,"cover":0.35},"ct_b_marketlink":{"node":"ct_b","name":"市场连接口","x":748,"y":162,"cover":0.3}},"sightlines":[["a_heaven_rail","a_main_outside",0.45],["a_heaven_rail","a_main_door",0.35],["a_heaven_rail","a_lobby_car",0.3],["a_heaven_rail","a_lobby_open",0.4],["a_heaven_rail","a_site_default",0.25],["a_heaven_rail","a_site_open",0.3],["a_heaven_deep","a_lobby_open",0.35],["a_site_dice","a_main_door",0.35],["a_site_dice","a_lobby_open",0.3],["a_site_default","a_lobby_open",0.4],["a_site_default","a_lobby_car",0.35],["a_site_default","a_short_entry",0.35],["a_site_gen","a_short_entry",0.3],["a_site_open","a_short_entry",0.4],["a_site_open","a_lobby_open",0.45],["a_short_tree","a_site_open",0.25],["a_short_tree","mid_catwalk",0.3],["a_short_entry","a_heaven_rail",0.4],["a_lobby_link","a_short_tree",0.35],["mid_top_cat","mid_courtyard",0.35],["mid_top_open","mid_courtyard",0.45],["mid_catwalk","mid_bot_arch",0.35],["mid_courtyard","mid_bot_arch",0.4],["mid_courtyard","mid_bot_link",0.35],["mid_bot_arch","market_door",0.3],["mid_bot_link","ct_a_heavenlink",0.3],["market_window","b_site_open",0.35],["market_window","b_site_default",0.3],["market_door","b_lobby_lane",0.35],["market_door","b_lobby_open",0.4],["b_lobby_lane","b_site_default",0.4],["b_lobby_open","b_site_default",0.45],["b_lobby_open","b_site_open",0.5],["b_back_lane","b_lobby_open",0.35],["b_back_lane","b_site_open",0.25],["b_back_corner","b_site_open",0.2],["b_back_corner","b_lobby_open",0.3],["b_site_boat","b_main_door",0.35],["b_site_default","b_main_door",0.4],["ct_a_ramp","a_site_default",0.25],["ct_a_ramp","a_site_open",0.3],["ct_a_heavenlink","a_heaven_rail",0.3],["ct_b_ramp","b_site_default",0.25],["ct_b_ramp","b_site_open",0.3],["ct_b_marketlink","market_door",0.3],["ct_b_marketlink","market_window",0.35]]},"seed":42,"coachTacticsA":75,"coachTacticsB":60};
+
+/* ========== 引擎装配 ========== */
+const { mulberry32 } = requireModule('rng.js');
+const { GameMap } = requireModule('gamemap.js');
+const { matchGen } = requireModule('match.js');
+const { matchReport } = requireModule('report.js');
+const cfg = requireModule('config.js');
+
+const MAP = new GameMap(SPECT.map);
+const FAMILY_NAME = { rush:'爆弹冲点', mid:'中路接触', lurk:'边线渗透', fake:'假打转点', push:'防守前压', hold:'默认架点', stack:'赌点防守' };
+const REASON_NAME = { elimination:'歼灭', explosion:'爆能器引爆', defuse:'拆包', timeout:'超时' };
+const PLAN_NAME = { pistol:'手枪局', eco:'ECO局', half:'混起局', full:'长枪局' };
+const BASE_TPS = 5; // 1x 倍速 = 每秒 5 tick
+
+/* ========== 全局状态 ========== */
+const allEvents = [];            // 全场事件流（logger 收集）
+const roundEvents = {};          // round -> 本回合事件数组
+const keyRounds = [];            // { round, tags[] }
+let gen = null, windowInfo = null, matchResult = null;
+let phase = 'init';              // playing | coach | final
+let animTick = 0, animRound = 0, animDur = 0, lastTs = 0, speed = 1;
+let review = null;               // { round } 回看模式
+let selectedUnit = null;         // 枪线高亮选中的选手
+let roster = {};                 // name -> { agent, igl, team }
+
+/* ========== 画布 ========== */
+const canvas = document.getElementById('map');
+const ctx = canvas.getContext('2d');
+const VW = SPECT.map.view.width, VH = SPECT.map.view.height;
+
+function nodePos(id) { const n = MAP.nodes[id]; return { x: n.x, y: n.y }; }
+function postPos(pid) { const p = MAP.posts[pid]; return p ? { x: p.x, y: p.y } : null; }
+function unitRestPos(u) { return (u.post && postPos(u.post)) || nodePos(u.node); }
+
+const REGION_COLOR = { A:'#23405a', B:'#4a2f35', mid:'#33453a', spawn:'#2a3138' };
+
+function drawMapBase() {
+  if (window.MAP_IMAGE) { ctx.drawImage(window.MAP_IMAGE, 0, 0, VW, VH); return; }
+  // 示意底图：通道走廊 + 节点区域
+  ctx.lineCap = 'round';
+  for (const e of SPECT.map.edges) {
+    const a = nodePos(e.a), b = nodePos(e.b);
+    ctx.strokeStyle = 'rgba(90,120,150,.16)'; ctx.lineWidth = 26;
+    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+  }
+  for (const [id, n] of Object.entries(MAP.nodes)) {
+    const r = 14 + n.capacity * 3.2;
+    ctx.fillStyle = REGION_COLOR[n.region] || '#2a3138';
+    ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, 7); ctx.fill();
+    ctx.strokeStyle = 'rgba(140,170,200,.35)'; ctx.lineWidth = 1.5; ctx.stroke();
+  }
+  // 对枪点
+  for (const [pid, p] of Object.entries(MAP.posts)) {
+    ctx.fillStyle = 'rgba(180,200,220,.4)';
+    ctx.beginPath(); ctx.arc(p.x, p.y, 2.5, 0, 7); ctx.fill();
+  }
+  // 包点标记
+  ctx.font = 'bold 22px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  for (const [letter, nid] of Object.entries(SPECT.map.sites)) {
+    const n = nodePos(nid);
+    ctx.fillStyle = 'rgba(255,207,92,.85)';
+    ctx.fillText(letter, n.x, n.y - 34);
+  }
+  // 节点名
+  ctx.font = '11px sans-serif'; ctx.fillStyle = 'rgba(190,205,220,.55)';
+  for (const [id, n] of Object.entries(MAP.nodes)) ctx.fillText(n.name, n.x, n.y + 14 + n.capacity * 3.2 + 10);
+}
+
+/* ---- 回合时间线：由事件重建 tick 时刻的场上状态 ---- */
+function buildStates(evs, t) {
+  const st = {};
+  for (const e of evs) {
+    if (e.type === 'round_start') {
+      for (const u of e.units) st[u.name] = { name: u.name, side: u.side, node: u.node, post: null, gun: u.gun, armor: u.armor, agent: u.agent, igl: u.igl, alive: true, moving: null, carrier: false };
+    }
+  }
+  const effects = [];
+  let plantInfo = null;
+  for (const e of evs) {
+    if (e.t < 0 || e.t > t) continue;
+    const u = e.unit && st[e.unit];
+    switch (e.type) {
+      case 'move': {
+        const s = st[e.unit]; if (!s || !s.alive) break;
+        if (t < e.t + e.ticks) {
+          const from = nodePos(e.from), to = e.post ? (postPos(e.post) || nodePos(e.to)) : nodePos(e.to);
+          const k = Math.min(1, (t - e.t) / e.ticks);
+          s.pos = { x: from.x + (to.x - from.x) * k, y: from.y + (to.y - from.y) * k };
+          s.moving = true;
+        } else { s.node = e.to; s.post = e.post || null; s.pos = null; s.moving = false; }
+        break;
+      }
+      case 'kill': { const v = st[e.victim]; if (v) { v.alive = false; v.moving = false; } break; }
+      case 'ability':
+        if (e.archetype === 'revive' && e.done) { const v = st[e.unit]; if (v) v.alive = true; }
+        if (['smoke','wall'].includes(e.archetype)) effects.push({ kind: e.archetype, node: e.node, until: e.t + (e.archetype === 'wall' ? 14 : cfg.utility.smokeTicks) });
+        if (e.archetype === 'molly') effects.push({ kind: 'molly', node: e.node, until: e.t + cfg.utility.mollyZoneTicks });
+        if (e.archetype === 'flash' || e.archetype === 'stun') effects.push({ kind: 'flash', node: e.node, until: e.t + 1.2 });
+        if (e.archetype === 'recon') effects.push({ kind: 'recon', node: e.node, t0: e.t, until: e.t + 2.5 });
+        if (e.archetype === 'turret') effects.push({ kind: 'turret', node: e.node, until: 1e9 });
+        if (e.archetype === 'heal') effects.push({ kind: 'heal', node: e.node, until: e.t + 1.5 });
+        break;
+      case 'smoke': effects.push({ kind: 'smoke', node: e.node, until: e.until }); break;
+      case 'molly': case 'molly_entry': effects.push({ kind: 'molly', node: e.node, until: e.t + cfg.utility.mollyZoneTicks }); break;
+      case 'flash': effects.push({ kind: 'flash', node: e.node, until: e.t + 1.2 }); break;
+      case 'recon': effects.push({ kind: 'recon', node: (st[e.unit] || {}).node, t0: e.t, until: e.t + 2.5 }); break;
+      case 'trap': effects.push({ kind: 'trap', node: e.node, until: e.t + 2 }); break;
+      case 'plant': plantInfo = { t: e.t, site: e.site, spikeTicks: e.spikeTicks }; break;
+      case 'spike_drop': if (plantInfo === null) break; break;
+    }
+  }
+  return { st, effects: effects.filter((x) => x.until >= t), plantInfo };
+}
+
+function unitXY(s) { return s.pos || unitRestPos(s); }
+
+function drawEffects(effects, t) {
+  for (const ef of effects) {
+    if (!ef.node || !MAP.nodes[ef.node]) continue;
+    const p = nodePos(ef.node);
+    if (ef.kind === 'smoke') {
+      ctx.fillStyle = 'rgba(160,165,175,.38)';
+      ctx.beginPath(); ctx.arc(p.x, p.y, 34, 0, 7); ctx.fill();
+      ctx.strokeStyle = 'rgba(200,205,215,.5)'; ctx.lineWidth = 2; ctx.stroke();
+    } else if (ef.kind === 'wall') {
+      ctx.strokeStyle = 'rgba(120,220,255,.7)'; ctx.lineWidth = 7;
+      ctx.beginPath(); ctx.moveTo(p.x - 30, p.y); ctx.lineTo(p.x + 30, p.y); ctx.stroke();
+    } else if (ef.kind === 'molly') {
+      const fl = 3 * Math.sin(t * 9);
+      ctx.fillStyle = 'rgba(255,120,40,.4)';
+      ctx.beginPath(); ctx.arc(p.x, p.y, 24 + fl, 0, 7); ctx.fill();
+    } else if (ef.kind === 'flash') {
+      ctx.fillStyle = 'rgba(255,255,230,.75)';
+      ctx.beginPath(); ctx.arc(p.x, p.y, 20, 0, 7); ctx.fill();
+    } else if (ef.kind === 'recon') {
+      const k = (t - ef.t0) / 2.5;
+      ctx.strokeStyle = `rgba(80,220,220,${0.8 - k * 0.7})`; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.arc(p.x, p.y, 12 + k * 70, 0, 7); ctx.stroke();
+    } else if (ef.kind === 'turret') {
+      ctx.fillStyle = '#ffd27a'; ctx.fillRect(p.x - 5, p.y - 5, 10, 10);
+    } else if (ef.kind === 'trap') {
+      ctx.strokeStyle = 'rgba(255,80,80,.8)'; ctx.lineWidth = 2;
+      ctx.strokeRect(p.x - 12, p.y - 12, 24, 24);
+    } else if (ef.kind === 'heal') {
+      ctx.strokeStyle = 'rgba(120,255,150,.8)'; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.arc(p.x, p.y, 16, 0, 7); ctx.stroke();
+    }
+  }
+}
+
+function drawUnits(st) {
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  for (const s of Object.values(st)) {
+    const p = unitXY(s);
+    const color = s.side === 'atk' ? '#ff9d5c' : '#5cc8ff'; // 本回合攻橙守蓝
+    if (!s.alive) {
+      ctx.strokeStyle = 'rgba(150,150,150,.5)'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(p.x - 6, p.y - 6); ctx.lineTo(p.x + 6, p.y + 6);
+      ctx.moveTo(p.x + 6, p.y - 6); ctx.lineTo(p.x - 6, p.y + 6); ctx.stroke();
+      continue;
+    }
+    ctx.fillStyle = color;
+    ctx.beginPath(); ctx.arc(p.x, p.y, 9, 0, 7); ctx.fill();
+    ctx.strokeStyle = s.igl ? '#ffcf5c' : 'rgba(255,255,255,.35)'; ctx.lineWidth = s.igl ? 2.5 : 1.2; ctx.stroke();
+    ctx.fillStyle = '#0b0f14'; ctx.font = 'bold 9px sans-serif';
+    ctx.fillText((s.agent || s.name)[0], p.x, p.y + 0.5);
+    ctx.fillStyle = 'rgba(220,230,240,.85)'; ctx.font = '10px sans-serif';
+    ctx.fillText(s.name, p.x, p.y - 15);
+    if (s.igl) { ctx.fillStyle = '#ffcf5c'; ctx.font = '9px sans-serif'; ctx.fillText('★', p.x + 11, p.y - 8); }
+  }
+}
+
+function drawSightlines(st) {
+  if (!selectedUnit || !st[selectedUnit]) return;
+  const s = st[selectedUnit];
+  if (!s.post) return;
+  for (const [pid] of Object.entries(MAP.posts)) {
+    if (pid === s.post || !MAP.canSee(s.post, pid)) continue;
+    const a = postPos(s.post), b = postPos(pid);
+    const exp = MAP.exposureBetween(s.post, pid);
+    ctx.strokeStyle = `rgba(255,${Math.round(220 - exp * 300)},80,.55)`;
+    ctx.lineWidth = 1 + exp * 3;
+    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+  }
+}
+
+/* ---- 帧渲染 ---- */
+function render(evs, t, meta) {
+  ctx.clearRect(0, 0, VW, VH);
+  drawMapBase();
+  const { st, effects, plantInfo } = buildStates(evs, t);
+  drawEffects(effects, t);
+  drawSightlines(st);
+  drawUnits(st);
+  // 下包/拆包进度与爆能器倒计时
+  if (plantInfo) {
+    const left = plantInfo.spikeTicks - (t - plantInfo.t);
+    ctx.fillStyle = left <= 10 ? '#ff5c5c' : '#ffcf5c';
+    ctx.font = 'bold 16px Consolas,monospace'; ctx.textAlign = 'left';
+    ctx.fillText('爆能器 ' + Math.max(0, left).toFixed(0) + 's', 16, VH - 18);
+  }
+  updateHud(evs, t, meta);
+}
+
+function updateHud(evs, t, meta) {
+  if (!meta) return;
+  document.getElementById('score').textContent = `${meta.scoreA} : ${meta.scoreB}`;
+  document.getElementById('roundInfo').textContent =
+    `R${meta.round} · ${meta.atkFamily ? FAMILY_NAME[meta.atkFamily] : ''} vs ${meta.defFamily ? FAMILY_NAME[meta.defFamily] : ''} · ${PLAN_NAME[meta.atkPlan] || ''}/${PLAN_NAME[meta.defPlan] || ''}`;
+  let timeLeft = Math.max(0, cfg.round.maxTicks - t);
+  document.getElementById('timer').textContent = timeLeft.toFixed(0) + 's';
+}
+
+/* ---- 信息栏 ---- */
+const EV_TEXT = {
+  plant: (e) => `${e.unit} 在 ${e.site} 点完成下包`,
+  plant_start: (e) => `${e.unit} 开始下包`,
+  defuse: (e) => `${e.unit} 拆包成功！`,
+  defuse_start: (e) => `${e.unit} 开始拆包`,
+  defuse_abort: (e) => `${e.unit} 拆包被打断`,
+  recon: (e) => `${e.unit} 侦察扫描 ${e.region || ''}`,
+  trap: (e) => `${e.unit} 触发警戒陷阱`,
+  trap_spotted: (e) => `${e.unit} 识破陷阱`,
+  fake_noise: (e) => `${e.unit} 制造假打动静`,
+  fake_read: (e) => `${e.unit} 识破假打`,
+  fake_pulled: (e) => `${e.unit} 被假打调动`,
+  save: (e) => `${e.unit} 选择保枪`,
+  retake: (e) => `${e.site} 点回防集结（${e.count}人）`,
+  force_commit: (e) => `时间压力，强攻 ${e.site} 点`,
+  mid_read: (e) => `中路读取：判断进攻 ${e.site}`,
+  ability: (e) => `${e.ult ? '◆大招·' : ''}${e.agent}「${e.skill}」${e.fumble ? '（失误！）' : ''}`,
+  timeout: (e) => `${e.side === 'A' ? SPECT.teamA.name : SPECT.teamB.name} ${e.kind === 'halftime' ? '中场调整' : '叫暂停'}${e.manual ? '（你）' : ''}`,
+};
+function feedPush(html, isKill) {
+  const box = isKill ? document.getElementById('killfeed') : document.getElementById('eventfeed');
+  const d = document.createElement('div');
+  d.innerHTML = html;
+  box.prepend(d);
+  while (box.children.length > 60) box.lastChild.remove();
+}
+
+/* ---- 关键回合判定 ---- */
+function judgeKeyRound(evs, meta) {
+  const tags = [];
+  let atkDeaths = 0, defDeaths = 0;
+  for (const e of evs) {
+    if (e.type === 'kill') (e.side === 'atk' ? defDeaths++ : atkDeaths++);
+  }
+  const end = evs.find((e) => e.type === 'round_end');
+  const score = evs.find((e) => e.type === 'score');
+  if (!end || !meta) return tags;
+  const winAtk = end.winner === 'atk';
+  const winDeaths = winAtk ? atkDeaths : defDeaths;
+  const loseDeaths = winAtk ? defDeaths : atkDeaths;
+  if (winDeaths >= 4 && loseDeaths >= 3) tags.push('残局逆转');
+  const winPlan = winAtk ? meta.atkPlan : meta.defPlan;
+  const losePlan = winAtk ? meta.defPlan : meta.atkPlan;
+  if ((winPlan === 'eco' || winPlan === 'half') && losePlan === 'full') tags.push('经济局翻盘');
+  if (score && (score.scoreA === cfg.match.firstTo - 1 || score.scoreB === cfg.match.firstTo - 1)) tags.push('赛点');
+  if (score && (score.scoreA === cfg.match.firstTo || score.scoreB === cfg.match.firstTo)) tags.push('终局');
+  return tags;
+}
+
+/* ---- 比赛驱动：生成器逐回合推进，回合结束后进教练窗口 ---- */
+function stepMatch(input) {
+  const before = allEvents.length;
+  const r = gen.next(input || undefined);
+  const fresh = allEvents.slice(before);
+  const rs = fresh.find((e) => e.type === 'round_start'); // 花名册：英雄分配在生成器内部完成，从事件取回
+  if (rs) for (const u of rs.units) roster[u.name] = { agent: u.agent };
+  if (r.done) { matchResult = r.value; showFinal(); return; }
+  windowInfo = r.value;
+  const meta = fresh.find((e) => e.type === 'round_meta');
+  const rn = meta ? meta.round : windowInfo.round;
+  roundEvents[rn] = fresh.filter((e) => e.type !== 'coach_window');
+  const tags = judgeKeyRound(roundEvents[rn], meta);
+  if (tags.length) {
+    keyRounds.push({ round: rn, tags });
+    const d = document.createElement('div');
+    d.textContent = `R${rn} ${tags.join('·')}`;
+    d.onclick = () => enterReview(rn);
+    document.getElementById('keyrounds').appendChild(d);
+  }
+  phase = 'playing';
+  animRound = rn;
+  animTick = 0;
+  const end = roundEvents[rn].find((e) => e.type === 'round_end');
+  animDur = end ? end.t + 2 : 100;
+  lastTs = 0;
+}
+
+function animLoop(ts) {
+  requestAnimationFrame(animLoop);
+  if (phase !== 'playing' && !review) return;
+  if (!lastTs) lastTs = ts;
+  let dt = (ts - lastTs) / 1000;
+  if (dt > 0.12) dt = 0.12; // 教练窗口/切标签后回来不跳帧
+  lastTs = ts;
+  if (review) {
+    review.tick += dt * BASE_TPS * speed;
+    if (review.tick > review.dur) review.tick = 0; // 回看循环播放
+    render(roundEvents[review.round], review.tick, metaOf(review.round));
+    return;
+  }
+  animTick += dt * BASE_TPS * speed;
+  const evs = roundEvents[animRound] || [];
+  const upto = evs.filter((e) => e.t >= 0 && e.t <= animTick);
+  for (const e of upto) {
+    if (e._fed) continue;
+    e._fed = true;
+    if (e.type === 'kill') feedPush(`<b style="color:${e.side === 'atk' ? '#ff9d5c' : '#5cc8ff'}">${e.killer}</b> 击杀 ${e.victim}`, true);
+    else if (EV_TEXT[e.type]) feedPush(`R${animRound} ${EV_TEXT[e.type](e)}`);
+  }
+  render(evs, Math.min(animTick, animDur), metaOf(animRound));
+  const end = evs.find((e) => e.type === 'round_end');
+  if (end && end.summary) document.getElementById('summaryBar').textContent = end.summary;
+  if (animTick >= animDur) {
+    phase = 'coach';
+    if (windowInfo.matchOver) { stepMatch({ timeout: false }); return; }
+    openCoachWindow();
+  }
+}
+
+function metaOf(rn) {
+  const evs = roundEvents[rn] || [];
+  const m = evs.find((e) => e.type === 'round_meta');
+  const s = evs.find((e) => e.type === 'score');
+  return m ? { ...m, scoreA: s ? s.scoreA : m.scoreA, scoreB: s ? s.scoreB : m.scoreB } : null;
+}
+
+/* ---- 回看模式 ---- */
+function enterReview(rn) {
+  const end = (roundEvents[rn] || []).find((e) => e.type === 'round_end');
+  review = { round: rn, tick: 0, dur: end ? end.t + 2 : 100 };
+  document.getElementById('reviewTag').style.display = 'block';
+}
+document.getElementById('reviewTag').onclick = () => {
+  review = null;
+  document.getElementById('reviewTag').style.display = 'none';
+};
+
+/* ---- 教练窗口 ---- */
+function weightRows(boxId, weights) {
+  const box = document.getElementById(boxId);
+  box.innerHTML = '';
+  for (const [fam, w] of Object.entries(weights)) {
+    const row = document.createElement('div');
+    row.className = 'wrow';
+    row.innerHTML = `<span class="fname">${FAMILY_NAME[fam] || fam}</span>
+      <button data-d="-0.05">−</button><span class="wval">${Math.round(w * 100)}%</span><button data-d="0.05">＋</button>`;
+    row.dataset.fam = fam;
+    row.dataset.w = w;
+    row.querySelectorAll('button').forEach((b) => {
+      b.onclick = () => {
+        row.dataset.w = Math.max(0, Math.min(1, parseFloat(row.dataset.w) + parseFloat(b.dataset.d)));
+        row.querySelector('.wval').textContent = Math.round(row.dataset.w * 100) + '%';
+      };
+    });
+    box.appendChild(row);
+  }
+}
+function collectWeights(boxId) {
+  const out = {};
+  let sum = 0;
+  document.getElementById(boxId).querySelectorAll('.wrow').forEach((r) => { out[r.dataset.fam] = parseFloat(r.dataset.w); sum += parseFloat(r.dataset.w); });
+  if (sum <= 0) return out;
+  for (const k of Object.keys(out)) out[k] /= sum; // 归一化
+  return out;
+}
+
+function openCoachWindow() {
+  const info = windowInfo;
+  const me = 'A';
+  document.getElementById('cwTitle').textContent = info.isHalftime ? '中场暂停 · 战术调整' : `教练窗口 · R${info.round} 结束`;
+  document.getElementById('cwSub').textContent =
+    `比分 ${info.scoreA}:${info.scoreB} · 经济 我方${info.economy.A} / 对方${info.economy.B} · 剩余暂停 ${info.timeoutsLeft[me]}` + (info.isHalftime ? ' · 中场调整不耗暂停' : '');
+  const end = (roundEvents[animRound] || []).find((e) => e.type === 'round_end');
+  document.getElementById('coachSummary').textContent = end && end.summary ? '上回合：' + end.summary : '';
+  weightRows('wAtk', info.weights[me].atk);
+  weightRows('wDef', info.weights[me].def);
+  const sel = document.getElementById('iglSel');
+  sel.innerHTML = '';
+  for (const p of SPECT.teamA.players) {
+    const o = document.createElement('option');
+    o.value = p.name;
+    o.textContent = `${p.name}（枪法${p.AIM} 意识${p.SEN} 协同${p.SYN}）${roster[p.name] ? ' · ' + roster[p.name].agent : ''}`;
+    if (p.name === info.iglPick[me]) o.selected = true;
+    sel.appendChild(o);
+  }
+  const btnT = document.getElementById('btnTimeout');
+  if (info.isHalftime) {
+    btnT.textContent = '完成调整，开始下半场';
+    btnT.disabled = false;
+  } else {
+    btnT.textContent = `叫暂停并调整（剩 ${info.timeoutsLeft[me]} 次）`;
+    btnT.disabled = info.timeoutsLeft[me] <= 0;
+  }
+  document.getElementById('coachWin').style.display = 'flex';
+}
+
+document.getElementById('btnGo').onclick = () => {
+  document.getElementById('coachWin').style.display = 'none';
+  stepMatch({ timeout: false });
+};
+document.getElementById('btnTimeout').onclick = () => {
+  const input = {
+    timeout: true,
+    weights: { atk: collectWeights('wAtk'), def: collectWeights('wDef') },
+    iglPick: document.getElementById('iglSel').value
+  };
+  document.getElementById('coachWin').style.display = 'none';
+  stepMatch(input);
+};
+
+/* ---- 终局 ---- */
+function showFinal() {
+  phase = 'final';
+  const r = matchResult;
+  const winName = r.winner === 'A' ? SPECT.teamA.name : SPECT.teamB.name;
+  document.getElementById('finalTitle').textContent = `${winName} ${Math.max(r.scoreA, r.scoreB)} : ${Math.min(r.scoreA, r.scoreB)} 获胜`;
+  const lines = matchReport(allEvents);
+  // 击杀王
+  const kills = {};
+  for (const e of allEvents) if (e.type === 'kill') kills[e.killer] = (kills[e.killer] || 0) + 1;
+  const mvp = Object.entries(kills).sort((a, b) => b[1] - a[1])[0];
+  document.getElementById('finalReport').innerHTML =
+    (mvp ? `<p style="color:var(--gold)">击杀王：${mvp[0]}（${mvp[1]} 杀）</p>` : '')
+    + lines.map((l) => `<p>${l}</p>`).join('');
+  document.getElementById('finalWin').style.display = 'flex';
+}
+
+/* ---- 控件 ---- */
+document.querySelectorAll('#speedbar button').forEach((b) => {
+  b.onclick = () => {
+    speed = parseFloat(b.dataset.s);
+    document.querySelectorAll('#speedbar button').forEach((x) => x.classList.remove('active'));
+    b.classList.add('active');
+  };
+});
+canvas.onclick = (ev) => {
+  const rect = canvas.getBoundingClientRect();
+  const x = (ev.clientX - rect.left) * (VW / rect.width);
+  const y = (ev.clientY - rect.top) * (VH / rect.height);
+  const evs = review ? roundEvents[review.round] : roundEvents[animRound] || [];
+  const t = review ? review.tick : Math.min(animTick, animDur);
+  const { st } = buildStates(evs, t);
+  let best = null, bd = 400;
+  for (const s of Object.values(st)) {
+    if (!s.alive) continue;
+    const p = unitXY(s);
+    const d = (p.x - x) ** 2 + (p.y - y) ** 2;
+    if (d < bd) { bd = d; best = s.name; }
+  }
+  selectedUnit = best === selectedUnit ? null : best;
+};
+
+/* ---- 启动 ---- */
+document.getElementById('nameA').textContent = SPECT.teamA.name + '（你执教）';
+document.getElementById('nameA').style.color = 'var(--A)';
+document.getElementById('nameB').textContent = SPECT.teamB.name;
+document.getElementById('nameB').style.color = 'var(--B)';
+gen = matchGen({
+  teamA: SPECT.teamA, teamB: SPECT.teamB, map: MAP,
+  rng: mulberry32(SPECT.seed),
+  logger: (ev) => allEvents.push(ev),
+  coachScores: { A: SPECT.coachTacticsA, B: SPECT.coachTacticsB },
+  playerCoach: 'A'
+});
+// 选手花名册（头像字符用）
+for (const p of [...SPECT.teamA.players, ...SPECT.teamB.players]) roster[p.name] = { agent: null };
+stepMatch();
+requestAnimationFrame(animLoop);
+</script>
+</body>
+</html>
