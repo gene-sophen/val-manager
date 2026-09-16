@@ -28,7 +28,8 @@ module.exports = {
   },
 
   // ---- 击杀概率模型 ----
-  killP(att, tgt, entry) {
+  // crossFire：跨节点枪线交火（双方 post 互见），目标暴露度减免击杀概率
+  killP(att, tgt, entry, crossFire) {
     const node = this.map.nodes[att.node];
     let p = C.baseKill;
     p *= 1 + (att.aim - tgt.aim) * C.aimCoef;
@@ -37,16 +38,20 @@ module.exports = {
     p *= att.holdTicks >= 2 ? C.settledBonus : C.moverPenalty;
     const adv = node.advantage;
     p *= adv === att.side ? C.advBonus : (adv === 'neutral' ? 1 : C.disadvPenalty);
-    if (tgt.holdTicks >= 2) p *= 1 - node.cover * C.coverResist;
+    // 掩体减免：目标占了对枪点则用 post.cover（高 SEN 选位好直接受益），否则节点级
+    const tgtCover = (tgt.post && this.map.posts[tgt.post]) ? this.map.posts[tgt.post].cover : node.cover;
+    if (tgt.holdTicks >= 2) p *= 1 - tgtCover * C.coverResist;
+    if (crossFire && att.post && tgt.post) p *= 1 - this.map.exposureBetween(att.post, tgt.post) * cfg.brain.crossFireResist;
     if (entry) p *= C.entryBonus;
     if (att.stun > 0) p *= cfg.utility.stunFirePenalty; // 被警戒/燃烧震驻时开火不稳
+    if (att.isIGL) p *= cfg.igl.aimPenalty; // IGL 指挥分心的枪法代价
     for (const fn of this.hooks.beforeKillRoll) p = fn({ att, tgt, node, round: this, entry }, p);
     return Math.min(Math.max(p, 0.01), 0.9);
   },
 
-  tryKill(att, tgt, entry) {
+  tryKill(att, tgt, entry, crossFire) {
     if (!att.alive || !tgt.alive) return false;
-    const p = this.killP(att, tgt, entry);
+    const p = this.killP(att, tgt, entry, crossFire);
     if (this.rng() < p) {
       this.applyKill(att, tgt);
       return true;
@@ -61,6 +66,7 @@ module.exports = {
     victim.defusing = 0;
     killer.roundKills++;
     this.occ[victim.node].delete(victim);
+    this.releasePost(victim); // 释放对枪点槽位
     this.emit('kill', { node: victim.node, killer: killer.name, victim: victim.name, side: killer.side });
     for (const fn of this.hooks.onKill) fn({ killer, victim, node: victim.node, round: this });
     // 爆能器掉落
@@ -83,10 +89,11 @@ module.exports = {
   entryFight(entrant) {
     const enemies = this.enemiesAt(entrant.node, entrant.side);
     if (!enemies.length) return;
-    // 同步进点：2 tick 内同节点友方人数 >=2 时降低被抢先概率（IGL 提升等效协同）
+    // 同步进点：3 tick 内同节点友方人数 >=2 时降低被抢先概率（IGL 提升等效协同）
+    // （think 节拍相位差会让同批进点者落点错开 0~2 tick，窗口比指令链时代放宽 1 tick）
     let sync = 0, synSum = 0;
     for (const u of this.occ[entrant.node]) {
-      if (u.alive && u.side === entrant.side && u.holdTicks <= 2) { sync++; synSum += u.syn; }
+      if (u.alive && u.side === entrant.side && u.holdTicks <= 3) { sync++; synSum += u.syn; }
     }
     if (sync > 0 && this.iglAlive(entrant.side)) synSum += cfg.igl.syncSynBonus * sync;
     // 闪光道具：进点/回防进包点时，在场同方选手自主决定是否丢闪（SYN 决定效果）
@@ -152,6 +159,34 @@ module.exports = {
         if (!enemies.length) break;
         const tgt = enemies[Math.floor(this.rng() * enemies.length)];
         this.tryKill(u, tgt, false);
+      }
+    }
+    // 跨节点枪线交火：双方已架好枪且 post 互相可见才能对枪；每对每 tick 按概率交火
+    // 同节点混战中的单位无暇跨节点对枪（节点正在交火则跳过）
+    const contested = {};
+    for (const nodeId of Object.keys(this.occ)) {
+      if (this.isContested(nodeId)) contested[nodeId] = true;
+    }
+    const holders = [];
+    for (const u of this.units) {
+      if (u.alive && !u.moving && !u.planting && !u.defusing && u.stun <= 0 && u.post && u.holdTicks >= 2 && !contested[u.node]) holders.push(u);
+    }
+    for (let i = 0; i < holders.length; i++) {
+      for (let j = i + 1; j < holders.length; j++) {
+        const a = holders[i], b = holders[j];
+        if (a.side === b.side || !a.alive || !b.alive) continue;
+        if (a.node === b.node) continue; // 同节点已在上面结算
+        if (a.concealed || b.concealed) continue; // 埋伏隐蔽中的单位不被枪线锁定（也不探身开枪）
+        if (!this.map.canSee(a.post, b.post)) continue;
+        if (this.rng() >= cfg.brain.crossFireProb) continue;
+        // 随机先后各开一枪
+        if (this.rng() < 0.5) {
+          this.tryKill(a, b, false, true);
+          if (b.alive) this.tryKill(b, a, false, true);
+        } else {
+          this.tryKill(b, a, false, true);
+          if (a.alive) this.tryKill(a, b, false, true);
+        }
       }
     }
   }

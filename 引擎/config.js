@@ -48,11 +48,11 @@ module.exports = {
     advBonus: 1.25,         // 节点架枪优势方加成
     disadvPenalty: 0.85,     // 节点劣势方惩罚
     coverResist: 0.35,       // 掩体质量减免比例（仅驻守目标享受）
-    entryShotBase: 0.59,    // 架点者对进点者抢先一枪的基础概率
+    entryShotBase: 0.55,    // 架点者对进点者抢先一枪的基础概率
     entryShotSen: 0.002,    // 每点 SEN 增加抢先概率
     entryBonus: 1.6,       // 抢先一枪的伤害乘子
     tradeBase: 0.4,        // 补枪基础概率（乘 SYN/100）
-    syncReduce: 0.002,      // 同步进点（>=2人同到）按平均 SYN 降低被抢先概率
+    syncReduce: 0.003,      // 同步进点（>=2人同到）按平均 SYN 降低被抢先概率
     multiTargetPenalty: 0.12 // 同节点每多一个敌人，单人输出分散惩罚（暂不启用）
   },
   move: {
@@ -71,6 +71,33 @@ module.exports = {
     utilThinkBase: 0.45,    // 道具自主决策：想到要使用的基础概率
     utilThinkSen: 0.005     // 每点 SEN 增加想到概率
   },
+  // 战术意图先验（tactics.js）：各族节奏时点与道具倾向，输出意图而非指令链
+  tactics: {
+    rush: { contactTick: 0, commitTick: 0, utilPosture: 0.8 },      // 爆弹冲点：立即全员直冲
+    mid:  { contactTick: 12, contactJit: 5, commitLag: 6, utilPosture: 0.5 }, // 中控后读取弱点，commit=contact+lag
+    lurk: { contactTick: 25, contactJit: 8, commitLag: 4, utilPosture: 0.4 },  // 边线渗透：慢热后一波
+    fake: { utilPosture: 0.5 },                                     // 假打时点沿用 fake 组
+    push: { roamTick: 45, utilPosture: 0.4 },                       // 防守前压：roamTick 后向匪家游猎
+    hold: { utilPosture: 0.5 },
+    stack: { utilPosture: 0.7 }                                     // 赌点：道具全押
+  },
+  // 个体效用 AI（brain.js）：每个选手每 thinkInterval tick 独立决策
+  // 打分 = 战术意图先验 × (0.5 + 决策质量) + 态势项 + 个性项 + 执行偏差噪声
+  brain: {
+    thinkInterval: 3,     // 思考间隔（tick）
+    noiseCoef: 0.03,      // 执行偏差噪声幅度 = (100-SEN)*noiseCoef，SEN 越低决策越摇摆
+    postCoverW: 1.0,      // 选位评分：掩体质量权重
+    postSightW: 0.05,     // 选位评分：每多一条可用枪线的权重（掩体主导，枪线只做同档 tiebreak）
+    postPickBase: 0.30,   // 选位决策质量 = postPickBase + postPickRange*(SEN-30)/66
+    postPickRange: 0.68,  // SEN 99 时 0.98 选中最优槽，SEN 30 时 0.30（低 SEN 常站开阔位）
+    priorBase: 2.0,       // 符合战术意图的动作基础分
+    peekAimW: 0.04,       // 个性：peek 加分 = (AIM-70)*peekAimW（炮台选手爱主动对枪）
+    followSynW: 0.03,     // 个性：协同动作加分 = (SYN-70)*followSynW
+    saveLeadW: 1.5,       // 保枪倾向：人数劣势权重
+    timePushW: 0.08,      // 时间压力：越过安全线后每 tick 进攻推进加分
+    crossFireResist: 0.65, // 跨节点枪线交火：按目标暴露度减免击杀概率
+    crossFireProb: 0.3    // 跨节点枪线每 tick 实际交火概率（架枪并非时刻开火）
+  },
   // 假打转点（第 4 进攻族）
   fake: {
     fakeTick: 18,           // 假打组开始制造动静的 tick（±4 随机）
@@ -85,7 +112,9 @@ module.exports = {
     syncSynBonus: 14,       // 同步进点等效 SYN 加成
     rotateTicksMult: 0.88,  // 回防/转点耗时乘子
     fakeReadBonus: 0.10,    // 识破/假打质量加成
-    readBonus: 0.10         // 中路读取等战术决策质量加成
+    readBonus: 0.10,        // 中路读取等战术决策质量加成
+    priorBoost: 0.18,       // IGL 存活时队友的战术意图先验倍率（1+priorBoost，指挥让行动更贴合计划）
+    aimPenalty: 0.97        // IGL 自身击杀概率乘子（指挥注意力代价）
   },
   // 默认战术比重（队伍配置缺省时使用）
   defaultTactics: {

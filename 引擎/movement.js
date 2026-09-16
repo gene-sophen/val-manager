@@ -21,9 +21,13 @@ module.exports = {
     const smokeUntil = this.smokedEdges[this.edgeKey(u.node, next)];
     if (u.side === 'def' && smokeUntil && this.t < smokeUntil) ticks += cfg.utility.smokeRotateDelay;
     this.occ[u.node].delete(u);
-    u.moving = { from: u.node, to: next, dest, left: ticks, mode, exposure };
+    this.releasePost(u); // 移动中 post=null，离开节点释放对枪点
+    // 预选到达节点的对枪点（高 SEN 偏好掩体好/枪线多的槽位；进攻慢摸埋伏时回避枪线）
+    const hide = mode === 'walk' && u.side === 'atk';
+    const post = this.map.postsAt(next).length ? this.pickPost(u, next, true, hide) : null;
+    u.moving = { from: u.node, to: next, dest, left: ticks, mode, exposure, post };
     u.holdTicks = 0;
-    this.emit('move', { unit: u.name, side: u.side, from: u.node, to: next, ticks }); // 观赛回放用
+    this.emit('move', { unit: u.name, side: u.side, from: u.node, to: next, ticks, post }); // 观赛回放用
     return true;
   },
 
@@ -37,6 +41,7 @@ module.exports = {
       const mv = u.moving;
       u.moving = null;
       u.node = mv.to;
+      u.post = mv.post || null; // 落位到预选的对枪点（无 posts 的节点保持节点级）
       u.holdTicks = 0;
       this.occ[u.node].add(u);
       // 哨卫警戒：进攻方踩点触发；高 SEN 可识破规避，静音慢摸更谨慎
@@ -108,8 +113,8 @@ module.exports = {
       }
       // 进点遭遇：架点方抢先枪
       this.entryFight(u);
-      // 到达后继续推进指令
-      if (u.alive) this.advance(u);
+      // 到达后立即做一次决策（继续推进/落位驻守）
+      if (u.alive) this.think(u, true);
     }
   }
 };

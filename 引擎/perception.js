@@ -1,4 +1,5 @@
-// 感知与信息：信息写入（含假打可疑标记）、防守方对信息的反应（回防/局部收缩）（从 round.js 拆出，纯代码移动）
+// 感知与信息：信息写入（含假打可疑标记）、防守方对信息反应的执行（从 round.js 拆出）
+// Phase2-B：回防/收缩的"决策"已移至 brain.js 效用评分，reactToInfo 只负责执行移动与状态标记
 const cfg = require('./config');
 
 module.exports = {
@@ -12,38 +13,22 @@ module.exports = {
     this.newInfo = true;
   },
 
-  // 防守方对信息的反应：全面回防（下包/强真实信息）或局部收缩（分站防守对中等信息）
-  // 可疑信息（假打）：分站/前压最多局部收缩，赌点队本性赌博会被拉动
-  reactToInfo(u, target, strength, plantedThere, isWaiting, suspicious) {
-    const action = this.decideBinary(u, [
-      { u: strength + (plantedThere ? 50 : 0), action: 'rotate' },
-      { u: cfg.ai.rotateNeedInfo + 8, action: 'stay' }
-    ]);
-    if (action !== 'rotate') return;
-    const fullRotate = plantedThere || (!suspicious && strength >= cfg.ai.contractInfo) || this.defPlan.family === 'stack';
-    u.rotating = true;
-    if (plantedThere) {
-      // 已下包：先到集结点汇合，等同步信号再一起回防
-      u.directives = [
-        { type: 'go', node: this.map.data.staging[target], mode: 'run' },
-        { type: 'waitEvent', event: 'retakeHit' },
-        { type: 'go', node: this.map.siteNode(target), mode: 'run' },
-        { type: 'hold' }
-      ];
-      this.emit('rotate', { unit: u.name, to: target });
-    } else if (fullRotate) {
-      // 强信息：回防到受威胁侧集结点待命（确认交火后再进点，避免逐个送进包点）
-      u.directives = [{ type: 'go', node: this.map.data.staging[target], mode: 'run' }, { type: 'hold', support: target }];
+  // 防守方信息反应执行：强真实信息（或赌点队本性）全面回防到受威胁侧集结点待命；
+  // 中等/可疑信息只做局部收缩——只有中路自由人靠拢（站点锚兵不动，否则被假打拉空），每方向限一人
+  reactToInfo(u, target, strength, suspicious) {
+    const staging = this.map.data.staging[target];
+    const fullRotate = (!suspicious && strength >= cfg.ai.contractInfo) || this.defIntent.family === 'stack';
+    if (fullRotate) {
+      u.rotating = true;
+      u.support = target;
+      if (u.node !== staging) this.startMove(u, staging, 'run');
       this.emit('rotate', { unit: u.name, to: target });
     } else {
-      // 局部收缩：只有中路自由人向受威胁侧靠拢（站点锚兵不动，否则被假打拉空）；
-      // 每个方向最多收缩一人
-      if (this.map.region(u.node) !== 'mid' || this.contracted[target]) { u.rotating = false; return; }
+      if (this.map.region(u.node) !== 'mid' || this.contracted[target]) return;
       this.contracted[target] = true;
-      u.rotating = false; // 收缩后仍可升级为全面回防
-      u.directives = [{ type: 'go', node: this.map.data.staging[target], mode: 'run' }, { type: 'hold', support: target }];
+      u.support = target; // 收缩后仍可升级为全面回防
+      if (u.node !== staging) this.startMove(u, staging, 'run');
       this.emit('contract', { unit: u.name, to: target });
     }
-    u.di = 0;
   }
 };

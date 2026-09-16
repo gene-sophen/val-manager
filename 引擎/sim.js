@@ -28,7 +28,7 @@ const FAMILY_NAME = {
 
 // 聚合多场模拟的统计
 function runBatch(specA, specB, n, seed, opts = {}) {
-  const map = loadMap(path.join(__dirname, 'maps', 'ascent_like.json'));
+  const map = loadMap(path.join(__dirname, 'maps', 'ascent.json'));
   const setupRng = mulberry32(derive(seed, 0));
   const teamA = resolveTeam(specA, setupRng);
   const teamB = resolveTeam(specB, setupRng);

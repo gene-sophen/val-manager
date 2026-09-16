@@ -7,11 +7,15 @@ const path = require('path');
 
 const ROOT = __dirname;
 const TEMPLATE = path.join(ROOT, 'replay.html');
-const MAP = path.join(ROOT, 'maps', 'ascent_like.json');
+const MAP = path.join(ROOT, 'maps', 'ascent.json');
 
 function bakeMap(html) {
   const mapJson = fs.readFileSync(MAP, 'utf8').trim();
-  return html.replace(/window\.MAP_DATA = \/\*__MAP_DATA__\*\/[\s\S]*?;/, `window.MAP_DATA = ${mapJson};`);
+  // 优先替换带标记的占位；模板已烘焙过则整体替换现有赋值
+  const withMarker = /window\.MAP_DATA = \/\*__MAP_DATA__\*\/[\s\S]*?;/;
+  const baked = /window\.MAP_DATA = \{[\s\S]*?\n\};/;
+  if (withMarker.test(html)) return html.replace(withMarker, `window.MAP_DATA = ${mapJson};`);
+  return html.replace(baked, `window.MAP_DATA = ${mapJson};`);
 }
 
 function bakeLog(html, logPath) {

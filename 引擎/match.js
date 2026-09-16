@@ -1,6 +1,7 @@
 // 整局比赛：经济、换边、战术比重、英雄分配、心态、胜负判定
 const cfg = require('./config');
 const { RoundSim } = require('./round');
+const { buildIntent } = require('./tactics');
 const { buyPhase, settleRound } = require('./economy');
 const createHooks = require('./hooks');
 const { assignAgents } = require('./agents');
@@ -101,8 +102,11 @@ function simulateMatch({ teamA, teamB, map, rng, logger, matchCfg }) {
       roundLogger = (ev) => { ev.round = roundIdx + 1; logger(ev); };
     }
 
+    // 战术族 -> 战术意图（个体执行由 brain.js 效用 AI 决定）
+    const atkIntent = buildIntent(map, 'atk', atkFamily, rng);
+    const defIntent = buildIntent(map, 'def', defFamily, rng);
     const sim = new RoundSim({
-      map, atkUnits, defUnits, atkFamily, defFamily,
+      map, atkUnits, defUnits, atkFamily, defFamily, atkIntent, defIntent,
       rng, hooks, logger: roundLogger
     });
     const result = sim.run();

@@ -91,7 +91,7 @@ function pct(x) { return (x * 100).toFixed(1) + '%'; }
 
 function main() {
   const args = parseArgs(process.argv);
-  const map = loadMap(path.join(__dirname, 'maps', 'ascent_like.json'));
+  const map = loadMap(path.join(__dirname, 'maps', 'ascent.json'));
   const names = Object.keys(ARCHETYPES);
   const t0 = Date.now();
 
@@ -117,12 +117,12 @@ function main() {
   const hrTotal = Math.max(hr.pistol_follow + hr.desperate + hr.other, 1);
 
   const lines = [];
-  lines.push('# 战斗推演引擎 v2 · 平衡自检报告', '');
+  lines.push('# 战斗推演引擎 v3 · 平衡自检报告', '');
   lines.push(`- 测试时间：${new Date().toISOString().slice(0, 10)}`);
   lines.push(`- 样本：每对对阵 ${args.n} 场（每场重新随机抽 roster），种子 ${args.seed}`);
   lines.push(`- 赛制：先到 13 胜，12 回合换边，12:12 一加时局`);
-  lines.push(`- 地图：类亚海悬城双点图（17 节点）`);
-  lines.push('- v2 新增：假打转点战术族（含识破判定）、道具单选手自主决策、IGL 指挥加成、防守集结点支援/虚警归位', '');
+  lines.push(`- 地图：亚海悬城双点图（17 节点 + 34 对枪点 + 46 枪线）`);
+  lines.push('- v3（Phase2-B）：决策层重写为个体效用 AI（brain.js），战术族退化为意图先验（tactics.js）；对枪点选位（SEN 驱动）与跨节点枪线交火；IGL 意图增强 + 指挥枪法代价', '');
   lines.push('## 胜率矩阵（行对列的胜率）', '');
   lines.push('| | ' + names.join(' | ') + ' |');
   lines.push('|' + '---|'.repeat(names.length + 1));
@@ -223,8 +223,8 @@ function main() {
   lines.push(`- 4 金 + 1 金卡 IGL vs 5 金无 IGL：${iglN} 场，有 IGL 方胜率 ${pct(iglWins / iglN)}`);
   lines.push('- 注：金卡 IGL 相对金卡非 IGL 有 AIM -4.7 的枪法折损（SYN/SEN 更高）；加长样本复测有 IGL 方约 51%——指挥加成覆盖枪法折损后略有盈余', '');
 
-  fs.writeFileSync(path.join(__dirname, 'BALANCE_v2.md'), lines.join('\n'));
-  console.log(`\n耗时 ${((Date.now() - t0) / 1000).toFixed(1)}s，已写入 引擎/BALANCE_v2.md`);
+  fs.writeFileSync(path.join(__dirname, 'BALANCE_v3.md'), lines.join('\n'));
+  console.log(`\n耗时 ${((Date.now() - t0) / 1000).toFixed(1)}s，已写入 引擎/BALANCE_v3.md`);
 }
 
 if (require.main === module) main();
