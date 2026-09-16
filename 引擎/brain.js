@@ -160,11 +160,17 @@ module.exports = {
     // 已下包：守包——点内向位置架枪，点外落位收拢（绕后者顺势断回防路线）
     if (this.planted) {
       const siteNode = this.map.siteNode(this.plantSite);
+      // 有人在拆包：全员扑向包点打断（"他在拆！"）
+      if (this.defuser && u.node !== siteNode) {
+        out.push({ action: 'push', prior: 5, node: siteNode, mode: 'run' });
+        if (this.hasVisibleEnemy(u)) out.push({ action: 'peek', prior: 2 });
+        return out;
+      }
       if (this.map.region(u.node) === this.plantSite) {
         out.push({ action: 'hold', prior: 3 });
       } else {
-        out.push({ action: 'push', prior: 3.2, node: siteNode, mode: 'run', pers: (u.syn - 70) * B.followSynW });
-        out.push({ action: 'hold', prior: 1.2 });
+        out.push({ action: 'push', prior: 2.4, node: siteNode, mode: 'run', pers: (u.syn - 70) * B.followSynW });
+        out.push({ action: 'hold', prior: 2.0 }); // 点外收拢架回防路线，不一窝蜂挤进点
       }
       if (this.hasVisibleEnemy(u)) out.push({ action: 'peek', prior: 1.5, pers: (u.aim - 70) * B.peekAimW });
       return out;

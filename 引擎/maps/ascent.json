@@ -132,6 +132,14 @@
     ["ct_b_ramp", "b_site_default", 0.25],
     ["ct_b_ramp", "b_site_open", 0.30],
     ["ct_b_marketlink", "market_door", 0.30],
-    ["ct_b_marketlink", "market_window", 0.35]
+    ["ct_b_marketlink", "market_window", 0.35],
+    ["a_site_dice", "ct_a_ramp", 0.30],
+    ["a_site_gen", "ct_a_ramp", 0.25],
+    ["a_site_default", "ct_a_heavenlink", 0.25],
+    ["a_heaven_rail", "ct_a_ramp", 0.20],
+    ["b_site_boat", "ct_b_ramp", 0.30],
+    ["b_site_boat", "ct_b_marketlink", 0.30],
+    ["b_site_open", "ct_b_marketlink", 0.35],
+    ["b_back_lane", "ct_b_ramp", 0.25]
   ]
 }

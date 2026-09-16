@@ -7,9 +7,9 @@ module.exports = {
   },
   round: {
     maxTicks: 100,      // 回合时长（1 tick = 1 秒）
-    spikeTicks: 45,     // 爆能器引爆倒计时
+    spikeTicks: 43,     // 爆能器引爆倒计时（45→43：Phase6 压缩回防窗口）
     plantTicks: 4,      // 下包耗时
-    defuseTicks: 7,     // 拆包耗时（无拆包器）
+    defuseTicks: 8,     // 拆包耗时（7→8：Phase6 压回防成功率）
     timePressure: 25    // 剩余秒数低于此值进攻方强行进点
   },
   eco: {
@@ -48,9 +48,9 @@ module.exports = {
     advBonus: 1.25,         // 节点架枪优势方加成
     disadvPenalty: 0.85,     // 节点劣势方惩罚
     coverResist: 0.35,       // 掩体质量减免比例（仅驻守目标享受）
-    entryShotBase: 0.55,    // 架点者对进点者抢先一枪的基础概率
+    entryShotBase: 0.53,    // 架点者对进点者抢先一枪的基础概率（0.55→0.53：Phase6 回调）
     entryShotSen: 0.002,    // 每点 SEN 增加抢先概率
-    entryBonus: 1.6,       // 抢先一枪的伤害乘子
+    entryBonus: 1.5,       // 抢先一枪的伤害乘子（1.6→1.5：Phase6 平衡回调，攻方胜率偏低）
     tradeBase: 0.4,        // 补枪基础概率（乘 SYN/100）
     syncReduce: 0.003,      // 同步进点（>=2人同到）按平均 SYN 降低被抢先概率
     multiTargetPenalty: 0.12 // 同节点每多一个敌人，单人输出分散惩罚（暂不启用）
@@ -63,7 +63,7 @@ module.exports = {
   ai: {
     senBase: 0.45,          // 决策质量 = senBase + senRange*(SEN-30)/66
     senRange: 0.16,
-    rotateNeedInfo: 5,
+    rotateNeedInfo: 6,      // 回防所需信息强度（5→6：Phase6 放慢回防集结）
     spotInfo: 3,            // 每次暴露给的信息强度
     contractInfo: 9,        // 分站防守：信息强度达此为全面回防，低于此为局部收缩
     saveEvalInterval: 5,    // 保枪判定间隔（tick）
@@ -146,7 +146,7 @@ module.exports = {
     points: { pistol: 1, eco: 0, half: 1, full: 2 }, // 各局型每人的道具点数
     flashReduce: 0.28,     // 闪光降低抢先枪概率（乘道具效率）
     smokeTicks: 12,        // 烟雾持续 tick
-    smokeRotateDelay: 2,   // 防守穿越烟雾边每边 +tick
+    smokeRotateDelay: 3,   // 防守穿越烟雾边每边 +tick（2→3：Phase6 压低回防成功率）
     mollyDelay: 4,         // 燃烧拖延下包 tick（乘道具效率）
     mollyZoneTicks: 6,     // 进点燃烧弹封锁窗口
     reconTick: 14,         // 防守侦察启动 tick（无信息时）
