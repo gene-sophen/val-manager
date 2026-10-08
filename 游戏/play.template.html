@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VALORANT MANAGER · 征战开局</title>
+<style>
+@font-face{font-family:Smiley;src:url('../../素材库/字体/SmileySans-Oblique.woff2') format('woff2');font-display:swap}
+:root{--ink:#eaf2ec;--muted:#9caea9;--panel:#152a2a;--panel2:#1c3633;--line:#365651;--mint:#b8ffcb;--coral:#ff786c;--gold:#f7ce78;--base:#0b1719}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 92% 0,#284b41 0,transparent 34%),linear-gradient(155deg,#071417,#102320 60%,#0a191c);color:var(--ink);font:15px/1.55 'Microsoft YaHei',sans-serif;min-height:100vh}button,select,input{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:#25403c;color:var(--ink);padding:10px 15px;border-radius:4px}button:hover:not(:disabled){border-color:var(--mint);color:var(--mint)}button:disabled{opacity:.5;cursor:not-allowed}.primary{background:var(--mint);color:#08211e;border-color:var(--mint);font-weight:800}.primary:hover:not(:disabled){background:#e1ffe7;color:#08211e}.danger{color:var(--coral)}select,input[type=number],input[type=text]{background:#102422;border:1px solid var(--line);color:var(--ink);padding:9px;border-radius:4px;min-width:0}input[type=number]{width:95px}input[type=checkbox],input[type=radio]{accent-color:var(--mint)}
+.shell{max-width:1480px;margin:0 auto;padding:28px 30px 50px}.mast{display:grid;grid-template-columns:1fr auto;align-items:end;border-bottom:2px solid var(--mint);padding-bottom:20px;margin-bottom:25px}.brand{font:clamp(32px,5vw,70px)/.92 Smiley,'Microsoft YaHei',sans-serif;letter-spacing:-.04em;text-transform:uppercase}.brand b{color:var(--mint)}.sub{color:var(--muted);letter-spacing:.22em;font-size:11px;text-transform:uppercase;margin-top:12px}.roundtag{border:1px solid var(--mint);padding:9px 14px;color:var(--mint);font-size:12px;letter-spacing:.12em}.hero{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:24px}.content{min-width:0}.rail{border-left:1px solid var(--line);padding-left:24px}.panel{background:linear-gradient(160deg,rgba(31,62,57,.95),rgba(16,36,37,.96));border:1px solid var(--line);padding:22px;margin-bottom:16px;box-shadow:0 16px 45px #0003}.panel.flat{background:transparent}.eyebrow{color:var(--mint);text-transform:uppercase;letter-spacing:.2em;font-size:11px;font-weight:800}.title{font:clamp(25px,3vw,42px)/1.15 Smiley,'Microsoft YaHei',sans-serif;margin:6px 0 14px}.lead{color:var(--muted);max-width:760px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}.stats{display:flex;gap:28px;flex-wrap:wrap;margin:18px 0}.stat strong{display:block;font:32px/1 Smiley,sans-serif}.stat span{color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:11px}.card{border:1px solid var(--line);background:#102525;padding:14px;min-height:116px}.card strong{display:block;font-size:18px}.card .tier{float:right;color:var(--gold);font-size:12px}.card small{color:var(--muted)}.card.selected{border-color:var(--mint);background:#203f38}.card.diamond{border-color:#d9bcff}.item{display:grid;grid-template-columns:34px minmax(100px,1fr) 110px 160px;gap:9px;align-items:center;border-bottom:1px solid var(--line);padding:9px 0}.item .name{font-weight:bold}.item .hint{font-size:11px;color:var(--muted)}.item select{width:100%}.offer{display:block;text-align:left;width:100%;min-height:150px}.offer .route{display:block;color:var(--mint);font-size:11px;letter-spacing:.1em}.offer strong{font:24px/1.2 Smiley,sans-serif;display:block;margin:8px 0}.offer p{margin:0;color:var(--muted);font-size:13px}.offer:hover{background:#294d42}.score{font:clamp(48px,7vw,108px)/.9 Smiley,sans-serif;letter-spacing:-.06em}.score em{font-style:normal;color:var(--coral)}.score span{color:var(--muted);font-size:.5em;margin:0 8px}.timeline{display:flex;align-items:center;gap:4px;margin:20px 0}.dot{flex:1;height:9px;background:#33524d}.dot.done{background:var(--mint)}.dot.current{background:var(--coral)}.rail h3{font:23px Smiley,sans-serif;margin:0 0 15px}.rail .fixture{padding:12px 0;border-top:1px solid var(--line);color:var(--muted)}.rail .fixture.active{color:var(--mint)}.rail .fixture b{color:var(--ink)}.rail .fixture small{display:block}.notice{padding:12px 14px;border-left:3px solid var(--coral);background:#482e30;color:#fff;margin-bottom:16px}.muted{color:var(--muted)}.row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.weights{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:10px;margin:15px 0}.weights label{display:grid;gap:5px;color:var(--muted);font-size:12px}.weights input{width:100%}.map{width:100%;aspect-ratio:1000/720;background:#0a1d20;border:1px solid var(--line);display:block}.log{max-height:230px;overflow:auto;margin-top:12px}.log div{padding:5px 0;border-bottom:1px solid #ffffff17;font-size:12px}.log time{color:var(--mint);display:inline-block;width:54px}.foot{color:#829c94;font-size:11px;margin-top:26px}.hidden{display:none}@media(max-width:900px){.hero{grid-template-columns:1fr}.rail{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:20px}.shell{padding:16px}.item{grid-template-columns:24px 1fr 90px}.item select{grid-column:2/4}.mast{grid-template-columns:1fr;gap:15px}}
+
+.pack-columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.pack-column{border:1px solid var(--line);background:#0d2425;padding:14px}.pack-column h3{margin:0 0 12px;font-size:20px}.compact-card{display:grid;grid-template-columns:1fr auto;gap:4px;border-bottom:1px solid var(--line);padding:8px 0}.compact-card strong{font-size:15px}.compact-card small{font-size:11px;color:var(--muted)}.compact-card .numbers{grid-column:1/-1;color:var(--muted);font-size:11px}.pack-column .actions button{width:100%}.team-pick{min-height:72px;text-align:left}.team-pick strong{font-size:22px;display:block}.team-pick small{color:var(--muted)}.selection-card{display:block;cursor:pointer}.selection-card input{margin-right:8px}.selection-card.locked{opacity:.45}.pill{color:var(--gold);font-size:12px}.setup-steps{display:flex;gap:10px;margin-bottom:22px;flex-wrap:wrap}.setup-steps span{font-size:12px;color:var(--muted)}.setup-steps .active{color:var(--mint)}.ready-roster{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}@media(max-width:1050px){.ready-roster{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:700px){.pack-columns{grid-template-columns:1fr}.ready-roster{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<main class="shell"><header class="mast"><div><div class="brand">VALORANT <b>MANAGER</b></div><div class="sub">随机组队 · 地图博弈 · 教练执掌比赛</div></div><div class="roundtag">征战模式 / 开局试玩</div></header><div id="notice" role="status" aria-live="polite"></div><div class="hero"><div id="content" class="content"></div><aside id="rail" class="rail"></aside></div><footer class="foot">本次试玩开放主队选择与三包组队，比赛将在下一批开放。存档会自动保存，刷新可继续。</footer></main>
+<script>
+/*%%BUNDLE%%*/
+const { indexedDBStore, localStorageStore } = __require('', '游戏/storage.js');
+const { STAGES } = __require('', '游戏/season-flow.js');
+const { resolveRunCard } = __require('', '游戏/roster.js');
+const content=document.getElementById('content'),rail=document.getElementById('rail'),notice=document.getElementById('notice');
+let store,state=null,draft=null,draftKey=null,busy=false,quitPrompt=false;
+try { store=window.indexedDB?indexedDBStore(window.indexedDB):localStorageStore(window.localStorage); }
+catch(error){store={load:async()=>{throw error;},exportRaw:async()=>{throw error;}};}
+const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const cardOf=i=>resolveRunCard(state.activeRun,i.cardId);
+const button=(action,label,cls='',attrs='')=>`<button data-action="${action}" class="${cls}" ${attrs}>${label}</button>`;
+function tell(message){notice.innerHTML=message?`<div class="notice">${esc(message)}</div>`:'';}
+async function send(type,payload={}){
+ if(busy)return;busy=true;content.querySelectorAll('button').forEach(b=>b.disabled=true);
+ try{state=await store.dispatch({id:crypto.randomUUID(),expectedRevision:state.revision,type,payload});draftKey=null;quitPrompt=false;tell('');}
+ catch(error){tell(error.message||String(error));}
+ finally{busy=false;render();}
+}
+function railView(){
+ const run=state.activeRun;
+ rail.innerHTML=`<h3>我的征战</h3><div class="stats"><div class="stat"><strong>${Object.keys(state.career.album).length}</strong><span>已收集卡牌版本</span></div><div class="stat"><strong>${run?.ownedCards.length===5?'5':'—'}</strong><span>正式队员</span></div></div>${STAGES.map((s,i)=>`<div class="fixture ${run?.stageIndex===i?'active':''}"><small>${i+1} / ${s.reinforcement?'赛前补强':''}</small><b>${esc(s.name)}</b></div>`).join('')}<div class="panel flat"><p class="muted">初始和补强卡包均来自 CN。五人上场，无替补，最多一钻。开出的全部卡牌进入图鉴。</p></div>`;
+}
+function steps(run){
+ const phaseIndex={'choose-home-team':0,'open-starter':1,'choose-pack':2,'choose-lineup':3,ready:4};
+ return `<div class="setup-steps">${['选择主队','开三个包','选一个包','选五人','开始征战'].map((s,i)=>`<span class="${phaseIndex[run.phase]===i?'active':''}">${i+1}. ${s}</span>`).join('')}</div>`;
+}
+function careerView(){
+ const c=state.career;
+ return `<section class="panel flat"><span class="eyebrow">收藏与记录</span><p>图鉴 ${Object.keys(c.album).length} 种 · 历史记录 ${c.runHistory.length} 次 · 荣誉 ${c.honors.length} 项</p>${state.legacyArchives.length?`<p class="muted">已保留 ${state.legacyArchives.length} 份旧测试赛段存档，图鉴与历史荣誉继续保留。</p>${button('export-legacy','导出旧存档备份')}`:''}</section>`;
+}
+function teamView(run){
+ const teams=run.contentSnapshot.rosters.teams.filter(t=>t.selectable);
+ return `<section class="panel"><span class="eyebrow">CN 联赛</span><h1 class="title">选择你要执教的主队</h1><p class="lead">你的五人阵容将替换这支主队的赛事席位。选手由卡包招募，主队真实阵容不会直接加入。</p><div class="grid">${teams.map(t=>button('select-home',`<strong>${esc(t.teamId)}</strong><small>替换赛事席位</small>`,'team-pick',`data-team="${esc(t.teamId)}"`)).join('')}</div></section>`;
+}
+function smallCard(i){const c=cardOf(i);return `<div class="compact-card"><strong>${esc(c.name)}</strong><span class="pill">${esc(c.tier)}</span><small>${esc(c.team)}${c.cut?` · ${esc(c.cut)}`:''}</small><span></span><div class="numbers">枪法 ${c.AIM} · 协同 ${c.SYN} · 意识 ${c.SEN}</div></div>`;}
+function packView(run){
+ if(run.phase==='open-starter')return `<section class="panel"><span class="eyebrow">主队 ${esc(run.homeTeamId)}</span><h1 class="title">一次打开三个初始包</h1><p class="lead">三个包的 30 张卡全部展示。选择一个完整卡包，再从其中选出五名队员。</p><p class="muted">钻 5% · 金 15% · 银 30% · 铜 50%<br>包内卡版本不重复；某档抽空后按剩余档位权重抽取。</p><div class="actions">${button('open-three','打开三个卡包','primary')}</div></section>`;
+ return `<section class="panel"><span class="eyebrow">三个初始包 / 全部已保存</span><h1 class="title">哪一包是你的建队起点？</h1><p class="lead">所有卡牌已解锁图鉴。确认后只能使用该包的十张卡组队，不能跨包混选。</p><div class="pack-columns">${run.starterPacks.map((p,i)=>`<section class="pack-column" aria-label="初始包 ${i+1}"><h3>初始包 ${i+1}</h3>${p.instances.map(smallCard).join('')}<div class="actions">${button('select-pack',`选择初始包 ${i+1}`,'primary',`data-pack="${esc(p.id)}"`)}</div></section>`).join('')}</div></section>`;
+}
+function lineupView(run){
+ const replacing=run.phase==='reinforcement';
+ const candidates=replacing?[...run.ownedCards,...run.pendingReinforcement.instances]:run.ownedCards;
+ const key=`${run.id}:${run.phase}:${run.stageId}`;
+ if(draftKey!==key){draftKey=key;draft={ids:replacing?[...run.registeredLineup.instanceIds]:[],name:run.registeredLineup?.name||'我的战队'};}
+ const chosen=candidates.filter(i=>draft.ids.includes(i.instanceId));
+ const pickedPlayers=new Set(chosen.map(i=>i.playerId));
+ const diamond=chosen.some(i=>cardOf(i).tier==='钻');
+ const count=draft.ids.length;
+ return `<section class="panel"><span class="eyebrow">${replacing?'赛段补强':'五人组队'} / 已选 ${count}/5</span><h1 class="title">${replacing?'确认下一赛段的五人':'选出你的五位队员'}</h1><p class="lead">${replacing?'从现役五人与本次十张卡中保留五人，可以全部保留或全部更换。确认后离队卡不能召回。':'五名不同选手，最多一张钻卡。英雄会在每张地图赛前选择，队内职责由选手自动承担。'}</p><label>队伍名称 <input id="team-name" type="text" maxlength="30" value="${esc(draft.name)}"></label><div class="grid" style="margin-top:20px">${candidates.map(i=>{
+ const c=cardOf(i),checked=draft.ids.includes(i.instanceId);
+ const conflict=!checked&&(count>=5||pickedPlayers.has(i.playerId)||(diamond&&c.tier==='钻'));
+ const current=replacing&&run.registeredLineup.instanceIds.includes(i.instanceId);
+ return `<label class="card selection-card ${checked?'selected':''} ${c.tier==='钻'?'diamond':''} ${conflict?'locked':''}"><span class="tier">${esc(c.tier)}</span><strong><input type="checkbox" data-instance="${esc(i.instanceId)}" aria-label="选择 ${esc(c.name)} ${esc(c.tier)}" ${checked?'checked':''} ${conflict?'disabled':''}>${esc(c.name)}</strong><small>${esc(c.team)}${c.cut?` · ${esc(c.cut)}`:''}${current?' · 现役队员':''}</small><div class="hint">枪法 ${c.AIM} / 协同 ${c.SYN} / 意识 ${c.SEN}</div><small>${esc(c.agents.join(' / '))}</small></label>`;
+ }).join('')}</div><div class="actions">${button(replacing?'confirm-reinforcement':'confirm-five',replacing?'确认补强阵容':'确认五人阵容','primary',count===5?'':'disabled')}</div></section>`;
+}
+function readyView(run){
+ return `<section class="panel"><span class="eyebrow">${esc(run.homeTeamId)} / 阵容已确认</span><h1 class="title">${esc(run.registeredLineup.name)}</h1><p class="lead">你的五人已保存。这支队伍将从启点赛开始征战。</p><div class="stats">${Object.entries(run.team).map(([name,value])=>`<div class="stat"><strong>${Math.round(value)}</strong><span>${esc(name)}</span></div>`).join('')}</div><div class="ready-roster">${run.ownedCards.map(i=>{const c=cardOf(i);return `<div class="card"><span class="tier">${esc(c.tier)}</span><strong>${esc(c.name)}</strong><small>${esc(c.team)}</small><p class="hint">枪法 ${c.AIM}<br>协同 ${c.SYN}<br>意识 ${c.SEN}</p></div>`;}).join('')}</div><div class="actions"><button disabled>比赛即将开放</button>${button('export-save','导出存档')}</div><p class="muted">本批开局试玩到此完成。下一批接入赛前布置、比赛规则和二维观赛。</p></section>`;
+}
+function render(){
+ if(!state)return;railView();const run=state.activeRun;
+ if(!run)content.innerHTML=`<section class="panel"><span class="eyebrow">新的赛年</span><h1 class="title">组一支属于你的五人队。</h1><p class="lead">选一个 CN 主队席位，打开三个初始包，选择一个包组成队伍。你的执教征战从这里开始。</p><div class="actions">${button('begin','开始新征战','primary')}${button('export-save','导出存档')}</div></section>${careerView()}`;
+ else{
+ let page=run.phase==='choose-home-team'?teamView(run):['open-starter','choose-pack'].includes(run.phase)?packView(run):['choose-lineup','reinforcement'].includes(run.phase)?lineupView(run):readyView(run);
+ content.innerHTML=steps(run)+page+(quitPrompt?`<section class="panel"><p>退出本次征战？已解锁图鉴会保留，本次五人阵容不带入下一局。</p><div class="actions">${button('confirm-quit','确认退出','danger')}${button('cancel-quit','继续当前征战')}</div></section>`:`<div class="actions">${button('quit','退出本次征战','danger')}</div>`);
+ }
+}
+async function exportSave(legacy=false){try{
+ const raw=legacy?await store.exportLegacyRaw():await store.exportRaw();
+ if(!raw){tell('没有旧存档备份');return;}
+ const url=URL.createObjectURL(new Blob([raw],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=legacy?'val-manager-legacy-backup.json':'val-manager-season-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}catch(error){tell(`导出失败：${error.message||error}`);}}
+content.addEventListener('click',event=>{
+ const target=event.target.closest('[data-action]');if(!target||target.disabled||busy)return;
+ const action=target.dataset.action;
+ if(action==='begin')return send('begin_run',{runId:crypto.randomUUID(),seed:crypto.getRandomValues(new Uint32Array(1))[0]});
+ if(action==='select-home')return send('select_home_team',{teamId:target.dataset.team});
+ if(action==='open-three')return send('open_initial_packs');
+ if(action==='select-pack')return send('select_initial_pack',{packId:target.dataset.pack});
+ if(action==='confirm-five'||action==='confirm-reinforcement')return send(action==='confirm-five'?'confirm_lineup':'confirm_reinforcement',{instanceIds:draft.ids,name:draft.name});
+ if(action==='export-save')return exportSave();
+ if(action==='export-legacy')return exportSave(true);
+ if(action==='quit'){quitPrompt=true;render();}
+ if(action==='cancel-quit'){quitPrompt=false;render();}
+ if(action==='confirm-quit')return send('abandon_run');
+});
+content.addEventListener('change',event=>{
+ const el=event.target;if(!draft)return;
+ if(el.matches('[data-instance]')){draft.name=document.getElementById('team-name').value;draft.ids=el.checked?[...draft.ids,el.dataset.instance]:draft.ids.filter(id=>id!==el.dataset.instance);render();}
+});
+content.addEventListener('input',event=>{if(event.target.id==='team-name'&&draft)draft.name=event.target.value;});
+(async()=>{try{state=await store.load();render();}catch(error){tell(`存档读取失败：${error.message||error}。原始数据已保留。`);content.innerHTML=`<section class="panel"><h2 class="title">存档暂时无法读取</h2><p>请先导出原始数据备份，再检查浏览器存储权限。</p>${button('export-save','导出原始存档')}</section>`;}})();
+</script>
+</body>
+</html>

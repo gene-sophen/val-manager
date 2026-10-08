@@ -1,0 +1,6 @@
+const test=require('node:test'),assert=require('node:assert/strict'),C=require('../career-store'),fs=require('node:fs'),path=require('node:path');
+const checkpoint=path.resolve(__dirname,'../../docs/validation/2026-10-08-spatial-campaign/browser-checkpoint.json');
+const state=()=>C.unpack(JSON.parse(fs.readFileSync(checkpoint,'utf8')));
+test('spatial career retains frozen behavior, replay journal, pending shared window and score',()=>{const s=state(),saved=C.pack(s),restored=C.unpack(saved);assert.deepEqual(restored,s);assert.equal(restored.coachWindow,'opponent');assert.equal(restored.liveMaps[0].spatial.commands.length,1);assert.equal(restored.liveMaps[0].home,2);});
+test('unknown or incomplete spatial season policy is rejected before restore',()=>{for(const mutate of [s=>delete s.spatialCampaignPolicy.versions.split,s=>s.spatialCampaignPolicy.versions.haven='haven-balance-future',s=>s.spatialEnabled=false]){const s=state();mutate(s);assert.throws(()=>C.pack(s),/空间引擎/);}});
+test('map mismatch, numerical fallback or truncated spatial journal cannot replace a valid career',()=>{for(const mutate of [m=>m.spatial.initial.mapId='split',m=>m.spatial.initial.behaviorVersion='haven-balance-2',m=>delete m.spatial,m=>m.spatial.commands.pop(),m=>m.home++]){const s=state();mutate(s.liveMaps[0]);assert.throws(()=>C.pack(s),/存档/);}});

@@ -1,0 +1,78 @@
+{
+  "releaseId": "campaign-spatial-20261008-1",
+  "fullSeasons": [
+    {
+      "seed": "formal-year-a",
+      "engineExecution": null,
+      "formalMaps": 31,
+      "rounds": 583,
+      "restores": 2,
+      "regularPauses": null,
+      "overtimePauses": null,
+      "nextYear": 2,
+      "complete": true
+    },
+    {
+      "seed": "formal-year-b",
+      "engineExecution": null,
+      "formalMaps": 36,
+      "rounds": 704,
+      "restores": 2,
+      "regularPauses": null,
+      "overtimePauses": null,
+      "nextYear": 2,
+      "complete": true
+    },
+    {
+      "seed": "formal-year-c",
+      "engineExecution": "native same-source engine / current frontend",
+      "formalMaps": 33,
+      "rounds": 664,
+      "restores": 2,
+      "regularPauses": 2,
+      "overtimePauses": 1,
+      "nextYear": 2,
+      "complete": true
+    }
+  ],
+  "finals": [
+    {
+      "label": "final-upper",
+      "maps": 4,
+      "rounds": 66,
+      "restores": 1,
+      "regularPauses": 2,
+      "overtimePauses": 0,
+      "scoreA": 3,
+      "scoreB": 1,
+      "winner": "EDG",
+      "complete": true
+    },
+    {
+      "label": "final-lower",
+      "maps": 3,
+      "rounds": 62,
+      "restores": 1,
+      "regularPauses": 2,
+      "overtimePauses": 1,
+      "scoreA": 3,
+      "scoreB": 0,
+      "winner": "TYL",
+      "complete": true
+    }
+  ],
+  "tests": {
+    "passed": 385,
+    "failed": 0,
+    "log": "tests-final.log"
+  },
+  "browser": {
+    "database": "val-manager-test-ui-c8a4e7b7-4c6d-4ea7-901a-724db36a87b4",
+    "restoredHalftimeScore": "4:8",
+    "mapResult": "13:9",
+    "nextYear": 2,
+    "newPolicy": "campaign-spatial-20261008-1",
+    "defaultSpeed": 2
+  },
+  "balanceScope": "User accepts map/roster variation. No forced 55% outcome cap; not certified universal 45-55 balance."
+}

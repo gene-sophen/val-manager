@@ -1,0 +1,23 @@
+{
+  "version":"user-screenshot-2026-10-07",
+  "status":"awaiting-column-and-scope-confirmation",
+  "source":"用户提供的两张地图统计截图",
+  "columnOrder":null,
+  "sampleUnit":null,
+  "scope":null,
+  "rows":[
+    {"id":"lotus","sample":454,"firstPercent":53,"secondPercent":47},
+    {"id":"corrode","sample":191,"firstPercent":50.3,"secondPercent":49.7},
+    {"id":"ascent","sample":331,"firstPercent":46.3,"secondPercent":53.7},
+    {"id":"bind","sample":246,"firstPercent":52.1,"secondPercent":47.9},
+    {"id":"split","sample":207,"firstPercent":51.9,"secondPercent":48.1},
+    {"id":"icebox","sample":216,"firstPercent":52,"secondPercent":48},
+    {"id":"haven","sample":408,"firstPercent":52.6,"secondPercent":47.4},
+    {"id":"abyss","sample":null,"firstPercent":null,"secondPercent":null},
+    {"id":"breeze","sample":null,"firstPercent":null,"secondPercent":null},
+    {"id":"summit","sample":null,"firstPercent":null,"secondPercent":null},
+    {"id":"sunset","sample":275,"firstPercent":51.3,"secondPercent":48.7},
+    {"id":"fracture","sample":null,"firstPercent":null,"secondPercent":null},
+    {"id":"pearl","sample":121,"firstPercent":50.3,"secondPercent":49.7}
+  ]
+}

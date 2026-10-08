@@ -1,0 +1,20 @@
+✔ a closed release still fails closed and legacy numerical fixtures retain their model (99.8457ms)
+✔ an incomplete release gate fails before opening a new year or consuming cards (37.4507ms)
+✔ a formally selected map freezes its season policy, respects real heroes and restores the same next round (9827.3344ms)
+✔ published new campaigns select the nine frozen revisions while loading an old year preserves its model (204.8062ms)
+✔ invalid release rejects before the content upgrade wrapper changes a frozen season (86.5658ms)
+✔ new play defaults to 2x; migration changes only the old default preference and respects later manual choices (102.6758ms)
+✔ legacy explicit slow/fast choices survive the default migration; invalid speed recovers to 2x (39.8363ms)
+✔ offline shell includes every actual boot script and all shell URLs resolve locally (5.5678ms)
+✔ current app parses, starts with transactional store and preserves pathname in isolated harness (1.7172ms)
+✔ spatial career retains frozen behavior, replay journal, pending shared window and score (46.4962ms)
+✔ unknown or incomplete spatial season policy is rejected before restore (44.5707ms)
+✔ map mismatch, numerical fallback or truncated spatial journal cannot replace a valid career (75.5613ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10526.5619

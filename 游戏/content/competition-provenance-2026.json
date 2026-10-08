@@ -1,0 +1,25 @@
+{
+ "version":"2026-verification-2026-10-07",
+ "sources":{
+  "leagueRules":"https://cdn.sanity.io/files/dsfx7636/news_live/f600a428dbcb54cff5814750f4c4be2b699d7934.pdf",
+  "pacificStage2":"https://valorantesports.com/en-US/tournament/115581280953275017/overview",
+  "pacificPlayin":"https://valorantesports.com/en-US/tournament/115581280953275017/stage/115581280953864843",
+  "pacificSeason":"https://valorantesports.com/en-PH/news/vct-pacific-2026-season-primer",
+  "sea":"https://valorantesports.com/en-PH/news/valorant-challengers-sea-2026-primer",
+  "pathEligibility":"https://valorantesports.com/en-US/news/vct-2026-season-start-eyntk"
+ },
+ "verified":{
+  "pacificStage2":{"groups":2,"teamsPerGroup":6,"roundRobin":"single","bestOf":3,"directPerGroup":2,"playinLeagueTeams":8,"playinChallengers":4,"playinByes":"每组第3/4名","playinBestOf":3,"playinQualifiers":4,"playoffTeams":8,"playoffByes":"两组第一","playoffLowerStart":"入围第三/第四","lowerFinalBestOf":5,"grandFinalBestOf":5,"championsDirect":2,"championsPointsSlots":2},
+  "pacificChallengerOrigins":["东南亚冠军","日本冠军","韩国冠军","LCQ冠军"],
+  "pacificLCQOrigins":["东南亚亚军","东南亚积分最高的其他队伍","南亚冠军","大洋洲冠军"],
+  "academyPathEligible":false,
+  "stage2PointAwards":[8,6,5,4],
+  "regularSeasonWinPoints":1
+ },
+ "unverified":[
+  {"id":"pacific-slot-diagram","reason":"官方概览明确轮空和晋级；入围签表专页在网页与浏览器均未返回实际签表。当前具体败者落位保留public-constraints-provisional，不能标成官方图。"},
+  {"id":"challenger-draw-extra-constraints","reason":"尚未取得完整地区分档及回避条款；同池随机是明示游戏后备，不冒充官方抽签。"},
+  {"id":"challenger-championship-points-eligibility","reason":"联赛规则仅说明同分过程；挑战者能否凭第二赛段积分取第三/第四席位未见明确条款。当前保留前二直通路径及联赛队积分候选。"}
+ ],
+ "gameAdaptations":{"formalBestOf":3,"formalGrandFinalBestOf":5,"completeTieFallback":"自动BO1，代替主办方裁量","maps":"七图随机池，每个大段换两图","foreignRegionalDetail":"保留实际规则下的系列比分，不记录逐分细报"}
+}

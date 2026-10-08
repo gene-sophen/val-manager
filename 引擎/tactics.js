@@ -9,6 +9,8 @@ const F = cfg.fake;
 
 const OFFENSE = ['rush', 'mid', 'lurk', 'fake']; // 爆弹冲点 / 中路接触 / 边线渗透 / 假打转点
 const DEFENSE = ['push', 'hold', 'stack']; // 防守前压 / 默认架点 / 赌点防守
+const CAMPAIGN_OFFENSE = ['rush', 'mid', 'fake', 'lurk', 'contact'];
+const CAMPAIGN_DEFENSE = ['push', 'hold', 'trap', 'flank', 'retake'];
 
 function pickSite(rng, avoid) {
   const s = rng() < 0.5 ? 'A' : 'B';
@@ -81,6 +83,16 @@ function buildOffense(map, family, rng) {
     };
   }
 
+  if (family === 'contact') {
+    return { family, side: 'atk', site, siteWeights: sw,
+      pace: { contactTick: 24, commitTick: 34 }, utilPosture: 0.4,
+      regions: [site, 'mid'], fakeout: null, carrier: 0,
+      roles: ['hit', 'hit', 'hit', 'flank', 'flank'],
+      homes: [n.main, n.main, n.main, 'mid_top', 'mid_top'],
+      routes: { hit: [n.main, n.lobby, S], flank: ['mid_top', 'mid', n.short, S] },
+      limitIdx: { hit: 1, flank: 1 } };
+  }
+
   // fake 假打转点：1 人在佯攻点交动静拉扯防守，4 人埋伏真点入口等窗口一波打进
   const fakeTick = F.fakeTick + Math.floor(rng() * 8) - 4;
   const hitTick = fakeTick + 9 + Math.floor(rng() * 4); // 真打必须跟上假象的窗口期
@@ -102,6 +114,31 @@ function buildOffense(map, family, rng) {
 
 function buildDefense(map, family, rng) {
   const sw = { A: 0.5, B: 0.5 };
+
+  if (family === 'trap') {
+    const site = pickSite(rng);
+    return { family, side: 'def', site, siteWeights: sw,
+      pace: { contactTick: 0, commitTick: 0 }, utilPosture: 0.85,
+      regions: [site, 'mid'], fakeout: null, carrier: -1,
+      roles: ['home', 'home', 'home', 'home', 'anchor'],
+      homes: site === 'A' ? ['a_heaven', 'a_short', 'a_site', 'mid_bottom', 'b_site']
+        : ['b_back', 'market', 'b_site', 'mid_bottom', 'a_site'], routes: {}, limitIdx: {} };
+  }
+  if (family === 'flank') {
+    return { family, side: 'def', siteWeights: sw,
+      pace: { contactTick: 0, commitTick: 24 }, utilPosture: 0.5,
+      regions: ['A', 'B'], fakeout: null, carrier: -1,
+      roles: ['roam', 'roam', 'home', 'home', 'home'],
+      homes: ['a_lobby', 'b_lobby', 'a_heaven', 'mid_bottom', 'b_site'],
+      routes: { roam: ['mid_bottom', 'market', 'b_lobby', 'b_main', 't_spawn'] }, limitIdx: { roam: 0 } };
+  }
+  if (family === 'retake') {
+    return { family, side: 'def', siteWeights: sw,
+      pace: { contactTick: 0, commitTick: 0 }, utilPosture: 0.3,
+      regions: ['A', 'B'], fakeout: null, carrier: -1,
+      roles: ['anchor', 'anchor', 'home', 'home', 'home'],
+      homes: ['a_site', 'b_site', 'ct_a', 'ct_b', 'ct_spawn'], routes: {}, limitIdx: {} };
+  }
 
   if (family === 'push') {
     // 防守前压：双人顶中路拦截慢摸，roamTick 后向匪家游猎绕后；其余三人收缩架点
@@ -150,6 +187,9 @@ function buildDefense(map, family, rng) {
 }
 
 function buildIntent(map, side, family, rng) {
+  const valid = side === 'atk' ? CAMPAIGN_OFFENSE : [...CAMPAIGN_DEFENSE, 'stack'];
+  if (!valid.includes(family)) throw new Error('未知战术族: ' + family);
+  if(map.data.spatialVersion===6)return require('./map-tactics').build(map,side,family,rng);
   return side === 'atk'
     ? buildOffense(map, family, rng)
     : buildDefense(map, family, rng);
@@ -157,6 +197,7 @@ function buildIntent(map, side, family, rng) {
 
 // 临场改换主攻方向：重建点位倾向与角色路线（mid 族读取薄弱侧后调用）
 function aimAt(intent, map, site) {
+  if(map.data.spatialVersion===6)return require('./map-tactics').aimAt(intent,map,site);
   const S = map.siteNode(site);
   const n = sideNodes(site);
   intent.site = site;
@@ -169,4 +210,4 @@ function aimAt(intent, map, site) {
   }
 }
 
-module.exports = { OFFENSE, DEFENSE, buildIntent, aimAt };
+module.exports = { OFFENSE, DEFENSE, CAMPAIGN_OFFENSE, CAMPAIGN_DEFENSE, buildIntent, aimAt };

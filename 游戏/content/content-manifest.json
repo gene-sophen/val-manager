@@ -1,0 +1,31 @@
+{
+  "version": "2026-opening-v1",
+  "status": "opening-ready-full-season-incomplete",
+  "capturedOn": "2026-10-03",
+  "rulesVersion": "season-2026-v2",
+  "availableFeatures": [
+    "home-team",
+    "three-packs",
+    "five-player-lineup",
+    "reinforcement-state-machine",
+    "versioned-save"
+  ],
+  "pending": [
+    "real-tournaments",
+    "series",
+    "nine-map-engine",
+    "automatic-progression",
+    "international-entrant-data",
+    "gsr-card",
+    "tomaszy-card"
+  ],
+  "hashes": {
+    "游戏/content/rosters/2026-production-v1.json": "b964b58db5c2bb19282b7f6bf459a12a656a25d918b579b9ef83dff0a6472300",
+    "游戏/content/maps.json": "680d8facd86f5ecb790d248d5dca2237866ec38929d821a327251584f7f84931",
+    "游戏/content/coaches.json": "18f32bb01c732311b354ae67383d95c8d02926db6ac5cc529f0a4f1db7df71fa",
+    "游戏/content/rules.json": "4a04e3d5fcbc3539b94a0e1396a9c1d8e3f5ab6f97d9206f333a9cfcefc6b9e0",
+    "游戏/content/packs.json": "2167f3ee8c760b32459b8a28c64abb428b6a661d3d3d7e729d65ecd59668ca97",
+    "数据源/cards_full.json": "42d594d24d28a142c3175c6cc3abbafe5dd31cb02a3e426bfce64a0a515d903f",
+    "数据源/diamond_cards.json": "26885c6c8569cb09688315df0659a90cfcef3be3671c8cd47f9e568f99a569fe"
+  }
+}

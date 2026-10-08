@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VALORANT MANAGER · 测试征程</title>
+<style>
+@font-face{font-family:Smiley;src:url('../../素材库/字体/SmileySans-Oblique.woff2') format('woff2');font-display:swap}
+:root{--ink:#eaf2ec;--muted:#9caea9;--panel:#152a2a;--panel2:#1c3633;--line:#365651;--mint:#b8ffcb;--coral:#ff786c;--gold:#f7ce78;--base:#0b1719}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 92% 0,#284b41 0,transparent 34%),linear-gradient(155deg,#071417,#102320 60%,#0a191c);color:var(--ink);font:15px/1.55 'Microsoft YaHei',sans-serif;min-height:100vh}button,select,input{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:#25403c;color:var(--ink);padding:10px 15px;border-radius:4px}button:hover:not(:disabled){border-color:var(--mint);color:var(--mint)}button:disabled{opacity:.5;cursor:not-allowed}.primary{background:var(--mint);color:#08211e;border-color:var(--mint);font-weight:800}.primary:hover:not(:disabled){background:#e1ffe7;color:#08211e}.danger{color:var(--coral)}select,input[type=number],input[type=text]{background:#102422;border:1px solid var(--line);color:var(--ink);padding:9px;border-radius:4px;min-width:0}input[type=number]{width:95px}input[type=checkbox],input[type=radio]{accent-color:var(--mint)}
+.shell{max-width:1480px;margin:0 auto;padding:28px 30px 50px}.mast{display:grid;grid-template-columns:1fr auto;align-items:end;border-bottom:2px solid var(--mint);padding-bottom:20px;margin-bottom:25px}.brand{font:clamp(32px,5vw,70px)/.92 Smiley,'Microsoft YaHei',sans-serif;letter-spacing:-.04em;text-transform:uppercase}.brand b{color:var(--mint)}.sub{color:var(--muted);letter-spacing:.22em;font-size:11px;text-transform:uppercase;margin-top:12px}.roundtag{border:1px solid var(--mint);padding:9px 14px;color:var(--mint);font-size:12px;letter-spacing:.12em}.hero{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:24px}.content{min-width:0}.rail{border-left:1px solid var(--line);padding-left:24px}.panel{background:linear-gradient(160deg,rgba(31,62,57,.95),rgba(16,36,37,.96));border:1px solid var(--line);padding:22px;margin-bottom:16px;box-shadow:0 16px 45px #0003}.panel.flat{background:transparent}.eyebrow{color:var(--mint);text-transform:uppercase;letter-spacing:.2em;font-size:11px;font-weight:800}.title{font:clamp(25px,3vw,42px)/1.15 Smiley,'Microsoft YaHei',sans-serif;margin:6px 0 14px}.lead{color:var(--muted);max-width:760px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}.stats{display:flex;gap:28px;flex-wrap:wrap;margin:18px 0}.stat strong{display:block;font:32px/1 Smiley,sans-serif}.stat span{color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:11px}.card{border:1px solid var(--line);background:#102525;padding:14px;min-height:116px}.card strong{display:block;font-size:18px}.card .tier{float:right;color:var(--gold);font-size:12px}.card small{color:var(--muted)}.card.selected{border-color:var(--mint);background:#203f38}.card.diamond{border-color:#d9bcff}.item{display:grid;grid-template-columns:34px minmax(100px,1fr) 110px 160px;gap:9px;align-items:center;border-bottom:1px solid var(--line);padding:9px 0}.item .name{font-weight:bold}.item .hint{font-size:11px;color:var(--muted)}.item select{width:100%}.offer{display:block;text-align:left;width:100%;min-height:150px}.offer .route{display:block;color:var(--mint);font-size:11px;letter-spacing:.1em}.offer strong{font:24px/1.2 Smiley,sans-serif;display:block;margin:8px 0}.offer p{margin:0;color:var(--muted);font-size:13px}.offer:hover{background:#294d42}.score{font:clamp(48px,7vw,108px)/.9 Smiley,sans-serif;letter-spacing:-.06em}.score em{font-style:normal;color:var(--coral)}.score span{color:var(--muted);font-size:.5em;margin:0 8px}.timeline{display:flex;align-items:center;gap:4px;margin:20px 0}.dot{flex:1;height:9px;background:#33524d}.dot.done{background:var(--mint)}.dot.current{background:var(--coral)}.rail h3{font:23px Smiley,sans-serif;margin:0 0 15px}.rail .fixture{padding:12px 0;border-top:1px solid var(--line);color:var(--muted)}.rail .fixture.active{color:var(--mint)}.rail .fixture b{color:var(--ink)}.rail .fixture small{display:block}.notice{padding:12px 14px;border-left:3px solid var(--coral);background:#482e30;color:#fff;margin-bottom:16px}.muted{color:var(--muted)}.row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.weights{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:10px;margin:15px 0}.weights label{display:grid;gap:5px;color:var(--muted);font-size:12px}.weights input{width:100%}.map{width:100%;aspect-ratio:1000/720;background:#0a1d20;border:1px solid var(--line);display:block}.log{max-height:230px;overflow:auto;margin-top:12px}.log div{padding:5px 0;border-bottom:1px solid #ffffff17;font-size:12px}.log time{color:var(--mint);display:inline-block;width:54px}.foot{color:#829c94;font-size:11px;margin-top:26px}.hidden{display:none}@media(max-width:900px){.hero{grid-template-columns:1fr}.rail{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:20px}.shell{padding:16px}.item{grid-template-columns:24px 1fr 90px}.item select{grid-column:2/4}.mast{grid-template-columns:1fr;gap:15px}}
+</style>
+</head>
+<body>
+<main class="shell"><header class="mast"><div><div class="brand">VALORANT <b>MANAGER</b></div><div class="sub">随机建队 · 真实推演 · 战术成长 / 测试赛段</div></div><div class="roundtag">PROTOTYPE / FOUR FIXTURES</div></header><div id="notice"></div><div class="hero"><div id="content" class="content"></div><aside id="rail" class="rail"></aside></div><footer class="foot">本页面为四场简化测试赛段，使用现有比赛引擎。职业联赛赛制与完整二维地图仍在开发中。</footer></main>
+<script>
+/*%%BUNDLE%%*/
+const { createState } = __require('', '游戏/state.js');
+const { indexedDBStore, localStorageStore } = __require('', '游戏/storage.js');
+const { allAgents } = __require('', '引擎/agents.js');
+const catalog = __require('', '游戏/catalog.js');
+const { getGrowth } = __require('', '游戏/growth.js');
+const { offerPreparation } = __require('', '游戏/preparation.js');
+const { reviewMatch } = __require('', '游戏/review.js');
+const { snapshotAt } = __require('', '引擎/snapshot.js');
+const fixtures = __require('', '游戏/content/demo-run.json').fixtures;
+const map = __require('', '引擎/maps/ascent.json');
+let store;
+try { store = window.indexedDB ? indexedDBStore(window.indexedDB) : localStorageStore(window.localStorage); }
+catch (error) { store = { load: async()=>{ throw error; }, exportRaw: async()=>{ throw error; } }; }
+const content = document.getElementById('content'), rail = document.getElementById('rail'), notice = document.getElementById('notice');
+let state = null, draft = null, draftKey = null, replayTick = 0, replayTimer = null, reviewRound = null;
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const cardOf = instance => catalog.getCard(instance.cardId);
+const button = (action, label, cls = '') => `<button data-action="${action}" class="${cls}">${label}</button>`;
+function tell(message) { notice.innerHTML = message ? `<div class="notice">${esc(message)}</div>` : ''; }
+async function send(type, payload = {}) {
+  try {
+    const id = crypto.randomUUID();
+    state = await store.dispatch({ id, expectedRevision: state.revision, type, payload });
+    if (replayTimer) { clearInterval(replayTimer); replayTimer = null; }
+    replayTick = 0;
+    reviewRound = null;
+    tell(''); render();
+  } catch (error) { tell(error.message || String(error)); }
+}
+function railView() {
+  const run = state.activeRun;
+  const wins = run ? run.results.filter(r => r.winner === 'A').length : 0;
+  rail.innerHTML = `<h3>赛段进度</h3><div class="stats"><div class="stat"><strong>${wins}</strong><span>本轮胜场</span></div><div class="stat"><strong>${run ? run.growth.length : 0}</strong><span>已选成长</span></div></div>${fixtures.map((fixture,i) => {
+    const result = run?.results[i];
+    return `<div class="fixture ${run?.fixtureIndex === i ? 'active' : ''}"><small>第 ${i+1} 场 / ${esc(fixture.id)}</small><b>${esc(fixture.opponent.name)}</b><small>${result ? `${result.scoreA}:${result.scoreB} ${result.winner === 'A' ? '胜' : '负'}` : i === 1 ? '赛后阶段补强' : '待进行'}</small></div>`;
+  }).join('')}<div class="panel flat"><span class="eyebrow">本轮规则</span><p class="muted">五人上场、最多一钻。同名选手不能同时上场。成长和选手库存仅属于本轮征程；图鉴和记录永久保留。</p></div>`;
+}
+function resetDraft(run) {
+  const key = `${run.id}:${run.fixtureIndex}:${run.ownedCards.length}`;
+  if (draftKey === key && draft) return;
+  draftKey = key;
+  const ids = run.registeredLineup?.instanceIds || [];
+  const unique = new Set(ids.map(id => run.ownedCards.find(card => card.instanceId === id)?.playerId));
+  const chosen = [...ids];
+  for (const card of run.ownedCards) if (chosen.length < 5 && !unique.has(card.playerId) && (cardOf(card).tier !== '钻' || !chosen.some(id => cardOf(run.ownedCards.find(x => x.instanceId === id)).tier === '钻'))) {
+    chosen.push(card.instanceId); unique.add(card.playerId);
+  }
+  const usedAgents = new Set();
+  const assignments = { ...(run.registeredLineup?.agentAssignments || {}) };
+  for (const id of chosen) if (!assignments[id]) {
+    const card = cardOf(run.ownedCards.find(x => x.instanceId === id));
+    const agent = [...card.agents, ...allAgents()].find(name => !usedAgents.has(name));
+    assignments[id] = agent; usedAgents.add(agent);
+  } else usedAgents.add(assignments[id]);
+  draft = { chosen, igl: run.registeredLineup?.iglInstanceId || chosen[0], assignments, name: run.registeredLineup?.name || '我的战队',
+    roles: { carrier:chosen[0], lurker:chosen[4], decoy:chosen[0], anchor:chosen[4], ...(run.registeredLineup?.roleAssignments || {}) } };
+}
+function lineupView(run) {
+  resetDraft(run);
+  const distinct = new Set(run.ownedCards.map(c => c.playerId)).size;
+  const rows = run.ownedCards.map(item => {
+    const card = cardOf(item), selected = draft.chosen.includes(item.instanceId);
+    const agents = [...new Set([...card.agents, ...allAgents()])];
+    return `<div class="item"><input type="checkbox" data-instance="${esc(item.instanceId)}" ${selected?'checked':''}><div><div class="name">${esc(card.name)} <span style="color:var(--gold)">${esc(card.tier)}</span></div><div class="hint">AIM ${card.AIM} · SYN ${card.SYN} · SEN ${card.SEN} · ${esc(card.region)}</div></div><label class="hint"><input type="radio" name="igl" value="${esc(item.instanceId)}" ${draft.igl===item.instanceId?'checked':''}> IGL</label><select data-agent="${esc(item.instanceId)}">${agents.map(agent=>`<option value="${esc(agent)}" ${draft.assignments[item.instanceId]===agent?'selected':''}>${esc(agent)}${card.agents.includes(agent)?' ✓':''}</option>`).join('')}</select></div>`;
+  }).join('');
+  const roleNames={carrier:'携包',lurker:'单摸',decoy:'假打',anchor:'弱侧锚点'};
+  const roleFields=Object.entries(roleNames).map(([key,label])=>`<label>${label} <select data-role="${key}">${draft.chosen.map(id=>{const item=run.ownedCards.find(card=>card.instanceId===id);return `<option value="${esc(id)}" ${draft.roles[key]===id?'selected':''}>${esc(cardOf(item).name)}</option>`}).join('')}</select></label>`).join('');
+  return `<section class="panel"><span class="eyebrow">阵容注册 / ${run.ownedCards.length} 张本轮持有</span><h2 class="title">选出你的五人</h2><p class="lead">池外特工可以上场，但会承担熟练度代价。职责会改变相应战术中的实际站位与携包人。</p><div class="row"><label>队伍名称 <input id="team-name" type="text" maxlength="30" value="${esc(draft.name)}"></label><span class="muted">已选 ${draft.chosen.length}/5 · 不同选手 ${distinct}</span></div><div>${rows}</div><div class="row" style="margin-top:18px">${roleFields}</div><div class="actions">${button('save-lineup','确认阵容与职责','primary')}${distinct<5 && !run.emergencyGranted && !(run.unopenedPacks.starter>0) ? button('emergency','领取一次随机兜底补给') : ''}</div></section>`;
+}
+function packView(run) {
+  if (run.pendingPack) {
+    return `<section class="panel"><span class="eyebrow">本次征程卡包</span><h2 class="title">十张选手卡已入库</h2><p class="lead">抽取已确定并保存。关闭页面或跳过演出都不会重抽。</p><div class="grid">${run.pendingPack.instances.map(item=>{const card=cardOf(item);return `<div class="card ${card.tier==='钻'?'diamond':''}"><span class="tier">${esc(card.tier)}</span><strong>${esc(card.name)}</strong><small>${esc(card.region)} · ${esc(card.role || '')}</small><div class="hint">AIM ${card.AIM} / SYN ${card.SYN} / SEN ${card.SEN}</div></div>`}).join('')}</div><div class="actions">${button('ack-pack','收下卡牌，继续','primary')}</div></section>`;
+  }
+  return `<section class="panel"><span class="eyebrow">随机建队</span><h2 class="title">打开你的起始卡包</h2><p class="lead">每轮征程重新抽取。先选赛区，再开出 10 张。本轮最多注册一位钻卡选手。</p><div class="row"><label>赛区 <select id="region"><option>CN</option><option>AMER</option><option>EMEA</option><option>PAC</option></select></label><span class="muted">可用卡包 ${run.unopenedPacks.starter || 0}</span></div><div class="actions">${button('open-pack','打开十张卡包','primary')}</div></section>`;
+}
+function growthView(run) {
+  const offer=run.pendingOffer;
+  return `<section class="panel"><span class="eyebrow">${offer.kind==='stage'?'阶段节点':'赛后成长'} · ${esc(offer.nodeId)}</span><h2 class="title">这支队伍将怎样进化？</h2><p class="lead">三选一。效果只在本轮征程有效，后续比赛会记录触发事件。</p><div class="grid">${offer.options.map(id=>{const g=getGrowth(id);return `<button class="offer" data-action="growth" data-option="${esc(id)}"><span class="route">${esc(g.route)}</span><strong>${esc(g.name)}</strong><p>${esc(g.description)}</p></button>`}).join('')}</div>${offer.options.length?'':button('skip-growth','当前成长已全部获得，继续','primary')}</section>`;
+}
+function prepView(run) {
+  const offer = offerPreparation(run), prep=run.preparation;
+  return `<section class="panel"><span class="eyebrow">赛前 / 第 ${run.fixtureIndex+1} 场</span><h2 class="title">${esc(fixtures[run.fixtureIndex].opponent.name)}</h2><p class="lead">${esc(offer.event.name)} · ${esc(offer.event.description)}</p>${prep ? `<div class="card"><strong>已选择：${esc(prep.actionId)}</strong><small>${prep.tendency ? `观察到进攻偏好 ${esc(prep.tendency.atk.family)}，防守偏好 ${esc(prep.tendency.def.family)}。这是公开倾向，不是本场隐藏指令。`:'本场一次性备战效果已锁定。'}</small></div>` : `<div class="grid">${offer.actions.map(action=>`<button class="offer" data-action="prep" data-prep="${esc(action.id)}"><span class="route">一次机会 / 仅本场</span><strong>${esc(action.name)}</strong><p>${esc(action.description)}</p></button>`).join('')}</div>`}<div class="actions">${button('start-match','确认阵容，开始比赛','primary')}</div></section>`;
+}
+function resultView(run) {
+  const result=run.results.at(-1), review=reviewMatch(result), last=run.results.length===fixtures.length;
+  const growthCards=run.growth.map(item=>{const g=getGrowth(item.optionId),effects=g.effects||[g.id],hits=effects.reduce((n,id)=>n+(review.facts.growthTriggers[id]||0),0);return `<div class="card"><span class="eyebrow">${esc(g.route)}</span><strong>${esc(g.name)}</strong><small>本场记录到 ${hits} 次效果触发 · ${esc(g.description)}</small></div>`}).join('');
+  const league=run.league, teamName=id=>id==='PLAYER'?'我的战队':fixtures[Number(id.slice(1))-1].opponent.name;
+  const table=league?`<h3 class="title" style="font-size:25px">五队单循环测试榜</h3><p class="muted">其他队的六场比赛同样由引擎模拟。按胜场、回合差、得分排序；这是虚构测试赛制，不是 VCT 官方排名。</p><div>${league.standings.map(row=>`<div class="item" style="grid-template-columns:40px 1fr 90px 100px"><b>${row.place}</b><span>${esc(teamName(row.id))}</span><span>${row.wins} 胜 ${row.losses} 负</span><span>回合差 ${row.roundDifference>=0?'+':''}${row.roundDifference}</span></div>`).join('')}</div>`:'';
+  const roundOptions=Array.from({length:result.rounds},(_,i)=>i+1);
+  const replayPanel=`<section class="panel"><span class="eyebrow">已保存的事件回放</span><h3 class="title" style="font-size:25px">回看关键回合</h3><div class="row"><select id="review-round">${roundOptions.map(n=>`<option value="${n}" ${reviewRound===n?'selected':''}>第 ${n} 回合${review.evidenceRounds.includes(n)?' · 复盘证据':''}</option>`).join('')}</select>${button('review-round','载入回合')}${reviewRound?button('replay','播放')+button('replay-fast','4× 播放'):''}</div>${reviewRound?'<canvas id="map" class="map" width="1000" height="720" aria-label="已保存回合事件回放"></canvas>':''}<p class="muted">回放只读取本场已保存的事件，不会重新模拟或改变赛果。</p></section>`;
+  return `<section class="panel"><span class="eyebrow">赛后复盘 · ${esc(result.opponent)}</span><div class="score">${result.scoreA}<span>:</span><em>${result.scoreB}</em></div><p class="lead">${result.winner==='A'?'本场取胜':'本场失利'}。结果来自实际 ${result.rounds} 个回合。</p><div class="stats"><div class="stat"><strong>${review.facts.attackWins}/${review.facts.attackRounds}</strong><span>进攻胜回合</span></div><div class="stat"><strong>${review.facts.plants}</strong><span>全场下包</span></div></div><div class="card"><strong>${esc(review.observation)}</strong><p>${esc(review.suggestion)}</p><small>证据回合：${review.evidenceRounds.length?review.evidenceRounds.map(n=>`<button data-action="open-evidence" data-round="${n}">第 ${n} 回合</button>`).join(' '):'样本不足'}。${esc(review.basis)}</small></div>${growthCards?`<h3 class="title" style="font-size:25px">本轮成长</h3><div class="grid">${growthCards}</div>`:''}${table}${run.unopenedPacks.starter>0?`<div class="row" style="margin-top:18px"><label>补强赛区 <select id="region"><option>CN</option><option>AMER</option><option>EMEA</option><option>PAC</option></select></label></div>`:''}<div class="actions">${run.results.length===2 && !run.stageSupplementUsed ? button('supplement','领取一次阶段补强卡包') : ''}${run.unopenedPacks.starter>0 ? button('open-pack','打开补强卡包') : ''}${last ? button('finish-run','结束本轮征程','primary') : button('next-fixture','进入下一场','primary')}</div></section>${replayPanel}`;
+}
+function matchView(run) {
+  const match=run.match, w=match.window, last=match.latestEvents||[];
+  const important=last.filter(e=>['round_start','kill','plant','defuse','round_end','growth_trigger','coach_plan','timeout'].includes(e.type));
+  const weights=w.weights.A;
+  const fields=(side,keys)=>`<div class="eyebrow">${side==='atk'?'进攻战术':'防守战术'}</div><div class="weights">${keys.map(k=>`<label>${esc(k)}<input type="number" min="0" max="100" step="1" data-weight="${side}:${k}" value="${Math.round(weights[side][k]*100)}"></label>`).join('')}</div>`;
+  return `<section class="panel"><span class="eyebrow">真实比赛 / 回合 ${w.round}</span><div class="score">${w.scoreA}<span>:</span><em>${w.scoreB}</em></div><p class="lead">对手 ${esc(fixtures[run.fixtureIndex].opponent.name)} · ${w.matchOver?'赛果已确定，请结算':'下回合前可调整战术或使用有限暂停'} · 暂停剩余 ${w.timeoutsLeft.A}</p><div class="row"><button data-action="replay">观看本回合</button><button data-action="replay-fast">4× 回放</button><span class="muted">观看暂停只影响画面，不消耗比赛暂停。</span></div><canvas id="map" class="map" width="1000" height="720" aria-label="回合二维推演地图"></canvas><div class="log">${important.map(e=>`<div><time>${e.t>=0?e.t+'s':'—'}</time>${esc(eventText(e))}</div>`).join('')}</div></section><section class="panel"><span class="eyebrow">教练窗口</span><h2 class="title">安排下一回合</h2>${fields('atk',['rush','mid','lurk','fake'])}${fields('def',['push','hold','stack'])}<div class="row"><label>IGL <select id="igl-pick">${run.registeredLineup.instanceIds.map(id=>{const card=cardOf(run.ownedCards.find(item=>item.instanceId===id));return `<option value="${esc(card.name)}" ${w.iglPick.A===card.name?'selected':''}>${esc(card.name)}</option>`}).join('')}</select></label></div><div class="actions">${w.matchOver?button('continue-match','确认赛果','primary'):`${button('continue-match','沿用计划，下一回合','primary')}${button('apply-plan','应用调整，下一回合')}${button('timeout','暂停重整并进入下一回合')}`}</div></section>`;
+}
+function eventText(e) {
+  if(e.type==='round_start')return `回合开始 · 进攻 ${e.atkFamily} / 防守 ${e.defFamily}`;
+  if(e.type==='kill')return `${e.killer} 击杀 ${e.victim}`;
+  if(e.type==='plant')return `${e.unit} 完成下包`;
+  if(e.type==='defuse')return `${e.unit} 完成拆包`;
+  if(e.type==='round_end')return e.summary || `回合结束：${e.reason}`;
+  if(e.type==='growth_trigger')return `成长触发：${e.growthId}`;
+  if(e.type==='coach_plan')return '教练调整战术';
+  if(e.type==='timeout')return '教练暂停';
+  return e.type;
+}
+function careerView(career) {
+  const history = career.runHistory.slice().reverse().slice(0, 8);
+  const items = history.map((run, index) => `<div class="card"><span class="eyebrow">征程 ${career.runHistory.length - index}</span><strong>${run.leaguePlace ? `测试榜第 ${run.leaguePlace} 名` : `${run.wins} 胜 ${run.losses} 负`}</strong><small>${run.wins} 胜 ${run.losses} 负 · ${run.results.map(result => `${esc(result.opponent)} ${result.scoreA}:${result.scoreB}`).join(' / ')}</small></div>`).join('');
+  return `<section class="panel flat"><span class="eyebrow">生涯记录</span><p>已完成 ${career.runHistory.length} 轮征程 · 图鉴 ${Object.keys(career.album).length} 种卡牌 · 荣誉 ${career.honors.length} 项</p>${items ? `<div class="grid">${items}</div>` : '<p class="muted">还没有完成的征程。首轮结束后会留下名次与赛果。</p>'}</section>`;
+}
+function render() {
+  railView();
+  const run=state.activeRun;
+  if (!run) {
+    content.innerHTML=`<section class="panel"><span class="eyebrow">新征程</span><h1 class="title">抽一支队伍，看看能走多远。</h1><p class="lead">随机开包建队，选择五名选手和特工。四场固定对手，每回合都可指挥，赛后成长会改变后续比赛。</p><div class="actions">${button('begin','开始新征程','primary')}${button('export-save','导出存档')}</div></section>${careerView(state.career)}`;
+  } else if (run.pendingPack) content.innerHTML=packView(run);
+  else if (run.pendingOffer) content.innerHTML=growthView(run);
+  else if (run.match) { content.innerHTML=matchView(run); drawRound(); }
+  else if (run.results.length>run.fixtureIndex) { content.innerHTML=resultView(run); if(reviewRound)drawRound(); }
+  else if (!run.ownedCards.length && run.unopenedPacks.starter>0) content.innerHTML=packView(run);
+  else content.innerHTML=lineupView(run)+ (run.registeredLineup ? prepView(run) : '');
+}
+function drawRound() {
+  const canvas=document.getElementById('map'), context=replayContext(); if(!canvas||!context)return;
+  const ctx=canvas.getContext('2d'), events=context.events;
+  ctx.clearRect(0,0,1000,720);ctx.fillStyle='#0a1d20';ctx.fillRect(0,0,1000,720);
+  ctx.strokeStyle='#365650';ctx.lineWidth=8;ctx.lineCap='round';
+  for(const edge of map.edges){const a=map.nodes[edge.a],b=map.nodes[edge.b];ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
+  for(const [id,node] of Object.entries(map.nodes)){ctx.fillStyle=id.endsWith('_site')?'#476a4f':'#183c3c';ctx.beginPath();ctx.arc(node.x,node.y,id.endsWith('_site')?24:10,0,Math.PI*2);ctx.fill();ctx.fillStyle='#a0c1b8';ctx.font='12px Microsoft YaHei';ctx.fillText(node.name,node.x+13,node.y-13);}
+  if(!events.some(e=>e.type==='round_start'))return;
+  const units=snapshotAt(events,replayTick,map).units;
+  for(const e of events){if(e.type!=='shot'||Math.abs(replayTick-e.t)>.45)continue;ctx.strokeStyle='#f7ce78';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.lineTo(e.targetX,e.targetY);ctx.stroke();}
+  for(const u of Object.values(units)){if(!u.alive)continue;const pos=u.position;ctx.fillStyle=u.side==='atk'?'#ff786c':'#b8ffcb';ctx.strokeStyle='#071517';ctx.lineWidth=3;ctx.beginPath();ctx.arc(pos.x,pos.y,12,0,Math.PI*2);ctx.fill();ctx.stroke();if(u.hp<100){ctx.fillStyle='#071517';ctx.fillRect(pos.x-14,pos.y+16,28,4);ctx.fillStyle=u.side==='atk'?'#ff786c':'#b8ffcb';ctx.fillRect(pos.x-14,pos.y+16,28*Math.max(0,u.hp)/100,4);}ctx.fillStyle='#eaf2ec';ctx.font='bold 12px Microsoft YaHei';ctx.fillText(u.name,pos.x+14,pos.y+4);}
+  ctx.fillStyle='#eaf2ec';ctx.font='bold 18px Microsoft YaHei';ctx.fillText(`回合 ${context.round} · ${replayTick.toFixed(1)}s`,24,32);
+}
+function replayContext(){const run=state?.activeRun;if(!run)return null;if(run.match)return{events:run.match.latestEvents||[],round:run.match.window.round};if(reviewRound&&run.results.length>run.fixtureIndex){const result=run.results.at(-1);return{events:result.eventLog.filter(e=>e.round===reviewRound),round:reviewRound};}return null;}
+function playRound(speed) {
+  if(replayTimer)clearInterval(replayTimer);
+  const events=replayContext()?.events||[], max=Math.max(1,...events.map(e=>e.t||0));
+  replayTick=0; drawRound();
+  replayTimer=setInterval(()=>{replayTick+=0.25*speed;drawRound();if(replayTick>=max+1){clearInterval(replayTimer);replayTimer=null;}},250);
+}
+function selectedLineup() {
+  const run=state.activeRun, selected=[...content.querySelectorAll('[data-instance]:checked')].map(el=>el.dataset.instance);
+  const assignments=Object.fromEntries(selected.map(id=>[id,content.querySelector(`[data-agent="${CSS.escape(id)}"]`).value]));
+  const igl=content.querySelector('input[name="igl"]:checked')?.value;
+  return { name: document.getElementById('team-name').value.trim()||'我的战队', instanceIds:selected, iglInstanceId:igl,
+    agentAssignments:assignments, roleAssignments:Object.fromEntries([...content.querySelectorAll('[data-role]')].map(el=>[el.dataset.role,el.value])),
+    tactics:run.registeredLineup?.tactics || {atk:{rush:.25,mid:.25,lurk:.25,fake:.25},def:{push:.3,hold:.4,stack:.3}} };
+}
+function planDecision(timeout) {
+  const weights={atk:{},def:{}};
+  for(const el of content.querySelectorAll('[data-weight]')){const [side,key]=el.dataset.weight.split(':');weights[side][key]=Number(el.value);}
+  return {timeout,weights,iglPick:document.getElementById('igl-pick').value};
+}
+content.addEventListener('click',async event=>{
+  const target=event.target.closest('[data-action]');if(!target)return;
+  const action=target.dataset.action,run=state.activeRun;
+  if(action==='begin')return send('begin_run',{runId:crypto.randomUUID(),seed:Math.floor(Math.random()*4294967295)});
+  if(action==='open-pack')return send('open_pack',{tier:'starter',region:document.getElementById('region')?.value||'CN'});
+  if(action==='ack-pack')return send('acknowledge_pack');
+  if(action==='emergency')return send('grant_emergency_pack');
+  if(action==='save-lineup')return send('set_lineup',selectedLineup());
+  if(action==='prep')return send('choose_preparation',{actionId:target.dataset.prep});
+  if(action==='start-match')return send('start_match');
+  if(action==='continue-match')return send('advance_match');
+  if(action==='apply-plan')return send('advance_match',{decision:planDecision(false)});
+  if(action==='timeout')return send('advance_match',{decision:planDecision(true)});
+  if(action==='growth')return send('select_growth',{offerId:run.pendingOffer.id,optionId:target.dataset.option});
+  if(action==='skip-growth')return send('skip_growth');
+  if(action==='supplement')return send('claim_stage_supplement');
+  if(action==='next-fixture')return send('next_fixture');
+  if(action==='finish-run')return send('finish_run');
+  if(action==='replay')return playRound(1);
+  if(action==='replay-fast')return playRound(4);
+  if(action==='open-evidence'){reviewRound=Number(target.dataset.round);replayTick=0;if(replayTimer){clearInterval(replayTimer);replayTimer=null;}render();document.getElementById('review-round')?.scrollIntoView({behavior:'smooth',block:'center'});return;}
+  if(action==='review-round'){reviewRound=Number(document.getElementById('review-round').value);replayTick=0;if(replayTimer){clearInterval(replayTimer);replayTimer=null;}render();return;}
+  if(action==='export-save')return exportSave();
+});
+async function exportSave(){try{const raw=await store.exportRaw(),blob=new Blob([raw],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='val-manager-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(error){tell(`导出失败：${error.message||error}`);}}
+content.addEventListener('change',event=>{
+  const target=event.target;if(!draft)return;
+  if(target.matches('[data-instance]')){const id=target.dataset.instance;draft.chosen=target.checked?[...draft.chosen,id]:draft.chosen.filter(x=>x!==id);draft.name=document.getElementById('team-name').value;render();}
+  if(target.matches('[data-agent]'))draft.assignments[target.dataset.agent]=target.value;
+  if(target.matches('[data-role]'))draft.roles[target.dataset.role]=target.value;
+  if(target.matches('input[name="igl"]'))draft.igl=target.value;
+});
+(async()=>{try{state=await store.load();render();}catch(error){tell(`存档读取失败：${error.message||error}。原存档未被覆盖。`);content.innerHTML='<section class="panel"><h2 class="title">存档暂时无法读取</h2><p>可以导出原始数据备份，检查浏览器存储权限后再刷新。</p><button data-action="export-save">导出原始存档</button></section>';}})();
+</script>
+</body>
+</html>

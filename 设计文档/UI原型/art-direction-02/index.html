@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>白色游戏界面 · A/B 材质对比</title><link rel="stylesheet" href="comparison.css"></head>
+<body>
+  <header class="board-header"><a class="wordmark" href="index.html"><span class="mark">VM<span>02</span></span><span>VAL MANAGER<small>ART DIRECTION / ROUND TWO</small></span></a><div class="header-notes"><span>白色为主 · 增加厚度 · 找回游戏感</span><a href="../art-direction-01/index.html?theme=paper">回看第一轮 ↗</a></div></header>
+  <main class="board">
+    <aside class="brief"><span class="kicker">MATERIAL & INTERACTION</span><h1>白色，<br>也可以很有<br><em>游戏感。</em></h1><p class="brief-copy">保留舒服的浅底色。<br>让按钮有厚度，面板有层次，<br>每一次按下都有回应。</p>
+      <div class="divider"></div><span class="label">切换对比页面</span><nav class="page-picker" aria-label="选择对比页面"><button data-page="home" aria-pressed="true"><span>01</span>俱乐部首页<b>↗</b></button><button data-page="squad" aria-pressed="false"><span>02</span>选手名单<b>↗</b></button><button data-page="detail" aria-pressed="false"><span>03</span>卡面详情<b>↗</b></button><button data-page="components" aria-pressed="false"><span>04</span>按钮与组件<b>↗</b></button></nav>
+      <div class="depth-note"><span class="depth-icon" aria-hidden="true"><i></i><i></i><i></i></span><div><strong>有层次，也有轻重。</strong><p>主按键 5px 侧壁<br>面板 3px 底边 / 数据内凹</p></div></div>
+      <p class="scope-note">仅比较视觉与界面手感<br>所有数据为样稿，玩法未接入</p>
+    </aside>
+    <section class="comparison" aria-label="两种界面风格对比">
+      <div class="mobile-picker" role="group" aria-label="手机对比方案"><button data-mobile-skin="club" aria-pressed="true">A · 温润俱乐部</button><button data-mobile-skin="console" aria-pressed="false">B · 精密竞技台</button></div>
+      <article class="concept-card selected" data-concept="club"><header class="concept-header"><span class="letter">A</span><div><h2>温润俱乐部</h2><p>象牙白 / 森林绿 / 黄铜细节</p></div><a id="club-link" href="concept.html?skin=club#home" target="_blank" rel="noopener" aria-label="单独打开俱乐部方案">↗</a></header><div class="preview-shell club-shell"><iframe id="club-frame" src="concept.html?skin=club#home" title="A 温润俱乐部交互原型"></iframe></div><footer class="concept-caption"><strong>像桌上的收藏游戏。</strong><span>柔和倒角 · 厚实按键 · 温暖而有重量</span></footer></article>
+      <article class="concept-card" data-concept="console"><header class="concept-header"><span class="letter">B</span><div><h2>精密竞技台</h2><p>瓷白 / 石墨灰 / 陶橙按键</p></div><a id="console-link" href="concept.html?skin=console#home" target="_blank" rel="noopener" aria-label="单独打开竞技台方案">↗</a></header><div class="preview-shell console-shell"><iframe id="console-frame" src="concept.html?skin=console#home" title="B 精密竞技台交互原型"></iframe></div><footer class="concept-caption"><strong>像一台比赛控制设备。</strong><span>硬朗边角 · 嵌入式面板 · 更鲜明的竞技感</span></footer></article>
+    </section>
+  </main>
+  <footer class="board-footer"><span>02 / 白色游戏界面探索</span><span>同样的内容，不同的材质与手感。</span><span>可点击、滚动、切换卡面</span></footer>
+  <script>
+    function choosePage(name){
+      if(!['home','squad','detail','components'].includes(name))name='home';
+      document.querySelectorAll('[data-page]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.page===name)));
+      for(const skin of ['club','console']){
+        const url=name==='components'?'components.html?skin='+skin:'concept.html?skin='+skin+'#'+name;
+        document.getElementById(skin+'-frame').src=url;document.getElementById(skin+'-link').href=url;
+      }
+      history.replaceState(null,'','#'+name);
+    }
+    document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>choosePage(b.dataset.page)));
+    document.querySelectorAll('[data-mobile-skin]').forEach(b=>b.addEventListener('click',()=>{
+      document.querySelectorAll('[data-mobile-skin]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+      document.querySelectorAll('[data-concept]').forEach(x=>x.classList.toggle('selected',x.dataset.concept===b.dataset.mobileSkin));
+    }));
+    if(location.hash)choosePage(location.hash.slice(1));
+  </script>
+</body></html>

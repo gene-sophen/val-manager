@@ -1,0 +1,36 @@
+{
+  "version": "prototype-v1",
+  "status": "testing-defaults",
+  "run": {
+    "scope": "four-fixture-slice",
+    "fixtures": 4,
+    "stageNodeAfterFixture": 2,
+    "startingPacks": [{ "tier": "starter", "count": 1, "cardsPerPack": 10 }],
+    "emergencyPackLimit": 1,
+    "lineupSize": 5,
+    "maxDiamondInLineup": 1,
+    "duplicateInstancesRaiseStats": false,
+    "smallGrowthAfterFixtures": [1, 2, 3],
+    "stageGrowthAfterFixtures": [2],
+    "stageSupplementPackLimit": 1,
+    "preparationActionsPerFixture": 1
+  },
+  "match": {
+    "mapsPerSeries": 1,
+    "firstTo": 13,
+    "halfRounds": 12,
+    "timeoutCountPerSeries": 2,
+    "manualTacticWindow": "between-rounds",
+    "manualLineupLock": "before-series",
+    "plantedRound": {
+      "attackersEliminated": "continue-until-actual-defuse-or-explosion",
+      "timerZeroPriority": "explosion-before-next-action"
+    }
+  },
+  "lifecycle": {
+    "persistent": ["album", "honors", "runHistory"],
+    "resetAtNewRun": ["ownedCards", "registeredLineup", "growth", "runResources", "unopenedRunPacks"],
+    "rewardIdentity": "fixture-or-stage-node-id",
+    "manualPlanPriority": "player-confirmed"
+  }
+}

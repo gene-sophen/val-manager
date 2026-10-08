@@ -1,0 +1,9 @@
+const fs=require('node:fs'),S=require('./spatial-match'),cards=require('./catalog').cards.filter(p=>p.team==='EDG'&&p.tier!=='钻').slice(0,5),team=id=>({id,players:cards,team:{羁绊:40,状态:50,熟练:50},coach:{战术:65,临场:60,声望:70}}),priority={attack:[0,1,2,3,4],defense:[1,0,2,3,4]},out='docs/validation/2026-10-06-portrait-defuse',stats={rounds:[],invalidShots:0,movedPlantedSpike:0};
+S.simulate('diagnostic-v6-lotus',team('A'),team('B'),priority,{mapId:'lotus',version:6,onRound:r=>{
+ const end=r.events.find(e=>e.type==='round_end'),frame=S.frame(r,r.ticks),plant=r.events.find(e=>e.type==='plant'),clear=r.events.find(e=>e.type==='site_cleared')?.t,starts=r.events.filter(e=>e.type==='defuse_start'),completed=r.events.find(e=>e.type==='defuse'),g=require('../引擎/maps/combat-registry').get('lotus').geometry;
+ for(const e of r.events)if(e.type==='shot'&&!g.canShoot({x:e.x,y:e.y},{x:e.targetX,y:e.targetY},{doors:e.doors}))stats.invalidShots++;
+ if(plant&&r.events.some(e=>e.type==='spike_drop'&&e.t>plant.t))stats.movedPlantedSpike++;
+ stats.rounds.push({round:r.round,reason:end.reason,clear,remainingAtClear:clear==null?null:plant.t+45-clear,defuseStarts:starts.length,defuseTime:completed?.t,defendersAlive:Object.values(frame.units).filter(u=>u.side==='def'&&u.alive).length});
+ if(completed&&clear!=null&&!stats.proof){stats.proof={round:r.round,start:starts.at(-1),end:completed};fs.writeFileSync(out+'/defuse-replay.json',JSON.stringify(r,null,2));}
+}});
+stats.defuses=stats.rounds.filter(r=>r.reason==='defuse').length;stats.explosions=stats.rounds.filter(r=>r.reason==='explosion').length;stats.releaseGate=false;fs.writeFileSync(out+'/lotus-audit.json',JSON.stringify(stats,null,2));console.log(JSON.stringify({rounds:stats.rounds.length,defuses:stats.defuses,explosions:stats.explosions,invalidShots:stats.invalidShots,movedPlantedSpike:stats.movedPlantedSpike,proof:stats.proof}));if(stats.invalidShots||stats.movedPlantedSpike||!stats.defuses)process.exitCode=1;

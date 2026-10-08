@@ -1,0 +1,7 @@
+const test=require('node:test'),assert=require('node:assert/strict'),L=require('../spectator-layout');
+test('crowded portraits preserve physical coordinates with small deterministic display offsets',()=>{
+ const units=Array.from({length:10},(_,i)=>({id:(i<5?'A:':'B:')+i,alive:i!==9,position:{x:61,y:54}})),original=JSON.stringify(units),result=L.arrange(units,{x:60,y:52,width:840,height:840});
+ assert.equal(result.length,9);assert.equal(JSON.stringify(units),original);for(const u of result){assert(Math.hypot(u.display.x-u.position.x,u.display.y-u.position.y)<=3.500001);assert(u.offset);}assert.deepEqual(result,L.arrange(units));assert(new Set(result.map(u=>JSON.stringify(u.display))).size>4);
+});
+test('death removes its portrait without displacing any survivor',()=>{const living={id:'A:1',alive:true,position:{x:400,y:400}},dead={id:'A:0',alive:false,position:{x:400,y:400}};assert.deepEqual(L.arrange([dead,living]),L.arrange([living]));});
+test('micro offsets are continuous with nearby movement and identical after pause/seek',()=>{const layout=L.create(),make=x=>[{id:'A:0',alive:true,position:{x:450,y:451}},{id:'A:1',alive:true,position:{x:450+x,y:451}}];const a=layout.arrange(make(15)),b=layout.arrange(make(15.01));assert(Math.hypot(a[0].display.x-b[0].display.x,a[0].display.y-b[0].display.y)<.01);assert.deepEqual(layout.arrange(make(15)),a);assert.deepEqual(layout.arrange(make(30))[0].display,make(30)[0].position);});

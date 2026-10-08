@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>无畏契约电竞经理 · UI原型 v1</title>
+<style>
+@font-face{font-family:'Anton';src:url('../../素材库/字体/Anton-400.woff2') format('woff2');font-weight:400}
+@font-face{font-family:'Rajdhani';src:url('../../素材库/字体/Rajdhani-500.woff2') format('woff2');font-weight:500}
+@font-face{font-family:'Rajdhani';src:url('../../素材库/字体/Rajdhani-600.woff2') format('woff2');font-weight:600}
+@font-face{font-family:'Rajdhani';src:url('../../素材库/字体/Rajdhani-700.woff2') format('woff2');font-weight:700}
+
+:root{
+  --bg:#0b0f14; --panel:#131a22; --panel2:#18212b; --panel3:#1e2936;
+  --line:#26313e; --txt:#dfe7ee; --dim:#8794a3; --dimmer:#5b6774;
+  --bronze:#B08968; --silver:#C9D4DE; --gold:#E8B93E; --diamond:#A9F1FF;
+  --atk:#ff9d5c; --def:#5cc8ff; --accent:#ffcf5c;
+  --cut:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  --cut-sm:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px);
+  --hex:polygon(25% 1.5%,75% 1.5%,100% 50%,75% 98.5%,25% 98.5%,0 50%);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  background:#05080c; color:var(--txt);
+  font-family:'Rajdhani','Microsoft YaHei',sans-serif; font-weight:500;
+  display:flex; min-height:100vh;
+  background-image:radial-gradient(ellipse at 50% 30%, #0d1420 0%, #05080c 70%);
+}
+.anton{font-family:'Anton','Microsoft YaHei',sans-serif}
+
+/* ===== 手机框 ===== */
+.phone{
+  width:390px; height:844px; background:var(--bg); position:relative; overflow:hidden;
+  margin:auto; flex:0 0 auto;
+  border-radius:28px; border:1px solid #2a3542;
+  box-shadow:0 0 0 6px #0a0e13, 0 30px 80px rgba(0,0,0,.7), 0 0 60px rgba(92,200,255,.04);
+  display:flex; flex-direction:column;
+}
+
+/* ===== 顶栏 ===== */
+#topbar{
+  flex:0 0 56px; display:flex; align-items:center; gap:8px; padding:0 10px;
+  background:linear-gradient(180deg,#141c26,#10161e); border-bottom:1px solid var(--line);
+  position:relative; z-index:30;
+}
+#topbar::after{content:''; position:absolute; left:0; right:0; bottom:-1px; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,185,62,.35),transparent)}
+.coach-chip{display:flex; align-items:center; gap:8px; cursor:pointer; padding:4px 6px; transition:.15s}
+.coach-chip:active{transform:scale(.95)}
+.hex-avatar{width:36px; height:40px; clip-path:var(--hex); background:linear-gradient(160deg,var(--gold),#7a5f1a); padding:2px; flex:0 0 auto}
+.hex-avatar img{width:100%; height:100%; clip-path:var(--hex); object-fit:cover; object-position:center 15%; display:block; background:#222}
+.coach-meta{line-height:1.15}
+.coach-meta .nm{font-weight:700; font-size:13.5px}
+.coach-meta .mm{font-size:10px; color:var(--dim); letter-spacing:.3px; white-space:nowrap}
+.coach-meta .mm b{color:var(--accent); font-weight:700}
+.top-right{margin-left:auto; display:flex; align-items:center; gap:6px}
+.icon-btn{
+  min-width:40px; height:40px; padding:0 8px; display:flex; align-items:center; justify-content:center; gap:4px;
+  background:var(--panel2); border:1px solid var(--line); clip-path:var(--cut-sm);
+  cursor:pointer; color:var(--txt); font-size:15px; font-family:inherit; transition:.15s;
+}
+.icon-btn:active{transform:scale(.9); background:var(--panel3)}
+.icon-btn .cnt{font-size:12px; font-weight:700; color:var(--accent)}
+
+/* ===== 视口与屏 ===== */
+#viewport{flex:1; position:relative; overflow:hidden}
+.screen{position:absolute; inset:0; overflow-y:auto; overflow-x:hidden; display:none; scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.screen.on{display:block}
+.screen-pad{padding:12px 12px 20px}
+
+/* ===== 底栏 ===== */
+#tabbar{
+  flex:0 0 58px; display:flex; background:linear-gradient(0deg,#141c26,#10161e);
+  border-top:1px solid var(--line); position:relative; z-index:30;
+}
+.tab{
+  flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+  cursor:pointer; color:var(--dim); font-size:11px; font-weight:600; letter-spacing:2px;
+  transition:.15s; position:relative; border:none; background:none; font-family:inherit;
+}
+.tab svg{width:20px; height:20px; fill:currentColor}
+.tab.on{color:var(--gold)}
+.tab.on::before{content:''; position:absolute; top:0; left:22%; right:22%; height:2px; background:var(--gold); box-shadow:0 0 8px var(--gold)}
+.tab:active{transform:scale(.92)}
+
+/* ===== 通用组件 ===== */
+.panel{background:var(--panel); border:1px solid var(--line); clip-path:var(--cut)}
+.sec-title{font-size:12px; color:var(--dim); letter-spacing:3px; font-weight:700; margin:14px 2px 8px; display:flex; align-items:center; gap:8px}
+.sec-title::before{content:''; width:3px; height:12px; background:var(--gold); transform:skewX(-15deg)}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  background:linear-gradient(160deg,#f2cd6a,var(--gold) 55%,#a8842a); color:#191204;
+  font-family:inherit; font-weight:700; font-size:14px; letter-spacing:3px;
+  border:none; clip-path:var(--cut-sm); padding:10px 22px; cursor:pointer; transition:.15s;
+}
+.btn:active{transform:scale(.94); filter:brightness(1.15)}
+.btn:disabled{background:var(--panel3); color:var(--dimmer); cursor:not-allowed}
+.btn.ghost{background:var(--panel2); color:var(--txt); border:1px solid var(--line)}
+.btn.atk{background:linear-gradient(160deg,#ffb98a,var(--atk) 55%,#b35a24)}
+.toast{
+  position:absolute; left:50%; bottom:90px; transform:translateX(-50%) translateY(10px);
+  background:#1c2632ee; border:1px solid var(--gold); color:var(--txt); font-size:12.5px;
+  padding:9px 16px; clip-path:var(--cut-sm); z-index:200; opacity:0; pointer-events:none;
+  transition:.2s; max-width:320px; text-align:center;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+.modal-mask{
+  position:absolute; inset:0; background:rgba(4,7,10,.72); z-index:150;
+  display:none; align-items:center; justify-content:center; padding:20px;
+}
+.modal-mask.show{display:flex}
+.modal-box{background:var(--panel); border:1px solid var(--line); clip-path:var(--cut); padding:18px; width:100%; animation:pop .2s ease}
+@keyframes pop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+.q-gold{color:var(--gold)} .q-silver{color:var(--silver)} .q-bronze{color:var(--bronze)} .q-diamond{color:var(--diamond)}
+img{user-select:none}
+
+/* 品质边框（双层 clip-path 模拟描边） */
+.qframe{padding:2px; clip-path:var(--cut)}
+.qframe.gold{background:linear-gradient(160deg,#f7dc85,var(--gold) 50%,#8a6a1c)}
+.qframe.silver{background:linear-gradient(160deg,#f2f7fb,var(--silver) 50%,#7b8894)}
+.qframe.bronze{background:linear-gradient(160deg,#d9b598,var(--bronze) 50%,#6e5138)}
+.qframe.diamond{background:linear-gradient(160deg,#e2fbff,var(--diamond) 50%,#4d93a3)}
+.qframe>.inner{clip-path:var(--cut); background:var(--panel); height:100%}
+
+/* ===== 选手竖卡（选秀/图鉴/开包通用） ===== */
+.pcard{position:relative; cursor:pointer; transition:transform .18s}
+.pcard:active{transform:scale(.95)}
+.pcard .inner{display:flex; flex-direction:column; overflow:hidden}
+.pcard .ph{position:relative; height:118px; overflow:hidden; background:#1a222c}
+.pcard .ph img{width:100%; height:100%; object-fit:cover; object-position:center 12%; display:block}
+.pcard .ph::after{content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 55%,rgba(11,15,20,.95))}
+.pcard .gem{position:absolute; top:7px; left:8px; width:9px; height:9px; transform:rotate(45deg); z-index:2}
+.pcard .gem.gold{background:var(--gold); box-shadow:0 0 6px var(--gold)}
+.pcard .gem.silver{background:var(--silver); box-shadow:0 0 6px var(--silver)}
+.pcard .gem.bronze{background:var(--bronze)}
+.pcard .gem.diamond{background:var(--diamond); box-shadow:0 0 8px var(--diamond)}
+.pcard .pid{font-family:'Anton'; font-size:17px; letter-spacing:.5px; text-align:center; margin-top:-16px; position:relative; z-index:2; text-shadow:0 2px 4px #000}
+.pcard .pteam{font-size:10px; color:var(--dim); text-align:center; letter-spacing:1px; margin-top:1px}
+.pcard .pstats{display:flex; justify-content:space-around; padding:6px 4px 8px; border-top:1px solid var(--line); margin-top:6px}
+.pcard .pstats div{text-align:center; line-height:1.1}
+.pcard .pstats b{font-weight:700; font-size:15px; display:block}
+.pcard .pstats span{font-size:9px; color:var(--dim)}
+.pcard.gold .pstats b{color:#f7dc85} .pcard.silver .pstats b{color:#eaf1f7} .pcard.bronze .pstats b{color:#d8b794}
+
+/* ===== 征程 ===== */
+#journey-path{position:relative; padding:6px 0 4px}
+#journey-lines{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0}
+.jnode-row{display:flex; margin:13px 0; position:relative; z-index:1}
+.jnode-row.left{justify-content:flex-start} .jnode-row.right{justify-content:flex-end}
+.jnode{width:238px; background:var(--panel); border:1px solid var(--line); clip-path:var(--cut); padding:10px 12px; position:relative}
+.jnode .stage{display:flex; align-items:center; gap:7px}
+.jnode .stage img{width:20px; height:20px; object-fit:contain}
+.jnode .stage .nm{font-weight:700; font-size:14.5px; letter-spacing:1px}
+.jnode .badge{margin-left:auto; font-size:10.5px; font-weight:700; padding:2px 8px; clip-path:var(--cut-sm)}
+.jnode.done{border-color:#3a4a2e}
+.jnode.done .badge{background:#2a3a24; color:#9fd06a}
+.jnode.locked{opacity:.42; filter:grayscale(.8); cursor:pointer}
+.jnode.locked .badge{background:var(--panel3); color:var(--dimmer)}
+.jnode.current{border-color:var(--gold); width:100%; animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,185,62,0)}50%{box-shadow:0 0 18px 2px rgba(232,185,62,.35)}}
+.jnode.current .badge{background:var(--gold); color:#191204}
+.jnode .sub{font-size:10.5px; color:var(--dim); margin-top:3px; letter-spacing:.5px}
+.standings{margin-top:10px; border-top:1px dashed var(--line); padding-top:8px}
+.standings .srow{display:flex; align-items:center; gap:7px; padding:3.5px 2px; font-size:12px}
+.standings .srow.me{background:rgba(232,185,62,.08); border-left:2px solid var(--gold); padding-left:5px}
+.standings .srow img{width:18px; height:18px; object-fit:contain}
+.standings .srow .rk{width:14px; color:var(--dimmer); font-size:10.5px; text-align:center}
+.standings .srow .tn{flex:1; font-weight:600; letter-spacing:.5px}
+.standings .srow .wl{font-weight:700; font-size:12.5px; color:var(--def)}
+.next-match{margin-top:10px; background:var(--panel2); clip-path:var(--cut-sm); padding:10px; position:relative; min-height:86px}
+.nm-vs{display:flex; align-items:center; justify-content:center; gap:14px}
+.nm-vs img{width:40px; height:40px; object-fit:contain}
+.nm-vs .vs{font-family:'Anton'; font-size:16px; color:var(--dim)}
+.nm-meta{text-align:center; font-size:10.5px; color:var(--dim); margin:5px 0 8px; letter-spacing:1px}
+.nm-key{display:inline-block; font-size:9.5px; color:var(--diamond); border:1px solid var(--diamond); padding:0 6px; margin-left:4px; clip-path:var(--cut-sm)}
+.flip-zone{position:relative; perspective:600px}
+.flip-face{transition:.2s; text-align:center}
+.flip-result{display:none; text-align:center; padding:6px 2px 2px}
+.flip-result .score{font-family:'Anton'; font-size:26px; color:var(--accent); letter-spacing:2px}
+.flip-result .rp{font-size:12px; color:var(--txt); margin-top:4px}
+.flip-result .mini{display:none; margin-top:8px; border-top:1px dashed var(--line); padding-top:7px; font-size:11px; color:var(--dim); text-align:left; line-height:1.7}
+.flip-result .mini b{color:var(--def)}
+.camp-card{
+  position:sticky; bottom:10px; margin-top:14px; z-index:5;
+  background:linear-gradient(120deg,#16202c,#101820); border:1px solid #2c4a5e; clip-path:var(--cut);
+  padding:10px 14px; display:flex; align-items:center; gap:10px; cursor:pointer;
+}
+.camp-card .ic{font-size:20px}
+.camp-card .tt{font-weight:700; font-size:13.5px; letter-spacing:1px}
+.camp-card .dd{font-size:10.5px; color:var(--def)}
+.newjourney{
+  margin-top:14px; padding:14px; text-align:center; cursor:pointer;
+  background:linear-gradient(120deg,#241c08,#161207); border:1px solid var(--gold); clip-path:var(--cut);
+}
+.newjourney .t{font-weight:700; font-size:15px; letter-spacing:4px; color:var(--accent)}
+.newjourney .d{font-size:10.5px; color:var(--dim); margin-top:3px}
+
+/* ===== 选秀 ===== */
+.page-head{padding:14px 14px 4px}
+.page-head h1{font-family:'Anton'; font-size:21px; letter-spacing:2px; font-weight:400}
+.page-head .hint{font-size:11.5px; color:var(--dim); margin-top:3px}
+.page-head .hint b{color:var(--accent)}
+.draft-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:12px 14px 96px}
+.draft-grid .pcard .ph{height:96px}
+.draft-grid .pcard .pid{font-size:15px}
+.pcard.picked{transform:translateY(-3px)}
+.pcard.picked .inner{background:#1c2410}
+.pcard .ord{
+  position:absolute; top:6px; right:6px; z-index:3; width:24px; height:24px; display:none;
+  align-items:center; justify-content:center; font-weight:700; font-size:13px; color:#191204;
+  background:var(--gold); clip-path:var(--hex);
+}
+.pcard.picked .ord{display:flex}
+.pcard.picked{outline:2px solid var(--gold); outline-offset:-2px; box-shadow:0 0 14px rgba(232,185,62,.4)}
+.dock{
+  position:absolute; left:0; right:0; bottom:0; z-index:40; padding:10px 14px;
+  background:linear-gradient(0deg,#0b0f14 70%,transparent); display:flex; align-items:center; gap:12px;
+}
+.dock .cnt{font-size:13px; font-weight:700; letter-spacing:1px}
+.dock .cnt b{color:var(--accent); font-size:16px}
+.dock .btn{flex:1}
+
+/* ===== 阵容 ===== */
+.hexfield{position:relative; height:264px; margin:6px 0 0}
+#syn-lines{position:absolute; inset:0; width:100%; height:100%; pointer-events:none}
+.hslot{position:absolute; width:104px; cursor:pointer; transition:transform .15s; z-index:2}
+.hslot:active{transform:scale(.93)}
+.hslot .hex{width:92px; height:102px; margin:0 auto; padding:2.5px; clip-path:var(--hex)}
+.hslot .hex.gold{background:linear-gradient(160deg,#f7dc85,var(--gold),#8a6a1c)}
+.hslot .hex.silver{background:linear-gradient(160deg,#f2f7fb,var(--silver),#7b8894)}
+.hslot .hex.bronze{background:linear-gradient(160deg,#d9b598,var(--bronze),#6e5138)}
+.hslot .hex .in{width:100%; height:100%; clip-path:var(--hex); overflow:hidden; background:#1a222c}
+.hslot .hex img{width:100%; height:100%; object-fit:cover; object-position:center 10%; display:block}
+.hslot .hid{text-align:center; font-family:'Anton'; font-size:13px; margin-top:3px; text-shadow:0 1px 3px #000}
+.hslot .hst{text-align:center; font-size:9.5px; color:var(--dim); margin-top:1px}
+.hslot .hst b{color:var(--txt)}
+.hslot .st-ico{position:absolute; top:-4px; right:6px; font-size:15px; z-index:3; filter:drop-shadow(0 1px 2px #000)}
+.chem-panel{margin-top:8px; padding:12px 14px}
+.chem-top{display:flex; align-items:baseline; gap:8px}
+.chem-top .lab{font-size:12px; color:var(--dim); letter-spacing:2px}
+.chem-top .val{font-family:'Anton'; font-size:26px; color:var(--accent)}
+.chem-top .mx{font-size:11px; color:var(--dimmer)}
+.chem-bar{position:relative; height:10px; background:#0d1319; margin:22px 0 6px; clip-path:polygon(4px 0,100% 0,calc(100% - 4px) 100%,0 100%)}
+.chem-bar .fill{position:absolute; inset:0; right:auto; background:linear-gradient(90deg,#7a5f1a,var(--gold))}
+.chem-bar .th{position:absolute; top:-3px; bottom:-3px; width:2px; background:var(--def)}
+.chem-bar .th i{position:absolute; top:-15px; left:-8px; font-size:9px; color:var(--def); font-style:normal}
+.chem-note{font-size:10px; color:var(--dimmer); line-height:1.6}
+.power-row{display:flex; align-items:center; gap:10px; margin-top:12px; border-top:1px dashed var(--line); padding-top:10px}
+.power-row .lab{font-size:12px; color:var(--dim); letter-spacing:2px}
+.power-row .val{font-family:'Anton'; font-size:30px; color:var(--txt); margin-left:auto; transform:skewX(-4deg)}
+.syn-tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px}
+.syn-tag{font-size:10.5px; padding:3px 9px; background:rgba(92,200,255,.08); border:1px solid rgba(92,200,255,.35); color:var(--def); clip-path:var(--cut-sm)}
+.syn-tag.warm{background:rgba(255,157,92,.08); border-color:rgba(255,157,92,.35); color:var(--atk)}
+/* 选手详情半屏层 */
+.sheet-mask{position:absolute; inset:0; background:rgba(4,7,10,.6); z-index:120; display:none}
+.sheet-mask.show{display:block}
+.sheet{
+  position:absolute; left:0; right:0; bottom:0; height:62%; z-index:121;
+  background:var(--panel); border-top:1px solid var(--gold); clip-path:polygon(16px 0,100% 0,100% 100%,0 100%);
+  transform:translateY(105%); transition:transform .22s ease; display:flex; flex-direction:column; overflow:hidden;
+}
+.sheet.show{transform:translateY(0)}
+.sheet-body{overflow-y:auto; padding:14px; scrollbar-width:none}
+.sheet-body::-webkit-scrollbar{display:none}
+.detail-top{display:flex; gap:12px}
+.detail-card{width:118px; flex:0 0 auto}
+.detail-card .pcard .ph{height:100px}
+.detail-info{flex:1}
+.detail-info .did{font-family:'Anton'; font-size:22px}
+.detail-info .dteam{font-size:11px; color:var(--dim); margin:2px 0 8px}
+.statbar{margin:7px 0}
+.statbar .sr{display:flex; font-size:10.5px; color:var(--dim)}
+.statbar .sr b{margin-left:auto; color:var(--txt); font-size:12px}
+.statbar .bar{height:6px; background:#0d1319; margin-top:3px; clip-path:polygon(3px 0,100% 0,calc(100% - 3px) 100%,0 100%)}
+.statbar .bar i{display:block; height:100%; background:linear-gradient(90deg,#2e5d7a,var(--def))}
+.obs-list{margin-top:10px}
+.obs-item{font-size:11.5px; line-height:1.5; padding:7px 10px; background:var(--panel2); clip-path:var(--cut-sm); margin-bottom:6px; border-left:2px solid var(--def)}
+.obs-item.neg{border-left-color:var(--atk)}
+.obs-item .when{display:block; font-size:9.5px; color:var(--dimmer); margin-top:2px}
+.obs-note{font-size:10px; color:var(--dimmer); margin-top:4px; font-style:italic}
+
+/* ===== 换人 ===== */
+.tf-new{display:flex; gap:8px; padding:4px 12px; overflow-x:auto; scrollbar-width:none}
+.tf-new::-webkit-scrollbar{display:none}
+.tf-new .pcard{flex:0 0 108px}
+.tf-new .pcard .ph{height:74px}
+.tf-new .pcard .pid{font-size:12.5px}
+.tf-new .pcard .pstats{padding:4px 2px 6px}
+.tf-new .pcard .pstats b{font-size:12px}
+.tf-new .pcard .delta{position:absolute; bottom:4px; left:0; right:0; text-align:center; font-size:9px; color:var(--atk); z-index:2}
+.pcard.sel{outline:2px solid var(--def); outline-offset:-2px; box-shadow:0 0 14px rgba(92,200,255,.45)}
+.tf-lineup{display:flex; gap:6px; padding:4px 12px; justify-content:space-between}
+.tf-slot{flex:1; cursor:pointer; text-align:center; transition:.15s}
+.tf-slot:active{transform:scale(.93)}
+.tf-slot .hex{width:64px; height:72px; margin:0 auto; padding:2px; clip-path:var(--hex)}
+.tf-slot .hex.gold{background:linear-gradient(160deg,#f7dc85,var(--gold),#8a6a1c)}
+.tf-slot .hex.silver{background:linear-gradient(160deg,#f2f7fb,var(--silver),#7b8894)}
+.tf-slot .hex.bronze{background:linear-gradient(160deg,#d9b598,var(--bronze),#6e5138)}
+.tf-slot .hex img{width:100%; height:100%; clip-path:var(--hex); object-fit:cover; object-position:center 12%}
+.tf-slot .nm{font-size:10.5px; font-weight:700; margin-top:3px}
+.tf-slot.sel .hex{box-shadow:0 0 14px var(--def)}
+.tf-slot.sel .nm{color:var(--def)}
+.swap-cmp{display:flex; align-items:center; justify-content:center; gap:12px; margin:10px 0}
+.swap-cmp img{width:52px; height:58px; clip-path:var(--hex); object-fit:cover; object-position:center 12%}
+.swap-cmp .arr{font-family:'Anton'; font-size:20px; color:var(--dim)}
+.chem-delta{text-align:center; font-size:15px; font-weight:700; margin:8px 0}
+.chem-delta .dn{color:var(--atk)}
+.warn-line{text-align:center; font-size:11.5px; color:#ff6b5c; background:rgba(255,80,60,.1); border:1px solid rgba(255,80,60,.4); padding:6px; margin:8px 0; clip-path:var(--cut-sm)}
+
+/* ===== 结算页 ===== */
+#screen-result{background:radial-gradient(ellipse at 50% 20%, #131c28 0%, #070a0e 70%); z-index:100}
+.result-wrap{min-height:100%; display:flex; flex-direction:column; align-items:center; padding:34px 20px 24px; text-align:center}
+.res-verdict{font-family:'Anton'; font-size:52px; letter-spacing:4px; color:var(--gold); text-shadow:0 0 30px rgba(232,185,62,.4); transform:skewX(-4deg)}
+.res-verdict.loss{color:#7d8894; text-shadow:none}
+.res-score-line{display:flex; align-items:center; gap:14px; margin-top:6px}
+.res-score-line img{width:46px; height:46px; object-fit:contain}
+.res-score-line .sc{font-family:'Anton'; font-size:34px; letter-spacing:2px}
+.res-stage{font-size:11.5px; color:var(--dim); letter-spacing:2px; margin-top:6px}
+.res-quote{font-style:italic; font-size:13.5px; color:var(--accent); margin:16px 0; line-height:1.6}
+.res-block{width:100%; background:var(--panel); border:1px solid var(--line); clip-path:var(--cut); padding:11px 14px; margin-bottom:9px; text-align:left}
+.res-block .bt{font-size:10.5px; color:var(--dim); letter-spacing:2px; margin-bottom:7px}
+.mvp-row{display:flex; align-items:center; gap:10px}
+.mvp-row img{width:44px; height:50px; clip-path:var(--hex); object-fit:cover; object-position:center 12%; background:#1a222c}
+.mvp-row .mid .nm{font-family:'Anton'; font-size:16px}
+.mvp-row .mid .tg{font-size:9.5px; color:var(--gold)}
+.mvp-stats{margin-left:auto; display:flex; gap:12px}
+.mvp-stats div{text-align:center}
+.mvp-stats b{font-family:'Anton'; font-size:16px; color:var(--def); display:block}
+.mvp-stats span{font-size:9px; color:var(--dim)}
+.delta-line{font-size:12.5px; line-height:1.9}
+.delta-line b{color:var(--accent)}
+.delta-line .up{color:#9fd06a}
+.delta-line .sm{font-size:10px; color:var(--dimmer)}
+.res-continue{margin-top:auto; width:100%}
+
+/* ===== 观赛页 ===== */
+.scorebar{
+  display:flex; align-items:center; gap:10px; padding:8px 12px;
+  background:linear-gradient(180deg,#16202c,#10161e); border-bottom:1px solid var(--line);
+}
+.scorebar img{width:30px; height:30px; object-fit:contain}
+.scorebar .sc{font-family:'Anton'; font-size:24px; letter-spacing:2px}
+.scorebar .sc .me{color:var(--def)} .scorebar .sc .op{color:var(--atk)}
+.scorebar .rd{font-size:10px; color:var(--dim); line-height:1.3}
+.scorebar .rd b{color:var(--txt)}
+.timer-ring{margin-left:auto; width:34px; height:34px}
+.back-arrow{display:inline-flex; align-items:center; gap:5px; font-size:11.5px; color:var(--dim); cursor:pointer; padding:8px 12px 0}
+.back-arrow:active{color:var(--txt)}
+.sandbox{
+  margin:10px 12px; aspect-ratio:16/9; background:#0d141b; border:1px solid var(--line);
+  clip-path:var(--cut); position:relative; cursor:pointer; overflow:hidden;
+  background-image:linear-gradient(rgba(92,200,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(92,200,255,.04) 1px,transparent 1px);
+  background-size:24px 24px;
+}
+.sandbox .placeholder{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:var(--dimmer); font-size:12px; letter-spacing:2px}
+.sandbox .placeholder .big{font-size:14px; color:var(--dim); letter-spacing:4px}
+.pdot{position:absolute; width:22px; height:22px; clip-path:var(--hex); display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:700}
+.pdot.atk{background:rgba(255,157,92,.85); color:#200f04}
+.pdot.def{background:rgba(92,200,255,.85); color:#04202e}
+.sandbox.focus{position:absolute; inset:0; margin:0; aspect-ratio:auto; z-index:60; clip-path:none}
+.match-tabs{display:flex; margin:2px 12px 0; border-bottom:1px solid var(--line)}
+.match-tabs .mt{flex:1; text-align:center; padding:8px; font-size:13px; font-weight:700; letter-spacing:3px; color:var(--dim); cursor:pointer}
+.match-tabs .mt.on{color:var(--gold); border-bottom:2px solid var(--gold)}
+.feed{padding:8px 12px}
+.feed-item{display:flex; gap:8px; align-items:baseline; font-size:12px; padding:6px 8px; margin-bottom:5px; background:var(--panel); clip-path:var(--cut-sm); line-height:1.4}
+.feed-item .rd-no{font-size:9.5px; color:var(--dimmer); flex:0 0 34px}
+.feed-item.atk{border-left:2px solid var(--atk)}
+.feed-item.def{border-left:2px solid var(--def)}
+.feed-item b.a{color:var(--atk)} .feed-item b.d{color:var(--def)}
+.cmd-panel{padding:14px}
+.cmd-row{display:flex; gap:8px; margin-bottom:12px}
+.cmd-btn{flex:1; padding:11px 0; text-align:center; font-weight:700; font-size:13px; letter-spacing:2px; background:var(--panel2); border:1px solid var(--line); clip-path:var(--cut-sm); cursor:pointer; color:var(--dim); transition:.15s}
+.cmd-btn.on{background:rgba(232,185,62,.14); border-color:var(--gold); color:var(--gold)}
+.cmd-btn:active{transform:scale(.94)}
+.cmd-note{font-size:10.5px; color:var(--dimmer); line-height:1.7}
+
+/* ===== 教练页 ===== */
+.coach-head{display:flex; gap:14px; padding:18px 16px 10px; align-items:center}
+.coach-head .hex-avatar{width:72px; height:80px}
+.coach-head .nm{font-family:'Anton'; font-size:24px; letter-spacing:1px}
+.coach-head .yr{font-size:11px; color:var(--dim); margin-top:4px}
+.coach-head .yr b{color:var(--accent)}
+.ctabs{display:flex; margin:6px 16px 0; border-bottom:1px solid var(--line)}
+.ctabs .mt{flex:1; text-align:center; padding:8px; font-size:13px; font-weight:700; letter-spacing:3px; color:var(--dim); cursor:pointer}
+.ctabs .mt.on{color:var(--gold); border-bottom:2px solid var(--gold)}
+.tri-card{display:flex; align-items:center; gap:14px; padding:13px 16px; margin:10px 16px 0}
+.tri-card .num{font-family:'Anton'; font-size:40px; width:76px; transform:skewX(-4deg)}
+.tri-card.rep .num{color:var(--gold)} .tri-card.tac .num{color:var(--def)} .tri-card.cli .num{color:var(--atk)}
+.tri-card .mid{flex:1}
+.tri-card .mid .lab{font-weight:700; font-size:14px; letter-spacing:2px}
+.tri-card .mid .bar{height:7px; background:#0d1319; margin:6px 0 5px; clip-path:polygon(3px 0,100% 0,calc(100% - 3px) 100%,0 100%)}
+.tri-card .mid .bar i{display:block; height:100%}
+.tri-card.rep .bar i{background:var(--gold)} .tri-card.tac .bar i{background:var(--def)} .tri-card.cli .bar i{background:var(--atk)}
+.tri-card .mid .src{font-size:10px; color:var(--dimmer)}
+.trophy-card{margin:10px 16px 0; padding:13px 14px}
+.trophy-card .tt{font-weight:700; font-size:14px; letter-spacing:1px; color:var(--accent)}
+.trophy-card .dt{font-size:10px; color:var(--dim); margin-top:2px}
+.trophy-hexes{display:flex; gap:8px; margin-top:10px; justify-content:center}
+.trophy-hexes img{width:44px; height:50px; clip-path:var(--hex); object-fit:cover; object-position:center 12%; background:#1a222c; border:1px solid rgba(232,185,62,.4)}
+.record-row{display:flex; gap:10px; margin:12px 16px 0}
+.record-cell{flex:1; text-align:center; padding:11px 4px}
+.record-cell b{font-family:'Anton'; font-size:22px; color:var(--txt); display:block}
+.record-cell span{font-size:10px; color:var(--dim)}
+.honor-note{margin:10px 16px; font-size:10px; color:var(--dimmer); font-style:italic}
+
+/* ===== 抽卡页 ===== */
+.pack-zone{padding:16px; text-align:center}
+.pack-visual{
+  width:190px; height:256px; margin:12px auto; position:relative; cursor:pointer;
+  clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);
+  transition:transform .18s;
+}
+.pack-visual:active{transform:scale(.95)}
+.pack-visual .tex{position:absolute; inset:0; object-fit:cover; opacity:.9}
+.pack-visual .ov{position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,14,18,.25),rgba(10,14,18,.78) 75%)}
+.pack-visual .lb{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px}
+.pack-visual .lb .t1{font-family:'Anton'; font-size:26px; letter-spacing:3px; color:#f7dc85; text-shadow:0 2px 8px #000}
+.pack-visual .lb .t2{font-size:10.5px; letter-spacing:4px; color:var(--dim)}
+.pack-count{font-size:12.5px; color:var(--dim)}
+.pack-count b{color:var(--accent); font-size:15px}
+.draw-result{display:none; padding:6px 12px 12px}
+.draw-result .row{display:flex; gap:7px; justify-content:center}
+.draw-result .pcard{flex:1; max-width:70px; animation:pop .25s ease}
+.draw-result .pcard .ph{height:56px}
+.draw-result .pcard .pid{font-size:10.5px; margin-top:-10px}
+.draw-result .pcard .pstats{display:none}
+.draw-result .pcard .pteam{font-size:8px}
+.fx-note{text-align:center; font-size:10px; color:var(--dimmer); margin:8px 0 0; font-style:italic}
+.region-filter{display:flex; gap:10px; justify-content:center; padding:12px 0 4px}
+.region-filter .rf{
+  width:46px; height:46px; display:flex; align-items:center; justify-content:center;
+  background:var(--panel2); border:1px solid var(--line); clip-path:var(--hex); cursor:pointer; opacity:.55; transition:.15s;
+}
+.region-filter .rf img{width:26px; height:26px; object-fit:contain}
+.region-filter .rf.on{opacity:1; background:rgba(232,185,62,.14); border-color:var(--gold)}
+.gallery-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:9px; padding:12px 14px 20px}
+.gallery-grid .pcard .ph{height:86px}
+.gallery-grid .pcard .pid{font-size:12px}
+.gallery-grid .pcard .pstats{display:none}
+.gallery-grid .pcard .pteam{display:none}
+.pcard.locked{filter:grayscale(1) brightness(.5); cursor:default}
+.pcard.locked::after{
+  content:'未获得'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:11px; letter-spacing:3px; color:#cfd8e0; background:rgba(10,14,18,.35); z-index:4;
+}
+</style>
+</head>
+<body>
+<div class="phone">
+  <!-- 顶栏（全局常驻） -->
+  <header id="topbar">
+    <div class="coach-chip" id="coach-chip">
+      <div class="hex-avatar"><img src="../../素材库/选手半身像/inspire.png" alt="教练"></div>
+      <div class="coach-meta">
+        <div class="nm">教练 · 阿岚</div>
+        <div class="mm">声望<b id="tb-rep">72</b> 战术<b id="tb-tac">65</b> 临场<b id="tb-cli">58</b></div>
+      </div>
+    </div>
+    <div class="top-right">
+      <button class="icon-btn" id="pack-btn">🎴<span class="cnt" id="pack-cnt">×2</span></button>
+      <button class="icon-btn" id="gear-btn">⚙</button>
+    </div>
+  </header>
+
+  <!-- 视口 -->
+  <main id="viewport">
+
+    <!-- 1. 征程 -->
+    <section class="screen" id="screen-journey">
+      <div class="screen-pad">
+        <div class="sec-title">征程 · 赛年 S2 攀登之路</div>
+        <div id="journey-path">
+          <svg id="journey-lines"></svg>
+          <!-- 节点由 JS 渲染（顶端 = 冠军赛） -->
+        </div>
+        <div class="newjourney" id="newjourney-btn">
+          <div class="t">新的征程</div>
+          <div class="d">十选五出征 · 组建你的冠军班底</div>
+        </div>
+        <div class="camp-card" id="camp-btn">
+          <div class="ic">⛺</div>
+          <div>
+            <div class="tt">训练赛营地</div>
+            <div class="dd">约训练赛 · 联机PK预留</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 十选五出征 -->
+    <section class="screen" id="screen-draft">
+      <div class="page-head">
+        <h1>新的征程 · 出征选拔</h1>
+        <div class="hint">从 10 名候选中选择 <b>5 名选手</b>出征 · 点击卡牌选中 / 取消</div>
+      </div>
+      <div class="draft-grid" id="draft-grid"></div>
+      <div class="dock">
+        <div class="cnt">已选 <b id="draft-cnt">0</b>/5</div>
+        <button class="btn" id="draft-ok" disabled>确认出征</button>
+      </div>
+    </section>
+
+    <!-- 3. 阵容 -->
+    <section class="screen" id="screen-lineup">
+      <div class="screen-pad">
+        <div style="display:flex;align-items:center">
+          <div class="sec-title" style="margin-top:4px">出征阵容 · 先发五人</div>
+          <button class="btn ghost" id="transfer-btn" style="margin-left:auto;padding:6px 14px;font-size:11px;letter-spacing:2px">转会</button>
+        </div>
+        <div class="hexfield" id="hexfield">
+          <svg id="syn-lines"></svg>
+          <!-- 六边形卡槽由 JS 渲染 -->
+        </div>
+        <div class="panel chem-panel">
+          <div class="chem-top">
+            <span class="lab">队伍默契</span>
+            <span class="val" id="chem-val">78</span>
+            <span class="mx">/ 100</span>
+          </div>
+          <div class="chem-bar">
+            <div class="fill" id="chem-fill" style="width:78%"></div>
+            <div class="th" style="left:60%"><i>60</i></div>
+            <div class="th" style="left:80%"><i>80</i></div>
+          </div>
+          <div class="chem-note">阈值60：激活协同加成 · 阈值80：解锁成长上限</div>
+          <div class="power-row">
+            <span class="lab">综合战力</span>
+            <span class="val" id="power-val">86.4</span>
+          </div>
+          <div class="syn-tags">
+            <span class="syn-tag">捷风+雷兹 决斗联动</span>
+            <span class="syn-tag warm">双闪配合 +4%</span>
+            <span class="syn-tag">老牌指挥坐镇</span>
+          </div>
+        </div>
+      </div>
+      <!-- 选手详情半屏层 -->
+      <div class="sheet-mask" id="sheet-mask"></div>
+      <div class="sheet" id="player-sheet">
+        <div class="sheet-body" id="sheet-body"></div>
+      </div>
+    </section>
+
+    <!-- 4. 换人流程 -->
+    <section class="screen" id="screen-transfer">
+      <div class="page-head">
+        <h1>转会 · 大师赛卡包</h1>
+        <div class="hint">先点上方<b>新卡</b>，再点下方<b>阵容成员</b>进行换人预览</div>
+      </div>
+      <div class="sec-title" style="margin-left:14px">新到卡包 · 5 张</div>
+      <div class="tf-new" id="tf-new"></div>
+      <div class="sec-title" style="margin-left:14px">当前阵容</div>
+      <div class="tf-lineup" id="tf-lineup"></div>
+      <div style="padding:18px 14px">
+        <button class="btn ghost" id="tf-back" style="width:100%">返回阵容</button>
+      </div>
+    </section>
+
+    <!-- 5. 全屏结算页 -->
+    <section class="screen" id="screen-result">
+      <div class="result-wrap">
+        <div class="res-verdict" id="res-verdict">WIN</div>
+        <div class="res-score-line">
+          <img src="../../素材库/队伍logo/EDG.png" alt="EDG">
+          <div class="sc">13 : 11</div>
+          <img src="../../素材库/队伍logo/FPX.png" alt="FPX">
+        </div>
+        <div class="res-stage">季后赛① · 半决赛</div>
+        <div class="res-quote">"加时第 24 回合，Haodong 残局 1v2 收尾——这支队伍的膝盖，是打不弯的。"</div>
+        <div class="res-block">
+          <div class="bt">本场 MVP · 亮点数据</div>
+          <div class="mvp-row">
+            <img src="../../素材库/选手半身像/Haodong.png" alt="Haodong">
+            <div class="mid">
+              <div class="nm">Haodong</div>
+              <div class="tg">MVP · 决斗位</div>
+            </div>
+            <div class="mvp-stats">
+              <div><b>27</b><span>击杀</span></div>
+              <div><b>1.42</b><span>K/D</span></div>
+              <div><b>6</b><span>首杀</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="res-block">
+          <div class="bt">默契与状态变化</div>
+          <div class="delta-line">队伍默契 <b>78 → 82</b> <span class="up">(+4)</span> · 已突破 80 阈值，解锁成长上限</div>
+          <div class="delta-line">Haodong 状态 → 🔥火热　heybay 状态 → 平稳</div>
+        </div>
+        <div class="res-block">
+          <div class="bt">教练成长</div>
+          <div class="delta-line">声望 <span class="up">+3</span> <span class="sm">(关键场胜利)</span>　战术 <span class="up">+2</span> <span class="sm">(以弱胜强)</span>　临场 <span class="up">+1</span> <span class="sm">(暂停后得分率 75%)</span></div>
+        </div>
+        <div class="res-block">
+          <div class="bt">奖励</div>
+          <div class="delta-line">🎴 卡包 ×1 <span class="sm">(已放入仓库，可在抽卡页开启)</span></div>
+        </div>
+        <div class="res-continue">
+          <button class="btn" id="res-continue" style="width:100%">继续征程</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. 观赛页骨架 -->
+    <section class="screen" id="screen-match">
+      <div class="back-arrow" id="match-back">‹ 返回征程</div>
+      <div class="scorebar" style="margin-top:6px">
+        <img src="../../素材库/队伍logo/EDG.png" alt="EDG">
+        <div class="sc"><span class="me">5</span> : <span class="op">3</span></div>
+        <img src="../../素材库/队伍logo/T1.png" alt="T1">
+        <div class="rd"><b>回合 9</b> · 上半场<br>经济 ¥3,400 / ¥2,150</div>
+        <svg class="timer-ring" viewBox="0 0 36 36">
+          <circle cx="18" cy="18" r="15.5" fill="none" stroke="#26313e" stroke-width="3"/>
+          <circle cx="18" cy="18" r="15.5" fill="none" stroke="#ffcf5c" stroke-width="3"
+            stroke-dasharray="97.4" stroke-dashoffset="32" transform="rotate(-90 18 18)"/>
+          <text x="18" y="22" text-anchor="middle" font-size="11" fill="#dfe7ee" font-family="Rajdhani">38</text>
+        </svg>
+      </div>
+      <div class="sandbox" id="sandbox">
+        <div class="placeholder">
+          <div class="big">2D 沙盘</div>
+          <div>接入引擎后启用 · 点击进入专注模式</div>
+        </div>
+        <div class="pdot def" style="left:18%;top:24%">Hao</div>
+        <div class="pdot def" style="left:30%;top:62%">hb</div>
+        <div class="pdot def" style="left:12%;top:70%">SU</div>
+        <div class="pdot atk" style="left:74%;top:30%">st</div>
+        <div class="pdot atk" style="left:82%;top:64%">Mk</div>
+      </div>
+      <div class="match-tabs">
+        <div class="mt on" data-mtab="feed">战况</div>
+        <div class="mt" data-mtab="cmd">指挥</div>
+      </div>
+      <div id="match-feed" class="feed">
+        <div class="feed-item def"><span class="rd-no">回合8</span><span><b class="d">Haodong</b> 击杀了 <b class="a">stax</b> · 残局 1v1 得手</span></div>
+        <div class="feed-item atk"><span class="rd-no">回合8</span><span><b class="a">Munchkin</b> 击杀了 <b class="d">heybay</b> · A 点突破</span></div>
+        <div class="feed-item def"><span class="rd-no">回合7</span><span><b class="d">SUYGETSU</b> 三杀守下 B 点 · 燃烧弹封路</span></div>
+        <div class="feed-item atk"><span class="rd-no">回合7</span><span>对方安装爆能器 · 回防成功拆除</span></div>
+        <div class="feed-item def"><span class="rd-no">回合6</span><span><b class="d">Haodong</b> 首杀 <b class="a">tuyz</b> · 中路对狙</span></div>
+        <div class="feed-item atk"><span class="rd-no">回合5</span><span>经济局失利 · 教练请求暂停</span></div>
+      </div>
+      <div id="match-cmd" class="cmd-panel" style="display:none">
+        <div class="sec-title" style="margin-top:0">战术比重</div>
+        <div class="cmd-row">
+          <div class="cmd-btn" data-tac="atk">进攻</div>
+          <div class="cmd-btn on" data-tac="bal">均衡</div>
+          <div class="cmd-btn" data-tac="def">防守</div>
+        </div>
+        <div class="cmd-row">
+          <div class="cmd-btn" id="igl-btn">更换 IGL</div>
+          <div class="cmd-btn" id="pause-btn" style="color:var(--accent);border-color:rgba(255,207,92,.4)">⏸ 请求暂停</div>
+        </div>
+        <div class="cmd-note">战术比重影响沙盘 AI 的默认走位倾向；暂停每半场限 2 次，暂停后进入教练窗口进行回合间调整。</div>
+      </div>
+    </section>
+
+    <!-- 7. 教练页 -->
+    <section class="screen" id="screen-coach">
+      <div class="coach-head">
+        <div class="hex-avatar"><img src="../../素材库/选手半身像/inspire.png" alt="教练"></div>
+        <div>
+          <div class="nm">教练 · 阿岚</div>
+          <div class="yr">执教第 <b>2</b> 赛年 · CN 赛区</div>
+        </div>
+      </div>
+      <div class="ctabs">
+        <div class="mt on" data-ctab="tri">三维</div>
+        <div class="mt" data-ctab="career">生涯</div>
+      </div>
+      <div id="coach-tri">
+        <div class="panel tri-card rep">
+          <div class="num" id="coach-rep">72</div>
+          <div class="mid">
+            <div class="lab">声望</div>
+            <div class="bar"><i style="width:72%"></i></div>
+            <div class="src">来源：阶段成绩 · 影响转会市场吸引力</div>
+          </div>
+        </div>
+        <div class="panel tri-card tac">
+          <div class="num" id="coach-tac">65</div>
+          <div class="mid">
+            <div class="lab">战术</div>
+            <div class="bar"><i style="width:65%"></i></div>
+            <div class="src">来源：单场胜负 · 影响战术比重效果</div>
+          </div>
+        </div>
+        <div class="panel tri-card cli">
+          <div class="num" id="coach-cli">58</div>
+          <div class="mid">
+            <div class="lab">临场</div>
+            <div class="bar"><i style="width:58%"></i></div>
+            <div class="src">来源：暂停后胜率 · 影响暂停调整质量</div>
+          </div>
+        </div>
+      </div>
+      <div id="coach-career" style="display:none">
+        <div class="sec-title" style="margin-left:16px">荣誉室 · 奖杯陈列</div>
+        <div class="panel trophy-card">
+          <div class="tt">🏆 赛年S1 · 冠军赛 冠军</div>
+          <div class="dt">定格阵容 · 2025-08-24</div>
+          <div class="trophy-hexes">
+            <img src="../../素材库/选手半身像/Haodong.png" alt="">
+            <img src="../../素材库/选手半身像/heybay.png" alt="">
+            <img src="../../素材库/选手半身像/SUYGETSU.png" alt="">
+            <img src="../../素材库/选手半身像/Munchkin.png" alt="">
+            <img src="../../素材库/选手半身像/stax.png" alt="">
+          </div>
+        </div>
+        <div class="sec-title" style="margin-left:16px">生涯纪录</div>
+        <div class="record-row">
+          <div class="panel record-cell"><b>×1</b><span>总冠军</span></div>
+          <div class="panel record-cell"><b>×2</b><span>大师赛</span></div>
+          <div class="panel record-cell"><b>68%</b><span>总胜率</span></div>
+        </div>
+        <div class="honor-note">荣誉可小幅提升声望。</div>
+      </div>
+    </section>
+
+    <!-- 8. 抽卡页 -->
+    <section class="screen" id="screen-draw">
+      <div class="ctabs" style="margin-top:10px">
+        <div class="mt on" data-dtab="open">开包</div>
+        <div class="mt" data-dtab="album">图鉴</div>
+      </div>
+      <div id="draw-open">
+        <div class="pack-zone">
+          <div class="pack-count">卡包库存：<b id="pack-stock">2</b> 个</div>
+          <div class="pack-visual" id="pack-visual">
+            <img class="tex" src="../../素材库/底纹/金.png" alt="">
+            <div class="ov"></div>
+            <div class="lb">
+              <div class="t1">卡包</div>
+              <div class="t2">赛年 S2 · 普通包</div>
+            </div>
+          </div>
+          <button class="btn" id="open-pack" style="width:220px">开 包</button>
+          <div class="fx-note">完整出卡特效复用现有原型 v2.4 · 此处为简化翻面</div>
+        </div>
+        <div class="draw-result" id="draw-result">
+          <div class="sec-title" style="margin-left:4px">开包结果 · 点击卡牌查看</div>
+          <div class="row" id="draw-row"></div>
+          <div class="fx-note">集齐 10 名选手后可发起「十选五出征」</div>
+        </div>
+      </div>
+      <div id="draw-album" style="display:none">
+        <div class="region-filter" id="region-filter">
+          <div class="rf on" data-region="all"><span style="font-size:11px;font-weight:700;color:var(--accent)">全部</span></div>
+          <div class="rf" data-region="CN"><img src="../../素材库/赛区图标/CN.png" alt="CN"></div>
+          <div class="rf" data-region="PAC"><img src="../../素材库/赛区图标/PAC.png" alt="PAC"></div>
+          <div class="rf" data-region="EMEA"><img src="../../素材库/赛区图标/EMEA.png" alt="EMEA"></div>
+          <div class="rf" data-region="AMER"><img src="../../素材库/赛区图标/AMER.png" alt="AMER"></div>
+        </div>
+        <div class="gallery-grid" id="gallery-grid"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 底栏 -->
+  <nav id="tabbar">
+    <button class="tab on" data-screen="journey">
+      <svg viewBox="0 0 24 24"><path d="M4 21V4l7 3 9-2v12l-9 2-7-3v3z"/></svg>征程
+    </button>
+    <button class="tab" data-screen="lineup">
+      <svg viewBox="0 0 24 24"><path d="M12 1l8 5.5v9L12 21l-8-5.5v-9z"/></svg>阵容
+    </button>
+    <button class="tab" data-screen="draw">
+      <svg viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z M8 7h6M8 11h8M8 15h5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>抽卡
+    </button>
+  </nav>
+
+  <!-- 全局浮层 -->
+  <div class="toast" id="toast"></div>
+  <div class="modal-mask" id="modal-mask"><div class="modal-box" id="modal-box"></div></div>
+</div>
+
+<script>
+/* ================= 假数据 ================= */
+const A = p => '../../素材库/' + p;
+const QN = {gold:'金', silver:'银', bronze:'铜', diamond:'钻'};
+const PLAYERS = {
+  Haodong:  {team:'EDG',  region:'CN',   q:'gold',   g:92, s:85, m:88, status:'hot'},
+  heybay:   {team:'EDG',  region:'CN',   q:'silver', g:78, s:82, m:74, status:'cold'},
+  SUYGETSU: {team:'VIT',  region:'EMEA', q:'gold',   g:88, s:80, m:85, status:''},
+  Munchkin: {team:'GEN',  region:'PAC',  q:'silver', g:80, s:84, m:79, status:''},
+  stax:     {team:'T1',   region:'PAC',  q:'silver', g:82, s:86, m:84, status:''},
+  Boaster:  {team:'FNC',  region:'EMEA', q:'gold',   g:85, s:90, m:88, status:''},
+  Marved:   {team:'NRG',  region:'AMER', q:'bronze', g:68, s:60, m:64, status:''},
+  Saadhak:  {team:'LOUD', region:'AMER', q:'silver', g:79, s:83, m:86, status:''},
+  starxo:   {team:'100T', region:'AMER', q:'bronze', g:66, s:70, m:62, status:''},
+  Zellsis:  {team:'SEN',  region:'AMER', q:'bronze', g:70, s:65, m:60, status:''},
+  tex:      {team:'LEV',  region:'AMER', q:'silver', g:81, s:72, m:70, delta:-12},
+  Rossy:    {team:'G2',   region:'AMER', q:'bronze', g:65, s:60, m:63, delta:-22},
+  v1c:      {team:'BLG',  region:'CN',   q:'gold',   g:86, s:78, m:80, delta:-8},
+  DH:       {team:'TYL',  region:'CN',   q:'silver', g:77, s:80, m:76, delta:-15},
+  BerLIN:   {team:'FPX',  region:'CN',   q:'gold',   g:84, s:88, m:86, delta:-10},
+  Crws:     {team:'TH',   region:'EMEA', q:'bronze', g:69, s:71, m:66, status:''},
+  tuyz:     {team:'LOUD', region:'AMER', q:'silver', g:80, s:74, m:72, status:''},
+  Kicks:    {team:'VIT',  region:'EMEA', q:'silver', g:76, s:79, m:77, status:''},
+  Proxh:    {team:'TYL',  region:'CN',   q:'bronze', g:67, s:69, m:61, status:''},
+};
+const IMG_EXT = {tex:'.jpeg'}; // 其余为 .png
+const pimg = id => A('选手半身像/' + id + (IMG_EXT[id] || '.png'));
+
+const OBS = {
+  Haodong:  [{t:'关键时刻不手软，疑似大心脏', w:'季后赛① · 半决赛'}, {t:'连杀后喜欢前压，偶尔白给', w:'常规赛 · 第3轮', neg:1}, {t:'首杀率联盟前三', w:'常规赛 · 第1轮'}],
+  heybay:   [{t:'逆风局容易隐身', w:'常规赛 · 第4轮', neg:1}, {t:'道具配合意识在线', w:'常规赛 · 第2轮'}],
+  SUYGETSU: [{t:'残局选位刁钻，1v1 胜率高', w:'常规赛 · 第4轮'}, {t:'逆风局容易隐身', w:'大师赛① · 八强', neg:1}],
+  Munchkin: [{t:'指挥调度清晰，中期决策果断', w:'常规赛 · 第3轮'}, {t:'枪法平平，靠脑子吃饭', w:'常规赛 · 第1轮'}],
+  stax:     [{t:'老将稳定性极佳，失误率最低', w:'常规赛 · 第4轮'}, {t:'对枪不主动，偏保守', w:'常规赛 · 第2轮', neg:1}],
+};
+const OBS_DEFAULT = [{t:'样本不足，持续观察中', w:'系统'}];
+
+const DRAFT_POOL = ['Haodong','heybay','Boaster','stax','Marved','Saadhak','starxo','SUYGETSU','Zellsis','Munchkin'];
+const TF_NEW = ['tex','Rossy','v1c','DH','BerLIN'];
+const GALLERY_LOCKED = new Set(['Boaster','Marved','starxo','Zellsis','Rossy','Crws','Proxh']);
+const GALLERY_ORDER = ['Haodong','heybay','v1c','DH','Proxh','stax','Munchkin','SUYGETSU','Boaster','Kicks','Crws','BerLIN','Marved','Saadhak','starxo','Zellsis','tex','Rossy','tuyz'];
+const DRAW_FIVE = ['v1c','tuyz','Crws','Kicks','Zellsis'];
+
+const state = {
+  packs: 2,
+  chemistry: 78,
+  lineup: ['Haodong','heybay','SUYGETSU','Munchkin','stax'],
+  coach: {rep:72, tac:65, cli:58},
+  regMatchDone: false,
+  resultClaimed: false,
+  draftSel: [],
+  tfUsed: new Set(),
+};
+
+const JOURNEY = [
+  {id:'champ',  nm:'冠军赛',      region:['CN','AMER','EMEA','PAC'], st:'locked', lock:'解锁条件：赢得季后赛②', crown:1},
+  {id:'po2',    nm:'季后赛②',    region:['CN'],                    st:'locked', lock:'解锁条件：第二赛段常规赛排名前四'},
+  {id:'reg2',   nm:'第二赛段常规赛', region:['CN'],                  st:'locked', lock:'解锁条件：大师赛②结束后开启'},
+  {id:'m2',     nm:'大师赛②',    region:['AMER','EMEA','PAC'],     st:'locked', lock:'解锁条件：季后赛①夺冠'},
+  {id:'po1',    nm:'季后赛①',    region:['CN'],                    st:'locked', lock:'解锁条件：常规赛排名前二'},
+  {id:'reg1',   nm:'第一赛段常规赛', region:['CN'],                  st:'current'},
+  {id:'m1',     nm:'大师赛①',    region:['AMER','EMEA','PAC'],     st:'done', res:'4强'},
+  {id:'kick',   nm:'启点赛',      region:['CN'],                    st:'done', res:'冠军'},
+];
+
+const STANDINGS = [
+  {t:'EDG', w:4, l:0, me:1}, {t:'BLG', w:3, l:1}, {t:'FPX', w:2, l:2},
+  {t:'TYL', w:2, l:2}, {t:'TE', w:1, l:3}, {t:'WOL', w:0, l:4},
+];
+
+/* ================= 工具 ================= */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+let toastTimer = null;
+function toast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+function openModal(html){ $('#modal-box').innerHTML = html; $('#modal-mask').classList.add('show'); }
+function closeModal(){ $('#modal-mask').classList.remove('show'); }
+$('#modal-mask').addEventListener('click', e => { if(e.target.id === 'modal-mask') closeModal(); });
+
+function cardHTML(id, cls=''){
+  const p = PLAYERS[id];
+  return `<div class="pcard ${p.q} ${cls}" data-id="${id}">
+    <div class="qframe ${p.q}" style="height:100%"><div class="inner">
+      <div class="ph"><img src="${pimg(id)}" alt="${id}"></div>
+      <div class="gem ${p.q}"></div>
+      <div class="ord"></div>
+      <div class="pid">${id}</div>
+      <div class="pteam">${p.team} · ${QN[p.q]}卡</div>
+      <div class="pstats">
+        <div><b>${p.g}</b><span>枪法</span></div>
+        <div><b>${p.s}</b><span>协同</span></div>
+        <div><b>${p.m}</b><span>意识</span></div>
+      </div>
+    </div></div>
+  </div>`;
+}
+const ST_ICON = {hot:'🔥', cold:'❄️'};
+const ST_DESC = {hot:'状态火热：近期表现出色，三维临时 +3', cold:'状态低迷：近期表现挣扎，三维临时 -3，建议训练赛调整'};
+
+/* ================= 路由 ================= */
+const SCREENS = ['journey','draft','lineup','transfer','result','match','coach','draw'];
+const AFTER_SHOW = {journey: drawJourneyLines, lineup: drawSynLines};
+function go(name){ location.hash = 'screen=' + name; }
+function route(){
+  let name = (location.hash.match(/screen=(\w+)/) || [])[1] || 'journey';
+  if(!SCREENS.includes(name)) name = 'journey';
+  $$('.screen').forEach(s => s.classList.remove('on'));
+  $('#screen-' + name).classList.add('on');
+  // 结算页为打断式全屏：隐藏顶栏/底栏
+  $('#topbar').style.display = name === 'result' ? 'none' : '';
+  $('#tabbar').style.display = name === 'result' ? 'none' : '';
+  $$('#tabbar .tab').forEach(t => t.classList.toggle('on', t.dataset.screen === name));
+  if(AFTER_SHOW[name]) requestAnimationFrame(AFTER_SHOW[name]);
+  applyDemoParams(name);
+}
+// 截图验证用的状态直达参数（正常浏览无影响），如 #screen=draw&tab=album
+function applyDemoParams(name){
+  const q = new URLSearchParams(location.hash.slice(1));
+  setTimeout(() => {
+    if(name === 'draw' && q.get('tab') === 'album') $('.mt[data-dtab="album"]').click();
+    if(name === 'draw' && q.has('opened')) $('#open-pack').click();
+    if(name === 'coach' && q.get('tab') === 'career') $('.mt[data-ctab="career"]').click();
+    if(name === 'match' && q.get('tab') === 'cmd') $('.mt[data-mtab="cmd"]').click();
+    if(name === 'match' && q.has('focus')) $('#sandbox').click();
+    if(name === 'lineup' && q.get('sheet')){
+      openSheet(q.get('sheet'));
+      const sh = $('#player-sheet'), mk = $('#sheet-mask');
+      sh.style.transition = 'none'; sh.style.transform = 'none'; mk.style.display = 'block';
+    }
+    if(name === 'transfer' && q.has('preview')){ tfPickNew = 'Rossy'; tfPickOld = 'heybay'; tryPreview(); }
+    if(name === 'draft' && q.has('pick')){ state.draftSel = DRAFT_POOL.slice(0, 5); refreshDraftPicks(); }
+    if(name === 'journey' && q.has('flipped')){
+      state.regMatchDone = true; renderJourney();
+      setTimeout(() => { const c = $('.jnode.current'); if(c) c.scrollIntoView({block:'center'}); }, 30);
+    }
+  }, 30);
+}
+window.addEventListener('hashchange', route);
+$$('#tabbar .tab').forEach(t => t.addEventListener('click', () => go(t.dataset.screen)));
+
+/* ================= 顶栏 ================= */
+function syncTopbar(){
+  $('#tb-rep').textContent = state.coach.rep;
+  $('#tb-tac').textContent = state.coach.tac;
+  $('#tb-cli').textContent = state.coach.cli;
+  $('#pack-cnt').textContent = '×' + state.packs;
+  $('#pack-stock').textContent = state.packs;
+}
+$('#coach-chip').addEventListener('click', () => go('coach'));
+$('#pack-btn').addEventListener('click', () => go('draw'));
+$('#gear-btn').addEventListener('click', () => toast('敬请期待'));
+
+/* ================= 征程 ================= */
+function renderJourney(){
+  const path = $('#journey-path');
+  path.querySelectorAll('.jnode-row').forEach(n => n.remove());
+  let alt = 0;
+  JOURNEY.forEach(nd => {
+    const row = document.createElement('div');
+    row.className = 'jnode-row ' + (nd.st === 'current' ? 'full' : (alt++ % 2 ? 'right' : 'left'));
+    const regions = nd.region.map(r => `<img src="${A('赛区图标/' + r + '.png')}" alt="${r}">`).join('');
+    let badge = '';
+    if(nd.st === 'done') badge = `<span class="badge">${nd.res}</span>`;
+    if(nd.st === 'locked') badge = `<span class="badge">未解锁</span>`;
+    if(nd.st === 'current') badge = `<span class="badge">进行中</span>`;
+    let extra = '';
+    if(nd.crown) extra = `<span style="color:var(--diamond);font-size:13px" title="钻色王冠">◆</span>`;
+    let body = `<div class="stage">${regions}<span class="nm">${nd.nm}</span>${extra}${badge}</div>`;
+    if(nd.st === 'current') body += currentNodeHTML();
+    if(nd.st === 'done') body += `<div class="sub">已完赛 · 成绩：${nd.res}</div>`;
+    row.innerHTML = `<div class="jnode ${nd.st}" data-id="${nd.id}">${body}</div>`;
+    path.appendChild(row);
+  });
+  // 交互
+  path.querySelectorAll('.jnode.locked').forEach(n =>
+    n.addEventListener('click', () => toast(JOURNEY.find(x => x.id === n.dataset.id).lock)));
+  bindCurrentNode();
+  drawJourneyLines();
+}
+function currentNodeHTML(){
+  const rows = STANDINGS.map((s, i) =>
+    `<div class="srow${s.me ? ' me' : ''}"><span class="rk">${i+1}</span><img src="${A('队伍logo/' + s.t + '.png')}" alt="${s.t}"><span class="tn">${s.t}</span><span class="wl">${s.w}胜${s.l}负</span></div>`).join('');
+  let match;
+  if(!state.regMatchDone){
+    match = `<div class="next-match">
+      <div class="flip-zone"><div class="flip-face">
+        <div class="nm-vs"><img src="${A('队伍logo/EDG.png')}" alt="EDG"><span class="vs">VS</span><img src="${A('队伍logo/BLG.png')}" alt="BLG"></div>
+        <div class="nm-meta">常规赛 · 第5轮 · BO3</div>
+        <button class="btn atk" id="play-normal" style="padding:8px 30px">出 战</button>
+        <div style="margin-top:7px"><span id="watch-link" style="font-size:10.5px;color:var(--def);cursor:pointer;text-decoration:underline">观赛页布局预览 ›</span></div>
+      </div></div>
+    </div>`;
+  } else {
+    match = `<div class="next-match">
+      <div class="flip-result" style="display:block">
+        <div class="score">13 : 7</div>
+        <div class="rp">轻取 BLG，Haodong 枪感火热 <span style="color:var(--dimmer)">(再点展开数据)</span></div>
+        <div class="mini" id="flip-mini">
+          击杀王：<b>Haodong 24</b> · 首杀 7 次<br>
+          团队爆能器安装率 <b>68%</b> · 手枪局 2/2<br>
+          默契 <b>+2</b> · heybay 状态有所回暖
+        </div>
+      </div>
+    </div>
+    <div class="next-match" style="margin-top:8px;border:1px solid rgba(169,241,255,.35)">
+      <div class="nm-vs"><img src="${A('队伍logo/EDG.png')}" alt="EDG"><span class="vs">VS</span><img src="${A('队伍logo/FPX.png')}" alt="FPX"></div>
+      <div class="nm-meta">季后赛① · 半决赛 · BO5<span class="nm-key">关键场</span></div>
+      <div style="text-align:center"><button class="btn" id="play-key" style="padding:8px 30px">出 战</button></div>
+    </div>`;
+  }
+  return `<div class="sub">第 5 轮 · 积分榜前二晋级季后赛</div>
+    <div class="standings">${rows}</div>
+    <div class="sec-title" style="margin:10px 0 0">下一场比赛</div>${match}`;
+}
+function bindCurrentNode(){
+  const pn = $('#play-normal');
+  if(pn) pn.addEventListener('click', () => {
+    state.regMatchDone = true; renderJourney();
+    toast('常规赛收官！季后赛① 已解锁');
+  });
+  const wl = $('#watch-link');
+  if(wl) wl.addEventListener('click', e => { e.stopPropagation(); go('match'); });
+  const fr = $('.flip-result');
+  if(fr) fr.addEventListener('click', () => {
+    const m = $('#flip-mini'); if(m) m.style.display = m.style.display === 'block' ? 'none' : 'block';
+  });
+  const pk = $('#play-key');
+  if(pk) pk.addEventListener('click', () => go('result'));
+}
+function drawJourneyLines(){
+  const svg = $('#journey-lines'), path = $('#journey-path');
+  const pr = path.getBoundingClientRect();
+  if(!pr.height) return;
+  svg.setAttribute('viewBox', `0 0 ${pr.width} ${pr.height}`);
+  const nodes = [...path.querySelectorAll('.jnode')];
+  let d = '';
+  const pts = nodes.map(n => {
+    const r = n.getBoundingClientRect();
+    return {x: r.left - pr.left + r.width / 2, y: r.top - pr.top + Math.min(r.height, 60) / 2, st: n.classList.contains('locked') ? 'locked' : 'lit'};
+  });
+  let html = '';
+  for(let i = 0; i < pts.length - 1; i++){
+    const a = pts[i], b = pts[i + 1];
+    const col = (a.st === 'lit' && b.st === 'lit') ? 'rgba(232,185,62,.55)' : 'rgba(90,105,120,.3)';
+    html += `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${col}" stroke-width="2" stroke-dasharray="${b.st==='locked'?'5 5':'none'}"/>`;
+  }
+  svg.innerHTML = html;
+}
+$('#newjourney-btn').addEventListener('click', () => go('draft'));
+$('#camp-btn').addEventListener('click', () => toast('训练赛营地建设中：约训练赛 · 联机PK预留'));
+
+/* ================= 十选五出征 ================= */
+function renderDraft(){
+  $('#draft-grid').innerHTML = DRAFT_POOL.map(id => cardHTML(id)).join('');
+  $$('#draft-grid .pcard').forEach(c => c.addEventListener('click', () => {
+    const id = c.dataset.id, i = state.draftSel.indexOf(id);
+    if(i >= 0) state.draftSel.splice(i, 1);
+    else {
+      if(state.draftSel.length >= 5) return toast('已选满 5 人，先取消一名选手');
+      state.draftSel.push(id);
+    }
+    refreshDraftPicks();
+  }));
+  refreshDraftPicks();
+}
+function refreshDraftPicks(){
+  $$('#draft-grid .pcard').forEach(c => {
+    const i = state.draftSel.indexOf(c.dataset.id);
+    c.classList.toggle('picked', i >= 0);
+    c.querySelector('.ord').textContent = i >= 0 ? (i + 1) : '';
+  });
+  $('#draft-cnt').textContent = state.draftSel.length;
+  $('#draft-ok').disabled = state.draftSel.length !== 5;
+}
+$('#draft-ok').addEventListener('click', () => {
+  state.lineup = [...state.draftSel];
+  syncLineup(); renderTransfer(); go('lineup');
+  toast('出征阵容已确定！');
+});
+
+/* ================= 阵容 ================= */
+const SLOT_POS = [{x:70,y:8},{x:192,y:8},{x:16,y:132},{x:131,y:132},{x:246,y:132}];
+function syncLineup(){
+  const hf = $('#hexfield');
+  hf.querySelectorAll('.hslot').forEach(n => n.remove());
+  state.lineup.forEach((id, i) => {
+    const p = PLAYERS[id], pos = SLOT_POS[i];
+    const el = document.createElement('div');
+    el.className = 'hslot'; el.style.left = pos.x + 'px'; el.style.top = pos.y + 'px'; el.dataset.id = id;
+    el.innerHTML = `${p.status ? `<span class="st-ico">${ST_ICON[p.status]}</span>` : ''}
+      <div class="hex ${p.q}"><div class="in"><img src="${pimg(id)}" alt="${id}"></div></div>
+      <div class="hid">${id}</div>
+      <div class="hst">枪<b>${p.g}</b> 协<b>${p.s}</b> 意<b>${p.m}</b></div>`;
+    el.addEventListener('click', () => openSheet(id));
+    hf.appendChild(el);
+  });
+  const avg = state.lineup.reduce((a, id) => a + (PLAYERS[id].g + PLAYERS[id].s + PLAYERS[id].m) / 3, 0) / 5;
+  $('#power-val').textContent = (avg * (0.9 + state.chemistry / 500)).toFixed(1);
+  $('#chem-val').textContent = state.chemistry;
+  $('#chem-fill').style.width = state.chemistry + '%';
+  drawSynLines();
+}
+function drawSynLines(){
+  const svg = $('#syn-lines'), hf = $('#hexfield');
+  const r = hf.getBoundingClientRect();
+  if(!r.width) return;
+  svg.setAttribute('viewBox', `0 0 ${r.width} ${r.height}`);
+  const c = SLOT_POS.map(p => ({x: p.x + 52, y: p.y + 51}));
+  const links = [[0,2,.9],[0,3,.5],[1,3,.8],[1,4,.45],[2,3,.7],[3,4,.65],[0,1,.35]];
+  svg.innerHTML = links.map(([a,b,o]) =>
+    `<line x1="${c[a].x}" y1="${c[a].y}" x2="${c[b].x}" y2="${c[b].y}" stroke="rgba(92,200,255,${o * .55})" stroke-width="${1 + o * 2}"/>`).join('');
+}
+function openSheet(id){
+  const p = PLAYERS[id];
+  const obs = OBS[id] || OBS_DEFAULT;
+  const bar = (lab, v) => `<div class="statbar"><div class="sr"><span>${lab}</span><b>${v}</b></div><div class="bar"><i style="width:${v}%"></i></div></div>`;
+  $('#sheet-body').innerHTML = `
+    <div class="detail-top">
+      <div class="detail-card">${cardHTML(id)}</div>
+      <div class="detail-info">
+        <div class="did">${id}</div>
+        <div class="dteam">${p.team} · ${QN[p.q]}卡 · ${p.status ? ST_ICON[p.status] + (p.status === 'hot' ? '火热' : '低迷') : '状态平稳'}</div>
+        ${bar('枪法', p.g)}${bar('协同', p.s)}${bar('意识', p.m)}
+        ${p.status ? `<div style="font-size:10.5px;color:${p.status === 'hot' ? 'var(--atk)' : 'var(--def)'}">${ST_DESC[p.status]}</div>` : ''}
+      </div>
+    </div>
+    <div class="sec-title">观察记录</div>
+    <div class="obs-list">
+      ${obs.map(o => `<div class="obs-item${o.neg ? ' neg' : ''}">「${o.t}」<span class="when">${o.w}</span></div>`).join('')}
+    </div>
+    <div class="obs-note">观察记录只记录评语，不下结论。</div>
+    <div style="margin-top:12px"><button class="btn ghost" id="sheet-close" style="width:100%">收 起</button></div>`;
+  $('#sheet-mask').classList.add('show');
+  $('#player-sheet').classList.add('show');
+  $('#sheet-close').addEventListener('click', closeSheet);
+}
+function closeSheet(){ $('#sheet-mask').classList.remove('show'); $('#player-sheet').classList.remove('show'); }
+$('#sheet-mask').addEventListener('click', closeSheet);
+$('#transfer-btn').addEventListener('click', () => { renderTransfer(); go('transfer'); });
+
+/* ================= 换人 ================= */
+let tfPickNew = null, tfPickOld = null;
+function renderTransfer(){
+  $('#tf-new').innerHTML = TF_NEW.filter(id => !state.tfUsed.has(id))
+    .map(id => cardHTML(id)).join('') || '<div style="color:var(--dimmer);font-size:12px;padding:20px">本卡包已用完</div>';
+  $('#tf-lineup').innerHTML = state.lineup.map(id => {
+    const p = PLAYERS[id];
+    return `<div class="tf-slot" data-id="${id}">
+      <div class="hex ${p.q}"><img src="${pimg(id)}" alt="${id}"></div>
+      <div class="nm">${id}</div></div>`;
+  }).join('');
+  tfPickNew = tfPickOld = null;
+  $$('#tf-new .pcard').forEach(c => c.addEventListener('click', () => {
+    tfPickNew = c.dataset.id;
+    $$('#tf-new .pcard').forEach(x => x.classList.toggle('sel', x === c));
+    tryPreview();
+  }));
+  $$('#tf-lineup .tf-slot').forEach(c => c.addEventListener('click', () => {
+    tfPickOld = c.dataset.id;
+    $$('#tf-lineup .tf-slot').forEach(x => x.classList.toggle('sel', x === c));
+    tryPreview();
+  }));
+}
+function tryPreview(){
+  if(!tfPickNew || !tfPickOld) return;
+  const p = PLAYERS[tfPickNew];
+  const after = state.chemistry + p.delta;
+  openModal(`
+    <div class="sec-title" style="margin-top:0">换人预览</div>
+    <div class="swap-cmp">
+      <img src="${pimg(tfPickOld)}" alt="${tfPickOld}">
+      <span class="arr">▶</span>
+      <img src="${pimg(tfPickNew)}" alt="${tfPickNew}">
+    </div>
+    <div style="text-align:center;font-size:12px;color:var(--dim)">${tfPickOld} 下场 · ${tfPickNew} 上场（${QN[p.q]}卡）</div>
+    <div class="chem-delta">默契 ${state.chemistry} → <span class="dn">${after}（${p.delta}）</span></div>
+    ${after < 60 ? '<div class="warn-line">⚠ 默契将跌破协同加成阈值（60）！</div>' : ''}
+    ${after >= 60 && after < 80 ? '<div style="text-align:center;font-size:10.5px;color:var(--dim)">仍在 60 阈值之上，协同加成保留</div>' : ''}
+    <div style="display:flex;gap:10px;margin-top:14px">
+      <button class="btn ghost" id="swap-cancel" style="flex:1">取 消</button>
+      <button class="btn" id="swap-ok" style="flex:1">确认换人</button>
+    </div>`);
+  $('#swap-cancel').addEventListener('click', closeModal);
+  $('#swap-ok').addEventListener('click', () => {
+    state.lineup[state.lineup.indexOf(tfPickOld)] = tfPickNew;
+    state.chemistry = after;
+    state.tfUsed.add(tfPickNew);
+    closeModal(); syncLineup(); renderTransfer();
+    toast(`换人完成：${tfPickNew} 进入阵容`);
+  });
+}
+$('#tf-back').addEventListener('click', () => go('lineup'));
+
+/* ================= 结算页 ================= */
+$('#res-continue').addEventListener('click', () => {
+  if(!state.resultClaimed){
+    state.resultClaimed = true;
+    state.packs += 1;
+    state.chemistry = 82;
+    state.coach.rep += 3; state.coach.tac += 2; state.coach.cli += 1;
+    syncTopbar(); syncLineup();
+  }
+  go('journey');
+  toast('卡包 ×1 已入库');
+});
+
+/* ================= 观赛页 ================= */
+$('#match-back').addEventListener('click', () => go('journey'));
+$$('.match-tabs .mt').forEach(t => t.addEventListener('click', () => {
+  $$('.match-tabs .mt').forEach(x => x.classList.toggle('on', x === t));
+  $('#match-feed').style.display = t.dataset.mtab === 'feed' ? '' : 'none';
+  $('#match-cmd').style.display = t.dataset.mtab === 'cmd' ? '' : 'none';
+}));
+$('#sandbox').addEventListener('click', function(){
+  this.classList.toggle('focus');
+  this.querySelector('.placeholder div:last-child').textContent =
+    this.classList.contains('focus') ? '专注模式 · 点击任意处退出' : '接入引擎后启用 · 点击进入专注模式';
+});
+$$('.cmd-btn[data-tac]').forEach(b => b.addEventListener('click', () => {
+  $$('.cmd-btn[data-tac]').forEach(x => x.classList.toggle('on', x === b));
+  toast('战术比重已调整：' + b.textContent);
+}));
+$('#igl-btn').addEventListener('click', () => toast('场上指挥已更换为 Munchkin（假操作）'));
+$('#pause-btn').addEventListener('click', () => openModal(`
+  <div class="sec-title" style="margin-top:0">教练窗口 · 回合间调整</div>
+  <div style="font-size:12px;color:var(--dim);line-height:2">
+    ▸ 下一局战术比重：<b style="color:var(--gold)">防守 +1 档</b><br>
+    ▸ 指定盯防：<b style="color:var(--def)">Haodong → 对方突破位</b><br>
+    ▸ 暂停后历史胜率：<b style="color:var(--accent)">63%</b>（临场 58）
+  </div>
+  <div style="font-size:10px;color:var(--dimmer);margin-top:8px">（示意面板 · 接引擎后读取真实回合数据）</div>
+  <div style="margin-top:14px"><button class="btn" id="pause-ok" style="width:100%">确认调整</button></div>`,
+  ) || setTimeout(() => $('#pause-ok').addEventListener('click', () => { closeModal(); toast('调整已生效（假）'); }), 0));
+
+/* ================= 教练页 ================= */
+$$('.ctabs .mt[data-ctab]').forEach(t => t.addEventListener('click', () => {
+  $$('.ctabs .mt[data-ctab]').forEach(x => x.classList.toggle('on', x === t));
+  $('#coach-tri').style.display = t.dataset.ctab === 'tri' ? '' : 'none';
+  $('#coach-career').style.display = t.dataset.ctab === 'career' ? '' : 'none';
+}));
+
+/* ================= 抽卡页 ================= */
+$$('.ctabs .mt[data-dtab]').forEach(t => t.addEventListener('click', () => {
+  $$('.ctabs .mt[data-dtab]').forEach(x => x.classList.toggle('on', x === t));
+  $('#draw-open').style.display = t.dataset.dtab === 'open' ? '' : 'none';
+  $('#draw-album').style.display = t.dataset.dtab === 'album' ? '' : 'none';
+}));
+$('#open-pack').addEventListener('click', () => {
+  if(state.packs <= 0) return toast('卡包不足，继续征程赢取卡包');
+  state.packs--; syncTopbar();
+  $('#draw-result').style.display = 'block';
+  $('#draw-row').innerHTML = DRAW_FIVE.map(id => cardHTML(id)).join('');
+  $$('#draw-row .pcard').forEach(c => c.addEventListener('click', () => {
+    const p = PLAYERS[c.dataset.id];
+    toast(`${c.dataset.id} · ${p.team} · ${QN[p.q]}卡（枪${p.g} 协${p.s} 意${p.m}）`);
+  }));
+});
+function renderGallery(region='all'){
+  $('#gallery-grid').innerHTML = GALLERY_ORDER
+    .filter(id => region === 'all' || PLAYERS[id].region === region)
+    .map(id => cardHTML(id, GALLERY_LOCKED.has(id) ? 'locked' : '')).join('');
+  $$('#gallery-grid .pcard:not(.locked)').forEach(c => c.addEventListener('click', () => {
+    const p = PLAYERS[c.dataset.id];
+    toast(`${c.dataset.id} · ${QN[p.q]}卡（枪${p.g} 协${p.s} 意${p.m}）`);
+  }));
+}
+$$('#region-filter .rf').forEach(b => b.addEventListener('click', () => {
+  $$('#region-filter .rf').forEach(x => x.classList.toggle('on', x === b));
+  renderGallery(b.dataset.region);
+}));
+
+/* ================= 初始化 ================= */
+renderJourney(); renderDraft(); syncLineup(); renderTransfer(); renderGallery(); syncTopbar();
+route();
+// 征程屏自动滚动到当前节点
+if(!location.hash || location.hash.includes('journey')){
+  setTimeout(() => { const c = $('.jnode.current'); if(c) c.scrollIntoView({block:'center'}); }, 60);
+}
+// 截图模式（#shot）：手机框贴左上，配合 --window-size=500,940 + 裁剪 390x844
+if(location.hash.includes('shot')){
+  document.querySelector('.phone').style.margin = '0';
+  document.body.style.background = '#000';
+}
+</script>
+</body>
+</html>

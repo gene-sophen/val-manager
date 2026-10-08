@@ -1,0 +1,2210 @@
+{
+  "version": "2026-rosters-v1",
+  "status": "approved-rosters-incomplete-global-content",
+  "teams": [
+    {
+      "teamId": "EDG",
+      "region": "CN",
+      "entryOnly": false,
+      "selectable": true,
+      "players": [
+        {
+          "playerId": "zmjjkk",
+          "name": "ZmjjKK",
+          "cardId": "normal:zmjjkk",
+          "cardTeam": "EDG"
+        },
+        {
+          "playerId": "nobody",
+          "name": "nobody",
+          "cardId": "normal:nobody",
+          "cardTeam": "EDG"
+        },
+        {
+          "playerId": "smoggy",
+          "name": "Smoggy",
+          "cardId": "normal:smoggy",
+          "cardTeam": "EDG"
+        },
+        {
+          "playerId": "stew",
+          "name": "stew",
+          "cardId": "normal:stew",
+          "cardTeam": "JDG"
+        },
+        {
+          "playerId": "chichoo",
+          "name": "CHICHOO",
+          "cardId": "normal:chichoo",
+          "cardTeam": "EDG"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/5gjweC11brGhuRBR",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 57.16,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "NOVA",
+      "region": "CN",
+      "entryOnly": false,
+      "selectable": true,
+      "players": [
+        {
+          "playerId": "swagzor",
+          "name": "swagzor",
+          "cardId": "normal:swagzor",
+          "cardTeam": "NOVA"
+        },
+        {
+          "playerId": "guang",
+          "name": "GuanG",
+          "cardId": "normal:guang",
+          "cardTeam": "NOVA"
+        },
+        {
+          "playerId": "cb",
+          "name": "cb",
+          "cardId": "normal:cb",
+          "cardTeam": "NOVA"
+        },
+        {
+          "playerId": "ezeir",
+          "name": "Ezeir",
+          "cardId": "normal:ezeir",
+          "cardTeam": "NOVA"
+        },
+        {
+          "playerId": "qiutian",
+          "name": "qiutiaN",
+          "cardId": "normal:qiutian",
+          "cardTeam": "NOVA"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/lAvuB3JCl3CVSHmt",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 68.66,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "TYL",
+      "region": "CN",
+      "entryOnly": false,
+      "selectable": true,
+      "players": [
+        {
+          "playerId": "slowly",
+          "name": "SLOWLY",
+          "cardId": "normal:slowly",
+          "cardTeam": "TYL"
+        },
+        {
+          "playerId": "splash",
+          "name": "Splash",
+          "cardId": "normal:splash",
+          "cardTeam": "TYL"
+        },
+        {
+          "playerId": "scales",
+          "name": "Scales",
+          "cardId": "normal:scales",
+          "cardTeam": "TYL"
+        },
+        {
+          "playerId": "erv",
+          "name": "Erv",
+          "cardId": "normal:erv",
+          "cardTeam": "TYL"
+        },
+        {
+          "playerId": "siufatbb",
+          "name": "SiuFatBB",
+          "cardId": "normal:siufatbb",
+          "cardTeam": "TYL"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/UyZ5hCVrWnSbxZMJ",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 68.02,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "AG",
+      "region": "CN",
+      "entryOnly": false,
+      "selectable": true,
+      "players": [
+        {
+          "playerId": "bai",
+          "name": "Bai",
+          "cardId": "normal:bai",
+          "cardTeam": "AG"
+        },
+        {
+          "playerId": "f4ngeer",
+          "name": "f4ngeer",
+          "cardId": "normal:f4ngeer",
+          "cardTeam": "AG"
+        },
+        {
+          "playerId": "iamgrq",
+          "name": "iamgrq",
+          "cardId": "normal:iamgrq",
+          "cardTeam": "AG"
+        },
+        {
+          "playerId": "shr1mp",
+          "name": "Shr1mp",
+          "cardId": "normal:shr1mp",
+          "cardTeam": "AG"
+        },
+        {
+          "playerId": "k1ra",
+          "name": "K1ra",
+          "cardId": "normal:k1ra",
+          "cardTeam": "AG"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/f9evIvOaEpLosAGm",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 62.21,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "TE",
+      "region": "CN",
+      "entryOnly": false,
+      "selectable": true,
+      "players": [
+        {
+          "playerId": "kai",
+          "name": "Kai",
+          "cardId": "normal:kai",
+          "cardTeam": "TE"
+        },
+        {
+          "playerId": "delb",
+          "name": "DeLb",
+          "cardId": "normal:delb",
+          "cardTeam": "TE"
+        },
+        {
+          "playerId": "fengf",
+          "name": "FengF",
+          "cardId": "normal:fengf",
+          "cardTeam": "TE"
+        },
+        {
+          "playerId": "fkey",
+          "name": "Fkey",
+          "cardId": "normal:fkey",
+          "cardTeam": "TE"
+        },
+        {
+          "playerId": "luok1ng",
+          "name": "LuoK1ng",
+          "cardId": "normal:luok1ng",
+          "cardTeam": "TE"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/oGJeZMVL7VeCbo5q",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 59.99,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "FPX",
+      "region": "CN",
+      "entryOnly": false,
+      "selectable": true,
+      "players": [
+        {
+          "playerId": "setrod",
+          "name": "Setrod",
+          "cardId": "normal:setrod",
+          "cardTeam": "FPX"
+        },
+        {
+          "playerId": "aaaay",
+          "name": "AAAAY",
+          "cardId": "normal:aaaay",
+          "cardTeam": "FPX"
+        },
+        {
+          "playerId": "kovaq",
+          "name": "kovaQ",
+          "cardId": "normal:kovaq",
+          "cardTeam": "FPX"
+        },
+        {
+          "playerId": "xlele",
+          "name": "Xlele",
+          "cardId": "normal:xlele",
+          "cardTeam": "FPX"
+        },
+        {
+          "playerId": "coconut",
+          "name": "coconut",
+          "cardId": "normal:coconut",
+          "cardTeam": "FPX"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/yhdMO1gwv1gppU9q",
+      "evidence": "赛事五人",
+      "historicalRoster": true,
+      "rankingReference": 59.95,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "XLG",
+      "region": "CN",
+      "entryOnly": false,
+      "selectable": true,
+      "players": [
+        {
+          "playerId": "rarga",
+          "name": "Rarga",
+          "cardId": "normal:rarga",
+          "cardTeam": "XLG"
+        },
+        {
+          "playerId": "lysoar",
+          "name": "lysoar",
+          "cardId": "normal:lysoar",
+          "cardTeam": "XLG"
+        },
+        {
+          "playerId": "wsleo",
+          "name": "WsLeo",
+          "cardId": "normal:wsleo",
+          "cardTeam": "XLG"
+        },
+        {
+          "playerId": "happywei",
+          "name": "happywei",
+          "cardId": "normal:happywei",
+          "cardTeam": "XLG"
+        },
+        {
+          "playerId": "noman",
+          "name": "NoMan",
+          "cardId": "normal:noman",
+          "cardTeam": "XLG"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/N9vFlF5iWKDVEnBn",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 59.2,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "BLG",
+      "region": "CN",
+      "entryOnly": false,
+      "selectable": true,
+      "players": [
+        {
+          "playerId": "whzy",
+          "name": "whzy",
+          "cardId": "normal:whzy",
+          "cardTeam": "BLG"
+        },
+        {
+          "playerId": "knight",
+          "name": "Knight",
+          "cardId": "normal:knight",
+          "cardTeam": "BLG"
+        },
+        {
+          "playerId": "nephh",
+          "name": "Nephh",
+          "cardId": "normal:nephh",
+          "cardTeam": "BLG"
+        },
+        {
+          "playerId": "rushia",
+          "name": "Rushia",
+          "cardId": "normal:rushia",
+          "cardTeam": "BLG"
+        },
+        {
+          "playerId": "ft",
+          "name": "FT",
+          "cardId": "normal:ft",
+          "cardTeam": "BLG"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/gdqnSUpLlx4iV6au",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 58.18,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "DRG",
+      "region": "CN",
+      "entryOnly": false,
+      "selectable": true,
+      "players": [
+        {
+          "playerId": "vo0kashu",
+          "name": "vo0kashu",
+          "cardId": "normal:vo0kashu",
+          "cardTeam": "DRG"
+        },
+        {
+          "playerId": "life",
+          "name": "Life",
+          "cardId": "normal:life",
+          "cardTeam": "DRG"
+        },
+        {
+          "playerId": "spiritz1",
+          "name": "SpiritZ1",
+          "cardId": "normal:spiritz1",
+          "cardTeam": "DRG"
+        },
+        {
+          "playerId": "nicc",
+          "name": "Nicc",
+          "cardId": "normal:nicc",
+          "cardTeam": "DRG"
+        },
+        {
+          "playerId": "verse",
+          "name": "Verse",
+          "cardId": "normal:verse",
+          "cardTeam": "DRG"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/JFwJZHzu4mpHkPGP",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 58.07,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "JDG",
+      "region": "CN",
+      "entryOnly": false,
+      "selectable": true,
+      "players": [
+        {
+          "playerId": "zhe",
+          "name": "zhe",
+          "cardId": "normal:zhe",
+          "cardTeam": "JDG"
+        },
+        {
+          "playerId": "berlin",
+          "name": "BerLIN",
+          "cardId": "normal:berlin",
+          "cardTeam": "JDG"
+        },
+        {
+          "playerId": "jkuro",
+          "name": "jkuro",
+          "cardId": "normal:jkuro",
+          "cardTeam": "JDG"
+        },
+        {
+          "playerId": "crownfisher",
+          "name": "crownfisher",
+          "cardId": "normal:crownfisher",
+          "cardTeam": "JDG"
+        },
+        {
+          "playerId": "yuicaw",
+          "name": "Yuicaw",
+          "cardId": "normal:yuicaw",
+          "cardTeam": "JDG"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/S594hqSJBYBGbfEE",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 56.68,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "WOL",
+      "region": "CN",
+      "entryOnly": false,
+      "selectable": true,
+      "players": [
+        {
+          "playerId": "glacier",
+          "name": "glacier",
+          "cardId": "normal:glacier",
+          "cardTeam": "WOL"
+        },
+        {
+          "playerId": "spring",
+          "name": "Spring",
+          "cardId": "normal:spring",
+          "cardTeam": "WOL"
+        },
+        {
+          "playerId": "yosemite",
+          "name": "Yosemite",
+          "cardId": "normal:yosemite",
+          "cardTeam": "WOL"
+        },
+        {
+          "playerId": "deryeon",
+          "name": "Deryeon",
+          "cardId": "normal:deryeon",
+          "cardTeam": "WOL"
+        },
+        {
+          "playerId": "aluba",
+          "name": "aluba",
+          "cardId": "normal:aluba",
+          "cardTeam": "WOL"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/U8rAVCnW5tZrsNMs",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 52.99,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "TEC",
+      "region": "CN",
+      "entryOnly": false,
+      "selectable": true,
+      "players": [
+        {
+          "playerId": "dynamite",
+          "name": "Dynamite",
+          "cardId": "normal:dynamite",
+          "cardTeam": "TEC"
+        },
+        {
+          "playerId": "lucas",
+          "name": "lucas",
+          "cardId": "normal:lucas",
+          "cardTeam": "TEC"
+        },
+        {
+          "playerId": "coco",
+          "name": "Coco",
+          "cardId": "normal:coco",
+          "cardTeam": "TEC"
+        },
+        {
+          "playerId": "haodong",
+          "name": "Haodong",
+          "cardId": "normal:haodong",
+          "cardTeam": "TEC"
+        },
+        {
+          "playerId": "ra1ny",
+          "name": "ra1ny",
+          "cardId": "normal:ra1ny",
+          "cardTeam": "TEC"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/chUmTusw7Dvop1gn",
+      "evidence": "赛事轮换推定",
+      "historicalRoster": false,
+      "rankingReference": 52.86,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "100T",
+      "region": "AMER",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "bang",
+          "name": "bang",
+          "cardId": "normal:bang",
+          "cardTeam": "100T"
+        },
+        {
+          "playerId": "timotino",
+          "name": "Timotino",
+          "cardId": "normal:timotino",
+          "cardTeam": "100T"
+        },
+        {
+          "playerId": "vora",
+          "name": "vora",
+          "cardId": "normal:vora",
+          "cardTeam": "100T"
+        },
+        {
+          "playerId": "cryocells",
+          "name": "Cryocells",
+          "cardId": "normal:cryocells",
+          "cardTeam": "100T"
+        },
+        {
+          "playerId": "asuna",
+          "name": "Asuna",
+          "cardId": "normal:asuna",
+          "cardTeam": "100T"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/mgun17auDGE97UBs",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 95.56,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "NRG",
+      "region": "AMER",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "keiko",
+          "name": "Keiko",
+          "cardId": "normal:keiko",
+          "cardTeam": "NRG"
+        },
+        {
+          "playerId": "skuba",
+          "name": "skuba",
+          "cardId": "normal:skuba",
+          "cardTeam": "NRG"
+        },
+        {
+          "playerId": "brawk",
+          "name": "brawk",
+          "cardId": "normal:brawk",
+          "cardTeam": "NRG"
+        },
+        {
+          "playerId": "mada",
+          "name": "mada",
+          "cardId": "normal:mada",
+          "cardTeam": "NRG"
+        },
+        {
+          "playerId": "ethan",
+          "name": "Ethan",
+          "cardId": "normal:ethan",
+          "cardTeam": "NRG"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/eYqPeoxSyeDFNw4D",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 91.61,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "KC",
+      "region": "EMEA",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "lêwn",
+          "name": "LêwN",
+          "cardId": "normal:lêwn",
+          "cardTeam": "KC"
+        },
+        {
+          "playerId": "n4rrate",
+          "name": "N4RRATE",
+          "cardId": "normal:n4rrate",
+          "cardTeam": "KC"
+        },
+        {
+          "playerId": "avez",
+          "name": "avez",
+          "cardId": "normal:avez",
+          "cardTeam": "KC"
+        },
+        {
+          "playerId": "dos9",
+          "name": "dos9",
+          "cardId": "normal:dos9",
+          "cardTeam": "KC"
+        },
+        {
+          "playerId": "suygetsu",
+          "name": "SUYGETSU",
+          "cardId": "normal:suygetsu",
+          "cardTeam": "KC"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/jRB3gUcjCdqiSyU8",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 87.83,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "LEV",
+      "region": "AMER",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "neon",
+          "name": "Neon",
+          "cardId": "normal:neon",
+          "cardTeam": "LEV"
+        },
+        {
+          "playerId": "blowz",
+          "name": "blowz",
+          "cardId": "normal:blowz",
+          "cardTeam": "LEV"
+        },
+        {
+          "playerId": "spike",
+          "name": "spike",
+          "cardId": "normal:spike",
+          "cardTeam": "LEV"
+        },
+        {
+          "playerId": "sato",
+          "name": "Sato",
+          "cardId": "normal:sato",
+          "cardTeam": "LEV"
+        },
+        {
+          "playerId": "kingg",
+          "name": "kiNgg",
+          "cardId": "normal:kingg",
+          "cardTeam": "LEV"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/1dcrEchr3gawICgu",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 86.62,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "VIT",
+      "region": "EMEA",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "profek",
+          "name": "PROFEK",
+          "cardId": "normal:profek",
+          "cardTeam": "VIT"
+        },
+        {
+          "playerId": "jamppi",
+          "name": "Jamppi",
+          "cardId": "normal:jamppi",
+          "cardTeam": "VIT"
+        },
+        {
+          "playerId": "chronicle",
+          "name": "Chronicle",
+          "cardId": "normal:chronicle",
+          "cardTeam": "VIT"
+        },
+        {
+          "playerId": "sayonara",
+          "name": "Sayonara",
+          "cardId": "normal:sayonara",
+          "cardTeam": "VIT"
+        },
+        {
+          "playerId": "derke",
+          "name": "Derke",
+          "cardId": "normal:derke",
+          "cardTeam": "VIT"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/1cy7LHdvCn6CK4kC",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 85.53,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "TL",
+      "region": "EMEA",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "kamo",
+          "name": "kamo",
+          "cardId": "normal:kamo",
+          "cardTeam": "TL"
+        },
+        {
+          "playerId": "gsr",
+          "name": "GSR",
+          "cardId": null,
+          "cardTeam": null
+        },
+        {
+          "playerId": "nats",
+          "name": "nAts",
+          "cardId": "normal:nats",
+          "cardTeam": "TL"
+        },
+        {
+          "playerId": "kicks",
+          "name": "Kicks",
+          "cardId": "normal:kicks",
+          "cardTeam": "TL"
+        },
+        {
+          "playerId": "trexx",
+          "name": "trexx",
+          "cardId": "normal:trexx",
+          "cardTeam": "TL"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/TQIYiwOhBPzCqPCF",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 85.07,
+      "missingPlayerIds": [
+        "gsr"
+      ],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "G2",
+      "region": "AMER",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "babybay",
+          "name": "babybay",
+          "cardId": "normal:babybay",
+          "cardTeam": "G2"
+        },
+        {
+          "playerId": "jawgemo",
+          "name": "jawgemo",
+          "cardId": "normal:jawgemo",
+          "cardTeam": "G2"
+        },
+        {
+          "playerId": "leaf",
+          "name": "leaf",
+          "cardId": "normal:leaf",
+          "cardTeam": "G2"
+        },
+        {
+          "playerId": "valyn",
+          "name": "valyn",
+          "cardId": "normal:valyn",
+          "cardTeam": "G2"
+        },
+        {
+          "playerId": "trent",
+          "name": "trent",
+          "cardId": "normal:trent",
+          "cardTeam": "G2"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/gsVaNnjL3nFbmGWt",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 84.32,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "GE",
+      "region": "PAC",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "patmen",
+          "name": "PatMen",
+          "cardId": "normal:patmen",
+          "cardTeam": "GE"
+        },
+        {
+          "playerId": "autumn",
+          "name": "Autumn",
+          "cardId": "normal:autumn",
+          "cardTeam": "GE"
+        },
+        {
+          "playerId": "xavi8k",
+          "name": "xavi8k",
+          "cardId": "normal:xavi8k",
+          "cardTeam": "GE"
+        },
+        {
+          "playerId": "kr1stal",
+          "name": "Kr1stal",
+          "cardId": "normal:kr1stal",
+          "cardTeam": "GE"
+        },
+        {
+          "playerId": "udotan",
+          "name": "UdoTan",
+          "cardId": "normal:udotan",
+          "cardTeam": "GE"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/d1B21kolpxSqFSAJ",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 84.31,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "PRX",
+      "region": "PAC",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "invy",
+          "name": "invy",
+          "cardId": "normal:invy",
+          "cardTeam": "PRX"
+        },
+        {
+          "playerId": "something",
+          "name": "something",
+          "cardId": "normal:something",
+          "cardTeam": "PRX"
+        },
+        {
+          "playerId": "jinggg",
+          "name": "Jinggg",
+          "cardId": "normal:jinggg",
+          "cardTeam": "PRX"
+        },
+        {
+          "playerId": "f0rsaken",
+          "name": "f0rsakeN",
+          "cardId": "normal:f0rsaken",
+          "cardTeam": "PRX"
+        },
+        {
+          "playerId": "d4v41",
+          "name": "d4v41",
+          "cardId": "normal:d4v41",
+          "cardTeam": "PRX"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/SQPi3PWPKJV2bhQG",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 83.73,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "LOUD",
+      "region": "AMER",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "davih",
+          "name": "DaviH",
+          "cardId": "normal:davih",
+          "cardTeam": "LOUD"
+        },
+        {
+          "playerId": "erde",
+          "name": "erde",
+          "cardId": "normal:erde",
+          "cardTeam": "LOUD"
+        },
+        {
+          "playerId": "darker",
+          "name": "Darker",
+          "cardId": "normal:darker",
+          "cardTeam": "LOUD"
+        },
+        {
+          "playerId": "lukxo",
+          "name": "lukxo",
+          "cardId": "normal:lukxo",
+          "cardTeam": "LOUD"
+        },
+        {
+          "playerId": "tkzin",
+          "name": "tkzin",
+          "cardId": "normal:tkzin",
+          "cardTeam": "LOUD"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/HxkjQHJh4mC9GuS1",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 83.17,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "NS",
+      "region": "PAC",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "francis",
+          "name": "Francis",
+          "cardId": "normal:francis",
+          "cardTeam": "NS"
+        },
+        {
+          "playerId": "xross",
+          "name": "xross",
+          "cardId": "normal:xross",
+          "cardTeam": "NS"
+        },
+        {
+          "playerId": "rb",
+          "name": "Rb",
+          "cardId": "normal:rb",
+          "cardTeam": "NS"
+        },
+        {
+          "playerId": "ivy",
+          "name": "Ivy",
+          "cardId": "normal:ivy",
+          "cardTeam": "NS"
+        },
+        {
+          "playerId": "dambi",
+          "name": "Dambi",
+          "cardId": "normal:dambi",
+          "cardTeam": "NS"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/8LCK7oKxHAqmdVF1",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 82.72,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "T1",
+      "region": "PAC",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "buzz",
+          "name": "BuZz",
+          "cardId": "normal:buzz",
+          "cardTeam": "T1"
+        },
+        {
+          "playerId": "meteor",
+          "name": "Meteor",
+          "cardId": "normal:meteor",
+          "cardTeam": "T1"
+        },
+        {
+          "playerId": "munchkin",
+          "name": "Munchkin",
+          "cardId": "normal:munchkin",
+          "cardTeam": "T1"
+        },
+        {
+          "playerId": "izu",
+          "name": "iZu",
+          "cardId": "normal:izu",
+          "cardTeam": "T1"
+        },
+        {
+          "playerId": "stax",
+          "name": "stax",
+          "cardId": "normal:stax",
+          "cardTeam": "T1"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/ApibJApHhzchMkT3",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 81.73,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "FUT",
+      "region": "EMEA",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "sociablee",
+          "name": "sociablEE",
+          "cardId": "normal:sociablee",
+          "cardTeam": "FUT"
+        },
+        {
+          "playerId": "s0pp",
+          "name": "s0pp",
+          "cardId": "normal:s0pp",
+          "cardTeam": "FUT"
+        },
+        {
+          "playerId": "krostaly",
+          "name": "KROSTALY",
+          "cardId": "normal:krostaly",
+          "cardTeam": "FUT"
+        },
+        {
+          "playerId": "xeus",
+          "name": "xeus",
+          "cardId": "normal:xeus",
+          "cardTeam": "FUT"
+        },
+        {
+          "playerId": "yetujey",
+          "name": "yetujey",
+          "cardId": "normal:yetujey",
+          "cardTeam": "FUT"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/9uLt3sTpPSvG8Pwq",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 78.5,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "TH",
+      "region": "EMEA",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "wo0t",
+          "name": "Wo0t",
+          "cardId": "normal:wo0t",
+          "cardTeam": "TH"
+        },
+        {
+          "playerId": "riens",
+          "name": "RieNs",
+          "cardId": "normal:riens",
+          "cardTeam": "TH"
+        },
+        {
+          "playerId": "koshmaras",
+          "name": "Koshmaras",
+          "cardId": "normal:koshmaras",
+          "cardTeam": "TH"
+        },
+        {
+          "playerId": "benjyfishy",
+          "name": "benjyfishy",
+          "cardId": "normal:benjyfishy",
+          "cardTeam": "TH"
+        },
+        {
+          "playerId": "boo",
+          "name": "Boo",
+          "cardId": "normal:boo",
+          "cardTeam": "TH"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/mxmzVd964vNwyc7I",
+      "evidence": "赛事五人",
+      "historicalRoster": true,
+      "rankingReference": 76.38,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "MIBR",
+      "region": "AMER",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "zekken",
+          "name": "zekken",
+          "cardId": "normal:zekken",
+          "cardTeam": "MIBR"
+        },
+        {
+          "playerId": "mazino",
+          "name": "Mazino",
+          "cardId": "normal:mazino",
+          "cardTeam": "MIBR"
+        },
+        {
+          "playerId": "verno",
+          "name": "Verno",
+          "cardId": "normal:verno",
+          "cardTeam": "MIBR"
+        },
+        {
+          "playerId": "aspas",
+          "name": "aspas",
+          "cardId": "normal:aspas",
+          "cardTeam": "MIBR"
+        },
+        {
+          "playerId": "tex",
+          "name": "tex",
+          "cardId": "normal:tex",
+          "cardTeam": "MIBR"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/uy5u8FStJ12dhpiT",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 75.42,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "GEN",
+      "region": "PAC",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "t3xture",
+          "name": "t3xture",
+          "cardId": "normal:t3xture",
+          "cardTeam": "GEN"
+        },
+        {
+          "playerId": "ash",
+          "name": "Ash",
+          "cardId": "normal:ash",
+          "cardTeam": "GEN"
+        },
+        {
+          "playerId": "raxcal",
+          "name": "Raxcal",
+          "cardId": "normal:raxcal",
+          "cardTeam": "GEN"
+        },
+        {
+          "playerId": "karon",
+          "name": "Karon",
+          "cardId": "normal:karon",
+          "cardTeam": "GEN"
+        },
+        {
+          "playerId": "efina",
+          "name": "Efina",
+          "cardId": "normal:efina",
+          "cardTeam": "GEN"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/RwLLk3YUka34mcnV",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 74.22,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "DFM",
+      "region": "PAC",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "yatsuka",
+          "name": "yatsuka",
+          "cardId": "normal:yatsuka",
+          "cardTeam": "DFM"
+        },
+        {
+          "playerId": "caedye",
+          "name": "Caedye",
+          "cardId": "normal:caedye",
+          "cardTeam": "DFM"
+        },
+        {
+          "playerId": "akame",
+          "name": "Akame",
+          "cardId": "normal:akame",
+          "cardTeam": "DFM"
+        },
+        {
+          "playerId": "meiy",
+          "name": "Meiy",
+          "cardId": "normal:meiy",
+          "cardTeam": "DFM"
+        },
+        {
+          "playerId": "ssees",
+          "name": "SSeeS",
+          "cardId": "normal:ssees",
+          "cardTeam": "DFM"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/6nBMUiZh1m9oOu9N",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 72.75,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "BBL",
+      "region": "EMEA",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "loita",
+          "name": "Loita",
+          "cardId": "normal:loita",
+          "cardTeam": "BBL"
+        },
+        {
+          "playerId": "lar0k",
+          "name": "Lar0k",
+          "cardId": "normal:lar0k",
+          "cardTeam": "BBL"
+        },
+        {
+          "playerId": "rosé",
+          "name": "Rosé",
+          "cardId": "normal:rosé",
+          "cardTeam": "BBL"
+        },
+        {
+          "playerId": "crewen",
+          "name": "Crewen",
+          "cardId": "normal:crewen",
+          "cardTeam": "BBL"
+        },
+        {
+          "playerId": "lovers rock",
+          "name": "lovers rock",
+          "cardId": "normal:lovers rock",
+          "cardTeam": "BBL"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/he4glo5N8INfVcDY",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 72.42,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "VL",
+      "region": "PAC",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "foxy9",
+          "name": "Foxy9",
+          "cardId": "normal:foxy9",
+          "cardTeam": "VL"
+        },
+        {
+          "playerId": "xuna",
+          "name": "XuNa",
+          "cardId": "normal:xuna",
+          "cardTeam": "VL"
+        },
+        {
+          "playerId": "zexy",
+          "name": "Zexy",
+          "cardId": "normal:zexy",
+          "cardTeam": "VL"
+        },
+        {
+          "playerId": "oonzmlp",
+          "name": "oonzmlp",
+          "cardId": "normal:oonzmlp",
+          "cardTeam": "VL"
+        },
+        {
+          "playerId": "c1nder",
+          "name": "C1ndeR",
+          "cardId": "normal:c1nder",
+          "cardTeam": "VL"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/6YSdzykjASemkmZH",
+      "evidence": "赛事轮换推定",
+      "historicalRoster": false,
+      "rankingReference": 71.76,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "NAVI",
+      "region": "EMEA",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "hiro",
+          "name": "hiro",
+          "cardId": "normal:hiro",
+          "cardTeam": "NAVI"
+        },
+        {
+          "playerId": "ruxic",
+          "name": "Ruxic",
+          "cardId": "normal:ruxic",
+          "cardTeam": "NAVI"
+        },
+        {
+          "playerId": "exit",
+          "name": "ExiT",
+          "cardId": "normal:exit",
+          "cardTeam": "NAVI"
+        },
+        {
+          "playerId": "chloric",
+          "name": "chloric",
+          "cardId": "normal:chloric",
+          "cardTeam": "NAVI"
+        },
+        {
+          "playerId": "cyvoph",
+          "name": "CyvOph",
+          "cardId": "normal:cyvoph",
+          "cardTeam": "NAVI"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/zWWFVBP4trQPeZUE",
+      "evidence": "赛事轮换推定",
+      "historicalRoster": false,
+      "rankingReference": 70.6,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "FNC",
+      "region": "EMEA",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "alfajer",
+          "name": "Alfajer",
+          "cardId": "normal:alfajer",
+          "cardTeam": "FNC"
+        },
+        {
+          "playerId": "kaajak",
+          "name": "kaajak",
+          "cardId": "normal:kaajak",
+          "cardTeam": "FNC"
+        },
+        {
+          "playerId": "cloud",
+          "name": "Cloud",
+          "cardId": "normal:cloud",
+          "cardTeam": "FNC"
+        },
+        {
+          "playerId": "crashies",
+          "name": "crashies",
+          "cardId": "normal:crashies",
+          "cardTeam": "FNC"
+        },
+        {
+          "playerId": "boaster",
+          "name": "Boaster",
+          "cardId": "normal:boaster",
+          "cardTeam": "FNC"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/YfvO6O1LfwI6D7Ic",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 69.47,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "KRX",
+      "region": "PAC",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "hyunmin",
+          "name": "HYUNMIN",
+          "cardId": "normal:hyunmin",
+          "cardTeam": "KRX"
+        },
+        {
+          "playerId": "free1ng",
+          "name": "free1ng",
+          "cardId": "normal:free1ng",
+          "cardTeam": "KRX"
+        },
+        {
+          "playerId": "beyn",
+          "name": "BeYN",
+          "cardId": "normal:beyn",
+          "cardTeam": "KRX"
+        },
+        {
+          "playerId": "mako",
+          "name": "MaKo",
+          "cardId": "normal:mako",
+          "cardTeam": "KRX"
+        },
+        {
+          "playerId": "yong",
+          "name": "yong",
+          "cardId": "normal:yong",
+          "cardTeam": "KRX"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/DZbWVHoWlBcAHyFb",
+      "evidence": "赛事轮换推定",
+      "historicalRoster": false,
+      "rankingReference": 69.44,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "EF",
+      "region": "EMEA",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "spear",
+          "name": "Spear",
+          "cardId": "normal:spear",
+          "cardTeam": "EF"
+        },
+        {
+          "playerId": "echo",
+          "name": "echo",
+          "cardId": "normal:echo",
+          "cardTeam": "EF"
+        },
+        {
+          "playerId": "favian",
+          "name": "Favian",
+          "cardId": "normal:favian",
+          "cardTeam": "EF"
+        },
+        {
+          "playerId": "audaz",
+          "name": "audaz",
+          "cardId": "normal:audaz",
+          "cardTeam": "EF"
+        },
+        {
+          "playerId": "nekky",
+          "name": "nekky",
+          "cardId": "normal:nekky",
+          "cardTeam": "EF"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/cqVrWKPKElHNGfSf",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 69.23,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "KRÜ",
+      "region": "AMER",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "heat",
+          "name": "heat",
+          "cardId": "normal:heat",
+          "cardTeam": "KRÜ"
+        },
+        {
+          "playerId": "less",
+          "name": "Less",
+          "cardId": "normal:less",
+          "cardTeam": "KRÜ"
+        },
+        {
+          "playerId": "mwzera",
+          "name": "mwzera",
+          "cardId": "normal:mwzera",
+          "cardTeam": "KRÜ"
+        },
+        {
+          "playerId": "saadhak",
+          "name": "Saadhak",
+          "cardId": "normal:saadhak",
+          "cardTeam": "KRÜ"
+        },
+        {
+          "playerId": "dantedeu5",
+          "name": "Dantedeu5",
+          "cardId": "normal:dantedeu5",
+          "cardTeam": "KRÜ"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/NdioJf4DsYOW3jJ4",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 68.68,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "C9",
+      "region": "AMER",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "v1c",
+          "name": "v1c",
+          "cardId": "normal:v1c",
+          "cardTeam": "C9"
+        },
+        {
+          "playerId": "fireballops",
+          "name": "FireBallOps",
+          "cardId": "normal:fireballops",
+          "cardTeam": "C9"
+        },
+        {
+          "playerId": "jackk",
+          "name": "Jackk",
+          "cardId": "normal:jackk",
+          "cardTeam": "C9"
+        },
+        {
+          "playerId": "zellsis",
+          "name": "Zellsis",
+          "cardId": "normal:zellsis",
+          "cardTeam": "C9"
+        },
+        {
+          "playerId": "oxy",
+          "name": "OXY",
+          "cardId": "normal:oxy",
+          "cardTeam": "C9"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/lrAINQdQ8dHACZkE",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 68.43,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "NV",
+      "region": "AMER",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "nightz",
+          "name": "nightz",
+          "cardId": "normal:nightz",
+          "cardTeam": "NV"
+        },
+        {
+          "playerId": "keznit",
+          "name": "keznit",
+          "cardId": "normal:keznit",
+          "cardTeam": "NV"
+        },
+        {
+          "playerId": "demon1",
+          "name": "Demon1",
+          "cardId": "normal:demon1",
+          "cardTeam": "NV"
+        },
+        {
+          "playerId": "glyph",
+          "name": "GLYPH",
+          "cardId": "normal:glyph",
+          "cardTeam": "NV"
+        },
+        {
+          "playerId": "rossy",
+          "name": "Rossy",
+          "cardId": "normal:rossy",
+          "cardTeam": "NV"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/Z4adpFSuqGUHoFSn",
+      "evidence": "赛事五人",
+      "historicalRoster": false,
+      "rankingReference": 68.28,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "SEN",
+      "region": "AMER",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "jonahp",
+          "name": "JonahP",
+          "cardId": "normal:jonahp",
+          "cardTeam": "SEN"
+        },
+        {
+          "playerId": "reduxx",
+          "name": "Reduxx",
+          "cardId": "normal:reduxx",
+          "cardTeam": "SEN"
+        },
+        {
+          "playerId": "cortezia",
+          "name": "cortezia",
+          "cardId": "normal:cortezia",
+          "cardTeam": "SEN"
+        },
+        {
+          "playerId": "johnqt",
+          "name": "johnqt",
+          "cardId": "normal:johnqt",
+          "cardTeam": "SEN"
+        },
+        {
+          "playerId": "jerrwin",
+          "name": "Jerrwin",
+          "cardId": "normal:jerrwin",
+          "cardTeam": "SEN"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/Eht7Jvbf3vaG5ugi",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 67.76,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "RRQ",
+      "region": "PAC",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "monyet",
+          "name": "Monyet",
+          "cardId": "normal:monyet",
+          "cardTeam": "RRQ"
+        },
+        {
+          "playerId": "crazyguy",
+          "name": "crazyguy",
+          "cardId": "normal:crazyguy",
+          "cardTeam": "RRQ"
+        },
+        {
+          "playerId": "xffero",
+          "name": "xffero",
+          "cardId": "normal:xffero",
+          "cardTeam": "RRQ"
+        },
+        {
+          "playerId": "xan",
+          "name": "Xan",
+          "cardId": "normal:xan",
+          "cardTeam": "RRQ"
+        },
+        {
+          "playerId": "jemkin",
+          "name": "Jemkin",
+          "cardId": "normal:jemkin",
+          "cardTeam": "RRQ"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/4nHQ9GnThOnSTAgS",
+      "evidence": "赛事轮换推定",
+      "historicalRoster": false,
+      "rankingReference": 66.81,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "EG",
+      "region": "AMER",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "zerona",
+          "name": "zerona",
+          "cardId": "normal:zerona",
+          "cardTeam": "EG"
+        },
+        {
+          "playerId": "paincakes",
+          "name": "Paincakes",
+          "cardId": "normal:paincakes",
+          "cardTeam": "EG"
+        },
+        {
+          "playerId": "dgzin",
+          "name": "dgzin",
+          "cardId": "normal:dgzin",
+          "cardTeam": "EG"
+        },
+        {
+          "playerId": "bao",
+          "name": "bao",
+          "cardId": "normal:bao",
+          "cardTeam": "EG"
+        },
+        {
+          "playerId": "supamen",
+          "name": "supamen",
+          "cardId": "normal:supamen",
+          "cardTeam": "EG"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/EDfFSxxkZc7vfmIj",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 66.78,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "FS",
+      "region": "PAC",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "primmie",
+          "name": "Primmie",
+          "cardId": "normal:primmie",
+          "cardTeam": "FS"
+        },
+        {
+          "playerId": "jitboys",
+          "name": "JitboyS",
+          "cardId": "normal:jitboys",
+          "cardTeam": "FS"
+        },
+        {
+          "playerId": "killua",
+          "name": "killua",
+          "cardId": "normal:killua",
+          "cardTeam": "FS"
+        },
+        {
+          "playerId": "seph1roth",
+          "name": "Seph1roth",
+          "cardId": "normal:seph1roth",
+          "cardTeam": "FS"
+        },
+        {
+          "playerId": "crws",
+          "name": "Crws",
+          "cardId": "normal:crws",
+          "cardTeam": "FS"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/8jyk5nMSPMZNiHA9",
+      "evidence": "赛事五人",
+      "historicalRoster": true,
+      "rankingReference": 66.02,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "M8",
+      "region": "EMEA",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "marteen",
+          "name": "marteen",
+          "cardId": "normal:marteen",
+          "cardTeam": "M8"
+        },
+        {
+          "playerId": "minny",
+          "name": "Minny",
+          "cardId": "normal:minny",
+          "cardTeam": "M8"
+        },
+        {
+          "playerId": "starxo",
+          "name": "starxo",
+          "cardId": "normal:starxo",
+          "cardTeam": "M8"
+        },
+        {
+          "playerId": "proxh",
+          "name": "Proxh",
+          "cardId": "normal:proxh",
+          "cardTeam": "M8"
+        },
+        {
+          "playerId": "bipo",
+          "name": "bipo",
+          "cardId": "normal:bipo",
+          "cardTeam": "M8"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/GDMPEBAAxfQwWZPl",
+      "evidence": "赛事轮换推定",
+      "historicalRoster": false,
+      "rankingReference": 64.61,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "FUR",
+      "region": "AMER",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "basic",
+          "name": "basic",
+          "cardId": "normal:basic",
+          "cardTeam": "FUR"
+        },
+        {
+          "playerId": "shyy",
+          "name": "Shyy",
+          "cardId": "normal:shyy",
+          "cardTeam": "FUR"
+        },
+        {
+          "playerId": "koalanoob",
+          "name": "koalanoob",
+          "cardId": "normal:koalanoob",
+          "cardTeam": "FUR"
+        },
+        {
+          "playerId": "artzin",
+          "name": "artzin",
+          "cardId": "normal:artzin",
+          "cardTeam": "FUR"
+        },
+        {
+          "playerId": "c0m",
+          "name": "C0M",
+          "cardId": "normal:c0m",
+          "cardTeam": "FUR"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/uV9m6IEHU3Qx81Nl",
+      "evidence": "赛事轮换推定",
+      "historicalRoster": false,
+      "rankingReference": 64.55,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "ZETA",
+      "region": "PAC",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "syouta",
+          "name": "SyouTa",
+          "cardId": "normal:syouta",
+          "cardTeam": "ZETA"
+        },
+        {
+          "playerId": "absol",
+          "name": "Absol",
+          "cardId": "normal:absol",
+          "cardTeam": "ZETA"
+        },
+        {
+          "playerId": "eko",
+          "name": "eKo",
+          "cardId": "normal:eko",
+          "cardTeam": "ZETA"
+        },
+        {
+          "playerId": "sugarz3ro",
+          "name": "SugarZ3ro",
+          "cardId": "normal:sugarz3ro",
+          "cardTeam": "ZETA"
+        },
+        {
+          "playerId": "xdll",
+          "name": "Xdll",
+          "cardId": "normal:xdll",
+          "cardTeam": "ZETA"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/cfAviHGOJWxDtJsn",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 62.24,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "GX",
+      "region": "EMEA",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "net",
+          "name": "neT",
+          "cardId": "normal:net",
+          "cardTeam": "GX"
+        },
+        {
+          "playerId": "ara",
+          "name": "ara",
+          "cardId": "normal:ara",
+          "cardTeam": "GX"
+        },
+        {
+          "playerId": "flickless",
+          "name": "Flickless",
+          "cardId": "normal:flickless",
+          "cardTeam": "GX"
+        },
+        {
+          "playerId": "westside",
+          "name": "westside",
+          "cardId": "normal:westside",
+          "cardTeam": "GX"
+        },
+        {
+          "playerId": "tomaszy",
+          "name": "tomaszy",
+          "cardId": null,
+          "cardTeam": null
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/k2SQjdhaitSNJ1kG",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 58.36,
+      "missingPlayerIds": [
+        "tomaszy"
+      ],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "TS",
+      "region": "PAC",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "natz",
+          "name": "naTz",
+          "cardId": "normal:natz",
+          "cardTeam": "TS"
+        },
+        {
+          "playerId": "zeus",
+          "name": "Zeus",
+          "cardId": "normal:zeus",
+          "cardTeam": "TS"
+        },
+        {
+          "playerId": "styron",
+          "name": "STYRON",
+          "cardId": "normal:styron",
+          "cardTeam": "TS"
+        },
+        {
+          "playerId": "sylvan",
+          "name": "Sylvan",
+          "cardId": "normal:sylvan",
+          "cardTeam": "TS"
+        },
+        {
+          "playerId": "kellys",
+          "name": "kellyS",
+          "cardId": "normal:kellys",
+          "cardTeam": "TS"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/d6TYFl3P4ABen5oM",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 57.89,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "PCF",
+      "region": "EMEA",
+      "entryOnly": false,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "seven",
+          "name": "seven",
+          "cardId": "normal:seven",
+          "cardTeam": "PCF"
+        },
+        {
+          "playerId": "qpert",
+          "name": "qpert",
+          "cardId": "normal:qpert",
+          "cardTeam": "PCF"
+        },
+        {
+          "playerId": "waddle",
+          "name": "waddle",
+          "cardId": "normal:waddle",
+          "cardTeam": "PCF"
+        },
+        {
+          "playerId": "ninja",
+          "name": "NINJA",
+          "cardId": "normal:ninja",
+          "cardTeam": "PCF"
+        },
+        {
+          "playerId": "al0rante",
+          "name": "al0rante",
+          "cardId": "normal:al0rante",
+          "cardTeam": "PCF"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/RJ8FGnAL1oouf8VO",
+      "evidence": "现役五人",
+      "historicalRoster": false,
+      "rankingReference": 53.78,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "KBG",
+      "region": "CN",
+      "entryOnly": true,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "akeman",
+          "name": "Akeman",
+          "cardId": "normal:akeman",
+          "cardTeam": "KBG"
+        },
+        {
+          "playerId": "tonk",
+          "name": "Tonk",
+          "cardId": "normal:tonk",
+          "cardTeam": "KBG"
+        },
+        {
+          "playerId": "ying",
+          "name": "Ying",
+          "cardId": "normal:ying",
+          "cardTeam": "KBG"
+        },
+        {
+          "playerId": "sibeastw0w",
+          "name": "Sibeastw0w",
+          "cardId": "normal:sibeastw0w",
+          "cardTeam": "KBG"
+        },
+        {
+          "playerId": "krst1ng",
+          "name": "Krst1Ng",
+          "cardId": "normal:krst1ng",
+          "cardTeam": "KBG"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/2GfNaRB5CSz1v6kx",
+      "evidence": "卡库出场量推定",
+      "historicalRoster": false,
+      "rankingReference": 52.26,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    },
+    {
+      "teamId": "AT",
+      "region": "CN",
+      "entryOnly": true,
+      "selectable": false,
+      "players": [
+        {
+          "playerId": "monk",
+          "name": "Monk",
+          "cardId": "normal:monk",
+          "cardTeam": "AT"
+        },
+        {
+          "playerId": "eren",
+          "name": "Eren",
+          "cardId": "normal:eren",
+          "cardTeam": "AT"
+        },
+        {
+          "playerId": "folykiki",
+          "name": "Folykiki",
+          "cardId": "normal:folykiki",
+          "cardTeam": "AT"
+        },
+        {
+          "playerId": "layla",
+          "name": "Layla",
+          "cardId": "normal:layla",
+          "cardTeam": "AT"
+        },
+        {
+          "playerId": "dingwei",
+          "name": "dingwei",
+          "cardId": "normal:dingwei",
+          "cardTeam": "AT"
+        }
+      ],
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/zpNf6TQIUZNspYSj",
+      "evidence": "卡库出场量推定",
+      "historicalRoster": false,
+      "rankingReference": 50.9,
+      "missingPlayerIds": [],
+      "seedStatus": "pending-official-2026-configuration"
+    }
+  ]
+}

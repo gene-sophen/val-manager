@@ -1,0 +1,16 @@
+{
+  "version": "demo-league-v1",
+  "status": "fictional-test-format",
+  "name": "五队单循环测试榜",
+  "teams": ["PLAYER", "O1", "O2", "O3", "O4"],
+  "series": "BO1",
+  "map": "ascent",
+  "ranking": ["matchWins", "roundDifference", "roundsFor", "stableTeamId"],
+  "games": [
+    ["PLAYER", "O1"], ["O2", "O3"],
+    ["PLAYER", "O2"], ["O1", "O4"],
+    ["PLAYER", "O3"], ["O2", "O4"],
+    ["PLAYER", "O4"], ["O1", "O3"],
+    ["O1", "O2"], ["O3", "O4"]
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "ascent-a-geometry-prototype",
+  "sourceMap": "ascent.json",
+  "units": "existing-radar-pixels",
+  "status": "single-site-test-only",
+  "walkable": [
+    { "x": 70, "y": 390, "width": 145, "height": 235 },
+    { "x": 70, "y": 225, "width": 200, "height": 185 },
+    { "x": 230, "y": 110, "width": 120, "height": 180 },
+    { "x": 270, "y": 85, "width": 310, "height": 85 }
+  ],
+  "walls": [
+    { "x1": 165, "y1": 260, "x2": 165, "y2": 310 }
+  ],
+  "waypoints": [
+    { "x": 135, "y": 325 },
+    { "x": 135, "y": 245 },
+    { "x": 205, "y": 325 },
+    { "x": 205, "y": 245 },
+    { "x": 285, "y": 250 },
+    { "x": 295, "y": 150 }
+  ]
+}

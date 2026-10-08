@@ -16,6 +16,7 @@ function combatHook(ctx, p) {
   const round = ctx.round;
   // 心态对战力的小幅修正
   p *= 1 + (u.mentality || 0) * M.combatSwing;
+  if(round.suppressedEventSides?.has(u.side))return p;
   if (!isKeyMoment(ctx)) return p;
   // 爆种 / 爆冷
   const popP = (u.inPool ? P.popOffIn : P.popOffOut) * (1 + (u.mentality || 0) * M.eventSwing);

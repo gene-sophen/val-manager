@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>首屏布局 A/B 对比</title>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+body{display:flex;gap:30px;justify-content:center;padding:30px 20px;background:#02040六千}
+body{background:#020406}
+.phone{margin:0}
+.tag{position:absolute;top:-34px;left:0;font-family:'Smiley','Anton',sans-serif;font-size:18px;letter-spacing:2px;color:#fff}
+.tag span{color:var(--txt-2);font-size:12px;letter-spacing:1px;margin-left:8px;font-family:'Rajdhani',sans-serif}
+.wrap{position:relative}
+
+/* ============ A · 大厅式 ============ */
+.lobby-hero{position:relative;height:400px;overflow:hidden;
+  background:linear-gradient(180deg,#1a1626 0%,#141126 40%,#0b0f14 100%)}
+.lobby-hero .tex{position:absolute;inset:0;background:url('../../../素材库/底纹/金.png') center/cover;opacity:.16}
+.lobby-hero .glow{position:absolute;inset:0;background:
+  radial-gradient(ellipse 90% 60% at 50% 88%,rgba(232,185,62,.22),transparent 60%),
+  radial-gradient(ellipse 60% 40% at 50% 0%,rgba(229,57,90,.12),transparent 70%)}
+.lobby-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(5,8,12,.92) 96%)}
+.lobby-team{position:absolute;top:14px;left:16px;z-index:3;display:flex;align-items:center;gap:8px}
+.lobby-team img{width:26px;height:26px;object-fit:contain}
+.lobby-team .tn{font-family:'Smiley';font-size:15px;letter-spacing:2px}
+.lobby-team .ts{font-size:10px;color:var(--txt-2)}
+.lobby-power{position:absolute;top:14px;right:16px;z-index:3;text-align:right}
+.lobby-power .v{font-family:'Anton';font-size:26px;color:#f7dc85;text-shadow:0 2px 0 rgba(0,0,0,.7)}
+.lobby-power .l{font-size:9px;color:var(--txt-2);letter-spacing:2px}
+.stage5{position:absolute;left:0;right:0;bottom:26px;z-index:2;display:flex;justify-content:center;align-items:flex-end;gap:2px}
+.st5{position:relative;text-align:center}
+.st5 .hx{clip-path:var(--hex-sm);padding:2.5px}
+.st5 .hx img{width:100%;height:100%;clip-path:var(--hex-sm);object-fit:cover;object-position:center 10%;display:block;background:#1a222c}
+.st5.q-gold .hx{background:linear-gradient(160deg,#fff3c2,var(--q-gold),#8a6a1c)}
+.st5.q-silver .hx{background:linear-gradient(160deg,#f2f7fb,var(--q-silver),#7b8894)}
+.st5 .nm{font-family:'Anton';font-size:11px;margin-top:2px;text-shadow:0 1px 3px #000}
+.st5.front .hx{width:74px;height:84px}
+.st5.back .hx{width:58px;height:66px}
+.st5.back{transform:translateY(-34px)}
+.st5 .flame{position:absolute;top:-12px;right:4px;font-size:13px;z-index:2;filter:drop-shadow(0 1px 2px #000)}
+.st5 .chem{position:absolute;left:50%;bottom:-14px;transform:translateX(-50%);font-size:9px;color:var(--warn);white-space:nowrap}
+.next-fight{margin:-18px 12px 0;position:relative;z-index:4;padding:14px 14px 16px;text-align:center}
+.next-fight .vs{display:flex;align-items:center;justify-content:center;gap:16px}
+.next-fight .vs img{width:44px;height:44px;object-fit:contain}
+.next-fight .vs .v{font-family:'Anton';font-size:18px;color:var(--txt-2)}
+.next-fight .meta{font-size:10.5px;color:var(--txt-2);letter-spacing:1px;margin:6px 0 12px}
+.next-fight .meta b{color:var(--warn)}
+.entries{display:flex;gap:10px;margin:12px 12px 0}
+.entry{flex:1;position:relative;height:76px;overflow:hidden;cursor:pointer;padding:10px 12px;display:flex;flex-direction:column;justify-content:flex-end}
+.entry .bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.5}
+.entry .tt{position:relative;font-family:'Smiley';font-size:15px;letter-spacing:2px;z-index:2}
+.entry .dd{position:relative;font-size:10px;color:var(--txt-2);z-index:2}
+.entry .ic{position:absolute;right:8px;top:8px;font-size:22px;opacity:.9;z-index:2}
+
+/* ============ B · 征程地图式 ============ */
+.map{position:absolute;inset:0;overflow:hidden;
+  background:linear-gradient(180deg,#0d1420 0%,#131126 30%,#1a1220 55%,#12181f 78%,#0b0f14 100%)}
+.map .tex{position:absolute;inset:0;background:url('../../../素材库/底纹/银.png') center/cover;opacity:.06}
+.crown-zone{position:absolute;top:56px;left:0;right:0;text-align:center;z-index:2}
+.crown-zone .cr{font-size:30px;color:var(--q-diamond);text-shadow:0 0 24px rgba(169,241,255,.7)}
+.crown-zone .cn{font-family:'Smiley';font-size:15px;letter-spacing:4px;color:var(--q-diamond);margin-top:2px}
+.crown-zone .lk{font-size:9px;color:var(--txt-3);margin-top:2px}
+.mapnode{position:absolute;z-index:3;text-align:center;transform:translate(-50%,-50%)}
+.mapnode .ring{width:56px;height:56px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;
+  background:radial-gradient(circle at 35% 30%,#2a3a4a,#131c26 70%);
+  box-shadow:inset 0 2px 2px rgba(255,255,255,.12),inset 0 -3px 3px rgba(0,0,0,.5),0 6px 12px rgba(0,0,0,.5)}
+.mapnode .ring img{width:26px;height:26px;object-fit:contain}
+.mapnode .ring::before{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--nc,#3a4a5a);opacity:.8}
+.mapnode .nm{font-size:10.5px;font-weight:700;margin-top:5px;letter-spacing:1px;color:var(--txt-1);text-shadow:0 1px 3px #000}
+.mapnode .rs{font-size:9px;color:var(--ok)}
+.mapnode.locked{opacity:.45;filter:grayscale(.7)}
+.mapnode.locked .rs{color:var(--txt-3)}
+.map-cur{position:absolute;left:16px;right:16px;bottom:86px;z-index:5;padding:14px;text-align:center}
+.map-cur .vs{display:flex;align-items:center;justify-content:center;gap:14px}
+.map-cur .vs img{width:40px;height:40px;object-fit:contain}
+.map-cur .vs .v{font-family:'Anton';font-size:16px;color:var(--txt-2)}
+.map-cur .meta{font-size:10px;color:var(--txt-2);margin:5px 0 10px}
+.map-cur .sub{font-size:10.5px;color:var(--txt-2);margin-bottom:6px;text-align:left}
+</style>
+</head>
+<body>
+
+<!-- ================= A · 大厅式 ================= -->
+<div class="wrap"><div class="tag">A · 大厅式 <span>大厅为家 · 核心循环一键直达</span></div>
+<div class="phone">
+  <header id="topbar" style="position:relative">
+    <div class="coach-chip">
+      <div class="hex-avatar"><img src="../../../素材库/选手半身像/inspire.png"></div>
+      <div class="coach-meta"><div class="nm">教练 · 阿岚</div><div class="mm">声望<b>72</b> 战术<b>65</b> 临场<b>58</b></div></div>
+    </div>
+    <div class="top-right"><button class="icon-btn">🎴<span class="cnt">×2</span></button><button class="icon-btn">⚙</button></div>
+  </header>
+  <main id="viewport">
+    <div class="lobby-hero">
+      <div class="tex"></div><div class="glow"></div>
+      <div class="lobby-team"><img src="../../../素材库/队伍logo/EDG.png"><div><div class="tn">EDG 分部</div><div class="ts">第一赛段常规赛 · 第 5 轮</div></div></div>
+      <div class="lobby-power"><div class="v">87.8</div><div class="l">综合战力</div></div>
+      <div class="stage5">
+        <div class="st5 back q-silver"><div class="hx"><img src="../../../素材库/选手半身像/stax.png"></div><div class="nm">stax</div></div>
+        <div class="st5 front q-gold"><div class="flame">🔥</div><div class="hx"><img src="../../../素材库/选手半身像/Haodong.png"></div><div class="nm">Haodong</div></div>
+        <div class="st5 back q-gold"><div class="hx"><img src="../../../素材库/选手半身像/SUYGETSU.png"></div><div class="nm">SUYGETSU</div></div>
+        <div class="st5 front q-silver"><div class="hx"><img src="../../../素材库/选手半身像/Munchkin.png"></div><div class="nm">Munchkin</div></div>
+        <div class="st5 back q-silver"><div class="hx"><img src="../../../素材库/选手半身像/heybay.png"></div><div class="nm">heybay</div></div>
+      </div>
+    </div>
+    <div class="next-fight panel-th">
+      <div class="vs"><img src="../../../素材库/队伍logo/EDG.png"><span class="v">VS</span><img src="../../../素材库/队伍logo/BLG.png"></div>
+      <div class="meta">常规赛 · 第 5 轮 · BO3 · 胜场锁定 <b>季后赛①</b></div>
+      <div class="btn-o atk"><button class="btn"><span>出 战</span></button></div>
+    </div>
+    <div class="entries">
+      <div class="entry panel-th"><div class="bg" style="background-image:url('../../../素材库/底纹/钻.png')"></div><div class="ic">🗺️</div><div class="tt">征程地图</div><div class="dd">赛年 S2 · 攀登之路</div></div>
+      <div class="entry panel-th"><div class="bg" style="background-image:url('../../../素材库/底纹/铜.png')"></div><div class="ic">⛺</div><div class="tt">训练赛营地</div><div class="dd">约训练赛 · 联机PK</div></div>
+    </div>
+    <div class="entries">
+      <div class="entry panel-th"><div class="bg" style="background-image:url('../../../素材库/底纹/金.png')"></div><div class="ic">🎴</div><div class="tt">卡包 ×2</div><div class="dd">集齐 10 人可再出征</div></div>
+      <div class="entry panel-th"><div class="bg" style="background-image:url('../../../素材库/底纹/银.png')"></div><div class="ic">🏆</div><div class="tt">荣誉室</div><div class="dd">S1 总冠军</div></div>
+    </div>
+  </main>
+  <nav id="tabbar" style="position:relative">
+    <button class="tab on"><svg viewBox="0 0 24 24"><path d="M12 3l9 7v10h-6v-5h-6v5H3V10z"/></svg>大厅</button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M4 21V4l7 3 9-2v12l-9 2-7-3v3z"/></svg>征程</button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M12 1l8 5.5v9L12 21l-8-5.5v-9z"/></svg>阵容</button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z M8 7h6M8 11h8M8 15h5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>抽卡</button>
+  </nav>
+</div>
+</div>
+
+<!-- ================= B · 征程地图式 ================= -->
+<div class="wrap"><div class="tag">B · 征程地图式 <span>征程为家 · 攀登之路即首屏</span></div>
+<div class="phone">
+  <header id="topbar" style="position:relative;z-index:10">
+    <div class="coach-chip">
+      <div class="hex-avatar"><img src="../../../素材库/选手半身像/inspire.png"></div>
+      <div class="coach-meta"><div class="nm">教练 · 阿岚</div><div class="mm">声望<b>72</b> 战术<b>65</b> 临场<b>58</b></div></div>
+    </div>
+    <div class="top-right"><button class="icon-btn">🎴<span class="cnt">×2</span></button><button class="icon-btn">⚙</button></div>
+  </header>
+  <main id="viewport">
+    <div class="map">
+      <div class="tex"></div>
+      <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 390 700" preserveAspectRatio="none">
+        <path d="M195 640 C 90 600, 90 540, 195 510 C 300 480, 300 420, 195 390 C 90 360, 90 300, 195 270 C 300 240, 300 180, 195 150"
+          fill="none" stroke="rgba(232,185,62,.4)" stroke-width="3" stroke-dasharray="1 10" stroke-linecap="round"/>
+      </svg>
+      <div class="crown-zone"><div class="cr">◆</div><div class="cn">冠军赛</div><div class="lk">解锁条件：赢得季后赛②</div></div>
+      <div class="mapnode locked" style="left:70%;top:24%;--nc:#f0b232"><div class="ring"><img src="../../../素材库/赛区图标/EMEA.png" style="filter:invert(72%) sepia(58%) saturate(500%) hue-rotate(2deg)"></div><div class="nm">季后赛②</div><div class="rs">未解锁</div></div>
+      <div class="mapnode locked" style="left:28%;top:33%;--nc:#e5395a"><div class="ring"><img src="../../../素材库/赛区图标/CN.png"></div><div class="nm">第二赛段常规赛</div><div class="rs">未解锁</div></div>
+      <div class="mapnode locked" style="left:72%;top:43%;--nc:#f2622e"><div class="ring"><img src="../../../素材库/赛区图标/AMER.png"></div><div class="nm">大师赛②</div><div class="rs">未解锁</div></div>
+      <div class="mapnode locked" style="left:26%;top:53%;--nc:#e5395a"><div class="ring"><img src="../../../素材库/赛区图标/CN.png"></div><div class="nm">季后赛①</div><div class="rs">前二晋级</div></div>
+      <div class="mapnode" style="left:72%;top:66%;--nc:#22c8d8"><div class="ring"><img src="../../../素材库/赛区图标/PAC.png"></div><div class="nm">大师赛①</div><div class="rs">4强</div></div>
+      <div class="mapnode" style="left:26%;top:76%;--nc:#e5395a"><div class="ring"><img src="../../../素材库/赛区图标/CN.png"></div><div class="nm">启点赛</div><div class="rs">冠军</div></div>
+      <div class="map-cur panel-th">
+        <div class="sub">当前 · 第一赛段常规赛 · 第 5 轮（积分榜 1 位 4胜0负）</div>
+        <div class="vs"><img src="../../../素材库/队伍logo/EDG.png"><span class="v">VS</span><img src="../../../素材库/队伍logo/BLG.png"></div>
+        <div class="meta">BO3 · 胜场锁定季后赛①</div>
+        <div class="btn-o atk"><button class="btn"><span>出 战</span></button></div>
+      </div>
+    </div>
+  </main>
+  <nav id="tabbar" style="position:relative;z-index:10">
+    <button class="tab on"><svg viewBox="0 0 24 24"><path d="M4 21V4l7 3 9-2v12l-9 2-7-3v3z"/></svg>征程</button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M12 1l8 5.5v9L12 21l-8-5.5v-9z"/></svg>阵容</button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z M8 7h6M8 11h8M8 15h5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>抽卡</button>
+  </nav>
+</div>
+</div>
+
+</body>
+</html>

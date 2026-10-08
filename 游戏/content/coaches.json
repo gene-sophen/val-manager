@@ -1,0 +1,9 @@
+{
+  "version": "neutral-coaches-v1",
+  "source": "game-design-default-not-real-world-rating",
+  "default": {
+    "战术": 50,
+    "临场": 50,
+    "声望": 50
+  }
+}

@@ -1,0 +1,14 @@
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),S=require('./spatial-match');
+const label=process.argv[2]||'development',start=Number(process.argv[3]||0),count=Number(process.argv[4]||12),out=path.resolve('docs/validation/2026-10-06-ascent-balance/'+label);fs.mkdirSync(out,{recursive:true});
+if(!Number.isInteger(count)||count<1||count>200)throw Error('Invalid audit sample');
+const catalog=require('./catalog').cards,clubs=process.argv[5]?[process.argv[5]]:['EDG','TE','BLG','DRG'];
+const roster=club=>{const names=new Set();return catalog.filter(p=>p.team===club&&p.tier!=='钻'&&!names.has(p.name)&&(names.add(p.name),true)).slice(0,5);};
+const lineups=clubs.map(roster).filter(r=>r.length===5),rotate=(xs,n)=>xs.slice(n).concat(xs.slice(0,n));if(!lineups.length)throw Error('No valid audit lineup');
+const report={label,behaviorVersion:'ascent-balance-4',purpose:'Equal lineup/attributes/heroes on both teams; paired initial sides, varied lineup and tactical priority. Fixed development and held-out seeds. Round share is not team map-win probability.',sources:['引擎/ascent-behavior.js','引擎/brain.js','引擎/round.js','引擎/combat.js','引擎/abilities.js','引擎/movement.js','游戏/spatial-match.js'].map(file=>({file,sha256:crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')})),matches:[],totals:{rounds:0,atk:0,def:0,firstAtk:0,firstDef:0,plants:0,defuses:0,explosions:0,clearedExplosions:0,checkpoints:0}};
+function save(){const t=report.totals;t.atkPercent=+(100*t.atk/t.rounds).toFixed(2);t.defPercent=+(100*t.def/t.rounds).toFixed(2);report.complete=report.matches.length===count*2;report.balanceWithin55=t.atkPercent>=45&&t.atkPercent<=55;fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(report,null,2)+'\n');}
+for(let n=start;n<start+count;n++)for(const side of ['attack','defense']){
+ const players=lineups[n%lineups.length],team=id=>({id,players,team:{羁绊:40,状态:50,熟练:50},coach:{战术:65,临场:60,声望:70}}),priority={attack:rotate([0,1,2,3,4],n%5),defense:rotate([1,0,2,3,4],n%5)},item={seed:'ascent-'+label+'-'+n,side,club:players[0].team,priority,rounds:0,atk:0,def:0},t=report.totals;
+ const m=S.simulate(item.seed,team('A'),team('B'),priority,{mapId:'ascent',version:5,side,awayPriority:priority,onRound:r=>{const end=r.events.find(e=>e.type==='round_end'),first=r.events.find(e=>e.type==='kill');item.rounds++;item[end.winner]++;t.rounds++;t[end.winner]++;if(first)t[first.side==='atk'?'firstAtk':'firstDef']++;if(r.events.some(e=>e.type==='plant'))t.plants++;if(end.reason==='defuse')t.defuses++;if(end.reason==='explosion'){t.explosions++;if(r.events.some(e=>e.type==='site_cleared'))t.clearedExplosions++;}t.checkpoints+=r.events.filter(e=>e.type==='defuse_checkpoint').length;}});
+ if(m.spatial.initial.behaviorVersion!==report.behaviorVersion)throw Error('Wrong behavior');report.matches.push(item);save();console.log(JSON.stringify(item));
+}
+save();console.log(JSON.stringify(report.totals));

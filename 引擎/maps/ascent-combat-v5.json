@@ -1,0 +1,7581 @@
+{
+  "id": "ascent",
+  "name": "亚海悬城",
+  "sites": {
+    "A": "a_site",
+    "B": "b_site"
+  },
+  "spawns": {
+    "atk": "t_spawn",
+    "def": "ct_spawn"
+  },
+  "staging": {
+    "A": "ct_a",
+    "B": "ct_b"
+  },
+  "trapSpots": {
+    "a_site": "a_lobby",
+    "a_heaven": "a_lobby",
+    "a_short": "a_short",
+    "b_site": "b_lobby",
+    "b_back": "b_lobby",
+    "market": "market",
+    "mid_bottom": "mid"
+  },
+  "view": {
+    "width": 960,
+    "height": 960
+  },
+  "nodes": {
+    "t_spawn": {
+      "name": "进攻出生点",
+      "region": "spawn",
+      "cover": 0.2,
+      "advantage": "neutral",
+      "capacity": 8,
+      "x": 552,
+      "y": 237
+    },
+    "a_main": {
+      "name": "A大厅",
+      "region": "A",
+      "cover": 0.3,
+      "advantage": "neutral",
+      "capacity": 6,
+      "x": 282,
+      "y": 370
+    },
+    "a_lobby": {
+      "name": "A大",
+      "region": "A",
+      "cover": 0.4,
+      "advantage": "neutral",
+      "capacity": 6,
+      "x": 288,
+      "y": 492
+    },
+    "a_site": {
+      "name": "A包点",
+      "region": "A",
+      "cover": 0.5,
+      "advantage": "def",
+      "capacity": 6,
+      "x": 180,
+      "y": 643
+    },
+    "a_heaven": {
+      "name": "A二楼",
+      "region": "A",
+      "cover": 0.6,
+      "advantage": "def",
+      "capacity": 3,
+      "x": 180,
+      "y": 700
+    },
+    "a_short": {
+      "name": "A连接",
+      "region": "A",
+      "cover": 0.3,
+      "advantage": "neutral",
+      "capacity": 3,
+      "x": 332,
+      "y": 570
+    },
+    "mid_top": {
+      "name": "中路顶",
+      "region": "mid",
+      "cover": 0.3,
+      "advantage": "neutral",
+      "capacity": 4,
+      "x": 423,
+      "y": 337
+    },
+    "mid": {
+      "name": "中路",
+      "region": "mid",
+      "cover": 0.3,
+      "advantage": "neutral",
+      "capacity": 4,
+      "x": 518,
+      "y": 493
+    },
+    "mid_bottom": {
+      "name": "中路底",
+      "region": "mid",
+      "cover": 0.3,
+      "advantage": "def",
+      "capacity": 4,
+      "x": 490,
+      "y": 568
+    },
+    "market": {
+      "name": "市场",
+      "region": "B",
+      "cover": 0.5,
+      "advantage": "def",
+      "capacity": 3,
+      "x": 542,
+      "y": 655
+    },
+    "b_main": {
+      "name": "B大入口",
+      "region": "B",
+      "cover": 0.3,
+      "advantage": "neutral",
+      "capacity": 6,
+      "x": 684,
+      "y": 404
+    },
+    "b_lobby": {
+      "name": "B大",
+      "region": "B",
+      "cover": 0.4,
+      "advantage": "neutral",
+      "capacity": 6,
+      "x": 673,
+      "y": 565
+    },
+    "b_site": {
+      "name": "B包点",
+      "region": "B",
+      "cover": 0.5,
+      "advantage": "def",
+      "capacity": 6,
+      "x": 745,
+      "y": 681
+    },
+    "b_back": {
+      "name": "B点后",
+      "region": "B",
+      "cover": 0.5,
+      "advantage": "neutral",
+      "capacity": 4,
+      "x": 829,
+      "y": 700
+    },
+    "ct_spawn": {
+      "name": "防守出生点",
+      "region": "spawn",
+      "cover": 0.2,
+      "advantage": "def",
+      "capacity": 8,
+      "x": 442,
+      "y": 813
+    },
+    "ct_a": {
+      "name": "警家A连接",
+      "region": "A",
+      "cover": 0.4,
+      "advantage": "def",
+      "capacity": 4,
+      "x": 270,
+      "y": 770
+    },
+    "ct_b": {
+      "name": "警家B连接",
+      "region": "B",
+      "cover": 0.4,
+      "advantage": "def",
+      "capacity": 4,
+      "x": 620,
+      "y": 771
+    }
+  },
+  "edges": [
+    {
+      "a": "t_spawn",
+      "b": "a_main",
+      "ticks": 11,
+      "exposure": 0.1,
+      "route": [
+        {
+          "name": "进攻出生点",
+          "region": "spawn",
+          "cover": 0.2,
+          "advantage": "neutral",
+          "capacity": 8,
+          "x": 552,
+          "y": 237
+        },
+        {
+          "x": 363,
+          "y": 267
+        },
+        {
+          "x": 327,
+          "y": 339
+        },
+        {
+          "name": "A大厅",
+          "region": "A",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 282,
+          "y": 370
+        }
+      ]
+    },
+    {
+      "a": "a_main",
+      "b": "a_lobby",
+      "ticks": 4,
+      "exposure": 0.15,
+      "route": [
+        {
+          "name": "A大厅",
+          "region": "A",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 282,
+          "y": 370
+        },
+        {
+          "name": "A大",
+          "region": "A",
+          "cover": 0.4,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 288,
+          "y": 492
+        }
+      ]
+    },
+    {
+      "a": "a_lobby",
+      "b": "a_site",
+      "ticks": 8,
+      "exposure": 0.35,
+      "route": [
+        {
+          "name": "A大",
+          "region": "A",
+          "cover": 0.4,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 288,
+          "y": 492
+        },
+        {
+          "x": 201,
+          "y": 507
+        },
+        {
+          "name": "A包点",
+          "region": "A",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 180,
+          "y": 643
+        }
+      ]
+    },
+    {
+      "a": "a_site",
+      "b": "a_heaven",
+      "ticks": 2,
+      "exposure": 0.2,
+      "route": [
+        {
+          "name": "A包点",
+          "region": "A",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 180,
+          "y": 643
+        },
+        {
+          "name": "A二楼",
+          "region": "A",
+          "cover": 0.6,
+          "advantage": "def",
+          "capacity": 3,
+          "x": 180,
+          "y": 700
+        }
+      ]
+    },
+    {
+      "a": "a_short",
+      "b": "a_site",
+      "ticks": 6,
+      "exposure": 0.3,
+      "route": [
+        {
+          "name": "A连接",
+          "region": "A",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 3,
+          "x": 332,
+          "y": 570
+        },
+        {
+          "x": 261,
+          "y": 579
+        },
+        {
+          "name": "A包点",
+          "region": "A",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 180,
+          "y": 643
+        }
+      ]
+    },
+    {
+      "a": "t_spawn",
+      "b": "mid_top",
+      "ticks": 10,
+      "exposure": 0.1,
+      "route": [
+        {
+          "name": "进攻出生点",
+          "region": "spawn",
+          "cover": 0.2,
+          "advantage": "neutral",
+          "capacity": 8,
+          "x": 552,
+          "y": 237
+        },
+        {
+          "x": 363,
+          "y": 267
+        },
+        {
+          "x": 363,
+          "y": 315
+        },
+        {
+          "name": "中路顶",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 4,
+          "x": 423,
+          "y": 337
+        }
+      ]
+    },
+    {
+      "a": "mid_top",
+      "b": "mid",
+      "ticks": 6,
+      "exposure": 0.25,
+      "route": [
+        {
+          "name": "中路顶",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 4,
+          "x": 423,
+          "y": 337
+        },
+        {
+          "x": 459,
+          "y": 405
+        },
+        {
+          "name": "中路",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 4,
+          "x": 518,
+          "y": 493
+        }
+      ]
+    },
+    {
+      "a": "mid",
+      "b": "a_short",
+      "ticks": 8,
+      "exposure": 0.25,
+      "route": [
+        {
+          "name": "中路",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 4,
+          "x": 518,
+          "y": 493
+        },
+        {
+          "x": 453,
+          "y": 471
+        },
+        {
+          "x": 429,
+          "y": 471
+        },
+        {
+          "x": 387,
+          "y": 525
+        },
+        {
+          "x": 351,
+          "y": 537
+        },
+        {
+          "name": "A连接",
+          "region": "A",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 3,
+          "x": 332,
+          "y": 570
+        }
+      ]
+    },
+    {
+      "a": "mid",
+      "b": "mid_bottom",
+      "ticks": 3,
+      "exposure": 0.3,
+      "route": [
+        {
+          "name": "中路",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 4,
+          "x": 518,
+          "y": 493
+        },
+        {
+          "name": "中路底",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 490,
+          "y": 568
+        }
+      ]
+    },
+    {
+      "a": "mid_bottom",
+      "b": "market",
+      "ticks": 4,
+      "exposure": 0.25,
+      "route": [
+        {
+          "name": "中路底",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 490,
+          "y": 568
+        },
+        {
+          "x": 507,
+          "y": 633
+        },
+        {
+          "name": "市场",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 3,
+          "x": 542,
+          "y": 655
+        }
+      ]
+    },
+    {
+      "a": "t_spawn",
+      "b": "b_main",
+      "ticks": 7,
+      "exposure": 0.1,
+      "route": [
+        {
+          "name": "进攻出生点",
+          "region": "spawn",
+          "cover": 0.2,
+          "advantage": "neutral",
+          "capacity": 8,
+          "x": 552,
+          "y": 237
+        },
+        {
+          "x": 627,
+          "y": 297
+        },
+        {
+          "x": 651,
+          "y": 375
+        },
+        {
+          "name": "B大入口",
+          "region": "B",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 684,
+          "y": 404
+        }
+      ]
+    },
+    {
+      "a": "b_main",
+      "b": "b_lobby",
+      "ticks": 6,
+      "exposure": 0.15,
+      "route": [
+        {
+          "name": "B大入口",
+          "region": "B",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 684,
+          "y": 404
+        },
+        {
+          "x": 705,
+          "y": 495
+        },
+        {
+          "x": 699,
+          "y": 549
+        },
+        {
+          "name": "B大",
+          "region": "B",
+          "cover": 0.4,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 673,
+          "y": 565
+        }
+      ]
+    },
+    {
+      "a": "b_lobby",
+      "b": "b_site",
+      "ticks": 6,
+      "exposure": 0.35,
+      "route": [
+        {
+          "name": "B大",
+          "region": "B",
+          "cover": 0.4,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 673,
+          "y": 565
+        },
+        {
+          "x": 639,
+          "y": 591
+        },
+        {
+          "x": 675,
+          "y": 621
+        },
+        {
+          "x": 699,
+          "y": 621
+        },
+        {
+          "name": "B包点",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 745,
+          "y": 681
+        }
+      ]
+    },
+    {
+      "a": "b_site",
+      "b": "b_back",
+      "ticks": 3,
+      "exposure": 0.2,
+      "route": [
+        {
+          "name": "B包点",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 745,
+          "y": 681
+        },
+        {
+          "x": 801,
+          "y": 699
+        },
+        {
+          "name": "B点后",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "neutral",
+          "capacity": 4,
+          "x": 829,
+          "y": 700
+        }
+      ]
+    },
+    {
+      "a": "market",
+      "b": "b_site",
+      "ticks": 7,
+      "exposure": 0.3,
+      "route": [
+        {
+          "name": "市场",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 3,
+          "x": 542,
+          "y": 655
+        },
+        {
+          "x": 669,
+          "y": 711
+        },
+        {
+          "x": 699,
+          "y": 711
+        },
+        {
+          "name": "B包点",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 745,
+          "y": 681
+        }
+      ]
+    },
+    {
+      "a": "ct_spawn",
+      "b": "ct_a",
+      "ticks": 6,
+      "exposure": 0.05,
+      "route": [
+        {
+          "name": "防守出生点",
+          "region": "spawn",
+          "cover": 0.2,
+          "advantage": "def",
+          "capacity": 8,
+          "x": 442,
+          "y": 813
+        },
+        {
+          "x": 327,
+          "y": 771
+        },
+        {
+          "name": "警家A连接",
+          "region": "A",
+          "cover": 0.4,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 270,
+          "y": 770
+        }
+      ]
+    },
+    {
+      "a": "ct_spawn",
+      "b": "ct_b",
+      "ticks": 6,
+      "exposure": 0.05,
+      "route": [
+        {
+          "name": "防守出生点",
+          "region": "spawn",
+          "cover": 0.2,
+          "advantage": "def",
+          "capacity": 8,
+          "x": 442,
+          "y": 813
+        },
+        {
+          "x": 501,
+          "y": 789
+        },
+        {
+          "name": "警家B连接",
+          "region": "B",
+          "cover": 0.4,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 620,
+          "y": 771
+        }
+      ]
+    },
+    {
+      "a": "ct_a",
+      "b": "a_site",
+      "ticks": 6,
+      "exposure": 0.2,
+      "route": [
+        {
+          "name": "警家A连接",
+          "region": "A",
+          "cover": 0.4,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 270,
+          "y": 770
+        },
+        {
+          "x": 255,
+          "y": 717
+        },
+        {
+          "x": 207,
+          "y": 687
+        },
+        {
+          "x": 189,
+          "y": 663
+        },
+        {
+          "name": "A包点",
+          "region": "A",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 180,
+          "y": 643
+        }
+      ]
+    },
+    {
+      "a": "ct_a",
+      "b": "a_heaven",
+      "ticks": 5,
+      "exposure": 0.15,
+      "route": [
+        {
+          "name": "警家A连接",
+          "region": "A",
+          "cover": 0.4,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 270,
+          "y": 770
+        },
+        {
+          "x": 255,
+          "y": 717
+        },
+        {
+          "name": "A二楼",
+          "region": "A",
+          "cover": 0.6,
+          "advantage": "def",
+          "capacity": 3,
+          "x": 180,
+          "y": 700
+        }
+      ]
+    },
+    {
+      "a": "ct_b",
+      "b": "b_site",
+      "ticks": 6,
+      "exposure": 0.2,
+      "route": [
+        {
+          "name": "警家B连接",
+          "region": "B",
+          "cover": 0.4,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 620,
+          "y": 771
+        },
+        {
+          "x": 639,
+          "y": 741
+        },
+        {
+          "x": 663,
+          "y": 717
+        },
+        {
+          "x": 699,
+          "y": 711
+        },
+        {
+          "name": "B包点",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 745,
+          "y": 681
+        }
+      ]
+    },
+    {
+      "a": "ct_b",
+      "b": "market",
+      "ticks": 5,
+      "exposure": 0.2,
+      "route": [
+        {
+          "name": "警家B连接",
+          "region": "B",
+          "cover": 0.4,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 620,
+          "y": 771
+        },
+        {
+          "x": 621,
+          "y": 735
+        },
+        {
+          "x": 615,
+          "y": 705
+        },
+        {
+          "x": 585,
+          "y": 675
+        },
+        {
+          "name": "市场",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 3,
+          "x": 542,
+          "y": 655
+        }
+      ]
+    },
+    {
+      "a": "ct_spawn",
+      "b": "mid_bottom",
+      "ticks": 8,
+      "exposure": 0.15,
+      "route": [
+        {
+          "name": "防守出生点",
+          "region": "spawn",
+          "cover": 0.2,
+          "advantage": "def",
+          "capacity": 8,
+          "x": 442,
+          "y": 813
+        },
+        {
+          "x": 447,
+          "y": 741
+        },
+        {
+          "x": 483,
+          "y": 669
+        },
+        {
+          "name": "中路底",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 490,
+          "y": 568
+        }
+      ]
+    },
+    {
+      "a": "mid_bottom",
+      "b": "ct_b",
+      "ticks": 9,
+      "exposure": 0.15,
+      "route": [
+        {
+          "name": "中路底",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 490,
+          "y": 568
+        },
+        {
+          "x": 507,
+          "y": 633
+        },
+        {
+          "x": 585,
+          "y": 675
+        },
+        {
+          "x": 615,
+          "y": 705
+        },
+        {
+          "x": 621,
+          "y": 771
+        },
+        {
+          "name": "警家B连接",
+          "region": "B",
+          "cover": 0.4,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 620,
+          "y": 771
+        }
+      ]
+    }
+  ],
+  "posts": {
+    "a_site-front": {
+      "node": "a_site",
+      "area": "a_site",
+      "x": 184,
+      "y": 610,
+      "name": "入口反架",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site-dice-west": {
+      "node": "a_site",
+      "area": "a_site",
+      "x": 145,
+      "y": 644,
+      "name": "双箱西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site-dice-back": {
+      "node": "a_site",
+      "area": "a_site",
+      "x": 176,
+      "y": 662,
+      "name": "双箱后侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site-generator-west": {
+      "node": "a_site",
+      "area": "a_site",
+      "x": 204,
+      "y": 638,
+      "name": "发电机西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site-generator-back": {
+      "node": "a_site",
+      "area": "a_site",
+      "x": 240,
+      "y": 646,
+      "name": "发电机后",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "peekTo": "a_site-generator-peek",
+      "peekRoute": [
+        {
+          "node": "a_site",
+          "area": "a_site",
+          "x": 240,
+          "y": 646,
+          "name": "发电机后",
+          "role": "hold",
+          "cover": 0,
+          "selectionRadius": 2,
+          "layer": "position",
+          "peekTo": "a_site-generator-peek"
+        },
+        {
+          "node": "a_site",
+          "area": "a_site",
+          "x": 240,
+          "y": 617,
+          "name": "发电机侧探头",
+          "role": "peek",
+          "cover": 0,
+          "selectionRadius": 2,
+          "layer": "position",
+          "returnTo": "a_site-generator-back"
+        }
+      ],
+      "escape": {
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site-generator-peek": {
+      "node": "a_site",
+      "area": "a_site",
+      "x": 240,
+      "y": 617,
+      "name": "发电机侧探头",
+      "role": "peek",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "returnTo": "a_site-generator-back",
+      "escape": {
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site-back-corner": {
+      "node": "a_site",
+      "area": "a_site",
+      "x": 141,
+      "y": 666,
+      "name": "点内后角",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_heaven-west": {
+      "node": "a_heaven",
+      "area": "a_heaven",
+      "x": 148,
+      "y": 701,
+      "name": "二楼西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 700
+      }
+    },
+    "a_heaven-center": {
+      "node": "a_heaven",
+      "area": "a_heaven",
+      "x": 230,
+      "y": 701,
+      "name": "二楼中央",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 700
+      }
+    },
+    "a_heaven-window": {
+      "node": "a_heaven",
+      "area": "a_heaven",
+      "x": 274,
+      "y": 701,
+      "name": "二楼窗口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 700
+      }
+    },
+    "a_short-tree-west": {
+      "node": "a_short",
+      "area": "a_short",
+      "x": 305,
+      "y": 566,
+      "name": "树房西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 332,
+        "y": 570
+      }
+    },
+    "a_short-tree-east": {
+      "node": "a_short",
+      "area": "a_short",
+      "x": 348,
+      "y": 567,
+      "name": "树房东侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 332,
+        "y": 570
+      }
+    },
+    "a_short-door": {
+      "node": "a_short",
+      "area": "a_short",
+      "x": 322,
+      "y": 589,
+      "name": "树房门口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 332,
+        "y": 570
+      }
+    },
+    "a_main-lobby-corner": {
+      "node": "a_main",
+      "area": "a_main",
+      "x": 281,
+      "y": 366,
+      "name": "大厅转角",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 282,
+        "y": 370
+      }
+    },
+    "a_main-approach": {
+      "node": "a_main",
+      "area": "a_main",
+      "x": 302,
+      "y": 440,
+      "name": "大厅前沿",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 282,
+        "y": 370
+      }
+    },
+    "a_lobby-mouth": {
+      "node": "a_lobby",
+      "area": "a_lobby",
+      "x": 286,
+      "y": 484,
+      "name": "A 大前沿",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 288,
+        "y": 492
+      }
+    },
+    "a_lobby-wall-side": {
+      "node": "a_lobby",
+      "area": "a_lobby",
+      "x": 270,
+      "y": 499,
+      "name": "A 大贴墙",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 288,
+        "y": 492
+      }
+    },
+    "a_lobby-wine": {
+      "node": "a_lobby",
+      "area": "a_lobby",
+      "x": 164,
+      "y": 490,
+      "name": "酒窖入口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 288,
+        "y": 492
+      }
+    },
+    "a_lobby-site-mouth": {
+      "node": "a_lobby",
+      "area": "a_lobby",
+      "x": 180,
+      "y": 570,
+      "name": "进点转角",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 288,
+        "y": 492
+      }
+    },
+    "b_site-stairs": {
+      "node": "b_site",
+      "area": "b_site",
+      "x": 706,
+      "y": 645,
+      "name": "台阶出点",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_site-default-west": {
+      "node": "b_site",
+      "area": "b_site",
+      "x": 733,
+      "y": 669,
+      "name": "默认箱西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_site-default-east": {
+      "node": "b_site",
+      "area": "b_site",
+      "x": 773,
+      "y": 670,
+      "name": "默认箱东侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_site-lane": {
+      "node": "b_site",
+      "area": "b_site",
+      "x": 780,
+      "y": 646,
+      "name": "包点前沿",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_site-back": {
+      "node": "b_site",
+      "area": "b_site",
+      "x": 782,
+      "y": 704,
+      "name": "后场转角",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_site-ct-angle": {
+      "node": "b_site",
+      "area": "b_site",
+      "x": 720,
+      "y": 716,
+      "name": "警家反架",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_back-boat-mouth": {
+      "node": "b_back",
+      "area": "b_back",
+      "x": 818,
+      "y": 695,
+      "name": "船屋出口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 829,
+        "y": 700
+      }
+    },
+    "b_back-boat-cover": {
+      "node": "b_back",
+      "area": "b_back",
+      "x": 841,
+      "y": 714,
+      "name": "船屋内侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 829,
+        "y": 700
+      }
+    },
+    "market-door-hold": {
+      "node": "market",
+      "area": "market",
+      "x": 542,
+      "y": 663,
+      "name": "市场门架枪",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "returnTo": "market-wall-side",
+      "escape": {
+        "x": 542,
+        "y": 655
+      }
+    },
+    "market-wall-side": {
+      "node": "market",
+      "area": "market",
+      "x": 551,
+      "y": 681,
+      "name": "市场贴墙",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "peekTo": "market-door-hold",
+      "peekRoute": [
+        {
+          "node": "market",
+          "area": "market",
+          "x": 551,
+          "y": 681,
+          "name": "市场贴墙",
+          "role": "hold",
+          "cover": 0,
+          "selectionRadius": 2,
+          "layer": "position",
+          "peekTo": "market-door-hold"
+        },
+        {
+          "node": "market",
+          "area": "market",
+          "x": 542,
+          "y": 663,
+          "name": "市场门架枪",
+          "role": "hold",
+          "cover": 0,
+          "selectionRadius": 2,
+          "layer": "position",
+          "returnTo": "market-wall-side"
+        }
+      ],
+      "escape": {
+        "x": 542,
+        "y": 655
+      }
+    },
+    "market-mid-mouth": {
+      "node": "market",
+      "area": "market",
+      "x": 501,
+      "y": 657,
+      "name": "市场中路口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 542,
+        "y": 655
+      }
+    },
+    "mid-courtyard-west": {
+      "node": "mid",
+      "area": "mid",
+      "x": 475,
+      "y": 491,
+      "name": "庭院西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 518,
+        "y": 493
+      }
+    },
+    "mid-courtyard-east": {
+      "node": "mid",
+      "area": "mid",
+      "x": 513,
+      "y": 519,
+      "name": "庭院东侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 518,
+        "y": 493
+      }
+    },
+    "mid-catwalk-mouth": {
+      "node": "mid",
+      "area": "mid",
+      "x": 455,
+      "y": 522,
+      "name": "猫道出口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 518,
+        "y": 493
+      }
+    },
+    "mid-bottom-angle": {
+      "node": "mid",
+      "area": "mid",
+      "x": 490,
+      "y": 545,
+      "name": "中路底反架",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 518,
+        "y": 493
+      }
+    },
+    "mid_top-box-side": {
+      "node": "mid_top",
+      "area": "mid_top",
+      "x": 416,
+      "y": 332,
+      "name": "中路顶箱侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 423,
+        "y": 337
+      }
+    },
+    "mid_top-courtyard-angle": {
+      "node": "mid_top",
+      "area": "mid_top",
+      "x": 446,
+      "y": 341,
+      "name": "中路顶前沿",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 423,
+        "y": 337
+      }
+    },
+    "mid_bottom-pizza": {
+      "node": "mid_bottom",
+      "area": "mid_bottom",
+      "x": 468,
+      "y": 571,
+      "name": "披萨侧入口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 490,
+        "y": 568
+      }
+    },
+    "mid_bottom-market-mouth": {
+      "node": "mid_bottom",
+      "area": "mid_bottom",
+      "x": 519,
+      "y": 575,
+      "name": "市场入口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 490,
+        "y": 568
+      }
+    },
+    "b_main-lobby-west": {
+      "node": "b_main",
+      "area": "b_main",
+      "x": 674,
+      "y": 427,
+      "name": "B 厅西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 684,
+        "y": 404
+      }
+    },
+    "b_main-lobby-east": {
+      "node": "b_main",
+      "area": "b_main",
+      "x": 710,
+      "y": 448,
+      "name": "B 厅东侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 684,
+        "y": 404
+      }
+    },
+    "b_lobby-mouth": {
+      "node": "b_lobby",
+      "area": "b_lobby",
+      "x": 671,
+      "y": 560,
+      "name": "B 大出口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 673,
+        "y": 565
+      }
+    },
+    "b_lobby-side": {
+      "node": "b_lobby",
+      "area": "b_lobby",
+      "x": 629,
+      "y": 575,
+      "name": "B 大贴墙",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 673,
+        "y": 565
+      }
+    },
+    "b_lobby-entry-hold": {
+      "node": "b_lobby",
+      "area": "b_lobby",
+      "x": 678,
+      "y": 587,
+      "name": "隔墙外沿",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 673,
+        "y": 565
+      }
+    },
+    "ct_a-garden": {
+      "node": "ct_a",
+      "area": "ct_a",
+      "x": 267,
+      "y": 760,
+      "name": "花园连接",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 270,
+        "y": 770
+      }
+    },
+    "ct_a-window-route": {
+      "node": "ct_a",
+      "area": "ct_a",
+      "x": 300,
+      "y": 777,
+      "name": "窗口连接",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 270,
+        "y": 770
+      }
+    },
+    "ct_b-market-route": {
+      "node": "ct_b",
+      "area": "ct_b",
+      "x": 615,
+      "y": 767,
+      "name": "市场回防路",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 620,
+        "y": 771
+      }
+    },
+    "ct_b-site-route": {
+      "node": "ct_b",
+      "area": "ct_b",
+      "x": 641,
+      "y": 778,
+      "name": "B 点回防路",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 620,
+        "y": 771
+      }
+    },
+    "ct_spawn-west": {
+      "node": "ct_spawn",
+      "area": "ct_spawn",
+      "x": 424,
+      "y": 813,
+      "name": "警家西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 442,
+        "y": 813
+      }
+    },
+    "ct_spawn-east": {
+      "node": "ct_spawn",
+      "area": "ct_spawn",
+      "x": 474,
+      "y": 841,
+      "name": "警家东侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 442,
+        "y": 813
+      }
+    },
+    "t_spawn-mid-route": {
+      "node": "t_spawn",
+      "area": "t_spawn",
+      "x": 550,
+      "y": 232,
+      "name": "中路集合位",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 552,
+        "y": 237
+      }
+    },
+    "t_spawn-b-route": {
+      "node": "t_spawn",
+      "area": "t_spawn",
+      "x": 595,
+      "y": 218,
+      "name": "B 路集合位",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 552,
+        "y": 237
+      }
+    },
+    "t_spawn-a-route": {
+      "node": "t_spawn",
+      "area": "t_spawn",
+      "x": 504,
+      "y": 247,
+      "name": "A 路集合位",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 552,
+        "y": 237
+      }
+    },
+    "market-gate-outside": {
+      "node": "market",
+      "area": "market",
+      "name": "门外通道",
+      "x": 590,
+      "y": 663,
+      "role": "hold",
+      "cover": 0.4,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 542,
+        "y": 655
+      }
+    },
+    "b_site-lane-door": {
+      "node": "b_site",
+      "area": "b_site",
+      "name": "长条门侧",
+      "x": 688,
+      "y": 664,
+      "role": "hold",
+      "cover": 0.4,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 745,
+        "y": 681
+      }
+    }
+  },
+  "sightlines": [
+    [
+      "a_site-front",
+      "a_site-dice-west",
+      1
+    ],
+    [
+      "a_site-front",
+      "a_site-dice-back",
+      0.3333333333333333
+    ],
+    [
+      "a_site-front",
+      "a_site-generator-west",
+      1
+    ],
+    [
+      "a_site-front",
+      "a_site-generator-peek",
+      1
+    ],
+    [
+      "a_site-front",
+      "a_heaven-west",
+      1
+    ],
+    [
+      "a_site-front",
+      "a_short-tree-west",
+      1
+    ],
+    [
+      "a_site-front",
+      "a_lobby-wine",
+      0.3333333333333333
+    ],
+    [
+      "a_site-front",
+      "a_lobby-site-mouth",
+      1
+    ],
+    [
+      "a_site-dice-west",
+      "a_site-dice-back",
+      1
+    ],
+    [
+      "a_site-dice-west",
+      "a_site-back-corner",
+      1
+    ],
+    [
+      "a_site-dice-west",
+      "a_heaven-west",
+      1
+    ],
+    [
+      "a_site-dice-west",
+      "a_heaven-center",
+      0.6666666666666666
+    ],
+    [
+      "a_site-dice-west",
+      "a_lobby-site-mouth",
+      1
+    ],
+    [
+      "a_site-dice-back",
+      "a_site-generator-west",
+      1
+    ],
+    [
+      "a_site-dice-back",
+      "a_site-back-corner",
+      1
+    ],
+    [
+      "a_site-dice-back",
+      "a_heaven-west",
+      1
+    ],
+    [
+      "a_site-dice-back",
+      "a_heaven-center",
+      0.3333333333333333
+    ],
+    [
+      "a_site-dice-back",
+      "a_lobby-site-mouth",
+      0.3333333333333333
+    ],
+    [
+      "a_site-generator-west",
+      "a_site-back-corner",
+      0.6666666666666666
+    ],
+    [
+      "a_site-generator-west",
+      "a_heaven-west",
+      1
+    ],
+    [
+      "a_site-generator-west",
+      "a_lobby-wine",
+      0.6666666666666666
+    ],
+    [
+      "a_site-generator-west",
+      "a_lobby-site-mouth",
+      1
+    ],
+    [
+      "a_site-generator-back",
+      "a_site-generator-peek",
+      1
+    ],
+    [
+      "a_site-generator-back",
+      "a_heaven-west",
+      0.3333333333333333
+    ],
+    [
+      "a_site-generator-back",
+      "a_lobby-wine",
+      0.3333333333333333
+    ],
+    [
+      "a_site-generator-peek",
+      "a_lobby-wine",
+      1
+    ],
+    [
+      "a_site-generator-peek",
+      "a_lobby-site-mouth",
+      1
+    ],
+    [
+      "a_site-back-corner",
+      "a_heaven-west",
+      1
+    ],
+    [
+      "a_site-back-corner",
+      "a_heaven-center",
+      1
+    ],
+    [
+      "a_site-back-corner",
+      "a_heaven-window",
+      0.3333333333333333
+    ],
+    [
+      "a_site-back-corner",
+      "a_lobby-site-mouth",
+      1
+    ],
+    [
+      "a_heaven-west",
+      "a_heaven-center",
+      1
+    ],
+    [
+      "a_heaven-west",
+      "a_heaven-window",
+      1
+    ],
+    [
+      "a_heaven-west",
+      "a_lobby-site-mouth",
+      1
+    ],
+    [
+      "a_heaven-center",
+      "a_heaven-window",
+      1
+    ],
+    [
+      "a_heaven-window",
+      "ct_a-garden",
+      1
+    ],
+    [
+      "a_short-tree-west",
+      "a_short-tree-east",
+      1
+    ],
+    [
+      "a_short-tree-west",
+      "a_short-door",
+      1
+    ],
+    [
+      "a_short-tree-west",
+      "a_lobby-site-mouth",
+      1
+    ],
+    [
+      "a_short-tree-east",
+      "a_short-door",
+      1
+    ],
+    [
+      "a_short-tree-east",
+      "a_lobby-site-mouth",
+      1
+    ],
+    [
+      "a_short-door",
+      "a_lobby-site-mouth",
+      1
+    ],
+    [
+      "a_main-lobby-corner",
+      "a_main-approach",
+      1
+    ],
+    [
+      "a_main-lobby-corner",
+      "a_lobby-mouth",
+      1
+    ],
+    [
+      "a_main-lobby-corner",
+      "mid_top-box-side",
+      1
+    ],
+    [
+      "a_main-lobby-corner",
+      "mid_top-courtyard-angle",
+      0.3333333333333333
+    ],
+    [
+      "a_main-approach",
+      "a_lobby-mouth",
+      1
+    ],
+    [
+      "a_main-approach",
+      "a_lobby-wall-side",
+      1
+    ],
+    [
+      "a_lobby-mouth",
+      "a_lobby-wall-side",
+      1
+    ],
+    [
+      "a_lobby-mouth",
+      "a_lobby-wine",
+      1
+    ],
+    [
+      "a_lobby-wall-side",
+      "a_lobby-wine",
+      1
+    ],
+    [
+      "a_lobby-wine",
+      "a_lobby-site-mouth",
+      0.3333333333333333
+    ],
+    [
+      "b_site-stairs",
+      "b_site-default-west",
+      1
+    ],
+    [
+      "b_site-stairs",
+      "b_site-lane",
+      1
+    ],
+    [
+      "b_site-stairs",
+      "b_site-ct-angle",
+      1
+    ],
+    [
+      "b_site-default-west",
+      "b_site-back",
+      0.3333333333333333
+    ],
+    [
+      "b_site-default-west",
+      "b_site-ct-angle",
+      1
+    ],
+    [
+      "b_site-default-east",
+      "b_site-lane",
+      1
+    ],
+    [
+      "b_site-default-east",
+      "b_site-back",
+      1
+    ],
+    [
+      "b_site-default-east",
+      "b_site-ct-angle",
+      1
+    ],
+    [
+      "b_site-lane",
+      "b_site-back",
+      1
+    ],
+    [
+      "b_site-back",
+      "b_site-ct-angle",
+      1
+    ],
+    [
+      "b_site-back",
+      "b_back-boat-mouth",
+      0.3333333333333333
+    ],
+    [
+      "b_site-back",
+      "b_back-boat-cover",
+      1
+    ],
+    [
+      "b_site-ct-angle",
+      "b_back-boat-mouth",
+      0.3333333333333333
+    ],
+    [
+      "b_back-boat-mouth",
+      "b_back-boat-cover",
+      1
+    ],
+    [
+      "market-door-hold",
+      "market-wall-side",
+      1
+    ],
+    [
+      "market-door-hold",
+      "market-mid-mouth",
+      1
+    ],
+    [
+      "market-door-hold",
+      "market-gate-outside",
+      1
+    ],
+    [
+      "market-door-hold",
+      "b_site-lane-door",
+      1
+    ],
+    [
+      "market-wall-side",
+      "market-mid-mouth",
+      1
+    ],
+    [
+      "market-wall-side",
+      "market-gate-outside",
+      0.3333333333333333
+    ],
+    [
+      "market-mid-mouth",
+      "mid-courtyard-west",
+      1
+    ],
+    [
+      "market-mid-mouth",
+      "mid-bottom-angle",
+      1
+    ],
+    [
+      "market-mid-mouth",
+      "mid_top-courtyard-angle",
+      1
+    ],
+    [
+      "market-mid-mouth",
+      "mid_bottom-pizza",
+      1
+    ],
+    [
+      "market-mid-mouth",
+      "market-gate-outside",
+      1
+    ],
+    [
+      "market-mid-mouth",
+      "b_site-lane-door",
+      1
+    ],
+    [
+      "mid-courtyard-west",
+      "mid-courtyard-east",
+      1
+    ],
+    [
+      "mid-courtyard-west",
+      "mid-catwalk-mouth",
+      1
+    ],
+    [
+      "mid-courtyard-west",
+      "mid-bottom-angle",
+      1
+    ],
+    [
+      "mid-courtyard-west",
+      "mid_top-box-side",
+      1
+    ],
+    [
+      "mid-courtyard-west",
+      "mid_top-courtyard-angle",
+      1
+    ],
+    [
+      "mid-courtyard-west",
+      "mid_bottom-market-mouth",
+      1
+    ],
+    [
+      "mid-courtyard-east",
+      "mid-catwalk-mouth",
+      1
+    ],
+    [
+      "mid-courtyard-east",
+      "mid-bottom-angle",
+      1
+    ],
+    [
+      "mid-courtyard-east",
+      "mid_top-box-side",
+      1
+    ],
+    [
+      "mid-courtyard-east",
+      "mid_bottom-pizza",
+      1
+    ],
+    [
+      "mid-catwalk-mouth",
+      "mid-bottom-angle",
+      1
+    ],
+    [
+      "mid-catwalk-mouth",
+      "mid_top-box-side",
+      1
+    ],
+    [
+      "mid-catwalk-mouth",
+      "mid_top-courtyard-angle",
+      1
+    ],
+    [
+      "mid-catwalk-mouth",
+      "mid_bottom-market-mouth",
+      0.3333333333333333
+    ],
+    [
+      "mid-bottom-angle",
+      "mid_top-box-side",
+      1
+    ],
+    [
+      "mid-bottom-angle",
+      "mid_top-courtyard-angle",
+      1
+    ],
+    [
+      "mid-bottom-angle",
+      "mid_bottom-pizza",
+      1
+    ],
+    [
+      "mid-bottom-angle",
+      "mid_bottom-market-mouth",
+      1
+    ],
+    [
+      "mid_top-box-side",
+      "mid_top-courtyard-angle",
+      1
+    ],
+    [
+      "mid_top-box-side",
+      "mid_bottom-market-mouth",
+      1
+    ],
+    [
+      "mid_bottom-pizza",
+      "mid_bottom-market-mouth",
+      1
+    ],
+    [
+      "b_main-lobby-west",
+      "b_main-lobby-east",
+      1
+    ],
+    [
+      "b_lobby-mouth",
+      "b_lobby-side",
+      1
+    ],
+    [
+      "b_lobby-mouth",
+      "b_lobby-entry-hold",
+      1
+    ],
+    [
+      "b_lobby-side",
+      "b_lobby-entry-hold",
+      1
+    ],
+    [
+      "b_lobby-side",
+      "ct_b-market-route",
+      0.3333333333333333
+    ],
+    [
+      "b_lobby-side",
+      "ct_b-site-route",
+      1
+    ],
+    [
+      "b_lobby-side",
+      "market-gate-outside",
+      1
+    ],
+    [
+      "b_lobby-side",
+      "b_site-lane-door",
+      1
+    ],
+    [
+      "ct_a-garden",
+      "ct_a-window-route",
+      1
+    ],
+    [
+      "ct_a-garden",
+      "ct_b-market-route",
+      1
+    ],
+    [
+      "ct_a-garden",
+      "ct_b-site-route",
+      1
+    ],
+    [
+      "ct_a-window-route",
+      "ct_b-market-route",
+      1
+    ],
+    [
+      "ct_a-window-route",
+      "ct_b-site-route",
+      1
+    ],
+    [
+      "ct_b-market-route",
+      "ct_b-site-route",
+      1
+    ],
+    [
+      "ct_b-market-route",
+      "b_site-lane-door",
+      1
+    ],
+    [
+      "ct_spawn-west",
+      "ct_spawn-east",
+      1
+    ],
+    [
+      "t_spawn-mid-route",
+      "t_spawn-b-route",
+      1
+    ],
+    [
+      "t_spawn-mid-route",
+      "t_spawn-a-route",
+      1
+    ],
+    [
+      "t_spawn-b-route",
+      "t_spawn-a-route",
+      1
+    ],
+    [
+      "market-gate-outside",
+      "b_site-lane-door",
+      1
+    ]
+  ],
+  "navigationStatus": "region-routes-with-authored-positions",
+  "combatProfile": "campaign-ballistics",
+  "defenseSupport": "contact-casualty",
+  "spatialFire": "shared-los",
+  "navigationSpeed": {
+    "run": 32,
+    "walk": 20
+  },
+  "roundRules": {
+    "maxTicks": 100,
+    "plantTicks": 4,
+    "spikeTicks": 45,
+    "defuseTicks": 7
+  },
+  "deployment": {
+    "atk": {},
+    "def": {
+      "mid": "mid_bottom",
+      "a_lobby": "a_site",
+      "b_lobby": "b_site"
+    }
+  },
+  "source": "素材库/地图官方/ascent-plan.webp",
+  "notes": "B 内墙/市场门、真实身体射线与外部数值/当前 CN 卡特性；旧 v4 保留。",
+  "layoutVersion": "ascent-doors-v5",
+  "spatialVersion": 5,
+  "strictSpatial": true,
+  "fireModel": "timed-v3",
+  "informationPolicy": "delayed-reports",
+  "tickSeconds": 0.25,
+  "visualAsset": "地图风格/ascent-doors-v5.svg",
+  "calibration": [],
+  "engagementModel": "layered-v5",
+  "positions": {
+    "a_site-front": {
+      "node": "a_site",
+      "area": "a_site",
+      "x": 184,
+      "y": 610,
+      "name": "入口反架",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site-dice-west": {
+      "node": "a_site",
+      "area": "a_site",
+      "x": 145,
+      "y": 644,
+      "name": "双箱西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site-dice-back": {
+      "node": "a_site",
+      "area": "a_site",
+      "x": 176,
+      "y": 662,
+      "name": "双箱后侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site-generator-west": {
+      "node": "a_site",
+      "area": "a_site",
+      "x": 204,
+      "y": 638,
+      "name": "发电机西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site-generator-back": {
+      "node": "a_site",
+      "area": "a_site",
+      "x": 240,
+      "y": 646,
+      "name": "发电机后",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "peekTo": "a_site-generator-peek",
+      "peekRoute": [
+        {
+          "node": "a_site",
+          "area": "a_site",
+          "x": 240,
+          "y": 646,
+          "name": "发电机后",
+          "role": "hold",
+          "cover": 0,
+          "selectionRadius": 2,
+          "layer": "position",
+          "peekTo": "a_site-generator-peek"
+        },
+        {
+          "node": "a_site",
+          "area": "a_site",
+          "x": 240,
+          "y": 617,
+          "name": "发电机侧探头",
+          "role": "peek",
+          "cover": 0,
+          "selectionRadius": 2,
+          "layer": "position",
+          "returnTo": "a_site-generator-back"
+        }
+      ],
+      "escape": {
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site-generator-peek": {
+      "node": "a_site",
+      "area": "a_site",
+      "x": 240,
+      "y": 617,
+      "name": "发电机侧探头",
+      "role": "peek",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "returnTo": "a_site-generator-back",
+      "escape": {
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site-back-corner": {
+      "node": "a_site",
+      "area": "a_site",
+      "x": 141,
+      "y": 666,
+      "name": "点内后角",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_heaven-west": {
+      "node": "a_heaven",
+      "area": "a_heaven",
+      "x": 148,
+      "y": 701,
+      "name": "二楼西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 700
+      }
+    },
+    "a_heaven-center": {
+      "node": "a_heaven",
+      "area": "a_heaven",
+      "x": 230,
+      "y": 701,
+      "name": "二楼中央",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 700
+      }
+    },
+    "a_heaven-window": {
+      "node": "a_heaven",
+      "area": "a_heaven",
+      "x": 274,
+      "y": 701,
+      "name": "二楼窗口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 180,
+        "y": 700
+      }
+    },
+    "a_short-tree-west": {
+      "node": "a_short",
+      "area": "a_short",
+      "x": 305,
+      "y": 566,
+      "name": "树房西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 332,
+        "y": 570
+      }
+    },
+    "a_short-tree-east": {
+      "node": "a_short",
+      "area": "a_short",
+      "x": 348,
+      "y": 567,
+      "name": "树房东侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 332,
+        "y": 570
+      }
+    },
+    "a_short-door": {
+      "node": "a_short",
+      "area": "a_short",
+      "x": 322,
+      "y": 589,
+      "name": "树房门口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 332,
+        "y": 570
+      }
+    },
+    "a_main-lobby-corner": {
+      "node": "a_main",
+      "area": "a_main",
+      "x": 281,
+      "y": 366,
+      "name": "大厅转角",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 282,
+        "y": 370
+      }
+    },
+    "a_main-approach": {
+      "node": "a_main",
+      "area": "a_main",
+      "x": 302,
+      "y": 440,
+      "name": "大厅前沿",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 282,
+        "y": 370
+      }
+    },
+    "a_lobby-mouth": {
+      "node": "a_lobby",
+      "area": "a_lobby",
+      "x": 286,
+      "y": 484,
+      "name": "A 大前沿",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 288,
+        "y": 492
+      }
+    },
+    "a_lobby-wall-side": {
+      "node": "a_lobby",
+      "area": "a_lobby",
+      "x": 270,
+      "y": 499,
+      "name": "A 大贴墙",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 288,
+        "y": 492
+      }
+    },
+    "a_lobby-wine": {
+      "node": "a_lobby",
+      "area": "a_lobby",
+      "x": 164,
+      "y": 490,
+      "name": "酒窖入口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 288,
+        "y": 492
+      }
+    },
+    "a_lobby-site-mouth": {
+      "node": "a_lobby",
+      "area": "a_lobby",
+      "x": 180,
+      "y": 570,
+      "name": "进点转角",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 288,
+        "y": 492
+      }
+    },
+    "b_site-stairs": {
+      "node": "b_site",
+      "area": "b_site",
+      "x": 706,
+      "y": 645,
+      "name": "台阶出点",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_site-default-west": {
+      "node": "b_site",
+      "area": "b_site",
+      "x": 733,
+      "y": 669,
+      "name": "默认箱西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_site-default-east": {
+      "node": "b_site",
+      "area": "b_site",
+      "x": 773,
+      "y": 670,
+      "name": "默认箱东侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_site-lane": {
+      "node": "b_site",
+      "area": "b_site",
+      "x": 780,
+      "y": 646,
+      "name": "包点前沿",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_site-back": {
+      "node": "b_site",
+      "area": "b_site",
+      "x": 782,
+      "y": 704,
+      "name": "后场转角",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_site-ct-angle": {
+      "node": "b_site",
+      "area": "b_site",
+      "x": 720,
+      "y": 716,
+      "name": "警家反架",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_back-boat-mouth": {
+      "node": "b_back",
+      "area": "b_back",
+      "x": 818,
+      "y": 695,
+      "name": "船屋出口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 829,
+        "y": 700
+      }
+    },
+    "b_back-boat-cover": {
+      "node": "b_back",
+      "area": "b_back",
+      "x": 841,
+      "y": 714,
+      "name": "船屋内侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 829,
+        "y": 700
+      }
+    },
+    "market-door-hold": {
+      "node": "market",
+      "area": "market",
+      "x": 542,
+      "y": 663,
+      "name": "市场门架枪",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "returnTo": "market-wall-side",
+      "escape": {
+        "x": 542,
+        "y": 655
+      }
+    },
+    "market-wall-side": {
+      "node": "market",
+      "area": "market",
+      "x": 551,
+      "y": 681,
+      "name": "市场贴墙",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "peekTo": "market-door-hold",
+      "peekRoute": [
+        {
+          "node": "market",
+          "area": "market",
+          "x": 551,
+          "y": 681,
+          "name": "市场贴墙",
+          "role": "hold",
+          "cover": 0,
+          "selectionRadius": 2,
+          "layer": "position",
+          "peekTo": "market-door-hold"
+        },
+        {
+          "node": "market",
+          "area": "market",
+          "x": 542,
+          "y": 663,
+          "name": "市场门架枪",
+          "role": "hold",
+          "cover": 0,
+          "selectionRadius": 2,
+          "layer": "position",
+          "returnTo": "market-wall-side"
+        }
+      ],
+      "escape": {
+        "x": 542,
+        "y": 655
+      }
+    },
+    "market-mid-mouth": {
+      "node": "market",
+      "area": "market",
+      "x": 501,
+      "y": 657,
+      "name": "市场中路口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 542,
+        "y": 655
+      }
+    },
+    "mid-courtyard-west": {
+      "node": "mid",
+      "area": "mid",
+      "x": 475,
+      "y": 491,
+      "name": "庭院西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 518,
+        "y": 493
+      }
+    },
+    "mid-courtyard-east": {
+      "node": "mid",
+      "area": "mid",
+      "x": 513,
+      "y": 519,
+      "name": "庭院东侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 518,
+        "y": 493
+      }
+    },
+    "mid-catwalk-mouth": {
+      "node": "mid",
+      "area": "mid",
+      "x": 455,
+      "y": 522,
+      "name": "猫道出口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 518,
+        "y": 493
+      }
+    },
+    "mid-bottom-angle": {
+      "node": "mid",
+      "area": "mid",
+      "x": 490,
+      "y": 545,
+      "name": "中路底反架",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 518,
+        "y": 493
+      }
+    },
+    "mid_top-box-side": {
+      "node": "mid_top",
+      "area": "mid_top",
+      "x": 416,
+      "y": 332,
+      "name": "中路顶箱侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 423,
+        "y": 337
+      }
+    },
+    "mid_top-courtyard-angle": {
+      "node": "mid_top",
+      "area": "mid_top",
+      "x": 446,
+      "y": 341,
+      "name": "中路顶前沿",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 423,
+        "y": 337
+      }
+    },
+    "mid_bottom-pizza": {
+      "node": "mid_bottom",
+      "area": "mid_bottom",
+      "x": 468,
+      "y": 571,
+      "name": "披萨侧入口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 490,
+        "y": 568
+      }
+    },
+    "mid_bottom-market-mouth": {
+      "node": "mid_bottom",
+      "area": "mid_bottom",
+      "x": 519,
+      "y": 575,
+      "name": "市场入口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 490,
+        "y": 568
+      }
+    },
+    "b_main-lobby-west": {
+      "node": "b_main",
+      "area": "b_main",
+      "x": 674,
+      "y": 427,
+      "name": "B 厅西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 684,
+        "y": 404
+      }
+    },
+    "b_main-lobby-east": {
+      "node": "b_main",
+      "area": "b_main",
+      "x": 710,
+      "y": 448,
+      "name": "B 厅东侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 684,
+        "y": 404
+      }
+    },
+    "b_lobby-mouth": {
+      "node": "b_lobby",
+      "area": "b_lobby",
+      "x": 671,
+      "y": 560,
+      "name": "B 大出口",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 673,
+        "y": 565
+      }
+    },
+    "b_lobby-side": {
+      "node": "b_lobby",
+      "area": "b_lobby",
+      "x": 629,
+      "y": 575,
+      "name": "B 大贴墙",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 673,
+        "y": 565
+      }
+    },
+    "b_lobby-entry-hold": {
+      "node": "b_lobby",
+      "area": "b_lobby",
+      "x": 678,
+      "y": 587,
+      "name": "隔墙外沿",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 673,
+        "y": 565
+      }
+    },
+    "ct_a-garden": {
+      "node": "ct_a",
+      "area": "ct_a",
+      "x": 267,
+      "y": 760,
+      "name": "花园连接",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 270,
+        "y": 770
+      }
+    },
+    "ct_a-window-route": {
+      "node": "ct_a",
+      "area": "ct_a",
+      "x": 300,
+      "y": 777,
+      "name": "窗口连接",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 270,
+        "y": 770
+      }
+    },
+    "ct_b-market-route": {
+      "node": "ct_b",
+      "area": "ct_b",
+      "x": 615,
+      "y": 767,
+      "name": "市场回防路",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 620,
+        "y": 771
+      }
+    },
+    "ct_b-site-route": {
+      "node": "ct_b",
+      "area": "ct_b",
+      "x": 641,
+      "y": 778,
+      "name": "B 点回防路",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 620,
+        "y": 771
+      }
+    },
+    "ct_spawn-west": {
+      "node": "ct_spawn",
+      "area": "ct_spawn",
+      "x": 424,
+      "y": 813,
+      "name": "警家西侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 442,
+        "y": 813
+      }
+    },
+    "ct_spawn-east": {
+      "node": "ct_spawn",
+      "area": "ct_spawn",
+      "x": 474,
+      "y": 841,
+      "name": "警家东侧",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 442,
+        "y": 813
+      }
+    },
+    "t_spawn-mid-route": {
+      "node": "t_spawn",
+      "area": "t_spawn",
+      "x": 550,
+      "y": 232,
+      "name": "中路集合位",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 552,
+        "y": 237
+      }
+    },
+    "t_spawn-b-route": {
+      "node": "t_spawn",
+      "area": "t_spawn",
+      "x": 595,
+      "y": 218,
+      "name": "B 路集合位",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 552,
+        "y": 237
+      }
+    },
+    "t_spawn-a-route": {
+      "node": "t_spawn",
+      "area": "t_spawn",
+      "x": 504,
+      "y": 247,
+      "name": "A 路集合位",
+      "role": "hold",
+      "cover": 0.15,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 552,
+        "y": 237
+      }
+    },
+    "market-gate-outside": {
+      "node": "market",
+      "area": "market",
+      "name": "门外通道",
+      "x": 590,
+      "y": 663,
+      "role": "hold",
+      "cover": 0.4,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 542,
+        "y": 655
+      }
+    },
+    "b_site-lane-door": {
+      "node": "b_site",
+      "area": "b_site",
+      "name": "长条门侧",
+      "x": 688,
+      "y": 664,
+      "role": "hold",
+      "cover": 0.4,
+      "selectionRadius": 2,
+      "layer": "position",
+      "escape": {
+        "x": 745,
+        "y": 681
+      }
+    }
+  },
+  "engagementWindows": [
+    {
+      "id": "a-main-entry",
+      "name": "A 大进点",
+      "bounds": [
+        125,
+        470,
+        310,
+        683
+      ],
+      "areas": [
+        "a_lobby",
+        "a_site"
+      ],
+      "layer": "engagement-window"
+    },
+    {
+      "id": "a-tree-entry",
+      "name": "树房进点",
+      "bounds": [
+        250,
+        530,
+        376,
+        641
+      ],
+      "areas": [
+        "a_short",
+        "a_site"
+      ],
+      "layer": "engagement-window"
+    },
+    {
+      "id": "a-rafters",
+      "name": "A 二楼反架",
+      "bounds": [
+        124,
+        603,
+        327,
+        722
+      ],
+      "areas": [
+        "a_heaven",
+        "a_site"
+      ],
+      "layer": "engagement-window"
+    },
+    {
+      "id": "mid-top",
+      "name": "中路顶对庭院",
+      "bounds": [
+        365,
+        300,
+        540,
+        535
+      ],
+      "areas": [
+        "mid_top",
+        "mid"
+      ],
+      "layer": "engagement-window"
+    },
+    {
+      "id": "mid-catwalk",
+      "name": "猫道出角",
+      "bounds": [
+        370,
+        390,
+        465,
+        570
+      ],
+      "areas": [
+        "mid_top",
+        "mid",
+        "a_short"
+      ],
+      "layer": "engagement-window"
+    },
+    {
+      "id": "mid-bottom",
+      "name": "中路底反架",
+      "bounds": [
+        435,
+        480,
+        540,
+        636
+      ],
+      "areas": [
+        "mid",
+        "mid_bottom"
+      ],
+      "layer": "engagement-window"
+    },
+    {
+      "id": "market-entry",
+      "name": "市场连接",
+      "bounds": [
+        465,
+        590,
+        640,
+        704
+      ],
+      "areas": [
+        "mid_bottom",
+        "market",
+        "b_site"
+      ],
+      "layer": "engagement-window"
+    },
+    {
+      "id": "b-main-entry",
+      "name": "B 大与台阶",
+      "bounds": [
+        625,
+        525,
+        820,
+        725
+      ],
+      "areas": [
+        "b_lobby",
+        "b_site"
+      ],
+      "layer": "engagement-window"
+    },
+    {
+      "id": "b-default",
+      "name": "B 箱侧交火",
+      "bounds": [
+        704,
+        638,
+        799,
+        738
+      ],
+      "areas": [
+        "b_site"
+      ],
+      "layer": "engagement-window"
+    },
+    {
+      "id": "b-boat",
+      "name": "船屋出角",
+      "bounds": [
+        740,
+        662,
+        851,
+        746
+      ],
+      "areas": [
+        "b_site",
+        "b_back"
+      ],
+      "layer": "engagement-window"
+    },
+    {
+      "id": "a-retake",
+      "name": "A 花园回防",
+      "bounds": [
+        250,
+        640,
+        383,
+        798
+      ],
+      "areas": [
+        "ct_a",
+        "a_short",
+        "a_heaven"
+      ],
+      "layer": "engagement-window"
+    },
+    {
+      "id": "b-retake",
+      "name": "B 警家回防",
+      "bounds": [
+        600,
+        704,
+        804,
+        796
+      ],
+      "areas": [
+        "ct_b",
+        "b_site"
+      ],
+      "layer": "engagement-window"
+    }
+  ],
+  "staticVisibility": {
+    "a_site-front": {
+      "a_site-front": 1,
+      "a_site-dice-west": 1,
+      "a_site-dice-back": 0.3333333333333333,
+      "a_site-generator-west": 1,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 1,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 1,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0.6666666666666666,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0.3333333333333333,
+      "a_lobby-site-mouth": 1,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_site-dice-west": {
+      "a_site-front": 1,
+      "a_site-dice-west": 1,
+      "a_site-dice-back": 1,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 1,
+      "a_heaven-west": 1,
+      "a_heaven-center": 0.6666666666666666,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 1,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_site-dice-back": {
+      "a_site-front": 0.3333333333333333,
+      "a_site-dice-west": 1,
+      "a_site-dice-back": 1,
+      "a_site-generator-west": 1,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 1,
+      "a_heaven-west": 1,
+      "a_heaven-center": 0.3333333333333333,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_site-generator-west": {
+      "a_site-front": 1,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 1,
+      "a_site-generator-west": 1,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0.6666666666666666,
+      "a_heaven-west": 1,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0.6666666666666666,
+      "a_lobby-site-mouth": 1,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_site-generator-back": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 1,
+      "a_site-generator-peek": 1,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_site-generator-peek": {
+      "a_site-front": 1,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 1,
+      "a_site-generator-peek": 1,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 1,
+      "a_lobby-site-mouth": 1,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_site-back-corner": {
+      "a_site-front": 0,
+      "a_site-dice-west": 1,
+      "a_site-dice-back": 1,
+      "a_site-generator-west": 0.6666666666666666,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 1,
+      "a_heaven-west": 1,
+      "a_heaven-center": 1,
+      "a_heaven-window": 0.3333333333333333,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 1,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_heaven-west": {
+      "a_site-front": 1,
+      "a_site-dice-west": 1,
+      "a_site-dice-back": 1,
+      "a_site-generator-west": 1,
+      "a_site-generator-back": 0.3333333333333333,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 1,
+      "a_heaven-west": 1,
+      "a_heaven-center": 1,
+      "a_heaven-window": 1,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 1,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_heaven-center": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0.6666666666666666,
+      "a_site-dice-back": 0.3333333333333333,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 1,
+      "a_heaven-west": 1,
+      "a_heaven-center": 1,
+      "a_heaven-window": 1,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_heaven-window": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0.3333333333333333,
+      "a_heaven-west": 1,
+      "a_heaven-center": 1,
+      "a_heaven-window": 1,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 1,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_short-tree-west": {
+      "a_site-front": 1,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 1,
+      "a_short-tree-east": 1,
+      "a_short-door": 1,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 1,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_short-tree-east": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 1,
+      "a_short-tree-east": 1,
+      "a_short-door": 1,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 1,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_short-door": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 1,
+      "a_short-tree-east": 1,
+      "a_short-door": 1,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 1,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_main-lobby-corner": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 1,
+      "a_main-approach": 1,
+      "a_lobby-mouth": 1,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 1,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_main-approach": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 1,
+      "a_main-approach": 1,
+      "a_lobby-mouth": 1,
+      "a_lobby-wall-side": 1,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_lobby-mouth": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 1,
+      "a_main-approach": 1,
+      "a_lobby-mouth": 1,
+      "a_lobby-wall-side": 1,
+      "a_lobby-wine": 1,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_lobby-wall-side": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 1,
+      "a_lobby-mouth": 1,
+      "a_lobby-wall-side": 1,
+      "a_lobby-wine": 1,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_lobby-wine": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0.6666666666666666,
+      "a_site-generator-back": 0.3333333333333333,
+      "a_site-generator-peek": 1,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 1,
+      "a_lobby-wall-side": 1,
+      "a_lobby-wine": 1,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "a_lobby-site-mouth": {
+      "a_site-front": 1,
+      "a_site-dice-west": 1,
+      "a_site-dice-back": 0.3333333333333333,
+      "a_site-generator-west": 1,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 1,
+      "a_site-back-corner": 1,
+      "a_heaven-west": 1,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 1,
+      "a_short-tree-east": 1,
+      "a_short-door": 1,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0.3333333333333333,
+      "a_lobby-site-mouth": 1,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "b_site-stairs": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 1,
+      "b_site-default-west": 1,
+      "b_site-default-east": 0,
+      "b_site-lane": 1,
+      "b_site-back": 0,
+      "b_site-ct-angle": 1,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "b_site-default-west": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 1,
+      "b_site-default-west": 1,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0.3333333333333333,
+      "b_site-ct-angle": 1,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "b_site-default-east": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 1,
+      "b_site-lane": 1,
+      "b_site-back": 1,
+      "b_site-ct-angle": 1,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "b_site-lane": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 1,
+      "b_site-default-west": 0,
+      "b_site-default-east": 1,
+      "b_site-lane": 1,
+      "b_site-back": 1,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "b_site-back": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0.3333333333333333,
+      "b_site-default-east": 1,
+      "b_site-lane": 1,
+      "b_site-back": 1,
+      "b_site-ct-angle": 1,
+      "b_back-boat-mouth": 0.3333333333333333,
+      "b_back-boat-cover": 1,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "b_site-ct-angle": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 1,
+      "b_site-default-west": 1,
+      "b_site-default-east": 1,
+      "b_site-lane": 0,
+      "b_site-back": 1,
+      "b_site-ct-angle": 1,
+      "b_back-boat-mouth": 0.3333333333333333,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "b_back-boat-mouth": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0.3333333333333333,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 1,
+      "b_back-boat-cover": 1,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "b_back-boat-cover": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 1,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 1,
+      "b_back-boat-cover": 1,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "market-door-hold": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 1,
+      "market-wall-side": 1,
+      "market-mid-mouth": 1,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 1,
+      "b_site-lane-door": 1
+    },
+    "market-wall-side": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 1,
+      "market-wall-side": 1,
+      "market-mid-mouth": 1,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "market-mid-mouth": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 1,
+      "market-wall-side": 1,
+      "market-mid-mouth": 1,
+      "mid-courtyard-west": 1,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 1,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 1,
+      "mid_bottom-pizza": 1,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 1,
+      "b_site-lane-door": 1
+    },
+    "mid-courtyard-west": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 1,
+      "mid-courtyard-west": 1,
+      "mid-courtyard-east": 1,
+      "mid-catwalk-mouth": 1,
+      "mid-bottom-angle": 1,
+      "mid_top-box-side": 1,
+      "mid_top-courtyard-angle": 1,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 1,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "mid-courtyard-east": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 1,
+      "mid-courtyard-east": 1,
+      "mid-catwalk-mouth": 1,
+      "mid-bottom-angle": 1,
+      "mid_top-box-side": 1,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 1,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "mid-catwalk-mouth": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 1,
+      "mid-courtyard-east": 1,
+      "mid-catwalk-mouth": 1,
+      "mid-bottom-angle": 1,
+      "mid_top-box-side": 1,
+      "mid_top-courtyard-angle": 1,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "mid-bottom-angle": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 1,
+      "mid-courtyard-west": 1,
+      "mid-courtyard-east": 1,
+      "mid-catwalk-mouth": 1,
+      "mid-bottom-angle": 1,
+      "mid_top-box-side": 1,
+      "mid_top-courtyard-angle": 0.6666666666666666,
+      "mid_bottom-pizza": 1,
+      "mid_bottom-market-mouth": 1,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "mid_top-box-side": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 1,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 1,
+      "mid-courtyard-east": 1,
+      "mid-catwalk-mouth": 1,
+      "mid-bottom-angle": 1,
+      "mid_top-box-side": 1,
+      "mid_top-courtyard-angle": 1,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0.6666666666666666,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "mid_top-courtyard-angle": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0.3333333333333333,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 1,
+      "mid-courtyard-west": 1,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 1,
+      "mid-bottom-angle": 1,
+      "mid_top-box-side": 1,
+      "mid_top-courtyard-angle": 1,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "mid_bottom-pizza": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 1,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 1,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 1,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 1,
+      "mid_bottom-market-mouth": 1,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "mid_bottom-market-mouth": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 1,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0.3333333333333333,
+      "mid-bottom-angle": 1,
+      "mid_top-box-side": 1,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 1,
+      "mid_bottom-market-mouth": 1,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "b_main-lobby-west": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 1,
+      "b_main-lobby-east": 1,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "b_main-lobby-east": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 1,
+      "b_main-lobby-east": 1,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "b_lobby-mouth": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 1,
+      "b_lobby-side": 1,
+      "b_lobby-entry-hold": 1,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "b_lobby-side": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 1,
+      "b_lobby-side": 1,
+      "b_lobby-entry-hold": 1,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0.3333333333333333,
+      "ct_b-site-route": 1,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 1,
+      "b_site-lane-door": 1
+    },
+    "b_lobby-entry-hold": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 1,
+      "b_lobby-side": 1,
+      "b_lobby-entry-hold": 1,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "ct_a-garden": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 1,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 1,
+      "ct_a-window-route": 1,
+      "ct_b-market-route": 1,
+      "ct_b-site-route": 1,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "ct_a-window-route": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 1,
+      "ct_a-window-route": 1,
+      "ct_b-market-route": 1,
+      "ct_b-site-route": 1,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "ct_b-market-route": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0.6666666666666666,
+      "ct_a-window-route": 1,
+      "ct_b-market-route": 1,
+      "ct_b-site-route": 1,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 1
+    },
+    "ct_b-site-route": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 1,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0.6666666666666666,
+      "ct_a-window-route": 1,
+      "ct_b-market-route": 1,
+      "ct_b-site-route": 1,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "ct_spawn-west": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 1,
+      "ct_spawn-east": 1,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "ct_spawn-east": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 1,
+      "ct_spawn-east": 1,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "t_spawn-mid-route": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 1,
+      "t_spawn-b-route": 1,
+      "t_spawn-a-route": 1,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "t_spawn-b-route": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 1,
+      "t_spawn-b-route": 1,
+      "t_spawn-a-route": 1,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "t_spawn-a-route": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 0,
+      "market-wall-side": 0,
+      "market-mid-mouth": 0,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 1,
+      "t_spawn-b-route": 1,
+      "t_spawn-a-route": 1,
+      "market-gate-outside": 0,
+      "b_site-lane-door": 0
+    },
+    "market-gate-outside": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 1,
+      "market-wall-side": 0.3333333333333333,
+      "market-mid-mouth": 1,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 1,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 0,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 1,
+      "b_site-lane-door": 1
+    },
+    "b_site-lane-door": {
+      "a_site-front": 0,
+      "a_site-dice-west": 0,
+      "a_site-dice-back": 0,
+      "a_site-generator-west": 0,
+      "a_site-generator-back": 0,
+      "a_site-generator-peek": 0,
+      "a_site-back-corner": 0,
+      "a_heaven-west": 0,
+      "a_heaven-center": 0,
+      "a_heaven-window": 0,
+      "a_short-tree-west": 0,
+      "a_short-tree-east": 0,
+      "a_short-door": 0,
+      "a_main-lobby-corner": 0,
+      "a_main-approach": 0,
+      "a_lobby-mouth": 0,
+      "a_lobby-wall-side": 0,
+      "a_lobby-wine": 0,
+      "a_lobby-site-mouth": 0,
+      "b_site-stairs": 0,
+      "b_site-default-west": 0,
+      "b_site-default-east": 0,
+      "b_site-lane": 0,
+      "b_site-back": 0,
+      "b_site-ct-angle": 0,
+      "b_back-boat-mouth": 0,
+      "b_back-boat-cover": 0,
+      "market-door-hold": 1,
+      "market-wall-side": 0,
+      "market-mid-mouth": 1,
+      "mid-courtyard-west": 0,
+      "mid-courtyard-east": 0,
+      "mid-catwalk-mouth": 0,
+      "mid-bottom-angle": 0,
+      "mid_top-box-side": 0,
+      "mid_top-courtyard-angle": 0,
+      "mid_bottom-pizza": 0,
+      "mid_bottom-market-mouth": 0,
+      "b_main-lobby-west": 0,
+      "b_main-lobby-east": 0,
+      "b_lobby-mouth": 0,
+      "b_lobby-side": 0.6666666666666666,
+      "b_lobby-entry-hold": 0,
+      "ct_a-garden": 0,
+      "ct_a-window-route": 0,
+      "ct_b-market-route": 1,
+      "ct_b-site-route": 0,
+      "ct_spawn-west": 0,
+      "ct_spawn-east": 0,
+      "t_spawn-mid-route": 0,
+      "t_spawn-b-route": 0,
+      "t_spawn-a-route": 0,
+      "market-gate-outside": 1,
+      "b_site-lane-door": 1
+    }
+  },
+  "firePoints": [
+    {
+      "id": "fire-a_site-front",
+      "position": "a_site-front",
+      "windows": [
+        "a-main-entry",
+        "a-tree-entry",
+        "a-rafters"
+      ],
+      "visiblePositions": [
+        "a_site-dice-west",
+        "a_site-dice-back",
+        "a_site-generator-west",
+        "a_site-generator-peek",
+        "a_heaven-west",
+        "a_short-tree-west",
+        "a_lobby-wine",
+        "a_lobby-site-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_site-dice-west",
+      "position": "a_site-dice-west",
+      "windows": [
+        "a-main-entry",
+        "a-tree-entry",
+        "a-rafters"
+      ],
+      "visiblePositions": [
+        "a_site-front",
+        "a_site-dice-back",
+        "a_site-back-corner",
+        "a_heaven-west",
+        "a_heaven-center",
+        "a_lobby-site-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_site-dice-back",
+      "position": "a_site-dice-back",
+      "windows": [
+        "a-main-entry",
+        "a-tree-entry",
+        "a-rafters"
+      ],
+      "visiblePositions": [
+        "a_site-front",
+        "a_site-dice-west",
+        "a_site-generator-west",
+        "a_site-back-corner",
+        "a_heaven-west",
+        "a_heaven-center"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_site-generator-west",
+      "position": "a_site-generator-west",
+      "windows": [
+        "a-main-entry",
+        "a-tree-entry",
+        "a-rafters"
+      ],
+      "visiblePositions": [
+        "a_site-front",
+        "a_site-dice-back",
+        "a_site-back-corner",
+        "a_heaven-west",
+        "a_lobby-wine",
+        "a_lobby-site-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_site-generator-back",
+      "position": "a_site-generator-back",
+      "windows": [
+        "a-main-entry",
+        "a-tree-entry",
+        "a-rafters"
+      ],
+      "visiblePositions": [
+        "a_site-generator-peek"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_site-generator-peek",
+      "position": "a_site-generator-peek",
+      "windows": [
+        "a-main-entry",
+        "a-tree-entry",
+        "a-rafters"
+      ],
+      "visiblePositions": [
+        "a_site-front",
+        "a_site-generator-back",
+        "a_lobby-wine",
+        "a_lobby-site-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_site-back-corner",
+      "position": "a_site-back-corner",
+      "windows": [
+        "a-main-entry",
+        "a-tree-entry",
+        "a-rafters"
+      ],
+      "visiblePositions": [
+        "a_site-dice-west",
+        "a_site-dice-back",
+        "a_site-generator-west",
+        "a_heaven-west",
+        "a_heaven-center",
+        "a_heaven-window",
+        "a_lobby-site-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_heaven-west",
+      "position": "a_heaven-west",
+      "windows": [
+        "a-rafters",
+        "a-retake"
+      ],
+      "visiblePositions": [
+        "a_site-front",
+        "a_site-dice-west",
+        "a_site-dice-back",
+        "a_site-generator-west",
+        "a_site-generator-back",
+        "a_site-back-corner",
+        "a_heaven-center",
+        "a_heaven-window",
+        "a_lobby-site-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_heaven-center",
+      "position": "a_heaven-center",
+      "windows": [
+        "a-rafters",
+        "a-retake"
+      ],
+      "visiblePositions": [
+        "a_site-dice-west",
+        "a_site-dice-back",
+        "a_site-back-corner",
+        "a_heaven-west",
+        "a_heaven-window"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_heaven-window",
+      "position": "a_heaven-window",
+      "windows": [
+        "a-rafters",
+        "a-retake"
+      ],
+      "visiblePositions": [
+        "a_site-back-corner",
+        "a_heaven-west",
+        "a_heaven-center",
+        "ct_a-garden"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_short-tree-west",
+      "position": "a_short-tree-west",
+      "windows": [
+        "a-tree-entry",
+        "mid-catwalk",
+        "a-retake"
+      ],
+      "visiblePositions": [
+        "a_site-front",
+        "a_short-tree-east",
+        "a_short-door",
+        "a_lobby-site-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_short-tree-east",
+      "position": "a_short-tree-east",
+      "windows": [
+        "a-tree-entry",
+        "mid-catwalk",
+        "a-retake"
+      ],
+      "visiblePositions": [
+        "a_short-tree-west",
+        "a_short-door",
+        "a_lobby-site-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_short-door",
+      "position": "a_short-door",
+      "windows": [
+        "a-tree-entry",
+        "mid-catwalk",
+        "a-retake"
+      ],
+      "visiblePositions": [
+        "a_short-tree-west",
+        "a_short-tree-east",
+        "a_lobby-site-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_lobby-mouth",
+      "position": "a_lobby-mouth",
+      "windows": [
+        "a-main-entry"
+      ],
+      "visiblePositions": [
+        "a_main-lobby-corner",
+        "a_main-approach",
+        "a_lobby-wall-side",
+        "a_lobby-wine"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_lobby-wall-side",
+      "position": "a_lobby-wall-side",
+      "windows": [
+        "a-main-entry"
+      ],
+      "visiblePositions": [
+        "a_main-approach",
+        "a_lobby-mouth",
+        "a_lobby-wine"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_lobby-wine",
+      "position": "a_lobby-wine",
+      "windows": [
+        "a-main-entry"
+      ],
+      "visiblePositions": [
+        "a_site-generator-west",
+        "a_site-generator-back",
+        "a_site-generator-peek",
+        "a_lobby-mouth",
+        "a_lobby-wall-side"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-a_lobby-site-mouth",
+      "position": "a_lobby-site-mouth",
+      "windows": [
+        "a-main-entry"
+      ],
+      "visiblePositions": [
+        "a_site-front",
+        "a_site-dice-west",
+        "a_site-dice-back",
+        "a_site-generator-west",
+        "a_site-generator-peek",
+        "a_site-back-corner",
+        "a_heaven-west",
+        "a_short-tree-west",
+        "a_short-tree-east",
+        "a_short-door",
+        "a_lobby-wine"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-b_site-stairs",
+      "position": "b_site-stairs",
+      "windows": [
+        "market-entry",
+        "b-main-entry",
+        "b-default",
+        "b-boat",
+        "b-retake"
+      ],
+      "visiblePositions": [
+        "b_site-default-west",
+        "b_site-lane",
+        "b_site-ct-angle"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-b_site-default-west",
+      "position": "b_site-default-west",
+      "windows": [
+        "market-entry",
+        "b-main-entry",
+        "b-default",
+        "b-boat",
+        "b-retake"
+      ],
+      "visiblePositions": [
+        "b_site-stairs",
+        "b_site-back",
+        "b_site-ct-angle"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-b_site-default-east",
+      "position": "b_site-default-east",
+      "windows": [
+        "market-entry",
+        "b-main-entry",
+        "b-default",
+        "b-boat",
+        "b-retake"
+      ],
+      "visiblePositions": [
+        "b_site-lane",
+        "b_site-back",
+        "b_site-ct-angle"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-b_site-lane",
+      "position": "b_site-lane",
+      "windows": [
+        "market-entry",
+        "b-main-entry",
+        "b-default",
+        "b-boat",
+        "b-retake"
+      ],
+      "visiblePositions": [
+        "b_site-stairs",
+        "b_site-default-east",
+        "b_site-back"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-b_site-back",
+      "position": "b_site-back",
+      "windows": [
+        "market-entry",
+        "b-main-entry",
+        "b-default",
+        "b-boat",
+        "b-retake"
+      ],
+      "visiblePositions": [
+        "b_site-default-west",
+        "b_site-default-east",
+        "b_site-lane",
+        "b_site-ct-angle",
+        "b_back-boat-mouth",
+        "b_back-boat-cover"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-b_site-ct-angle",
+      "position": "b_site-ct-angle",
+      "windows": [
+        "market-entry",
+        "b-main-entry",
+        "b-default",
+        "b-boat",
+        "b-retake"
+      ],
+      "visiblePositions": [
+        "b_site-stairs",
+        "b_site-default-west",
+        "b_site-default-east",
+        "b_site-back",
+        "b_back-boat-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-b_back-boat-mouth",
+      "position": "b_back-boat-mouth",
+      "windows": [
+        "b-boat"
+      ],
+      "visiblePositions": [
+        "b_site-back",
+        "b_back-boat-cover"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-b_back-boat-cover",
+      "position": "b_back-boat-cover",
+      "windows": [
+        "b-boat"
+      ],
+      "visiblePositions": [
+        "b_site-back",
+        "b_back-boat-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-market-door-hold",
+      "position": "market-door-hold",
+      "windows": [
+        "market-entry"
+      ],
+      "visiblePositions": [
+        "market-wall-side",
+        "market-mid-mouth",
+        "market-gate-outside",
+        "b_site-lane-door"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-market-wall-side",
+      "position": "market-wall-side",
+      "windows": [
+        "market-entry"
+      ],
+      "visiblePositions": [
+        "market-door-hold",
+        "market-mid-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-market-mid-mouth",
+      "position": "market-mid-mouth",
+      "windows": [
+        "market-entry"
+      ],
+      "visiblePositions": [
+        "market-door-hold",
+        "market-wall-side",
+        "mid-courtyard-west",
+        "mid-bottom-angle",
+        "mid_top-courtyard-angle",
+        "mid_bottom-pizza",
+        "market-gate-outside",
+        "b_site-lane-door"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-mid-courtyard-west",
+      "position": "mid-courtyard-west",
+      "windows": [
+        "mid-top",
+        "mid-catwalk",
+        "mid-bottom"
+      ],
+      "visiblePositions": [
+        "market-mid-mouth",
+        "mid-courtyard-east",
+        "mid-catwalk-mouth",
+        "mid-bottom-angle",
+        "mid_top-box-side",
+        "mid_top-courtyard-angle",
+        "mid_bottom-market-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-mid-courtyard-east",
+      "position": "mid-courtyard-east",
+      "windows": [
+        "mid-top",
+        "mid-catwalk",
+        "mid-bottom"
+      ],
+      "visiblePositions": [
+        "mid-courtyard-west",
+        "mid-catwalk-mouth",
+        "mid-bottom-angle",
+        "mid_top-box-side",
+        "mid_bottom-pizza"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-mid-catwalk-mouth",
+      "position": "mid-catwalk-mouth",
+      "windows": [
+        "mid-top",
+        "mid-catwalk",
+        "mid-bottom"
+      ],
+      "visiblePositions": [
+        "mid-courtyard-west",
+        "mid-courtyard-east",
+        "mid-bottom-angle",
+        "mid_top-box-side",
+        "mid_top-courtyard-angle"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-mid-bottom-angle",
+      "position": "mid-bottom-angle",
+      "windows": [
+        "mid-top",
+        "mid-catwalk",
+        "mid-bottom"
+      ],
+      "visiblePositions": [
+        "market-mid-mouth",
+        "mid-courtyard-west",
+        "mid-courtyard-east",
+        "mid-catwalk-mouth",
+        "mid_top-box-side",
+        "mid_top-courtyard-angle",
+        "mid_bottom-pizza",
+        "mid_bottom-market-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-mid_top-box-side",
+      "position": "mid_top-box-side",
+      "windows": [
+        "mid-top",
+        "mid-catwalk"
+      ],
+      "visiblePositions": [
+        "a_main-lobby-corner",
+        "mid-courtyard-west",
+        "mid-courtyard-east",
+        "mid-catwalk-mouth",
+        "mid-bottom-angle",
+        "mid_top-courtyard-angle",
+        "mid_bottom-market-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-mid_top-courtyard-angle",
+      "position": "mid_top-courtyard-angle",
+      "windows": [
+        "mid-top",
+        "mid-catwalk"
+      ],
+      "visiblePositions": [
+        "a_main-lobby-corner",
+        "market-mid-mouth",
+        "mid-courtyard-west",
+        "mid-catwalk-mouth",
+        "mid-bottom-angle",
+        "mid_top-box-side"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-mid_bottom-pizza",
+      "position": "mid_bottom-pizza",
+      "windows": [
+        "mid-bottom",
+        "market-entry"
+      ],
+      "visiblePositions": [
+        "market-mid-mouth",
+        "mid-courtyard-east",
+        "mid-bottom-angle",
+        "mid_bottom-market-mouth"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-mid_bottom-market-mouth",
+      "position": "mid_bottom-market-mouth",
+      "windows": [
+        "mid-bottom",
+        "market-entry"
+      ],
+      "visiblePositions": [
+        "mid-courtyard-west",
+        "mid-catwalk-mouth",
+        "mid-bottom-angle",
+        "mid_top-box-side",
+        "mid_bottom-pizza"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-b_lobby-mouth",
+      "position": "b_lobby-mouth",
+      "windows": [
+        "b-main-entry"
+      ],
+      "visiblePositions": [
+        "b_lobby-side",
+        "b_lobby-entry-hold"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-b_lobby-side",
+      "position": "b_lobby-side",
+      "windows": [
+        "b-main-entry"
+      ],
+      "visiblePositions": [
+        "b_lobby-mouth",
+        "b_lobby-entry-hold",
+        "ct_b-market-route",
+        "ct_b-site-route",
+        "market-gate-outside",
+        "b_site-lane-door"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-b_lobby-entry-hold",
+      "position": "b_lobby-entry-hold",
+      "windows": [
+        "b-main-entry"
+      ],
+      "visiblePositions": [
+        "b_lobby-mouth",
+        "b_lobby-side"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-ct_a-garden",
+      "position": "ct_a-garden",
+      "windows": [
+        "a-retake"
+      ],
+      "visiblePositions": [
+        "a_heaven-window",
+        "ct_a-window-route",
+        "ct_b-market-route",
+        "ct_b-site-route"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-ct_a-window-route",
+      "position": "ct_a-window-route",
+      "windows": [
+        "a-retake"
+      ],
+      "visiblePositions": [
+        "ct_a-garden",
+        "ct_b-market-route",
+        "ct_b-site-route"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-ct_b-market-route",
+      "position": "ct_b-market-route",
+      "windows": [
+        "b-retake"
+      ],
+      "visiblePositions": [
+        "ct_a-garden",
+        "ct_a-window-route",
+        "ct_b-site-route",
+        "b_site-lane-door"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-ct_b-site-route",
+      "position": "ct_b-site-route",
+      "windows": [
+        "b-retake"
+      ],
+      "visiblePositions": [
+        "b_lobby-side",
+        "ct_a-garden",
+        "ct_a-window-route",
+        "ct_b-market-route"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-market-gate-outside",
+      "position": "market-gate-outside",
+      "windows": [
+        "market-entry"
+      ],
+      "visiblePositions": [
+        "market-door-hold",
+        "market-wall-side",
+        "market-mid-mouth",
+        "b_lobby-side",
+        "b_site-lane-door"
+      ],
+      "layer": "fire-point"
+    },
+    {
+      "id": "fire-b_site-lane-door",
+      "position": "b_site-lane-door",
+      "windows": [
+        "market-entry",
+        "b-main-entry",
+        "b-default",
+        "b-boat",
+        "b-retake"
+      ],
+      "visiblePositions": [
+        "market-door-hold",
+        "market-mid-mouth",
+        "b_lobby-side",
+        "ct_b-market-route",
+        "market-gate-outside"
+      ],
+      "layer": "fire-point"
+    }
+  ],
+  "layerCounts": {
+    "areas": 17,
+    "positions": 54,
+    "firePoints": 45,
+    "windows": 12,
+    "obstacles": 15
+  },
+  "externalEffectsVersion": "card-effects-1",
+  "dynamicDoors": true,
+  "doorDefinitions": [
+    {
+      "id": "b-market-door",
+      "name": "市场机械门",
+      "kind": "door",
+      "door": true,
+      "height": 8,
+      "points": [
+        [
+          564.535,
+          656.307
+        ],
+        [
+          575.624,
+          656.307
+        ],
+        [
+          575.624,
+          673.367
+        ],
+        [
+          564.535,
+          673.367
+        ]
+      ],
+      "health": 500,
+      "control": {
+        "x": 542,
+        "y": 663
+      },
+      "operationSeconds": 1,
+      "evidence": "market wall opening; controls and duration are game abstraction"
+    }
+  ],
+  "plantZones": [
+    {
+      "area": 11264.843,
+      "points": [
+        [
+          697.603,
+          734.783
+        ],
+        [
+          697.603,
+          638.394
+        ],
+        [
+          709.545,
+          638.394
+        ],
+        [
+          709.545,
+          622.187
+        ],
+        [
+          800.816,
+          622.187
+        ],
+        [
+          800.816,
+          734.783
+        ],
+        [
+          741.106,
+          734.783
+        ],
+        [
+          741.106,
+          722.841
+        ],
+        [
+          727.458,
+          722.841
+        ],
+        [
+          727.458,
+          734.783
+        ]
+      ]
+    },
+    {
+      "area": 8524.667,
+      "points": [
+        [
+          126.093,
+          668.249
+        ],
+        [
+          126.093,
+          620.481
+        ],
+        [
+          138.888,
+          620.481
+        ],
+        [
+          138.888,
+          606.833
+        ],
+        [
+          246.366,
+          606.833
+        ],
+        [
+          246.366,
+          680.191
+        ],
+        [
+          202.863,
+          680.191
+        ],
+        [
+          202.863,
+          681.044
+        ],
+        [
+          144.006,
+          681.044
+        ],
+        [
+          144.006,
+          675.926
+        ],
+        [
+          138.888,
+          675.926
+        ],
+        [
+          138.888,
+          669.102
+        ],
+        [
+          138.035,
+          669.102
+        ],
+        [
+          138.035,
+          668.249
+        ]
+      ]
+    },
+    {
+      "area": 499.867,
+      "points": [
+        [
+          215.658,
+          655.454
+        ],
+        [
+          216.511,
+          655.454
+        ],
+        [
+          216.511,
+          656.307
+        ],
+        [
+          229.306,
+          656.307
+        ],
+        [
+          229.306,
+          619.628
+        ],
+        [
+          215.658,
+          619.628
+        ]
+      ]
+    },
+    {
+      "area": 336.155,
+      "points": [
+        [
+          741.959,
+          668.249
+        ],
+        [
+          741.959,
+          669.102
+        ],
+        [
+          742.812,
+          669.102
+        ],
+        [
+          742.812,
+          669.955
+        ],
+        [
+          743.665,
+          669.955
+        ],
+        [
+          743.665,
+          670.808
+        ],
+        [
+          744.518,
+          670.808
+        ],
+        [
+          744.518,
+          671.661
+        ],
+        [
+          745.371,
+          671.661
+        ],
+        [
+          745.371,
+          672.514
+        ],
+        [
+          746.224,
+          672.514
+        ],
+        [
+          746.224,
+          681.044
+        ],
+        [
+          759.019,
+          681.044
+        ],
+        [
+          759.019,
+          669.102
+        ],
+        [
+          759.872,
+          669.102
+        ],
+        [
+          759.872,
+          667.396
+        ],
+        [
+          759.019,
+          667.396
+        ],
+        [
+          759.019,
+          666.543
+        ],
+        [
+          758.166,
+          666.543
+        ],
+        [
+          758.166,
+          665.69
+        ],
+        [
+          757.313,
+          665.69
+        ],
+        [
+          757.313,
+          664.837
+        ],
+        [
+          756.46,
+          664.837
+        ],
+        [
+          756.46,
+          656.307
+        ],
+        [
+          743.665,
+          656.307
+        ],
+        [
+          743.665,
+          667.396
+        ],
+        [
+          742.812,
+          667.396
+        ],
+        [
+          742.812,
+          668.249
+        ]
+      ]
+    },
+    {
+      "area": 291.044,
+      "points": [
+        [
+          155.948,
+          646.924
+        ],
+        [
+          167.037,
+          646.924
+        ],
+        [
+          167.037,
+          650.336
+        ],
+        [
+          179.832,
+          650.336
+        ],
+        [
+          179.832,
+          638.394
+        ],
+        [
+          168.743,
+          638.394
+        ],
+        [
+          168.743,
+          634.982
+        ],
+        [
+          155.948,
+          634.982
+        ]
+      ]
+    }
+  ]
+}

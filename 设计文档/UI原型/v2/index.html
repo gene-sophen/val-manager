@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>无畏契约电竞经理 · UI原型 v2</title>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/screens.css">
+</head>
+<body>
+<div class="phone">
+  <!-- 顶栏（全局常驻） -->
+  <header id="topbar">
+    <div class="coach-chip" id="coach-chip">
+      <div class="hex-avatar"><img src="../../../素材库/选手半身像/inspire.png" alt="教练"></div>
+      <div class="coach-meta">
+        <div class="nm">教练 · 阿岚</div>
+        <div class="mm">声望<b id="tb-rep">72</b> 战术<b id="tb-tac">65</b> 临场<b id="tb-cli">58</b></div>
+      </div>
+    </div>
+    <div class="top-right">
+      <button class="icon-btn" id="pack-btn">🎴<span class="cnt" id="pack-cnt">×2</span></button>
+      <button class="icon-btn" id="gear-btn">⚙</button>
+    </div>
+  </header>
+
+  <!-- 视口 -->
+  <main id="viewport">
+
+    <!-- 1. 大厅（首屏）：hero 舞台 + VS 出战卡 + 征程攀登地图 -->
+    <section class="screen" id="screen-lobby">
+      <div class="lobby-hero">
+        <div class="tex"></div>
+        <img class="wm" src="../../../素材库/队伍logo/EDG.png" alt="">
+        <div class="glow"></div>
+        <div class="lobby-team">
+          <img src="../../../素材库/队伍logo/EDG.png" alt="EDG">
+          <div><div class="tn">EDG 分部</div><div class="ts">第一赛段常规赛 · 第 5 轮</div></div>
+        </div>
+        <div class="lobby-power"><div class="v" id="lobby-power">87.8</div><div class="l">综合战力</div></div>
+        <div class="stage5" id="stage5"></div>
+      </div>
+      <div class="next-fight panel-th" id="lobby-fight"></div>
+      <div class="entries">
+        <div class="entry panel-th" id="entry-pack"><div class="bg" style="background-image:url('../../../素材库/底纹/金.png')"></div><div class="ic">🎴</div><div class="tt">卡包 <span id="lobby-pack-cnt">×2</span></div><div class="dd">点击开包 · 集齐 10 人可再出征</div></div>
+      </div>
+      <!-- 征程攀登地图（向下滚动进入，底部为起点） -->
+      <div class="map" id="journey-map">
+        <div class="tex"></div>
+        <svg id="map-lines" viewBox="0 0 390 1330"></svg>
+        <div class="crown-zone" id="crown-zone">
+          <div class="cr">◆</div>
+          <div class="cn">冠军赛</div>
+          <div class="lk">解锁条件：赢得季后赛②</div>
+        </div>
+        <!-- 竞技场节点 / 沉底卡片 / 起点入口由 JS 渲染 -->
+      </div>
+    </section>
+
+    <!-- 2. 战队（阵容 + 教练） -->
+    <section class="screen" id="screen-squad">
+      <div class="ctabs squad-seg">
+        <div class="mt on" data-seg="lineup">阵容</div>
+        <div class="mt" data-seg="coach">教练</div>
+      </div>
+      <div id="squad-lineup">
+        <div class="screen-pad">
+          <div class="lineup-head">
+            <div class="sec-title">出征阵容 · 先发五人</div>
+            <span class="btn-o ghost"><button class="btn" id="transfer-btn"><span>转 会</span></button></span>
+          </div>
+          <div class="hexfield" id="hexfield">
+            <svg id="syn-lines"></svg>
+            <!-- 六边形卡槽由 JS 渲染 -->
+          </div>
+          <div class="panel-th chem-panel">
+            <div class="chem-top">
+              <span class="lab">队伍默契</span>
+              <span class="val" id="chem-val">78</span>
+              <span class="mx">/ 100</span>
+            </div>
+            <div class="chem-bar">
+              <div class="fill" id="chem-fill" style="width:calc(78% - 4px)"></div>
+              <div class="th" style="left:60%"><i>60</i></div>
+              <div class="th" style="left:80%"><i>80</i></div>
+            </div>
+            <div class="chem-note">阈值60：激活协同加成 · 阈值80：解锁成长上限</div>
+            <div class="power-row">
+              <span class="lab">综合战力</span>
+              <span class="val" id="power-val">86.4</span>
+            </div>
+            <div class="syn-tags">
+              <span class="syn-tag">捷风+雷兹 决斗联动</span>
+              <span class="syn-tag warm">双闪配合 +4%</span>
+              <span class="syn-tag">老牌指挥坐镇</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="squad-coach" style="display:none">
+        <div class="coach-head">
+          <div class="hex-avatar"><img src="../../../素材库/选手半身像/inspire.png" alt="教练"></div>
+          <div>
+            <div class="nm">教练 · 阿岚</div>
+            <div class="yr">执教第 <b>2</b> 赛年 · CN 赛区</div>
+          </div>
+        </div>
+        <div class="ctabs">
+          <div class="mt on" data-ctab="tri">三维</div>
+          <div class="mt" data-ctab="career">生涯</div>
+        </div>
+        <div id="coach-tri">
+          <div class="panel-th tri-card rep">
+            <div class="num" id="coach-rep">72</div>
+            <div class="mid">
+              <div class="lab">声望</div>
+              <div class="bar"><i style="width:72%"></i></div>
+              <div class="src">来源：阶段成绩 · 影响转会市场吸引力</div>
+            </div>
+          </div>
+          <div class="panel-th tri-card tac">
+            <div class="num" id="coach-tac">65</div>
+            <div class="mid">
+              <div class="lab">战术</div>
+              <div class="bar"><i style="width:65%"></i></div>
+              <div class="src">来源：单场胜负 · 影响战术比重效果</div>
+            </div>
+          </div>
+          <div class="panel-th tri-card cli">
+            <div class="num" id="coach-cli">58</div>
+            <div class="mid">
+              <div class="lab">临场</div>
+              <div class="bar"><i style="width:58%"></i></div>
+              <div class="src">来源：暂停后胜率 · 影响暂停调整质量</div>
+            </div>
+          </div>
+        </div>
+        <div id="coach-career" style="display:none">
+          <div class="sec-title" style="margin-left:16px">荣誉室 · 奖杯陈列</div>
+          <div class="panel-th trophy-card">
+            <div class="tt">🏆 赛年S1 · 冠军赛 冠军</div>
+            <div class="dt">定格阵容 · 2025-08-24</div>
+            <div class="trophy-hexes">
+              <div class="hx"><img src="../../../素材库/选手半身像/Haodong.png" alt=""></div>
+              <div class="hx"><img src="../../../素材库/选手半身像/heybay.png" alt=""></div>
+              <div class="hx"><img src="../../../素材库/选手半身像/SUYGETSU.png" alt=""></div>
+              <div class="hx"><img src="../../../素材库/选手半身像/Munchkin.png" alt=""></div>
+              <div class="hx"><img src="../../../素材库/选手半身像/stax.png" alt=""></div>
+            </div>
+          </div>
+          <div class="sec-title" style="margin-left:16px">生涯纪录</div>
+          <div class="record-row">
+            <div class="panel-th record-cell"><b>×1</b><span>总冠军</span></div>
+            <div class="panel-th record-cell"><b>×2</b><span>大师赛</span></div>
+            <div class="panel-th record-cell"><b>68%</b><span>总胜率</span></div>
+          </div>
+          <div class="honor-note">荣誉可小幅提升声望。</div>
+        </div>
+      </div>
+      <!-- 选手详情半屏层 -->
+      <div class="sheet-mask" id="sheet-mask"></div>
+      <div class="sheet panel-th" id="player-sheet">
+        <div class="sheet-body" id="sheet-body"></div>
+      </div>
+    </section>
+
+    <!-- 3. 更多（营地 / 设置 + 选手图鉴） -->
+    <section class="screen" id="screen-more">
+      <div class="more-entries">
+        <div class="entry panel-th" id="entry-camp"><div class="bg" style="background-image:url('../../../素材库/底纹/铜.png')"></div><div class="ic">⛺</div><div class="tt">训练赛营地</div><div class="dd">约训练赛 · 联机PK</div></div>
+        <div class="entry panel-th" id="entry-gear"><div class="bg" style="background-image:url('../../../素材库/底纹/银.png')"></div><div class="ic">⚙️</div><div class="tt">设置</div><div class="dd">账号 · 画质 · 音效</div></div>
+      </div>
+      <div class="sec-title" style="margin-left:14px">选手图鉴</div>
+      <div class="region-filter" id="region-filter">
+        <div class="rf on" data-region="all"><span class="all-lb">全部</span></div>
+        <div class="rf" data-region="CN"><img src="../../../素材库/赛区图标/CN.png" alt="CN"></div>
+        <div class="rf" data-region="PAC"><img src="../../../素材库/赛区图标/PAC.png" alt="PAC"></div>
+        <div class="rf" data-region="EMEA"><img src="../../../素材库/赛区图标/EMEA.png" alt="EMEA" style="filter:invert(72%) sepia(58%) saturate(500%) hue-rotate(2deg)"></div>
+        <div class="rf" data-region="AMER"><img src="../../../素材库/赛区图标/AMER.png" alt="AMER"></div>
+      </div>
+      <div class="gallery-grid" id="gallery-grid"></div>
+    </section>
+
+    <!-- 4. 十选五出征 -->
+    <section class="screen" id="screen-draft">
+      <div class="page-head">
+        <div class="title-art">新的征程 · 出征选拔</div>
+        <div class="hint">从 10 名候选中选择 <b>5 名选手</b>出征 · 点击卡牌选中 / 取消 · <span class="plink" id="draft-pack">开包补员 ›</span></div>
+      </div>
+      <div class="draft-grid" id="draft-grid"></div>
+      <div class="dock">
+        <div class="cnt">已选 <b id="draft-cnt">0</b>/5</div>
+        <span class="btn-o dis" id="draft-ok-o"><button class="btn" id="draft-ok" disabled><span>确 认 出 征</span></button></span>
+      </div>
+    </section>
+
+    <!-- 5. 换人流程 -->
+    <section class="screen" id="screen-transfer">
+      <div class="page-head">
+        <div class="title-art">转会 · 大师赛卡包</div>
+        <div class="hint">先点上方<b>新卡</b>，再点下方<b>阵容成员</b>进行换人预览</div>
+      </div>
+      <div class="sec-title" style="margin-left:14px">新到卡包 · 5 张</div>
+      <div class="tf-new" id="tf-new"></div>
+      <div class="sec-title" style="margin-left:14px">当前阵容</div>
+      <div class="tf-lineup" id="tf-lineup"></div>
+      <div class="tf-foot">
+        <span class="btn-o ghost block"><button class="btn" id="tf-back"><span>返 回 战 队</span></button></span>
+      </div>
+    </section>
+
+    <!-- 6. 全屏结算页 -->
+    <section class="screen" id="screen-result">
+      <div class="result-wrap">
+        <div class="res-verdict" id="res-verdict">WIN</div>
+        <div class="res-score-line">
+          <img src="../../../素材库/队伍logo/EDG.png" alt="EDG">
+          <div class="sc">13 : 11</div>
+          <img src="../../../素材库/队伍logo/FPX.png" alt="FPX">
+        </div>
+        <div class="res-stage">季后赛① · 半决赛</div>
+        <div class="res-quote">"加时第 24 回合，Haodong 残局 1v2 收尾——这支队伍的膝盖，是打不弯的。"</div>
+        <div class="panel-th res-block">
+          <div class="bt">本场 MVP · 亮点数据</div>
+          <div class="mvp-row">
+            <div class="mhex"><img src="../../../素材库/选手半身像/Haodong.png" alt="Haodong"></div>
+            <div class="mid">
+              <div class="nm">Haodong</div>
+              <div class="tg">MVP · 决斗位</div>
+            </div>
+            <div class="mvp-stats">
+              <div><b>27</b><span>击杀</span></div>
+              <div><b>1.42</b><span>K/D</span></div>
+              <div><b>6</b><span>首杀</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-th res-block">
+          <div class="bt">默契与状态变化</div>
+          <div class="delta-line">队伍默契 <b>78 → 82</b> <span class="up">(+4)</span> · 已突破 80 阈值，解锁成长上限</div>
+          <div class="delta-line">Haodong 状态 → 🔥火热　heybay 状态 → 平稳</div>
+        </div>
+        <div class="panel-th res-block">
+          <div class="bt">教练成长</div>
+          <div class="delta-line">声望 <span class="up">+3</span> <span class="sm">(关键场胜利)</span>　战术 <span class="up">+2</span> <span class="sm">(以弱胜强)</span>　临场 <span class="up">+1</span> <span class="sm">(暂停后得分率 75%)</span></div>
+        </div>
+        <div class="panel-th res-block">
+          <div class="bt">奖励</div>
+          <div class="delta-line">🎴 卡包 ×1 <span class="sm">(已放入仓库，可在开包浮层开启)</span></div>
+        </div>
+        <div class="res-continue">
+          <span class="btn-o"><button class="btn" id="res-continue"><span>继 续 征 程</span></button></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. 观赛页 -->
+    <section class="screen" id="screen-match">
+      <div class="back-arrow" id="match-back">‹ 返回征程</div>
+      <div class="scorebar">
+        <img src="../../../素材库/队伍logo/EDG.png" alt="EDG">
+        <div class="sc"><span class="me">5</span> : <span class="op">3</span></div>
+        <img src="../../../素材库/队伍logo/T1.png" alt="T1">
+        <div class="rd"><b>回合 9</b> · 上半场<br>经济 ¥3,400 / ¥2,150</div>
+        <svg class="timer-ring" viewBox="0 0 36 36">
+          <circle cx="18" cy="18" r="15.5" fill="none" stroke="#26343f" stroke-width="3"/>
+          <circle cx="18" cy="18" r="15.5" fill="none" stroke="#ffcf5c" stroke-width="3"
+            stroke-dasharray="97.4" stroke-dashoffset="32" transform="rotate(-90 18 18)"/>
+          <text x="18" y="22" text-anchor="middle" font-size="11" fill="#ece8e1" font-family="Rajdhani">38</text>
+        </svg>
+      </div>
+      <div class="sandbox" id="sandbox">
+        <div class="placeholder">
+          <div class="big">2D 沙盘</div>
+          <div>接入引擎后启用 · 点击进入专注模式</div>
+        </div>
+        <div class="pdot def" style="left:18%;top:24%">Hao</div>
+        <div class="pdot def" style="left:30%;top:62%">hb</div>
+        <div class="pdot def" style="left:12%;top:70%">SU</div>
+        <div class="pdot atk" style="left:74%;top:30%">st</div>
+        <div class="pdot atk" style="left:82%;top:64%">Mk</div>
+      </div>
+      <div class="match-tabs">
+        <div class="mt on" data-mtab="feed">战况</div>
+        <div class="mt" data-mtab="cmd">指挥</div>
+      </div>
+      <div id="match-feed" class="feed">
+        <div class="feed-item def"><span class="rd-no">回合8</span><span><b class="d">Haodong</b> 击杀了 <b class="a">stax</b> · 残局 1v1 得手</span></div>
+        <div class="feed-item atk"><span class="rd-no">回合8</span><span><b class="a">Munchkin</b> 击杀了 <b class="d">heybay</b> · A 点突破</span></div>
+        <div class="feed-item def"><span class="rd-no">回合7</span><span><b class="d">SUYGETSU</b> 三杀守下 B 点 · 燃烧弹封路</span></div>
+        <div class="feed-item atk"><span class="rd-no">回合7</span><span>对方安装爆能器 · 回防成功拆除</span></div>
+        <div class="feed-item def"><span class="rd-no">回合6</span><span><b class="d">Haodong</b> 首杀 <b class="a">tuyz</b> · 中路对狙</span></div>
+        <div class="feed-item atk"><span class="rd-no">回合5</span><span>经济局失利 · 教练请求暂停</span></div>
+      </div>
+      <div id="match-cmd" class="cmd-panel" style="display:none">
+        <div class="sec-title" style="margin-top:0">战术比重</div>
+        <div class="cmd-row">
+          <div class="cmd-btn" data-tac="atk">进攻</div>
+          <div class="cmd-btn on" data-tac="bal">均衡</div>
+          <div class="cmd-btn" data-tac="def">防守</div>
+        </div>
+        <div class="cmd-row">
+          <div class="cmd-btn" id="igl-btn">更换 IGL</div>
+          <div class="cmd-btn pause" id="pause-btn">⏸ 请求暂停</div>
+        </div>
+        <div class="cmd-note">战术比重影响沙盘 AI 的默认走位倾向；暂停每半场限 2 次，暂停后进入教练窗口进行回合间调整。</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 底栏：三 tab，大厅居中 -->
+  <nav id="tabbar">
+    <button class="tab" data-screen="squad">
+      <svg viewBox="0 0 24 24"><path d="M12 1l8 5.5v9L12 21l-8-5.5v-9z"/></svg>战队
+    </button>
+    <button class="tab on" data-screen="lobby">
+      <svg viewBox="0 0 24 24"><path d="M12 3l9 7v10h-6v-5h-6v5H3V10z"/></svg>大厅
+    </button>
+    <button class="tab" data-screen="more">
+      <svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>更多
+    </button>
+  </nav>
+
+  <!-- 开包浮层（全屏 overlay，不入路由） -->
+  <div class="pack-overlay" id="pack-overlay">
+    <div class="pack-flash" id="pack-flash"></div>
+    <div class="pack-head">
+      <div class="title-art" style="font-size:22px">开包</div>
+      <button class="icon-btn" id="pack-close">✕</button>
+    </div>
+    <div class="pack-zone">
+      <div class="pack-count">卡包库存：<b id="pack-stock">2</b> 个</div>
+      <div class="pack-visual" id="pack-visual">
+        <img class="tex" src="../../../素材库/底纹/金.png" alt="">
+        <div class="ov"></div>
+        <div class="lb">
+          <div class="t1">卡包</div>
+          <div class="t2">赛年 S2 · 普通包</div>
+        </div>
+      </div>
+      <span class="btn-o"><button class="btn" id="open-pack"><span>开 包</span></button></span>
+      <div class="fx-note">完整出卡特效复用现有原型 v2.4 · 此处为简化翻面</div>
+    </div>
+    <div class="draw-result" id="draw-result">
+      <div class="sec-title" style="margin-left:4px">开包结果 · 点击卡牌查看</div>
+      <div class="row" id="draw-row"></div>
+      <div class="fx-note">集齐 10 名选手后可发起「十选五出征」</div>
+    </div>
+  </div>
+
+  <!-- 全局浮层 -->
+  <div class="toast" id="toast"></div>
+  <div class="modal-mask" id="modal-mask"><div class="modal-box panel-th" id="modal-box"></div></div>
+</div>
+
+<!-- 卡面 SVG 符号（奖章 / 图标） -->
+<svg width="0" height="0" style="position:absolute"><defs>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="2" fill="currentColor"/></symbol>
+  <symbol id="i-scope" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 4v16 M4 12h16" stroke="currentColor" stroke-width="1.2" opacity=".7"/><path d="M3 3 L8 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="medal" viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" transform="rotate(45 10 10)" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="6" y="6" width="8" height="8" transform="rotate(45 10 10)" fill="none" stroke="currentColor" stroke-width=".9" opacity=".6"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></symbol>
+</defs></svg>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

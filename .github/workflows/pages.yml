@@ -1,0 +1,44 @@
+name: Publish mobile PWA
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build the shared spatial engine
+        run: node 游戏/build-spatial.cjs
+      - name: Check release and PWA contracts
+        run: node --test 游戏/tests/campaign-spatial-policy.test.js 游戏/tests/spatial-career-store.test.js 游戏/tests/playback-preference.test.js 游戏/tests/release-assets.test.js
+      - name: Build and validate static release
+        run: node 游戏/build-pages.cjs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish
+        id: deployment
+        uses: actions/deploy-pages@v4

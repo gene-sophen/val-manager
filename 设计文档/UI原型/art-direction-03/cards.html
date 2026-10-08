@@ -1,0 +1,12 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f0f6fa"><title>选手卡 · 清爽自然 A</title><link rel="stylesheet" href="cards.css"></head><body>
+<main class="design-shell"><header class="design-header"><div class="design-brand"><b>VM</b><span>选手卡设计<small>选手卡与开包 / A · 02</small></span></div><nav class="header-actions"><a class="soft-button" href="mobile.html#album">进入卡册</a><a class="blue-button" href="pack.html">体验开包 ↗</a></nav></header>
+<section class="design-intro"><div><span class="small-label">卡面 / A</span><h1>选手卡</h1></div><p>铜 · 银 · 金 · 钻<br>点击查看完整卡面</p></section>
+<section class="card-lineup" id="card-lineup" aria-label="四种品质卡面"></section>
+<footer class="design-footer"><span>视觉与交互原型 · 数值沿用已有素材 · 开包使用固定展示序列</span><span>Noto Sans SC / Nunito · COLLECTION STUDY</span></footer></main>
+<dialog class="card-dialog" id="card-dialog"><div class="dialog-top"><span>选手卡 · 完整卡面</span><button class="close-button" aria-label="关闭卡面">×</button></div><div id="dialog-card"></div></dialog>
+<script src="../art-direction-01/players.js"></script><script src="card-renderer.js"></script><script>
+const samples=[VISUAL_PLAYERS[4],VISUAL_PLAYERS[3],VISUAL_PLAYERS[0],cardSampleDiamond()];
+const captions=['陶土','雾蓝灰','香槟金','赛事珍藏'];
+document.getElementById('card-lineup').innerHTML=samples.map((p,i)=>`<div><button class="card-open" data-card="${i}" aria-label="放大${p.tier}卡 ${p.name}">${renderCollectible(p)}</button><div class="sample-note"><strong>0${i+1} / ${p.tier}卡</strong><span>${captions[i]}</span></div></div>`).join('');
+const dialog=document.getElementById('card-dialog');document.querySelectorAll('[data-card]').forEach(b=>b.onclick=()=>{document.getElementById('dialog-card').innerHTML=renderCollectible(samples[+b.dataset.card]);dialog.showModal()});document.querySelector('.close-button').onclick=()=>dialog.close();dialog.onclick=e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}};
+</script></body></html>

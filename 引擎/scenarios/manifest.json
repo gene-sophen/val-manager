@@ -1,0 +1,12 @@
+{
+  "version": "prototype-v1",
+  "engine": "node-region-baseline",
+  "map": "maps/ascent.json",
+  "scenarios": [
+    { "id": "planted-attackers-out-too-late", "kind": "deterministic", "seed": 42 },
+    { "id": "planted-attackers-out-defuse-in-time", "kind": "deterministic", "seed": 42 },
+    { "id": "planted-defuse-interrupted", "kind": "deterministic", "seed": 42 },
+    { "id": "sync-entry-threshold", "kind": "deterministic", "seed": 42 },
+    { "id": "batch-baseline", "kind": "statistical-snapshot", "seed": 42 }
+  ]
+}

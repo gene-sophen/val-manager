@@ -1,0 +1,44 @@
+{
+  "version": "season-2026-v2",
+  "status": "opening-implementation",
+  "run": {
+    "scope": "eight-stage-season",
+    "lineupSize": 5,
+    "maxDiamondInLineup": 1,
+    "startingPacks": [
+      {
+        "tier": "starter",
+        "count": 3,
+        "cardsPerPack": 10
+      }
+    ],
+    "region": "CN",
+    "benchSize": 0,
+    "reinforcementBefore": [
+      "stage1-regular",
+      "stage2-regular"
+    ]
+  },
+  "match": {
+    "firstTo": 13,
+    "halfRounds": 12,
+    "formalBestOf": 3,
+    "automaticBestOf": "official",
+    "normalTimeouts": 2,
+    "overtimeTimeouts": 1,
+    "overtimeWinBy": 2,
+    "manualTacticWindow": "pregame-halftime-either-side-timeout"
+  },
+  "lifecycle": {
+    "persistent": [
+      "album",
+      "honors",
+      "runHistory",
+      "coach",
+      "familiarity",
+      "mapKnowledge"
+    ],
+    "rewardIdentity": "run-scope-event",
+    "contentFrozenPerRun": true
+  }
+}

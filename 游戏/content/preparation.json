@@ -1,0 +1,15 @@
+{
+  "version": "prototype-v1",
+  "events": [
+    { "id": "short-week", "name": "紧凑赛程", "description": "训练、侦察和恢复只能选一项。" },
+    { "id": "new-opponent", "name": "陌生对手", "description": "赛前样本有限，侦察只能给出公开战术倾向。" },
+    { "id": "heavy-review", "name": "复盘会议", "description": "队员有机会补强配合，也可以优先休息。" },
+    { "id": "travel-day", "name": "转场日", "description": "备战时间有限，选一项最能帮助下一场的安排。" },
+    { "id": "practice-window", "name": "训练窗口", "description": "本场之前有一次专项训练机会。" }
+  ],
+  "actions": [
+    { "id": "training", "name": "同步训练", "effectId": "entry-rehearsal", "description": "仅下一场扩大同步进点窗口。" },
+    { "id": "scout", "name": "侦察对手", "effectId": null, "description": "揭示对手预设战术偏好；不揭示实际回合指令。" },
+    { "id": "recovery", "name": "心理恢复", "effectId": "timeout-reset", "description": "仅下一场提高有限暂停的状态恢复效果。" }
+  ]
+}

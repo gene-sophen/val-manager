@@ -1,0 +1,1419 @@
+{
+  "summary": {
+    "matches": 200,
+    "rounds": 4568,
+    "attackWins": 3909,
+    "maxRounds": 44,
+    "overtimeMatches": 48,
+    "homeWins": 100,
+    "unfinished": 0,
+    "heads": 19308,
+    "shots": 145864,
+    "attackWinRate": 0.8557355516637478,
+    "homeWinRate": 0.5,
+    "releaseGate": false,
+    "note": "相同卡牌/英雄/教练，五种排序轮换，双向开局。阈值为游戏发布标准，不宣称现实地图应为五五开。失败时仅提供独立预览，不能默认接入征战。"
+  },
+  "cases": [
+    {
+      "seed": 0,
+      "side": "attack",
+      "home": 13,
+      "away": 3,
+      "rounds": 16
+    },
+    {
+      "seed": 0,
+      "side": "defense",
+      "home": 4,
+      "away": 13,
+      "rounds": 17
+    },
+    {
+      "seed": 1,
+      "side": "attack",
+      "home": 8,
+      "away": 13,
+      "rounds": 21
+    },
+    {
+      "seed": 1,
+      "side": "defense",
+      "home": 13,
+      "away": 10,
+      "rounds": 23
+    },
+    {
+      "seed": 2,
+      "side": "attack",
+      "home": 13,
+      "away": 3,
+      "rounds": 16
+    },
+    {
+      "seed": 2,
+      "side": "defense",
+      "home": 3,
+      "away": 13,
+      "rounds": 16
+    },
+    {
+      "seed": 3,
+      "side": "attack",
+      "home": 8,
+      "away": 13,
+      "rounds": 21
+    },
+    {
+      "seed": 3,
+      "side": "defense",
+      "home": 13,
+      "away": 8,
+      "rounds": 21
+    },
+    {
+      "seed": 4,
+      "side": "attack",
+      "home": 13,
+      "away": 1,
+      "rounds": 14
+    },
+    {
+      "seed": 4,
+      "side": "defense",
+      "home": 13,
+      "away": 10,
+      "rounds": 23
+    },
+    {
+      "seed": 5,
+      "side": "attack",
+      "home": 13,
+      "away": 6,
+      "rounds": 19
+    },
+    {
+      "seed": 5,
+      "side": "defense",
+      "home": 15,
+      "away": 17,
+      "rounds": 32
+    },
+    {
+      "seed": 6,
+      "side": "attack",
+      "home": 13,
+      "away": 15,
+      "rounds": 28
+    },
+    {
+      "seed": 6,
+      "side": "defense",
+      "home": 10,
+      "away": 13,
+      "rounds": 23
+    },
+    {
+      "seed": 7,
+      "side": "attack",
+      "home": 9,
+      "away": 13,
+      "rounds": 22
+    },
+    {
+      "seed": 7,
+      "side": "defense",
+      "home": 13,
+      "away": 10,
+      "rounds": 23
+    },
+    {
+      "seed": 8,
+      "side": "attack",
+      "home": 10,
+      "away": 13,
+      "rounds": 23
+    },
+    {
+      "seed": 8,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 9,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 9,
+      "side": "defense",
+      "home": 2,
+      "away": 13,
+      "rounds": 15
+    },
+    {
+      "seed": 10,
+      "side": "attack",
+      "home": 13,
+      "away": 10,
+      "rounds": 23
+    },
+    {
+      "seed": 10,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 11,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 11,
+      "side": "defense",
+      "home": 5,
+      "away": 13,
+      "rounds": 18
+    },
+    {
+      "seed": 12,
+      "side": "attack",
+      "home": 16,
+      "away": 14,
+      "rounds": 30
+    },
+    {
+      "seed": 12,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 13,
+      "side": "attack",
+      "home": 13,
+      "away": 9,
+      "rounds": 22
+    },
+    {
+      "seed": 13,
+      "side": "defense",
+      "home": 13,
+      "away": 15,
+      "rounds": 28
+    },
+    {
+      "seed": 14,
+      "side": "attack",
+      "home": 14,
+      "away": 12,
+      "rounds": 26
+    },
+    {
+      "seed": 14,
+      "side": "defense",
+      "home": 4,
+      "away": 13,
+      "rounds": 17
+    },
+    {
+      "seed": 15,
+      "side": "attack",
+      "home": 10,
+      "away": 13,
+      "rounds": 23
+    },
+    {
+      "seed": 15,
+      "side": "defense",
+      "home": 13,
+      "away": 9,
+      "rounds": 22
+    },
+    {
+      "seed": 16,
+      "side": "attack",
+      "home": 6,
+      "away": 13,
+      "rounds": 19
+    },
+    {
+      "seed": 16,
+      "side": "defense",
+      "home": 13,
+      "away": 10,
+      "rounds": 23
+    },
+    {
+      "seed": 17,
+      "side": "attack",
+      "home": 13,
+      "away": 9,
+      "rounds": 22
+    },
+    {
+      "seed": 17,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 18,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 18,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 19,
+      "side": "attack",
+      "home": 20,
+      "away": 18,
+      "rounds": 38
+    },
+    {
+      "seed": 19,
+      "side": "defense",
+      "home": 8,
+      "away": 13,
+      "rounds": 21
+    },
+    {
+      "seed": 20,
+      "side": "attack",
+      "home": 13,
+      "away": 5,
+      "rounds": 18
+    },
+    {
+      "seed": 20,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 21,
+      "side": "attack",
+      "home": 13,
+      "away": 4,
+      "rounds": 17
+    },
+    {
+      "seed": 21,
+      "side": "defense",
+      "home": 13,
+      "away": 9,
+      "rounds": 22
+    },
+    {
+      "seed": 22,
+      "side": "attack",
+      "home": 13,
+      "away": 5,
+      "rounds": 18
+    },
+    {
+      "seed": 22,
+      "side": "defense",
+      "home": 2,
+      "away": 13,
+      "rounds": 15
+    },
+    {
+      "seed": 23,
+      "side": "attack",
+      "home": 13,
+      "away": 7,
+      "rounds": 20
+    },
+    {
+      "seed": 23,
+      "side": "defense",
+      "home": 1,
+      "away": 13,
+      "rounds": 14
+    },
+    {
+      "seed": 24,
+      "side": "attack",
+      "home": 13,
+      "away": 2,
+      "rounds": 15
+    },
+    {
+      "seed": 24,
+      "side": "defense",
+      "home": 14,
+      "away": 12,
+      "rounds": 26
+    },
+    {
+      "seed": 25,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 25,
+      "side": "defense",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 26,
+      "side": "attack",
+      "home": 10,
+      "away": 13,
+      "rounds": 23
+    },
+    {
+      "seed": 26,
+      "side": "defense",
+      "home": 8,
+      "away": 13,
+      "rounds": 21
+    },
+    {
+      "seed": 27,
+      "side": "attack",
+      "home": 17,
+      "away": 15,
+      "rounds": 32
+    },
+    {
+      "seed": 27,
+      "side": "defense",
+      "home": 16,
+      "away": 14,
+      "rounds": 30
+    },
+    {
+      "seed": 28,
+      "side": "attack",
+      "home": 21,
+      "away": 23,
+      "rounds": 44
+    },
+    {
+      "seed": 28,
+      "side": "defense",
+      "home": 16,
+      "away": 14,
+      "rounds": 30
+    },
+    {
+      "seed": 29,
+      "side": "attack",
+      "home": 10,
+      "away": 13,
+      "rounds": 23
+    },
+    {
+      "seed": 29,
+      "side": "defense",
+      "home": 8,
+      "away": 13,
+      "rounds": 21
+    },
+    {
+      "seed": 30,
+      "side": "attack",
+      "home": 13,
+      "away": 15,
+      "rounds": 28
+    },
+    {
+      "seed": 30,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 31,
+      "side": "attack",
+      "home": 10,
+      "away": 13,
+      "rounds": 23
+    },
+    {
+      "seed": 31,
+      "side": "defense",
+      "home": 13,
+      "away": 9,
+      "rounds": 22
+    },
+    {
+      "seed": 32,
+      "side": "attack",
+      "home": 10,
+      "away": 13,
+      "rounds": 23
+    },
+    {
+      "seed": 32,
+      "side": "defense",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 33,
+      "side": "attack",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 33,
+      "side": "defense",
+      "home": 3,
+      "away": 13,
+      "rounds": 16
+    },
+    {
+      "seed": 34,
+      "side": "attack",
+      "home": 10,
+      "away": 13,
+      "rounds": 23
+    },
+    {
+      "seed": 34,
+      "side": "defense",
+      "home": 5,
+      "away": 13,
+      "rounds": 18
+    },
+    {
+      "seed": 35,
+      "side": "attack",
+      "home": 13,
+      "away": 9,
+      "rounds": 22
+    },
+    {
+      "seed": 35,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 36,
+      "side": "attack",
+      "home": 13,
+      "away": 2,
+      "rounds": 15
+    },
+    {
+      "seed": 36,
+      "side": "defense",
+      "home": 17,
+      "away": 15,
+      "rounds": 32
+    },
+    {
+      "seed": 37,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 37,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 38,
+      "side": "attack",
+      "home": 13,
+      "away": 6,
+      "rounds": 19
+    },
+    {
+      "seed": 38,
+      "side": "defense",
+      "home": 14,
+      "away": 12,
+      "rounds": 26
+    },
+    {
+      "seed": 39,
+      "side": "attack",
+      "home": 14,
+      "away": 12,
+      "rounds": 26
+    },
+    {
+      "seed": 39,
+      "side": "defense",
+      "home": 16,
+      "away": 14,
+      "rounds": 30
+    },
+    {
+      "seed": 40,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 40,
+      "side": "defense",
+      "home": 2,
+      "away": 13,
+      "rounds": 15
+    },
+    {
+      "seed": 41,
+      "side": "attack",
+      "home": 13,
+      "away": 10,
+      "rounds": 23
+    },
+    {
+      "seed": 41,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 42,
+      "side": "attack",
+      "home": 13,
+      "away": 15,
+      "rounds": 28
+    },
+    {
+      "seed": 42,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 43,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 43,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 44,
+      "side": "attack",
+      "home": 16,
+      "away": 18,
+      "rounds": 34
+    },
+    {
+      "seed": 44,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 45,
+      "side": "attack",
+      "home": 4,
+      "away": 13,
+      "rounds": 17
+    },
+    {
+      "seed": 45,
+      "side": "defense",
+      "home": 3,
+      "away": 13,
+      "rounds": 16
+    },
+    {
+      "seed": 46,
+      "side": "attack",
+      "home": 14,
+      "away": 16,
+      "rounds": 30
+    },
+    {
+      "seed": 46,
+      "side": "defense",
+      "home": 1,
+      "away": 13,
+      "rounds": 14
+    },
+    {
+      "seed": 47,
+      "side": "attack",
+      "home": 13,
+      "away": 8,
+      "rounds": 21
+    },
+    {
+      "seed": 47,
+      "side": "defense",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 48,
+      "side": "attack",
+      "home": 13,
+      "away": 6,
+      "rounds": 19
+    },
+    {
+      "seed": 48,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 49,
+      "side": "attack",
+      "home": 8,
+      "away": 13,
+      "rounds": 21
+    },
+    {
+      "seed": 49,
+      "side": "defense",
+      "home": 15,
+      "away": 17,
+      "rounds": 32
+    },
+    {
+      "seed": 50,
+      "side": "attack",
+      "home": 12,
+      "away": 14,
+      "rounds": 26
+    },
+    {
+      "seed": 50,
+      "side": "defense",
+      "home": 1,
+      "away": 13,
+      "rounds": 14
+    },
+    {
+      "seed": 51,
+      "side": "attack",
+      "home": 13,
+      "away": 6,
+      "rounds": 19
+    },
+    {
+      "seed": 51,
+      "side": "defense",
+      "home": 1,
+      "away": 13,
+      "rounds": 14
+    },
+    {
+      "seed": 52,
+      "side": "attack",
+      "home": 8,
+      "away": 13,
+      "rounds": 21
+    },
+    {
+      "seed": 52,
+      "side": "defense",
+      "home": 3,
+      "away": 13,
+      "rounds": 16
+    },
+    {
+      "seed": 53,
+      "side": "attack",
+      "home": 13,
+      "away": 15,
+      "rounds": 28
+    },
+    {
+      "seed": 53,
+      "side": "defense",
+      "home": 15,
+      "away": 13,
+      "rounds": 28
+    },
+    {
+      "seed": 54,
+      "side": "attack",
+      "home": 13,
+      "away": 3,
+      "rounds": 16
+    },
+    {
+      "seed": 54,
+      "side": "defense",
+      "home": 13,
+      "away": 10,
+      "rounds": 23
+    },
+    {
+      "seed": 55,
+      "side": "attack",
+      "home": 10,
+      "away": 13,
+      "rounds": 23
+    },
+    {
+      "seed": 55,
+      "side": "defense",
+      "home": 13,
+      "away": 8,
+      "rounds": 21
+    },
+    {
+      "seed": 56,
+      "side": "attack",
+      "home": 13,
+      "away": 8,
+      "rounds": 21
+    },
+    {
+      "seed": 56,
+      "side": "defense",
+      "home": 14,
+      "away": 12,
+      "rounds": 26
+    },
+    {
+      "seed": 57,
+      "side": "attack",
+      "home": 19,
+      "away": 17,
+      "rounds": 36
+    },
+    {
+      "seed": 57,
+      "side": "defense",
+      "home": 1,
+      "away": 13,
+      "rounds": 14
+    },
+    {
+      "seed": 58,
+      "side": "attack",
+      "home": 13,
+      "away": 2,
+      "rounds": 15
+    },
+    {
+      "seed": 58,
+      "side": "defense",
+      "home": 14,
+      "away": 16,
+      "rounds": 30
+    },
+    {
+      "seed": 59,
+      "side": "attack",
+      "home": 13,
+      "away": 3,
+      "rounds": 16
+    },
+    {
+      "seed": 59,
+      "side": "defense",
+      "home": 4,
+      "away": 13,
+      "rounds": 17
+    },
+    {
+      "seed": 60,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 60,
+      "side": "defense",
+      "home": 0,
+      "away": 13,
+      "rounds": 13
+    },
+    {
+      "seed": 61,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 61,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 62,
+      "side": "attack",
+      "home": 18,
+      "away": 16,
+      "rounds": 34
+    },
+    {
+      "seed": 62,
+      "side": "defense",
+      "home": 5,
+      "away": 13,
+      "rounds": 18
+    },
+    {
+      "seed": 63,
+      "side": "attack",
+      "home": 20,
+      "away": 18,
+      "rounds": 38
+    },
+    {
+      "seed": 63,
+      "side": "defense",
+      "home": 5,
+      "away": 13,
+      "rounds": 18
+    },
+    {
+      "seed": 64,
+      "side": "attack",
+      "home": 10,
+      "away": 13,
+      "rounds": 23
+    },
+    {
+      "seed": 64,
+      "side": "defense",
+      "home": 20,
+      "away": 18,
+      "rounds": 38
+    },
+    {
+      "seed": 65,
+      "side": "attack",
+      "home": 13,
+      "away": 2,
+      "rounds": 15
+    },
+    {
+      "seed": 65,
+      "side": "defense",
+      "home": 9,
+      "away": 13,
+      "rounds": 22
+    },
+    {
+      "seed": 66,
+      "side": "attack",
+      "home": 10,
+      "away": 13,
+      "rounds": 23
+    },
+    {
+      "seed": 66,
+      "side": "defense",
+      "home": 7,
+      "away": 13,
+      "rounds": 20
+    },
+    {
+      "seed": 67,
+      "side": "attack",
+      "home": 13,
+      "away": 9,
+      "rounds": 22
+    },
+    {
+      "seed": 67,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 68,
+      "side": "attack",
+      "home": 13,
+      "away": 1,
+      "rounds": 14
+    },
+    {
+      "seed": 68,
+      "side": "defense",
+      "home": 3,
+      "away": 13,
+      "rounds": 16
+    },
+    {
+      "seed": 69,
+      "side": "attack",
+      "home": 12,
+      "away": 14,
+      "rounds": 26
+    },
+    {
+      "seed": 69,
+      "side": "defense",
+      "home": 8,
+      "away": 13,
+      "rounds": 21
+    },
+    {
+      "seed": 70,
+      "side": "attack",
+      "home": 10,
+      "away": 13,
+      "rounds": 23
+    },
+    {
+      "seed": 70,
+      "side": "defense",
+      "home": 13,
+      "away": 8,
+      "rounds": 21
+    },
+    {
+      "seed": 71,
+      "side": "attack",
+      "home": 13,
+      "away": 3,
+      "rounds": 16
+    },
+    {
+      "seed": 71,
+      "side": "defense",
+      "home": 5,
+      "away": 13,
+      "rounds": 18
+    },
+    {
+      "seed": 72,
+      "side": "attack",
+      "home": 13,
+      "away": 5,
+      "rounds": 18
+    },
+    {
+      "seed": 72,
+      "side": "defense",
+      "home": 0,
+      "away": 13,
+      "rounds": 13
+    },
+    {
+      "seed": 73,
+      "side": "attack",
+      "home": 13,
+      "away": 5,
+      "rounds": 18
+    },
+    {
+      "seed": 73,
+      "side": "defense",
+      "home": 15,
+      "away": 13,
+      "rounds": 28
+    },
+    {
+      "seed": 74,
+      "side": "attack",
+      "home": 15,
+      "away": 13,
+      "rounds": 28
+    },
+    {
+      "seed": 74,
+      "side": "defense",
+      "home": 8,
+      "away": 13,
+      "rounds": 21
+    },
+    {
+      "seed": 75,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 75,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 76,
+      "side": "attack",
+      "home": 9,
+      "away": 13,
+      "rounds": 22
+    },
+    {
+      "seed": 76,
+      "side": "defense",
+      "home": 14,
+      "away": 12,
+      "rounds": 26
+    },
+    {
+      "seed": 77,
+      "side": "attack",
+      "home": 15,
+      "away": 17,
+      "rounds": 32
+    },
+    {
+      "seed": 77,
+      "side": "defense",
+      "home": 13,
+      "away": 10,
+      "rounds": 23
+    },
+    {
+      "seed": 78,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 78,
+      "side": "defense",
+      "home": 18,
+      "away": 16,
+      "rounds": 34
+    },
+    {
+      "seed": 79,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 79,
+      "side": "defense",
+      "home": 5,
+      "away": 13,
+      "rounds": 18
+    },
+    {
+      "seed": 80,
+      "side": "attack",
+      "home": 13,
+      "away": 3,
+      "rounds": 16
+    },
+    {
+      "seed": 80,
+      "side": "defense",
+      "home": 2,
+      "away": 13,
+      "rounds": 15
+    },
+    {
+      "seed": 81,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 81,
+      "side": "defense",
+      "home": 13,
+      "away": 7,
+      "rounds": 20
+    },
+    {
+      "seed": 82,
+      "side": "attack",
+      "home": 12,
+      "away": 14,
+      "rounds": 26
+    },
+    {
+      "seed": 82,
+      "side": "defense",
+      "home": 20,
+      "away": 18,
+      "rounds": 38
+    },
+    {
+      "seed": 83,
+      "side": "attack",
+      "home": 13,
+      "away": 8,
+      "rounds": 21
+    },
+    {
+      "seed": 83,
+      "side": "defense",
+      "home": 6,
+      "away": 13,
+      "rounds": 19
+    },
+    {
+      "seed": 84,
+      "side": "attack",
+      "home": 10,
+      "away": 13,
+      "rounds": 23
+    },
+    {
+      "seed": 84,
+      "side": "defense",
+      "home": 14,
+      "away": 16,
+      "rounds": 30
+    },
+    {
+      "seed": 85,
+      "side": "attack",
+      "home": 20,
+      "away": 18,
+      "rounds": 38
+    },
+    {
+      "seed": 85,
+      "side": "defense",
+      "home": 5,
+      "away": 13,
+      "rounds": 18
+    },
+    {
+      "seed": 86,
+      "side": "attack",
+      "home": 17,
+      "away": 15,
+      "rounds": 32
+    },
+    {
+      "seed": 86,
+      "side": "defense",
+      "home": 17,
+      "away": 19,
+      "rounds": 36
+    },
+    {
+      "seed": 87,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 87,
+      "side": "defense",
+      "home": 13,
+      "away": 11,
+      "rounds": 24
+    },
+    {
+      "seed": 88,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 88,
+      "side": "defense",
+      "home": 14,
+      "away": 12,
+      "rounds": 26
+    },
+    {
+      "seed": 89,
+      "side": "attack",
+      "home": 13,
+      "away": 0,
+      "rounds": 13
+    },
+    {
+      "seed": 89,
+      "side": "defense",
+      "home": 15,
+      "away": 13,
+      "rounds": 28
+    },
+    {
+      "seed": 90,
+      "side": "attack",
+      "home": 14,
+      "away": 12,
+      "rounds": 26
+    },
+    {
+      "seed": 90,
+      "side": "defense",
+      "home": 13,
+      "away": 15,
+      "rounds": 28
+    },
+    {
+      "seed": 91,
+      "side": "attack",
+      "home": 13,
+      "away": 2,
+      "rounds": 15
+    },
+    {
+      "seed": 91,
+      "side": "defense",
+      "home": 4,
+      "away": 13,
+      "rounds": 17
+    },
+    {
+      "seed": 92,
+      "side": "attack",
+      "home": 13,
+      "away": 3,
+      "rounds": 16
+    },
+    {
+      "seed": 92,
+      "side": "defense",
+      "home": 3,
+      "away": 13,
+      "rounds": 16
+    },
+    {
+      "seed": 93,
+      "side": "attack",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 93,
+      "side": "defense",
+      "home": 14,
+      "away": 12,
+      "rounds": 26
+    },
+    {
+      "seed": 94,
+      "side": "attack",
+      "home": 16,
+      "away": 14,
+      "rounds": 30
+    },
+    {
+      "seed": 94,
+      "side": "defense",
+      "home": 19,
+      "away": 17,
+      "rounds": 36
+    },
+    {
+      "seed": 95,
+      "side": "attack",
+      "home": 13,
+      "away": 5,
+      "rounds": 18
+    },
+    {
+      "seed": 95,
+      "side": "defense",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 96,
+      "side": "attack",
+      "home": 10,
+      "away": 13,
+      "rounds": 23
+    },
+    {
+      "seed": 96,
+      "side": "defense",
+      "home": 11,
+      "away": 13,
+      "rounds": 24
+    },
+    {
+      "seed": 97,
+      "side": "attack",
+      "home": 10,
+      "away": 13,
+      "rounds": 23
+    },
+    {
+      "seed": 97,
+      "side": "defense",
+      "home": 13,
+      "away": 10,
+      "rounds": 23
+    },
+    {
+      "seed": 98,
+      "side": "attack",
+      "home": 9,
+      "away": 13,
+      "rounds": 22
+    },
+    {
+      "seed": 98,
+      "side": "defense",
+      "home": 13,
+      "away": 6,
+      "rounds": 19
+    },
+    {
+      "seed": 99,
+      "side": "attack",
+      "home": 13,
+      "away": 6,
+      "rounds": 19
+    },
+    {
+      "seed": 99,
+      "side": "defense",
+      "home": 8,
+      "away": 13,
+      "rounds": 21
+    }
+  ]
+}

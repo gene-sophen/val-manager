@@ -1,0 +1,74 @@
+{
+  "version": "nine-map-library-v1",
+  "activeMapCount": 7,
+  "rotateCount": 2,
+  "rotateBefore": [
+    "stage1-regular",
+    "stage2-regular"
+  ],
+  "maps": [
+    {
+      "id": "ascent",
+      "name": "Ascent",
+      "status": "prototype-unverified",
+      "defaultStrength": 50,
+      "defaultStrengthSource": "game-neutral-prior"
+    },
+    {
+      "id": "sunset",
+      "name": "Sunset",
+      "status": "not-implemented",
+      "defaultStrength": 50,
+      "defaultStrengthSource": "game-neutral-prior"
+    },
+    {
+      "id": "split",
+      "name": "Split",
+      "status": "not-implemented",
+      "defaultStrength": 50,
+      "defaultStrengthSource": "game-neutral-prior"
+    },
+    {
+      "id": "haven",
+      "name": "Haven",
+      "status": "not-implemented",
+      "defaultStrength": 50,
+      "defaultStrengthSource": "game-neutral-prior"
+    },
+    {
+      "id": "lotus",
+      "name": "Lotus",
+      "status": "not-implemented",
+      "defaultStrength": 50,
+      "defaultStrengthSource": "game-neutral-prior"
+    },
+    {
+      "id": "breeze",
+      "name": "Breeze",
+      "status": "not-implemented",
+      "defaultStrength": 50,
+      "defaultStrengthSource": "game-neutral-prior"
+    },
+    {
+      "id": "summit",
+      "name": "Summit",
+      "status": "not-implemented",
+      "defaultStrength": 50,
+      "defaultStrengthSource": "game-neutral-prior"
+    },
+    {
+      "id": "abyss",
+      "name": "Abyss",
+      "status": "not-implemented",
+      "defaultStrength": 50,
+      "defaultStrengthSource": "game-neutral-prior"
+    },
+    {
+      "id": "fracture",
+      "name": "Fracture",
+      "status": "not-implemented",
+      "defaultStrength": 50,
+      "defaultStrengthSource": "game-neutral-prior"
+    }
+  ]
+}

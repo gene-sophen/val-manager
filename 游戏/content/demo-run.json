@@ -1,0 +1,11 @@
+{
+  "version": "four-fixture-v1",
+  "label": "四场测试赛段（非正式联赛）",
+  "map": "ascent",
+  "fixtures": [
+    { "id": "fixture-1", "opponent": { "name": "CN 稳健队", "players": ["normal:wsleo", "normal:cb", "normal:nicc", "normal:knight", "normal:delb"], "tactics": { "atk": { "rush": 0.15, "mid": 0.45, "lurk": 0.2, "fake": 0.2 }, "def": { "push": 0.1, "hold": 0.65, "stack": 0.25 } } } },
+    { "id": "fixture-2", "opponent": { "name": "美洲快攻队", "players": ["normal:eeiu", "normal:sato", "normal:basic", "normal:johnqt", "normal:timotino"], "tactics": { "atk": { "rush": 0.65, "mid": 0.15, "lurk": 0.1, "fake": 0.1 }, "def": { "push": 0.45, "hold": 0.35, "stack": 0.2 } } } },
+    { "id": "fixture-3", "opponent": { "name": "欧洲信息队", "players": ["normal:veqaj", "normal:hiro", "normal:jamppi", "normal:boo", "normal:favian"], "tactics": { "atk": { "rush": 0.1, "mid": 0.5, "lurk": 0.15, "fake": 0.25 }, "def": { "push": 0.25, "hold": 0.5, "stack": 0.25 } } } },
+    { "id": "fixture-4", "opponent": { "name": "太平洋变速队", "players": ["normal:mako", "normal:xross", "normal:crazyguy", "normal:killua", "normal:akame"], "tactics": { "atk": { "rush": 0.2, "mid": 0.2, "lurk": 0.25, "fake": 0.35 }, "def": { "push": 0.2, "hold": 0.3, "stack": 0.5 } } } }
+  ]
+}

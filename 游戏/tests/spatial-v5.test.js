@@ -1,0 +1,12 @@
+const test=require('node:test'),assert=require('node:assert/strict'),S=require('../spatial-match'),O=require('../round-outcome'),{GameMap}=require('../../引擎/gamemap');
+const map=new GameMap(S.mapDataV5,require('../../引擎/maps/ascent-geometry-v5.json')),cards=require('../catalog').cards.filter(p=>p.team==='EDG'&&p.tier!=='钻').slice(0,5),team=id=>({id,players:cards,team:{羁绊:40,状态:50,熟练:50},coach:{战术:65,临场:60,声望:70},mapKnowledge:{ascent:55}}),priority={attack:[0,1,2,3,4],defense:[1,0,2,3,4]};
+test('v5 freezes external effects, reproduces closed-door shots and restores the same journal',()=>{
+ const a=team('A'),b=team('B'),m=O.create('v5-restore','ascent');S.initialize(m,a,b,priority,null,{version:5});assert.equal(m.spatial.initial.effectsVersion,'card-effects-1');assert(m.spatial.initial.home.players.some(p=>p.cardEffect));
+ for(let i=0;i<3;i++)S.step(m,a,b,priority);const copy=JSON.parse(JSON.stringify(m));assert.deepEqual(S.step(m,a,b,priority),S.step(copy,a,b,priority));assert.equal(JSON.stringify(m),JSON.stringify(copy));
+ let count=0;for(let n=1;n<=4;n++){const r=S.replay(m,n);for(const e of r.events.filter(e=>e.type==='shot')){count++;assert(map.geometry.canShoot({x:e.x,y:e.y},{x:e.targetX,y:e.targetY},{doors:e.doors}));}for(let t=0;t<=r.ticks;t+=.25){const f=S.frame(r,t);for(const u of Object.values(f.units))assert(map.geometry.contains(u.position,{doors:f.doors}),u.name+' '+n+' '+t);}}
+ assert(count>0);const invalid=JSON.parse(JSON.stringify(m));invalid.spatial.initial.effectsVersion='future';const before=JSON.stringify(invalid);assert.throws(()=>S.step(invalid,a,b,priority),/特性版本/);assert.equal(JSON.stringify(invalid),before);
+});
+test('the v5 browser bundle reproduces events, hero assignments and live door snapshots',()=>{
+ const vm=require('node:vm'),fs=require('node:fs'),path=require('node:path'),ctx={structuredClone};vm.createContext(ctx);vm.runInContext(fs.readFileSync(path.resolve(__dirname,'../../设计文档/UI原型/complete-prototype-01/spatial-engine.js'),'utf8'),ctx);
+ const a=team('A'),b=team('B'),m=O.create('v5-browser','ascent'),w=O.create('v5-browser','ascent');S.initialize(m,a,b,priority,null,{version:5});ctx.SPATIAL_MATCH.initialize(w,a,b,priority,null,{version:5});S.step(m,a,b,priority);ctx.SPATIAL_MATCH.step(w,a,b,priority);assert.equal(JSON.stringify(w.replay),JSON.stringify(m.replay));for(let t=0;t<=m.replay.ticks;t+=.5)assert.equal(JSON.stringify(ctx.SPATIAL_MATCH.frame(w.replay,t)),JSON.stringify(S.frame(m.replay,t)));
+});

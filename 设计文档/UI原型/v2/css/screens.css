@@ -1,0 +1,335 @@
+/* ===== 各屏专属样式 v2 ===== */
+
+/* ===== 大厅（首屏） ===== */
+.lobby-hero{position:relative; height:400px; overflow:hidden;
+  background:linear-gradient(180deg,#1a1626 0%,#141126 40%,#0b0f14 100%)}
+.lobby-hero .tex{position:absolute; inset:0; background:url('../../../素材库/底纹/金.png') center/cover; opacity:.1}
+.lobby-hero .wm{position:absolute; left:50%; top:44%; transform:translate(-50%,-50%);
+  width:250px; height:250px; object-fit:contain; filter:grayscale(1); opacity:.08}
+.lobby-hero .glow{position:absolute; inset:0; animation:breathe 4s ease-in-out infinite; background:
+  radial-gradient(ellipse 90% 60% at 50% 88%,rgba(232,185,62,.22),transparent 60%),
+  radial-gradient(ellipse 60% 40% at 50% 0%,rgba(229,57,90,.12),transparent 70%)}
+@keyframes breathe{0%,100%{opacity:.65}50%{opacity:1}}
+.lobby-hero::after{content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg,transparent 42%,rgba(8,11,16,.55) 72%,rgba(5,8,12,.96) 97%)}
+.lobby-team{position:absolute; top:14px; left:16px; z-index:3; display:flex; align-items:center; gap:8px}
+.lobby-team img{width:26px; height:26px; object-fit:contain}
+.lobby-team .tn{font-family:'Smiley'; font-size:15px; letter-spacing:2px}
+.lobby-team .ts{font-size:10px; color:var(--txt-2)}
+.lobby-power{position:absolute; top:14px; right:16px; z-index:3; text-align:right}
+.lobby-power .v{font-family:'Anton'; font-size:26px; color:#f7dc85; text-shadow:0 2px 0 rgba(0,0,0,.7)}
+.lobby-power .l{font-size:9px; color:var(--txt-2); letter-spacing:2px}
+.stage5{position:absolute; left:0; right:0; bottom:24px; z-index:2; display:flex; justify-content:center; align-items:flex-end; gap:5px}
+.st5{position:relative; text-align:center; cursor:pointer; transition:transform .15s}
+.st5:active{transform:scale(.94)}
+.st5 .hx{clip-path:var(--hex-sm); padding:2.5px; margin:0 auto}
+.st5 .hx img{width:100%; height:100%; clip-path:var(--hex-sm); object-fit:cover; object-position:center 10%; display:block; background:#1a222c}
+.st5.q-gold .hx{background:linear-gradient(160deg,#fff3c2,var(--q-gold),#8a6a1c)}
+.st5.q-silver .hx{background:linear-gradient(160deg,#f2f7fb,var(--q-silver),#7b8894)}
+.st5.q-bronze .hx{background:linear-gradient(160deg,#d9b598,var(--q-bronze),#6e5138)}
+.st5.front .hx{width:76px; height:86px}
+.st5.back .hx{width:56px; height:64px}
+.st5.back{transform:translateY(-30px)}
+.st5.back:active{transform:translateY(-30px) scale(.94)}
+.st5 .nm{font-family:'Anton'; font-size:10.5px; margin-top:2px; text-shadow:0 1px 3px #000, 0 0 8px rgba(0,0,0,.8)}
+/* 五人入场依次升起（仅首次进大厅） */
+#stage5.entering .st5{animation:riseIn .5s var(--ease) both}
+#stage5.entering .st5:nth-child(2){animation-delay:.08s}
+#stage5.entering .st5:nth-child(3){animation-delay:.16s}
+#stage5.entering .st5:nth-child(4){animation-delay:.24s}
+#stage5.entering .st5:nth-child(5){animation-delay:.32s}
+@keyframes riseIn{from{opacity:0; transform:translateY(16px)}to{opacity:1; transform:none}}
+#stage5.entering .st5.back{animation-name:riseInBack}
+@keyframes riseInBack{from{opacity:0; transform:translateY(-14px)}to{opacity:1; transform:translateY(-30px)}}
+.next-fight{margin:-18px 12px 0; position:relative; z-index:4; padding:14px 14px 17px; text-align:center}
+.next-fight .vs{display:flex; align-items:center; justify-content:center; gap:16px}
+.next-fight .vs img{width:44px; height:44px; object-fit:contain}
+.next-fight .vs .v{font-family:'Anton'; font-size:18px; color:var(--txt-2)}
+.next-fight .meta{font-size:10.5px; color:var(--txt-2); letter-spacing:1px; margin:7px 0 13px}
+.next-fight .meta b{color:var(--warn)}
+.next-fight .last{font-size:10px; color:var(--txt-3); margin-bottom:6px}
+.next-fight .last b{color:var(--ok)}
+.next-fight .btn-o .btn{padding:9px 36px 11px; font-size:14px}
+.entries{display:flex; gap:10px; margin:12px 12px 0}
+.entry{flex:1; position:relative; height:76px; overflow:hidden; cursor:pointer; padding:10px 12px; display:flex; flex-direction:column; justify-content:flex-end; transition:transform .15s}
+.entry:active{transform:scale(.96)}
+.entry .bg{position:absolute; inset:0; background-size:cover; background-position:center; opacity:.5}
+.entry .tt{position:relative; font-family:'Smiley'; font-size:15px; letter-spacing:2px; z-index:2}
+.entry .dd{position:relative; font-size:10px; color:var(--txt-2); z-index:2}
+.entry .ic{position:absolute; right:8px; top:8px; font-size:22px; opacity:.9; z-index:2}
+
+/* ===== 征程 · 攀登地图 ===== */
+.map{position:relative; height:1330px; padding-top:785px; box-sizing:border-box;
+  background:linear-gradient(180deg,#0d1420 0%,#131126 30%,#1a1220 55%,#12181f 78%,#0b0f14 100%)}
+.map .tex{position:absolute; inset:0; background:url('../../../素材库/底纹/银.png') center/cover; opacity:.06}
+#map-lines{position:absolute; inset:0; width:100%; height:100%}
+.crown-zone{position:absolute; top:44px; left:0; right:0; text-align:center; z-index:2; cursor:pointer}
+.crown-zone .cr{font-size:30px; color:var(--q-diamond); animation:crownGlow 2.4s infinite}
+@keyframes crownGlow{0%,100%{text-shadow:0 0 12px rgba(169,241,255,.4)}50%{text-shadow:0 0 26px rgba(169,241,255,.85)}}
+.crown-zone .cn{font-family:'Smiley'; font-size:15px; letter-spacing:4px; color:var(--q-diamond); margin-top:2px}
+.crown-zone .lk{font-size:9px; color:var(--txt-3); margin-top:2px}
+.mapnode{position:absolute; z-index:3; text-align:center; transform:translate(-50%,-50%); width:96px}
+.mapnode .ring{width:56px; height:56px; margin:0 auto; border-radius:50%; display:flex; align-items:center; justify-content:center; position:relative;
+  background:radial-gradient(circle at 35% 30%,#2a3a4a,#131c26 70%);
+  box-shadow:inset 0 2px 2px rgba(255,255,255,.12), inset 0 -3px 3px rgba(0,0,0,.5), 0 6px 12px rgba(0,0,0,.5)}
+.mapnode .ring img{width:26px; height:26px; object-fit:contain}
+.mapnode .ring::before{content:''; position:absolute; inset:-4px; border-radius:50%; border:2px solid var(--nc,#3a4a5a); opacity:.8}
+.mapnode .nm{font-size:10.5px; font-weight:700; margin-top:5px; letter-spacing:1px; color:var(--txt-1); text-shadow:0 1px 3px #000}
+.mapnode .rs{font-size:9px; color:var(--ok)}
+.mapnode.locked{opacity:.45; filter:grayscale(.7); cursor:pointer}
+.mapnode.locked .rs{color:var(--txt-3)}
+.mapnode.current .ring::before{border-color:var(--q-gold); opacity:1; box-shadow:0 0 14px rgba(232,185,62,.6)}
+.mapnode.current .ring{animation:ringPulse 2.4s infinite}
+@keyframes ringPulse{0%,100%{box-shadow:inset 0 2px 2px rgba(255,255,255,.12), inset 0 -3px 3px rgba(0,0,0,.5), 0 6px 12px rgba(0,0,0,.5)}
+  50%{box-shadow:inset 0 2px 2px rgba(255,255,255,.12), inset 0 -3px 3px rgba(0,0,0,.5), 0 0 22px rgba(232,185,62,.55)}}
+.mapnode.current .rs{color:var(--warn)}
+.mapnode.lit-flash .ring::before{animation:litFlash 1.1s var(--ease)}
+@keyframes litFlash{0%{box-shadow:0 0 0 rgba(232,185,62,0); border-color:var(--nc); opacity:.8}
+  40%{box-shadow:0 0 26px rgba(232,185,62,.95); border-color:var(--q-gold); opacity:1}
+  100%{box-shadow:0 0 0 rgba(232,185,62,0); border-color:var(--nc); opacity:.8}}
+/* 当前节点沉底卡片（滚动越过时吸附视口底部） */
+.map-cur{position:sticky; bottom:12px; margin:0 12px; z-index:5; padding:13px 14px 15px; text-align:center}
+.map-cur .sub{font-size:10.5px; color:var(--txt-2); text-align:left; margin-bottom:8px}
+.map-cur .vs{display:flex; align-items:center; justify-content:center; gap:14px}
+.map-cur .vs img{width:40px; height:40px; object-fit:contain}
+.map-cur .vs .v{font-family:'Anton'; font-size:16px; color:var(--txt-2)}
+.map-cur .meta{font-size:10px; color:var(--txt-2); margin:6px 0 12px; letter-spacing:1px}
+.map-cur .meta b{color:var(--warn)}
+.map-cur .btn-o .btn{padding:9px 34px 11px; font-size:14px}
+.st-toggle{display:flex; align-items:center; justify-content:center; gap:6px; cursor:pointer;
+  font-size:11px; font-weight:700; color:var(--side-def); letter-spacing:1px;
+  background:rgba(34,200,216,.07); clip-path:var(--cut-sm); padding:5px 10px; margin-bottom:10px}
+.st-toggle .arr{font-size:9px; transition:transform .15s}
+.st-toggle.open .arr{transform:rotate(180deg)}
+.st-body{display:none; margin:-4px 0 10px; border-top:1px dashed var(--line); padding-top:6px}
+.st-body.open{display:block}
+.flip-line{font-size:11px; color:var(--txt-1); cursor:pointer; margin-bottom:10px; padding:6px 8px;
+  background:rgba(232,185,62,.07); clip-path:var(--cut-sm)}
+.flip-line b{color:var(--warn); font-family:'Anton'; letter-spacing:1px}
+.flip-line .mini{display:none; margin-top:6px; border-top:1px dashed var(--line); padding-top:6px;
+  font-size:10.5px; color:var(--txt-2); text-align:left; line-height:1.7}
+.flip-line .mini b{color:var(--side-def); font-family:'Rajdhani'}
+.nm-key{display:inline-block; font-size:9.5px; color:var(--q-diamond); border:1px solid var(--q-diamond); padding:0 6px; margin-left:4px; clip-path:var(--cut-sm)}
+.watch-link{margin-top:9px; text-align:center}
+.watch-link span{font-size:10.5px; color:var(--side-def); cursor:pointer; text-decoration:underline}
+.standings .srow{display:flex; align-items:center; gap:7px; padding:3px 2px; font-size:12px}
+.standings .srow.me{background:rgba(232,185,62,.08); border-left:2px solid var(--q-gold); padding-left:5px}
+.standings .srow img{width:18px; height:18px; object-fit:contain}
+.standings .srow .rk{width:14px; color:var(--txt-3); font-size:10.5px; text-align:center}
+.standings .srow .tn{flex:1; font-weight:600; letter-spacing:.5px; text-align:left}
+.standings .srow .wl{font-weight:700; font-size:12.5px; color:var(--side-def)}
+/* 地图底部起点入口 */
+.map-start{position:absolute; left:16px; right:16px; top:1252px; z-index:4;
+  padding:12px 14px; text-align:center; cursor:pointer;
+  background:linear-gradient(120deg,#241c08,#161207); border:1px solid var(--q-gold); clip-path:var(--cut);
+  box-shadow:inset 0 1px 0 rgba(242,205,106,.25), inset 0 -3px 0 rgba(0,0,0,.45)}
+.map-start:active{transform:scale(.98)}
+.map-start .t{font-weight:700; font-size:14px; letter-spacing:4px; color:var(--warn)}
+.map-start .d{font-size:10px; color:var(--txt-2); margin-top:2px}
+
+/* ===== 十选五出征 ===== */
+.page-head{padding:16px 14px 4px}
+.page-head .title-art{font-size:24px}
+.page-head .hint{font-size:11.5px; color:var(--txt-2); margin-top:6px}
+.page-head .hint b{color:var(--warn)}
+.page-head .plink{color:var(--side-def); cursor:pointer; text-decoration:underline}
+.draft-grid{display:grid; grid-template-columns:repeat(3,108px); justify-content:space-between; gap:14px 0; padding:14px 14px 104px}
+.draft-grid .cardwrap{cursor:pointer; transition:transform .18s}
+.draft-grid .cardwrap:active{transform:scale(.95)}
+.cardwrap .ord{
+  position:absolute; top:-6px; right:-4px; z-index:11; width:26px; height:26px; display:none;
+  align-items:center; justify-content:center; font-weight:700; font-size:13px; color:#241804;
+  background:linear-gradient(180deg,#f7dc85,var(--q-gold)); clip-path:var(--hex-sm);
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.6));
+}
+.cardwrap.picked{transform:translateY(-4px); animation:selPop .3s var(--ease)}
+@keyframes selPop{0%{transform:scale(.92)}60%{transform:translateY(-6px) scale(1.04)}100%{transform:translateY(-4px)}}
+.cardwrap.picked .ord{display:flex; animation:ordPop .28s var(--ease)}
+@keyframes ordPop{0%{transform:scale(0)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.cardwrap.picked .card{filter:drop-shadow(0 12px 18px rgba(0,0,0,.6)) drop-shadow(0 0 16px rgba(232,185,62,.75))}
+.dock{
+  position:absolute; left:0; right:0; bottom:0; z-index:40; padding:10px 14px 16px;
+  background:linear-gradient(0deg,#0b1119 70%,transparent); display:flex; align-items:center; gap:14px;
+}
+.dock .cnt{font-size:13px; font-weight:700; letter-spacing:1px}
+.dock .cnt b{color:var(--warn); font-size:16px}
+.dock .btn-o{flex:1}
+
+/* ===== 阵容 ===== */
+.lineup-head{display:flex; align-items:center}
+.lineup-head .sec-title{margin-top:4px}
+.lineup-head .btn-o{margin-left:auto}
+.lineup-head .btn-o .btn{padding:6px 14px 8px; font-size:11px; letter-spacing:2px}
+.hexfield{position:relative; height:264px; margin:6px 0 0}
+#syn-lines{position:absolute; inset:0; width:100%; height:100%; pointer-events:none}
+.hslot{position:absolute; width:104px; cursor:pointer; transition:transform .15s; z-index:2}
+.hslot:active{transform:scale(.93)}
+.hslot .hex{width:92px; height:102px; margin:0 auto; padding:2.5px; clip-path:var(--hex-sm);
+  filter:drop-shadow(0 3px 0 rgba(3,6,9,.6))}
+.hslot .hex.gold{background:linear-gradient(160deg,#f7dc85,var(--q-gold),#8a6a1c)}
+.hslot .hex.silver{background:linear-gradient(160deg,#f2f7fb,var(--q-silver),#7b8894)}
+.hslot .hex.bronze{background:linear-gradient(160deg,#d9b598,var(--q-bronze),#6e5138)}
+.hslot .hex .in{width:100%; height:100%; clip-path:var(--hex-sm); overflow:hidden; background:#1a222c}
+.hslot .hex img{width:100%; height:100%; object-fit:cover; object-position:center 10%; display:block}
+.hslot .hid{text-align:center; font-family:'Anton'; font-size:13px; margin-top:4px; text-shadow:0 1px 3px #000}
+.hslot .hst{text-align:center; font-size:9.5px; color:var(--txt-2); margin-top:1px}
+.hslot .hst b{color:var(--txt-1)}
+.hslot .st-ico{position:absolute; top:-4px; right:6px; font-size:15px; z-index:3; filter:drop-shadow(0 1px 2px #000)}
+.chem-panel{margin-top:10px; padding:13px 14px 15px}
+.power-row{display:flex; align-items:center; gap:10px; margin-top:12px; border-top:1px dashed var(--line); padding-top:10px}
+.power-row .lab{font-size:12px; color:var(--txt-2); letter-spacing:2px}
+.power-row .val{font-family:'Anton'; font-size:30px; color:var(--txt-1); margin-left:auto; transform:skewX(-4deg); text-shadow:0 2px 0 rgba(0,0,0,.7)}
+/* 选手详情半屏层 */
+.sheet-mask{position:absolute; inset:0; background:rgba(4,7,10,.6); z-index:120; display:none}
+.sheet-mask.show{display:block}
+.sheet{
+  position:absolute; left:0; right:0; bottom:0; height:62%; z-index:121;
+  clip-path:polygon(16px 0,100% 0,100% 100%,0 100%);
+  border-top:1px solid var(--q-gold);
+  transform:translateY(105%); transition:transform .22s ease; display:flex; flex-direction:column; overflow:hidden;
+}
+.sheet.show{transform:translateY(0)}
+.sheet-body{overflow-y:auto; padding:16px 14px 18px; scrollbar-width:none}
+.sheet-body::-webkit-scrollbar{display:none}
+.sheet .st-desc{font-size:10.5px; margin-top:6px}
+.sheet .st-desc.hot{color:var(--side-atk)}
+.sheet .st-desc.cold{color:var(--side-def)}
+
+/* ===== 换人 ===== */
+.tf-new{display:flex; gap:10px; padding:6px 12px 14px; overflow-x:auto; scrollbar-width:none}
+.tf-new::-webkit-scrollbar{display:none}
+.tf-new .cardwrap{cursor:pointer; transition:transform .15s}
+.tf-new .cardwrap:active{transform:scale(.95)}
+.tf-new .cardwrap.sel{animation:selPop2 .3s var(--ease)}
+@keyframes selPop2{0%{transform:scale(.92)}60%{transform:scale(1.04)}100%{transform:scale(1)}}
+.tf-new .cardwrap.sel .card{filter:drop-shadow(0 10px 16px rgba(0,0,0,.6)) drop-shadow(0 0 14px rgba(34,200,216,.8))}
+.tf-new .delta-tag{position:absolute; bottom:6px; left:0; right:0; text-align:center; font-size:10px; font-weight:700; color:var(--side-atk); z-index:10; text-shadow:0 1px 3px #000; pointer-events:none}
+.tf-empty{color:var(--txt-3); font-size:12px; padding:20px}
+.tf-lineup{display:flex; gap:6px; padding:4px 12px; justify-content:space-between}
+.tf-slot{flex:1; cursor:pointer; text-align:center; transition:.15s}
+.tf-slot:active{transform:scale(.93)}
+.tf-slot .hex{width:64px; height:72px; margin:0 auto; padding:2px; clip-path:var(--hex-sm)}
+.tf-slot .hex.gold{background:linear-gradient(160deg,#f7dc85,var(--q-gold),#8a6a1c)}
+.tf-slot .hex.silver{background:linear-gradient(160deg,#f2f7fb,var(--q-silver),#7b8894)}
+.tf-slot .hex.bronze{background:linear-gradient(160deg,#d9b598,var(--q-bronze),#6e5138)}
+.tf-slot .hex img{width:100%; height:100%; clip-path:var(--hex-sm); object-fit:cover; object-position:center 12%; display:block}
+.tf-slot .nm{font-size:10.5px; font-weight:700; margin-top:3px}
+.tf-slot.sel .hex{box-shadow:0 0 14px var(--side-def)}
+.tf-slot.sel .nm{color:var(--side-def)}
+.tf-foot{padding:18px 14px}
+.tf-foot .btn-o{display:block}
+
+/* ===== 结算页（打断式全屏） ===== */
+#screen-result{background:radial-gradient(ellipse at 50% 20%, #16222e 0%, #070a0e 75%); z-index:100}
+#screen-result.on{animation:none}
+.result-wrap{min-height:100%; display:flex; flex-direction:column; align-items:center; padding:34px 20px 26px; text-align:center}
+.res-stage{font-size:11.5px; color:var(--txt-2); letter-spacing:2px; margin-top:8px}
+.res-quote{font-style:italic; font-size:13px; color:var(--warn); margin:16px 0 18px; line-height:1.6}
+.res-continue{margin-top:auto; width:100%; padding-top:8px}
+.res-continue .btn-o{display:block}
+/* 结算播报节奏：WIN 弹入 → 比分 → 数据块依次上浮 → 按钮最后 */
+#screen-result.on .result-wrap>*{animation:resUp .45s var(--ease) both}
+#screen-result.on .result-wrap>*:nth-child(1){animation:verdictIn .55s var(--ease) both}
+#screen-result.on .result-wrap>*:nth-child(2){animation-delay:.3s}
+#screen-result.on .result-wrap>*:nth-child(3){animation-delay:.4s}
+#screen-result.on .result-wrap>*:nth-child(4){animation-delay:.5s}
+#screen-result.on .result-wrap>*:nth-child(5){animation-delay:.62s}
+#screen-result.on .result-wrap>*:nth-child(6){animation-delay:.74s}
+#screen-result.on .result-wrap>*:nth-child(7){animation-delay:.86s}
+#screen-result.on .result-wrap>*:nth-child(8){animation-delay:.98s}
+#screen-result.on .result-wrap>*:nth-child(9){animation-delay:1.15s}
+@keyframes verdictIn{0%{opacity:0; transform:skewX(-4deg) scale(.8)}60%{opacity:1; transform:skewX(-4deg) scale(1.06)}100%{opacity:1; transform:skewX(-4deg) scale(1)}}
+@keyframes resUp{from{opacity:0; transform:translateY(14px)}to{opacity:1; transform:none}}
+
+/* ===== 观赛页 ===== */
+.back-arrow{display:inline-flex; align-items:center; gap:5px; font-size:11.5px; color:var(--txt-2); cursor:pointer; padding:10px 12px 6px}
+.back-arrow:active{color:var(--txt-1)}
+#screen-match .scorebar{margin:6px 12px 0}
+.sandbox{
+  margin:12px; aspect-ratio:16/9; background:#0d141b; border:1px solid var(--line);
+  clip-path:var(--cut); position:relative; cursor:pointer; overflow:hidden;
+  background-image:linear-gradient(rgba(34,200,216,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(34,200,216,.05) 1px,transparent 1px);
+  background-size:24px 24px;
+}
+.sandbox .placeholder{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:var(--txt-3); font-size:12px; letter-spacing:2px}
+.sandbox .placeholder .big{font-size:14px; color:var(--txt-2); letter-spacing:4px}
+.pdot{position:absolute; width:22px; height:22px; clip-path:var(--hex-sm); display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:700}
+.pdot.atk{background:rgba(255,70,85,.85); color:#2e0408}
+.pdot.def{background:rgba(34,200,216,.85); color:#04202e}
+.sandbox.focus{position:absolute; inset:0; margin:0; aspect-ratio:auto; z-index:60; clip-path:none}
+.match-tabs{display:flex; margin:4px 12px 0; border-bottom:1px solid var(--line)}
+.match-tabs .mt{flex:1; text-align:center; padding:9px; font-size:13px; font-weight:700; letter-spacing:3px; color:var(--txt-2); cursor:pointer; position:relative}
+.match-tabs .mt.on{color:var(--q-gold)}
+.match-tabs .mt::after{content:''; position:absolute; bottom:-1px; left:18%; right:18%; height:2px; background:var(--q-gold);
+  transform:scaleX(0); transition:transform var(--t-med) var(--ease)}
+.match-tabs .mt.on::after{transform:scaleX(1)}
+.feed{padding:10px 12px}
+#screen-match.on .feed-item{animation:feedIn .35s var(--ease) both}
+#screen-match.on .feed-item:nth-child(1){animation-delay:.05s}
+#screen-match.on .feed-item:nth-child(2){animation-delay:.1s}
+#screen-match.on .feed-item:nth-child(3){animation-delay:.15s}
+#screen-match.on .feed-item:nth-child(4){animation-delay:.2s}
+#screen-match.on .feed-item:nth-child(5){animation-delay:.25s}
+#screen-match.on .feed-item:nth-child(6){animation-delay:.3s}
+@keyframes feedIn{from{opacity:0; transform:translateX(-14px)}to{opacity:1; transform:none}}
+.cmd-panel{padding:14px}
+.cmd-note{font-size:10.5px; color:var(--txt-3); line-height:1.7; margin-top:4px}
+
+/* ===== 教练页 ===== */
+.coach-head{display:flex; gap:14px; padding:18px 16px 10px; align-items:center}
+.coach-head .hex-avatar{width:72px; height:80px}
+.coach-head .nm{font-family:'Anton'; font-size:24px; letter-spacing:1px; text-shadow:0 2px 0 rgba(0,0,0,.7)}
+.coach-head .yr{font-size:11px; color:var(--txt-2); margin-top:4px}
+.coach-head .yr b{color:var(--warn)}
+.ctabs{display:flex; margin:8px 16px 0; border-bottom:1px solid var(--line)}
+.ctabs .mt{flex:1; text-align:center; padding:9px; font-size:13px; font-weight:700; letter-spacing:3px; color:var(--txt-2); cursor:pointer; position:relative}
+.ctabs .mt.on{color:var(--q-gold)}
+.ctabs .mt::after{content:''; position:absolute; bottom:-1px; left:18%; right:18%; height:2px; background:var(--q-gold);
+  transform:scaleX(0); transition:transform var(--t-med) var(--ease)}
+.ctabs .mt.on::after{transform:scaleX(1)}
+.squad-seg{margin:12px 16px 0}
+.tri-card{display:flex; align-items:center; gap:14px; padding:13px 16px; margin:12px 16px 0}
+.tri-card .num{font-family:'Anton'; font-size:40px; width:76px; transform:skewX(-4deg); text-shadow:0 2px 0 rgba(0,0,0,.7)}
+.tri-card.rep .num{color:var(--q-gold)} .tri-card.tac .num{color:var(--side-def)} .tri-card.cli .num{color:var(--side-atk)}
+.tri-card .mid{flex:1}
+.tri-card .mid .lab{font-weight:700; font-size:14px; letter-spacing:2px}
+.tri-card .mid .bar{height:8px; background:linear-gradient(180deg,#070b0f,#0d141b); box-shadow:inset 0 2px 3px rgba(0,0,0,.8); margin:6px 0 5px; clip-path:polygon(3px 0,100% 0,calc(100% - 3px) 100%,0 100%)}
+.tri-card .mid .bar i{display:block; height:100%; box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+.tri-card.rep .bar i{background:linear-gradient(180deg,#ffe9a8,var(--q-gold) 55%,#a8842a)}
+.tri-card.tac .bar i{background:linear-gradient(180deg,#7fe7f2,var(--side-def) 55%,#1899a8)}
+.tri-card.cli .bar i{background:linear-gradient(180deg,#ff8f9b,var(--side-atk) 55%,#b3212e)}
+.tri-card .mid .src{font-size:10px; color:var(--txt-3)}
+.trophy-card{margin:12px 16px 0; padding:13px 14px}
+.trophy-card .tt{font-weight:700; font-size:14px; letter-spacing:1px; color:var(--warn)}
+.trophy-card .dt{font-size:10px; color:var(--txt-2); margin-top:2px}
+.trophy-hexes{display:flex; gap:8px; margin-top:10px; justify-content:center}
+.trophy-hexes .hx{width:44px; height:50px; clip-path:var(--hex-sm); padding:2px; background:linear-gradient(160deg,#fff3c2,var(--q-gold),#8a6a1c)}
+.trophy-hexes .hx img{width:100%; height:100%; clip-path:var(--hex-sm); object-fit:cover; object-position:center 12%; display:block; background:#1a222c}
+.record-row{display:flex; gap:10px; margin:12px 16px 0}
+.record-cell{flex:1; text-align:center; padding:12px 4px 13px}
+.record-cell b{font-family:'Anton'; font-size:22px; color:var(--txt-1); display:block; text-shadow:0 2px 0 rgba(0,0,0,.7)}
+.record-cell span{font-size:10px; color:var(--txt-2)}
+.honor-note{margin:12px 16px; font-size:10px; color:var(--txt-3); font-style:italic}
+
+/* ===== 开包浮层 / 图鉴 ===== */
+.pack-zone{padding:18px 16px; text-align:center}
+.pack-count{font-size:12.5px; color:var(--txt-2); margin-bottom:16px}
+.pack-count b{color:var(--warn); font-size:15px}
+.pack-zone .btn-o{margin-top:20px; width:220px}
+.fx-note{text-align:center; font-size:10px; color:var(--txt-3); margin:10px 0 0; font-style:italic}
+.draw-result{display:none; padding:6px 12px 16px}
+.draw-result .row{display:flex; gap:7px; justify-content:center}
+.draw-result .cardwrap{cursor:pointer; animation:cardFlip .45s var(--ease) both}
+.more-entries{display:flex; gap:10px; padding:14px 12px 2px}
+.region-filter{display:flex; gap:10px; justify-content:center; padding:14px 0 4px}
+.region-filter .rf{
+  width:46px; height:50px; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(180deg,#2a3c4d,#1d2b38); border:1px solid var(--line); clip-path:var(--hex-sm);
+  cursor:pointer; opacity:.55; transition:.15s;
+  box-shadow:inset 0 2px 1px rgba(236,232,225,.15), inset 0 -3px 2px rgba(0,0,0,.5);
+}
+.region-filter .rf img{width:26px; height:26px; object-fit:contain}
+.region-filter .rf.on{opacity:1; background:linear-gradient(180deg,#6b571e,#332a0d); border-color:var(--q-gold)}
+.region-filter .rf .all-lb{font-size:11px; font-weight:700; color:var(--warn)}
+.gallery-grid{display:grid; grid-template-columns:repeat(3,112px); justify-content:space-between; gap:14px 0; padding:12px 14px 22px}
+.gallery-grid .cardwrap{cursor:pointer}

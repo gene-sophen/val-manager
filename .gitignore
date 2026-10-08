@@ -4,3 +4,13 @@
 # 系统垃圾
 Thumbs.db
 Desktop.ini
+
+# Local release artifacts and isolated browser harnesses
+_site*/
+游戏/out/
+引擎/out/coach_plan_preview.html
+引擎/out/coaching-window-check.html
+__pycache__/
+*.pyc
+.env
+.env.*

@@ -8,9 +8,10 @@ const { resolveTeam, parseCliSpec } = require('./teams');
 
 // 浏览器端需要的引擎模块（teams/sim/balance/build_* 只在 Node 侧用，不打进去）
 const BROWSER_MODULES = [
-  'rng.js', 'config.js', 'hooks.js', 'events.js', 'gamemap.js', 'tactics.js',
-  'brain.js', 'movement.js', 'combat.js', 'perception.js', 'abilities.js',
-  'round.js', 'economy.js', 'agents.js', 'coach.js', 'report.js', 'match.js'
+  '../游戏/team-style.js',
+  'rng.js', 'config.js', 'hooks.js', 'events.js', 'geometry.js', 'gamemap.js', 'observation.js', 'tactics.js', 'map-tactics.js', 'squad.js',
+  'brain.js', 'movement.js', 'actions.js', 'snapshot.js', 'combat.js', 'perception.js', 'abilities.js',
+  'geometry-v2.js', 'engagements.js', 'external-effects.js', 'ascent-behavior.js', 'behavior-policy.js', 'spatial-behavior.js', 'spatial-behavior-v2.js', 'agent-autonomy.js', 'maps/balance-profiles.js', 'doors.js', 'map-mechanisms.js', 'round.js', 'defense-support.js', 'economy.js', 'agents.js', 'coach.js', 'coach-observation.js', 'report.js', 'match-rules.js', 'match.js'
 ];
 
 function parseArgs(argv) {
@@ -30,8 +31,10 @@ function parseArgs(argv) {
 function packTeam(t) {
   return {
     name: t.name, tactics: t.tactics, tactics2: t.tactics2, coach: t.coach, iglName: t.iglName,
+    roleAssignments: t.roleAssignments || null,
     players: t.players.map((p) => ({
-      name: p.name, AIM: p.AIM, SYN: p.SYN, SEN: p.SEN,
+      name: p.name, cardId: p.cardId, playerId: p.playerId,
+      AIM: p.AIM, SYN: p.SYN, SEN: p.SEN,
       agents: p.agents, igl: !!p.igl, tier: p.tier
     }))
   };
@@ -50,6 +53,8 @@ function bundleModules() {
   parts.push(`__define('agent_kits.json', function(module) { module.exports = ${kits}; });`);
   const names = fs.readFileSync(path.join(__dirname, '..', '数据源', 'agents.json'), 'utf8');
   parts.push(`__define('../数据源/agents.json', function(module) { module.exports = ${names}; });`);
+  const effects = fs.readFileSync(path.join(__dirname, '..', '游戏/content/card-effects-v1.json'), 'utf8');
+  parts.push(`__define('../游戏/content/card-effects-v1.json', function(module) { module.exports = ${effects}; });`);
   return parts.join('\n');
 }
 

@@ -1,0 +1,2192 @@
+{
+  "id": "ascent",
+  "name": "亚海悬城",
+  "sites": {
+    "A": "a_site",
+    "B": "b_site"
+  },
+  "spawns": {
+    "atk": "t_spawn",
+    "def": "ct_spawn"
+  },
+  "staging": {
+    "A": "ct_a",
+    "B": "ct_b"
+  },
+  "trapSpots": {
+    "a_site": "a_lobby",
+    "a_heaven": "a_lobby",
+    "a_short": "a_short",
+    "b_site": "b_lobby",
+    "b_back": "b_lobby",
+    "market": "market",
+    "mid_bottom": "mid"
+  },
+  "view": {
+    "width": 960,
+    "height": 960
+  },
+  "nodes": {
+    "t_spawn": {
+      "name": "进攻出生点",
+      "region": "spawn",
+      "cover": 0.2,
+      "advantage": "neutral",
+      "capacity": 8,
+      "x": 552,
+      "y": 237
+    },
+    "a_main": {
+      "name": "A大厅",
+      "region": "A",
+      "cover": 0.3,
+      "advantage": "neutral",
+      "capacity": 6,
+      "x": 282,
+      "y": 370
+    },
+    "a_lobby": {
+      "name": "A大",
+      "region": "A",
+      "cover": 0.4,
+      "advantage": "neutral",
+      "capacity": 6,
+      "x": 288,
+      "y": 492
+    },
+    "a_site": {
+      "name": "A包点",
+      "region": "A",
+      "cover": 0.5,
+      "advantage": "def",
+      "capacity": 6,
+      "x": 180,
+      "y": 643
+    },
+    "a_heaven": {
+      "name": "A二楼",
+      "region": "A",
+      "cover": 0.6,
+      "advantage": "def",
+      "capacity": 3,
+      "x": 180,
+      "y": 700
+    },
+    "a_short": {
+      "name": "A连接",
+      "region": "A",
+      "cover": 0.3,
+      "advantage": "neutral",
+      "capacity": 3,
+      "x": 332,
+      "y": 570
+    },
+    "mid_top": {
+      "name": "中路顶",
+      "region": "mid",
+      "cover": 0.3,
+      "advantage": "neutral",
+      "capacity": 4,
+      "x": 423,
+      "y": 337
+    },
+    "mid": {
+      "name": "中路",
+      "region": "mid",
+      "cover": 0.3,
+      "advantage": "neutral",
+      "capacity": 4,
+      "x": 518,
+      "y": 493
+    },
+    "mid_bottom": {
+      "name": "中路底",
+      "region": "mid",
+      "cover": 0.3,
+      "advantage": "def",
+      "capacity": 4,
+      "x": 490,
+      "y": 568
+    },
+    "market": {
+      "name": "市场",
+      "region": "B",
+      "cover": 0.5,
+      "advantage": "def",
+      "capacity": 3,
+      "x": 542,
+      "y": 655
+    },
+    "b_main": {
+      "name": "B大入口",
+      "region": "B",
+      "cover": 0.3,
+      "advantage": "neutral",
+      "capacity": 6,
+      "x": 684,
+      "y": 404
+    },
+    "b_lobby": {
+      "name": "B大",
+      "region": "B",
+      "cover": 0.4,
+      "advantage": "neutral",
+      "capacity": 6,
+      "x": 673,
+      "y": 565
+    },
+    "b_site": {
+      "name": "B包点",
+      "region": "B",
+      "cover": 0.5,
+      "advantage": "def",
+      "capacity": 6,
+      "x": 745,
+      "y": 681
+    },
+    "b_back": {
+      "name": "B点后",
+      "region": "B",
+      "cover": 0.5,
+      "advantage": "neutral",
+      "capacity": 4,
+      "x": 829,
+      "y": 700
+    },
+    "ct_spawn": {
+      "name": "防守出生点",
+      "region": "spawn",
+      "cover": 0.2,
+      "advantage": "def",
+      "capacity": 8,
+      "x": 442,
+      "y": 813
+    },
+    "ct_a": {
+      "name": "警家A连接",
+      "region": "A",
+      "cover": 0.4,
+      "advantage": "def",
+      "capacity": 4,
+      "x": 270,
+      "y": 770
+    },
+    "ct_b": {
+      "name": "警家B连接",
+      "region": "B",
+      "cover": 0.4,
+      "advantage": "def",
+      "capacity": 4,
+      "x": 620,
+      "y": 771
+    }
+  },
+  "edges": [
+    {
+      "a": "t_spawn",
+      "b": "a_main",
+      "ticks": 11,
+      "exposure": 0.1,
+      "route": [
+        {
+          "name": "进攻出生点",
+          "region": "spawn",
+          "cover": 0.2,
+          "advantage": "neutral",
+          "capacity": 8,
+          "x": 552,
+          "y": 237
+        },
+        {
+          "x": 363,
+          "y": 267
+        },
+        {
+          "x": 327,
+          "y": 339
+        },
+        {
+          "name": "A大厅",
+          "region": "A",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 282,
+          "y": 370
+        }
+      ]
+    },
+    {
+      "a": "a_main",
+      "b": "a_lobby",
+      "ticks": 4,
+      "exposure": 0.15,
+      "route": [
+        {
+          "name": "A大厅",
+          "region": "A",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 282,
+          "y": 370
+        },
+        {
+          "name": "A大",
+          "region": "A",
+          "cover": 0.4,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 288,
+          "y": 492
+        }
+      ]
+    },
+    {
+      "a": "a_lobby",
+      "b": "a_site",
+      "ticks": 8,
+      "exposure": 0.35,
+      "route": [
+        {
+          "name": "A大",
+          "region": "A",
+          "cover": 0.4,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 288,
+          "y": 492
+        },
+        {
+          "x": 201,
+          "y": 507
+        },
+        {
+          "name": "A包点",
+          "region": "A",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 180,
+          "y": 643
+        }
+      ]
+    },
+    {
+      "a": "a_site",
+      "b": "a_heaven",
+      "ticks": 2,
+      "exposure": 0.2,
+      "route": [
+        {
+          "name": "A包点",
+          "region": "A",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 180,
+          "y": 643
+        },
+        {
+          "name": "A二楼",
+          "region": "A",
+          "cover": 0.6,
+          "advantage": "def",
+          "capacity": 3,
+          "x": 180,
+          "y": 700
+        }
+      ]
+    },
+    {
+      "a": "a_short",
+      "b": "a_site",
+      "ticks": 6,
+      "exposure": 0.3,
+      "route": [
+        {
+          "name": "A连接",
+          "region": "A",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 3,
+          "x": 332,
+          "y": 570
+        },
+        {
+          "x": 261,
+          "y": 579
+        },
+        {
+          "name": "A包点",
+          "region": "A",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 180,
+          "y": 643
+        }
+      ]
+    },
+    {
+      "a": "t_spawn",
+      "b": "mid_top",
+      "ticks": 10,
+      "exposure": 0.1,
+      "route": [
+        {
+          "name": "进攻出生点",
+          "region": "spawn",
+          "cover": 0.2,
+          "advantage": "neutral",
+          "capacity": 8,
+          "x": 552,
+          "y": 237
+        },
+        {
+          "x": 363,
+          "y": 267
+        },
+        {
+          "x": 363,
+          "y": 315
+        },
+        {
+          "name": "中路顶",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 4,
+          "x": 423,
+          "y": 337
+        }
+      ]
+    },
+    {
+      "a": "mid_top",
+      "b": "mid",
+      "ticks": 6,
+      "exposure": 0.25,
+      "route": [
+        {
+          "name": "中路顶",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 4,
+          "x": 423,
+          "y": 337
+        },
+        {
+          "x": 459,
+          "y": 405
+        },
+        {
+          "name": "中路",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 4,
+          "x": 518,
+          "y": 493
+        }
+      ]
+    },
+    {
+      "a": "mid",
+      "b": "a_short",
+      "ticks": 7,
+      "exposure": 0.25,
+      "route": [
+        {
+          "name": "中路",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 4,
+          "x": 518,
+          "y": 493
+        },
+        {
+          "x": 357,
+          "y": 531
+        },
+        {
+          "name": "A连接",
+          "region": "A",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 3,
+          "x": 332,
+          "y": 570
+        }
+      ]
+    },
+    {
+      "a": "mid",
+      "b": "mid_bottom",
+      "ticks": 3,
+      "exposure": 0.3,
+      "route": [
+        {
+          "name": "中路",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 4,
+          "x": 518,
+          "y": 493
+        },
+        {
+          "name": "中路底",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 490,
+          "y": 568
+        }
+      ]
+    },
+    {
+      "a": "mid_bottom",
+      "b": "market",
+      "ticks": 4,
+      "exposure": 0.25,
+      "route": [
+        {
+          "name": "中路底",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 490,
+          "y": 568
+        },
+        {
+          "x": 507,
+          "y": 633
+        },
+        {
+          "name": "市场",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 3,
+          "x": 542,
+          "y": 655
+        }
+      ]
+    },
+    {
+      "a": "t_spawn",
+      "b": "b_main",
+      "ticks": 7,
+      "exposure": 0.1,
+      "route": [
+        {
+          "name": "进攻出生点",
+          "region": "spawn",
+          "cover": 0.2,
+          "advantage": "neutral",
+          "capacity": 8,
+          "x": 552,
+          "y": 237
+        },
+        {
+          "x": 627,
+          "y": 297
+        },
+        {
+          "x": 651,
+          "y": 375
+        },
+        {
+          "name": "B大入口",
+          "region": "B",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 684,
+          "y": 404
+        }
+      ]
+    },
+    {
+      "a": "b_main",
+      "b": "b_lobby",
+      "ticks": 6,
+      "exposure": 0.15,
+      "route": [
+        {
+          "name": "B大入口",
+          "region": "B",
+          "cover": 0.3,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 684,
+          "y": 404
+        },
+        {
+          "x": 705,
+          "y": 495
+        },
+        {
+          "x": 699,
+          "y": 549
+        },
+        {
+          "name": "B大",
+          "region": "B",
+          "cover": 0.4,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 673,
+          "y": 565
+        }
+      ]
+    },
+    {
+      "a": "b_lobby",
+      "b": "b_site",
+      "ticks": 6,
+      "exposure": 0.35,
+      "route": [
+        {
+          "name": "B大",
+          "region": "B",
+          "cover": 0.4,
+          "advantage": "neutral",
+          "capacity": 6,
+          "x": 673,
+          "y": 565
+        },
+        {
+          "x": 639,
+          "y": 591
+        },
+        {
+          "name": "B包点",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 745,
+          "y": 681
+        }
+      ]
+    },
+    {
+      "a": "b_site",
+      "b": "b_back",
+      "ticks": 3,
+      "exposure": 0.2,
+      "route": [
+        {
+          "name": "B包点",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 745,
+          "y": 681
+        },
+        {
+          "x": 801,
+          "y": 699
+        },
+        {
+          "name": "B点后",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "neutral",
+          "capacity": 4,
+          "x": 829,
+          "y": 700
+        }
+      ]
+    },
+    {
+      "a": "market",
+      "b": "b_site",
+      "ticks": 7,
+      "exposure": 0.3,
+      "route": [
+        {
+          "name": "市场",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 3,
+          "x": 542,
+          "y": 655
+        },
+        {
+          "name": "B包点",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 745,
+          "y": 681
+        }
+      ]
+    },
+    {
+      "a": "ct_spawn",
+      "b": "ct_a",
+      "ticks": 6,
+      "exposure": 0.05,
+      "route": [
+        {
+          "name": "防守出生点",
+          "region": "spawn",
+          "cover": 0.2,
+          "advantage": "def",
+          "capacity": 8,
+          "x": 442,
+          "y": 813
+        },
+        {
+          "x": 327,
+          "y": 771
+        },
+        {
+          "name": "警家A连接",
+          "region": "A",
+          "cover": 0.4,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 270,
+          "y": 770
+        }
+      ]
+    },
+    {
+      "a": "ct_spawn",
+      "b": "ct_b",
+      "ticks": 6,
+      "exposure": 0.05,
+      "route": [
+        {
+          "name": "防守出生点",
+          "region": "spawn",
+          "cover": 0.2,
+          "advantage": "def",
+          "capacity": 8,
+          "x": 442,
+          "y": 813
+        },
+        {
+          "x": 501,
+          "y": 789
+        },
+        {
+          "name": "警家B连接",
+          "region": "B",
+          "cover": 0.4,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 620,
+          "y": 771
+        }
+      ]
+    },
+    {
+      "a": "ct_a",
+      "b": "a_site",
+      "ticks": 6,
+      "exposure": 0.2,
+      "route": [
+        {
+          "name": "警家A连接",
+          "region": "A",
+          "cover": 0.4,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 270,
+          "y": 770
+        },
+        {
+          "x": 255,
+          "y": 717
+        },
+        {
+          "x": 207,
+          "y": 687
+        },
+        {
+          "x": 189,
+          "y": 663
+        },
+        {
+          "name": "A包点",
+          "region": "A",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 180,
+          "y": 643
+        }
+      ]
+    },
+    {
+      "a": "ct_a",
+      "b": "a_heaven",
+      "ticks": 5,
+      "exposure": 0.15,
+      "route": [
+        {
+          "name": "警家A连接",
+          "region": "A",
+          "cover": 0.4,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 270,
+          "y": 770
+        },
+        {
+          "x": 255,
+          "y": 717
+        },
+        {
+          "name": "A二楼",
+          "region": "A",
+          "cover": 0.6,
+          "advantage": "def",
+          "capacity": 3,
+          "x": 180,
+          "y": 700
+        }
+      ]
+    },
+    {
+      "a": "ct_b",
+      "b": "b_site",
+      "ticks": 5,
+      "exposure": 0.2,
+      "route": [
+        {
+          "name": "警家B连接",
+          "region": "B",
+          "cover": 0.4,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 620,
+          "y": 771
+        },
+        {
+          "x": 639,
+          "y": 741
+        },
+        {
+          "x": 663,
+          "y": 717
+        },
+        {
+          "name": "B包点",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 6,
+          "x": 745,
+          "y": 681
+        }
+      ]
+    },
+    {
+      "a": "ct_b",
+      "b": "market",
+      "ticks": 5,
+      "exposure": 0.2,
+      "route": [
+        {
+          "name": "警家B连接",
+          "region": "B",
+          "cover": 0.4,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 620,
+          "y": 771
+        },
+        {
+          "x": 621,
+          "y": 735
+        },
+        {
+          "x": 615,
+          "y": 705
+        },
+        {
+          "x": 585,
+          "y": 675
+        },
+        {
+          "name": "市场",
+          "region": "B",
+          "cover": 0.5,
+          "advantage": "def",
+          "capacity": 3,
+          "x": 542,
+          "y": 655
+        }
+      ]
+    },
+    {
+      "a": "ct_spawn",
+      "b": "mid_bottom",
+      "ticks": 8,
+      "exposure": 0.15,
+      "route": [
+        {
+          "name": "防守出生点",
+          "region": "spawn",
+          "cover": 0.2,
+          "advantage": "def",
+          "capacity": 8,
+          "x": 442,
+          "y": 813
+        },
+        {
+          "x": 447,
+          "y": 741
+        },
+        {
+          "x": 483,
+          "y": 669
+        },
+        {
+          "name": "中路底",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 490,
+          "y": 568
+        }
+      ]
+    },
+    {
+      "a": "mid_bottom",
+      "b": "ct_b",
+      "ticks": 9,
+      "exposure": 0.15,
+      "route": [
+        {
+          "name": "中路底",
+          "region": "mid",
+          "cover": 0.3,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 490,
+          "y": 568
+        },
+        {
+          "x": 507,
+          "y": 633
+        },
+        {
+          "x": 585,
+          "y": 675
+        },
+        {
+          "x": 615,
+          "y": 705
+        },
+        {
+          "x": 621,
+          "y": 771
+        },
+        {
+          "name": "警家B连接",
+          "region": "B",
+          "cover": 0.4,
+          "advantage": "def",
+          "capacity": 4,
+          "x": 620,
+          "y": 771
+        }
+      ]
+    }
+  ],
+  "posts": {
+    "a_site_v3_0": {
+      "node": "a_site",
+      "x": 148,
+      "y": 619,
+      "name": "A包点 · 1",
+      "cover": 0.45,
+      "role": "anchor",
+      "escape": {
+        "name": "A包点",
+        "region": "A",
+        "cover": 0.5,
+        "advantage": "def",
+        "capacity": 6,
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site_v3_1": {
+      "node": "a_site",
+      "x": 193,
+      "y": 638,
+      "name": "A包点 · 2",
+      "cover": 0.45,
+      "role": "anchor",
+      "escape": {
+        "name": "A包点",
+        "region": "A",
+        "cover": 0.5,
+        "advantage": "def",
+        "capacity": 6,
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site_v3_2": {
+      "node": "a_site",
+      "x": 203,
+      "y": 665,
+      "name": "A包点 · 3",
+      "cover": 0.45,
+      "role": "anchor",
+      "escape": {
+        "name": "A包点",
+        "region": "A",
+        "cover": 0.5,
+        "advantage": "def",
+        "capacity": 6,
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site_v3_3": {
+      "node": "a_site",
+      "x": 141,
+      "y": 665,
+      "name": "A包点 · 4",
+      "cover": 0.45,
+      "role": "anchor",
+      "escape": {
+        "name": "A包点",
+        "region": "A",
+        "cover": 0.5,
+        "advantage": "def",
+        "capacity": 6,
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_site_v3_4": {
+      "node": "a_site",
+      "x": 234,
+      "y": 667,
+      "name": "A包点 · 5",
+      "cover": 0.45,
+      "role": "anchor",
+      "escape": {
+        "name": "A包点",
+        "region": "A",
+        "cover": 0.5,
+        "advantage": "def",
+        "capacity": 6,
+        "x": 180,
+        "y": 643
+      }
+    },
+    "a_heaven_v3_0": {
+      "node": "a_heaven",
+      "x": 148,
+      "y": 701,
+      "name": "A二楼 · 1",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "A二楼",
+        "region": "A",
+        "cover": 0.6,
+        "advantage": "def",
+        "capacity": 3,
+        "x": 180,
+        "y": 700
+      }
+    },
+    "a_heaven_v3_1": {
+      "node": "a_heaven",
+      "x": 218,
+      "y": 701,
+      "name": "A二楼 · 2",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "A二楼",
+        "region": "A",
+        "cover": 0.6,
+        "advantage": "def",
+        "capacity": 3,
+        "x": 180,
+        "y": 700
+      }
+    },
+    "a_heaven_v3_2": {
+      "node": "a_heaven",
+      "x": 274,
+      "y": 701,
+      "name": "A二楼 · 3",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "A二楼",
+        "region": "A",
+        "cover": 0.6,
+        "advantage": "def",
+        "capacity": 3,
+        "x": 180,
+        "y": 700
+      }
+    },
+    "a_short_v3_0": {
+      "node": "a_short",
+      "x": 317,
+      "y": 567,
+      "name": "A连接 · 1",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "A连接",
+        "region": "A",
+        "cover": 0.3,
+        "advantage": "neutral",
+        "capacity": 3,
+        "x": 332,
+        "y": 570
+      }
+    },
+    "a_short_v3_1": {
+      "node": "a_short",
+      "x": 348,
+      "y": 567,
+      "name": "A连接 · 2",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "A连接",
+        "region": "A",
+        "cover": 0.3,
+        "advantage": "neutral",
+        "capacity": 3,
+        "x": 332,
+        "y": 570
+      }
+    },
+    "a_short_v3_2": {
+      "node": "a_short",
+      "x": 322,
+      "y": 589,
+      "name": "A连接 · 3",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "A连接",
+        "region": "A",
+        "cover": 0.3,
+        "advantage": "neutral",
+        "capacity": 3,
+        "x": 332,
+        "y": 570
+      }
+    },
+    "a_main_v3_0": {
+      "node": "a_main",
+      "x": 281,
+      "y": 366,
+      "name": "A大厅 · 1",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "A大厅",
+        "region": "A",
+        "cover": 0.3,
+        "advantage": "neutral",
+        "capacity": 6,
+        "x": 282,
+        "y": 370
+      }
+    },
+    "a_main_v3_1": {
+      "node": "a_main",
+      "x": 302,
+      "y": 440,
+      "name": "A大厅 · 2",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "A大厅",
+        "region": "A",
+        "cover": 0.3,
+        "advantage": "neutral",
+        "capacity": 6,
+        "x": 282,
+        "y": 370
+      }
+    },
+    "a_main_v3_2": {
+      "node": "a_main",
+      "x": 269,
+      "y": 431,
+      "name": "A大厅 · 3",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "A大厅",
+        "region": "A",
+        "cover": 0.3,
+        "advantage": "neutral",
+        "capacity": 6,
+        "x": 282,
+        "y": 370
+      }
+    },
+    "a_lobby_v3_0": {
+      "node": "a_lobby",
+      "x": 286,
+      "y": 484,
+      "name": "A大 · 1",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "A大",
+        "region": "A",
+        "cover": 0.4,
+        "advantage": "neutral",
+        "capacity": 6,
+        "x": 288,
+        "y": 492
+      }
+    },
+    "a_lobby_v3_1": {
+      "node": "a_lobby",
+      "x": 270,
+      "y": 499,
+      "name": "A大 · 2",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "A大",
+        "region": "A",
+        "cover": 0.4,
+        "advantage": "neutral",
+        "capacity": 6,
+        "x": 288,
+        "y": 492
+      }
+    },
+    "a_lobby_v3_2": {
+      "node": "a_lobby",
+      "x": 164,
+      "y": 490,
+      "name": "A大 · 3",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "A大",
+        "region": "A",
+        "cover": 0.4,
+        "advantage": "neutral",
+        "capacity": 6,
+        "x": 288,
+        "y": 492
+      }
+    },
+    "b_site_v3_0": {
+      "node": "b_site",
+      "x": 706,
+      "y": 645,
+      "name": "B包点 · 1",
+      "cover": 0.45,
+      "role": "anchor",
+      "escape": {
+        "name": "B包点",
+        "region": "B",
+        "cover": 0.5,
+        "advantage": "def",
+        "capacity": 6,
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_site_v3_1": {
+      "node": "b_site",
+      "x": 720,
+      "y": 672,
+      "name": "B包点 · 2",
+      "cover": 0.45,
+      "role": "anchor",
+      "escape": {
+        "name": "B包点",
+        "region": "B",
+        "cover": 0.5,
+        "advantage": "def",
+        "capacity": 6,
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_site_v3_2": {
+      "node": "b_site",
+      "x": 774,
+      "y": 679,
+      "name": "B包点 · 3",
+      "cover": 0.45,
+      "role": "anchor",
+      "escape": {
+        "name": "B包点",
+        "region": "B",
+        "cover": 0.5,
+        "advantage": "def",
+        "capacity": 6,
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_site_v3_3": {
+      "node": "b_site",
+      "x": 782,
+      "y": 704,
+      "name": "B包点 · 4",
+      "cover": 0.15,
+      "role": "anchor",
+      "escape": {
+        "name": "B包点",
+        "region": "B",
+        "cover": 0.5,
+        "advantage": "def",
+        "capacity": 6,
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_site_v3_4": {
+      "node": "b_site",
+      "x": 747,
+      "y": 716,
+      "name": "B包点 · 5",
+      "cover": 0.15,
+      "role": "anchor",
+      "escape": {
+        "name": "B包点",
+        "region": "B",
+        "cover": 0.5,
+        "advantage": "def",
+        "capacity": 6,
+        "x": 745,
+        "y": 681
+      }
+    },
+    "b_back_v3_0": {
+      "node": "b_back",
+      "x": 818,
+      "y": 695,
+      "name": "B点后 · 1",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "B点后",
+        "region": "B",
+        "cover": 0.5,
+        "advantage": "neutral",
+        "capacity": 4,
+        "x": 829,
+        "y": 700
+      }
+    },
+    "b_back_v3_1": {
+      "node": "b_back",
+      "x": 841,
+      "y": 714,
+      "name": "B点后 · 2",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "B点后",
+        "region": "B",
+        "cover": 0.5,
+        "advantage": "neutral",
+        "capacity": 4,
+        "x": 829,
+        "y": 700
+      }
+    },
+    "market_v3_0": {
+      "node": "market",
+      "x": 542,
+      "y": 646,
+      "name": "市场 · 1",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "市场",
+        "region": "B",
+        "cover": 0.5,
+        "advantage": "def",
+        "capacity": 3,
+        "x": 542,
+        "y": 655
+      }
+    },
+    "market_v3_1": {
+      "node": "market",
+      "x": 563,
+      "y": 675,
+      "name": "市场 · 2",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "市场",
+        "region": "B",
+        "cover": 0.5,
+        "advantage": "def",
+        "capacity": 3,
+        "x": 542,
+        "y": 655
+      }
+    },
+    "market_v3_2": {
+      "node": "market",
+      "x": 515,
+      "y": 657,
+      "name": "市场 · 3",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "市场",
+        "region": "B",
+        "cover": 0.5,
+        "advantage": "def",
+        "capacity": 3,
+        "x": 542,
+        "y": 655
+      }
+    },
+    "mid_v3_0": {
+      "node": "mid",
+      "x": 475,
+      "y": 491,
+      "name": "中路 · 1",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "中路",
+        "region": "mid",
+        "cover": 0.3,
+        "advantage": "neutral",
+        "capacity": 4,
+        "x": 518,
+        "y": 493
+      }
+    },
+    "mid_v3_1": {
+      "node": "mid",
+      "x": 513,
+      "y": 519,
+      "name": "中路 · 2",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "中路",
+        "region": "mid",
+        "cover": 0.3,
+        "advantage": "neutral",
+        "capacity": 4,
+        "x": 518,
+        "y": 493
+      }
+    },
+    "mid_v3_2": {
+      "node": "mid",
+      "x": 455,
+      "y": 522,
+      "name": "中路 · 3",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "中路",
+        "region": "mid",
+        "cover": 0.3,
+        "advantage": "neutral",
+        "capacity": 4,
+        "x": 518,
+        "y": 493
+      }
+    },
+    "mid_top_v3_0": {
+      "node": "mid_top",
+      "x": 416,
+      "y": 332,
+      "name": "中路顶 · 1",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "中路顶",
+        "region": "mid",
+        "cover": 0.3,
+        "advantage": "neutral",
+        "capacity": 4,
+        "x": 423,
+        "y": 337
+      }
+    },
+    "mid_top_v3_1": {
+      "node": "mid_top",
+      "x": 446,
+      "y": 341,
+      "name": "中路顶 · 2",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "中路顶",
+        "region": "mid",
+        "cover": 0.3,
+        "advantage": "neutral",
+        "capacity": 4,
+        "x": 423,
+        "y": 337
+      }
+    },
+    "mid_bottom_v3_0": {
+      "node": "mid_bottom",
+      "x": 488,
+      "y": 567,
+      "name": "中路底 · 1",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "中路底",
+        "region": "mid",
+        "cover": 0.3,
+        "advantage": "def",
+        "capacity": 4,
+        "x": 490,
+        "y": 568
+      }
+    },
+    "mid_bottom_v3_1": {
+      "node": "mid_bottom",
+      "x": 519,
+      "y": 575,
+      "name": "中路底 · 2",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "中路底",
+        "region": "mid",
+        "cover": 0.3,
+        "advantage": "def",
+        "capacity": 4,
+        "x": 490,
+        "y": 568
+      }
+    },
+    "b_main_v3_0": {
+      "node": "b_main",
+      "x": 674,
+      "y": 427,
+      "name": "B大入口 · 1",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "B大入口",
+        "region": "B",
+        "cover": 0.3,
+        "advantage": "neutral",
+        "capacity": 6,
+        "x": 684,
+        "y": 404
+      }
+    },
+    "b_main_v3_1": {
+      "node": "b_main",
+      "x": 719,
+      "y": 448,
+      "name": "B大入口 · 2",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "B大入口",
+        "region": "B",
+        "cover": 0.3,
+        "advantage": "neutral",
+        "capacity": 6,
+        "x": 684,
+        "y": 404
+      }
+    },
+    "b_lobby_v3_0": {
+      "node": "b_lobby",
+      "x": 671,
+      "y": 560,
+      "name": "B大 · 1",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "B大",
+        "region": "B",
+        "cover": 0.4,
+        "advantage": "neutral",
+        "capacity": 6,
+        "x": 673,
+        "y": 565
+      }
+    },
+    "b_lobby_v3_1": {
+      "node": "b_lobby",
+      "x": 629,
+      "y": 575,
+      "name": "B大 · 2",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "B大",
+        "region": "B",
+        "cover": 0.4,
+        "advantage": "neutral",
+        "capacity": 6,
+        "x": 673,
+        "y": 565
+      }
+    },
+    "ct_a_v3_0": {
+      "node": "ct_a",
+      "x": 267,
+      "y": 760,
+      "name": "警家A连接 · 1",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "警家A连接",
+        "region": "A",
+        "cover": 0.4,
+        "advantage": "def",
+        "capacity": 4,
+        "x": 270,
+        "y": 770
+      }
+    },
+    "ct_a_v3_1": {
+      "node": "ct_a",
+      "x": 300,
+      "y": 777,
+      "name": "警家A连接 · 2",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "警家A连接",
+        "region": "A",
+        "cover": 0.4,
+        "advantage": "def",
+        "capacity": 4,
+        "x": 270,
+        "y": 770
+      }
+    },
+    "ct_b_v3_0": {
+      "node": "ct_b",
+      "x": 615,
+      "y": 767,
+      "name": "警家B连接 · 1",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "警家B连接",
+        "region": "B",
+        "cover": 0.4,
+        "advantage": "def",
+        "capacity": 4,
+        "x": 620,
+        "y": 771
+      }
+    },
+    "ct_b_v3_1": {
+      "node": "ct_b",
+      "x": 641,
+      "y": 778,
+      "name": "警家B连接 · 2",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "警家B连接",
+        "region": "B",
+        "cover": 0.4,
+        "advantage": "def",
+        "capacity": 4,
+        "x": 620,
+        "y": 771
+      }
+    },
+    "ct_spawn_v3_0": {
+      "node": "ct_spawn",
+      "x": 434,
+      "y": 813,
+      "name": "防守出生点 · 1",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "防守出生点",
+        "region": "spawn",
+        "cover": 0.2,
+        "advantage": "def",
+        "capacity": 8,
+        "x": 442,
+        "y": 813
+      }
+    },
+    "ct_spawn_v3_1": {
+      "node": "ct_spawn",
+      "x": 464,
+      "y": 841,
+      "name": "防守出生点 · 2",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "防守出生点",
+        "region": "spawn",
+        "cover": 0.2,
+        "advantage": "def",
+        "capacity": 8,
+        "x": 442,
+        "y": 813
+      }
+    },
+    "t_spawn_v3_0": {
+      "node": "t_spawn",
+      "x": 550,
+      "y": 232,
+      "name": "进攻出生点 · 1",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "进攻出生点",
+        "region": "spawn",
+        "cover": 0.2,
+        "advantage": "neutral",
+        "capacity": 8,
+        "x": 552,
+        "y": 237
+      }
+    },
+    "t_spawn_v3_1": {
+      "node": "t_spawn",
+      "x": 595,
+      "y": 218,
+      "name": "进攻出生点 · 2",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "进攻出生点",
+        "region": "spawn",
+        "cover": 0.2,
+        "advantage": "neutral",
+        "capacity": 8,
+        "x": 552,
+        "y": 237
+      }
+    },
+    "t_spawn_v3_2": {
+      "node": "t_spawn",
+      "x": 504,
+      "y": 247,
+      "name": "进攻出生点 · 3",
+      "cover": 0.15,
+      "role": "angle",
+      "escape": {
+        "name": "进攻出生点",
+        "region": "spawn",
+        "cover": 0.2,
+        "advantage": "neutral",
+        "capacity": 8,
+        "x": 552,
+        "y": 237
+      }
+    }
+  },
+  "sightlines": [
+    [
+      "a_site_v3_0",
+      "a_site_v3_1",
+      1
+    ],
+    [
+      "a_site_v3_0",
+      "a_site_v3_3",
+      1
+    ],
+    [
+      "a_site_v3_0",
+      "a_heaven_v3_0",
+      1
+    ],
+    [
+      "a_site_v3_0",
+      "a_heaven_v3_1",
+      1
+    ],
+    [
+      "a_site_v3_1",
+      "a_site_v3_2",
+      1
+    ],
+    [
+      "a_site_v3_1",
+      "a_heaven_v3_0",
+      1
+    ],
+    [
+      "a_site_v3_2",
+      "a_site_v3_3",
+      1
+    ],
+    [
+      "a_site_v3_2",
+      "a_site_v3_4",
+      1
+    ],
+    [
+      "a_site_v3_2",
+      "a_heaven_v3_0",
+      1
+    ],
+    [
+      "a_site_v3_3",
+      "a_site_v3_4",
+      1
+    ],
+    [
+      "a_site_v3_3",
+      "a_heaven_v3_0",
+      1
+    ],
+    [
+      "a_site_v3_3",
+      "a_heaven_v3_1",
+      1
+    ],
+    [
+      "a_site_v3_4",
+      "a_heaven_v3_0",
+      1
+    ],
+    [
+      "a_heaven_v3_0",
+      "a_heaven_v3_1",
+      1
+    ],
+    [
+      "a_heaven_v3_0",
+      "a_heaven_v3_2",
+      1
+    ],
+    [
+      "a_heaven_v3_1",
+      "a_heaven_v3_2",
+      1
+    ],
+    [
+      "a_heaven_v3_2",
+      "ct_a_v3_0",
+      1
+    ],
+    [
+      "a_short_v3_0",
+      "a_short_v3_1",
+      1
+    ],
+    [
+      "a_short_v3_0",
+      "a_short_v3_2",
+      1
+    ],
+    [
+      "a_short_v3_1",
+      "a_short_v3_2",
+      1
+    ],
+    [
+      "a_main_v3_0",
+      "a_main_v3_1",
+      1
+    ],
+    [
+      "a_main_v3_0",
+      "a_main_v3_2",
+      1
+    ],
+    [
+      "a_main_v3_0",
+      "a_lobby_v3_0",
+      1
+    ],
+    [
+      "a_main_v3_0",
+      "mid_top_v3_0",
+      1
+    ],
+    [
+      "a_main_v3_1",
+      "a_main_v3_2",
+      1
+    ],
+    [
+      "a_main_v3_1",
+      "a_lobby_v3_0",
+      1
+    ],
+    [
+      "a_main_v3_1",
+      "a_lobby_v3_1",
+      1
+    ],
+    [
+      "a_main_v3_2",
+      "a_lobby_v3_0",
+      1
+    ],
+    [
+      "a_lobby_v3_0",
+      "a_lobby_v3_1",
+      1
+    ],
+    [
+      "a_lobby_v3_0",
+      "a_lobby_v3_2",
+      1
+    ],
+    [
+      "a_lobby_v3_1",
+      "a_lobby_v3_2",
+      1
+    ],
+    [
+      "b_site_v3_0",
+      "b_site_v3_1",
+      1
+    ],
+    [
+      "b_site_v3_0",
+      "b_site_v3_3",
+      1
+    ],
+    [
+      "b_site_v3_0",
+      "b_site_v3_4",
+      1
+    ],
+    [
+      "b_site_v3_0",
+      "market_v3_1",
+      1
+    ],
+    [
+      "b_site_v3_0",
+      "ct_b_v3_0",
+      1
+    ],
+    [
+      "b_site_v3_1",
+      "b_site_v3_3",
+      1
+    ],
+    [
+      "b_site_v3_1",
+      "b_site_v3_4",
+      1
+    ],
+    [
+      "b_site_v3_1",
+      "b_back_v3_1",
+      1
+    ],
+    [
+      "b_site_v3_1",
+      "market_v3_1",
+      1
+    ],
+    [
+      "b_site_v3_1",
+      "market_v3_2",
+      1
+    ],
+    [
+      "b_site_v3_2",
+      "b_site_v3_3",
+      1
+    ],
+    [
+      "b_site_v3_2",
+      "b_site_v3_4",
+      1
+    ],
+    [
+      "b_site_v3_2",
+      "market_v3_2",
+      1
+    ],
+    [
+      "b_site_v3_3",
+      "b_site_v3_4",
+      1
+    ],
+    [
+      "b_site_v3_3",
+      "b_back_v3_1",
+      1
+    ],
+    [
+      "b_site_v3_3",
+      "market_v3_0",
+      1
+    ],
+    [
+      "b_site_v3_3",
+      "market_v3_2",
+      1
+    ],
+    [
+      "b_site_v3_4",
+      "market_v3_0",
+      1
+    ],
+    [
+      "b_site_v3_4",
+      "market_v3_2",
+      1
+    ],
+    [
+      "b_back_v3_0",
+      "b_back_v3_1",
+      1
+    ],
+    [
+      "b_back_v3_1",
+      "market_v3_2",
+      1
+    ],
+    [
+      "market_v3_0",
+      "market_v3_1",
+      1
+    ],
+    [
+      "market_v3_0",
+      "market_v3_2",
+      1
+    ],
+    [
+      "market_v3_1",
+      "market_v3_2",
+      1
+    ],
+    [
+      "market_v3_1",
+      "b_lobby_v3_0",
+      1
+    ],
+    [
+      "market_v3_2",
+      "mid_v3_0",
+      1
+    ],
+    [
+      "market_v3_2",
+      "mid_top_v3_0",
+      1
+    ],
+    [
+      "market_v3_2",
+      "mid_top_v3_1",
+      1
+    ],
+    [
+      "market_v3_2",
+      "mid_bottom_v3_0",
+      1
+    ],
+    [
+      "mid_v3_0",
+      "mid_v3_1",
+      1
+    ],
+    [
+      "mid_v3_0",
+      "mid_v3_2",
+      1
+    ],
+    [
+      "mid_v3_0",
+      "mid_top_v3_0",
+      1
+    ],
+    [
+      "mid_v3_0",
+      "mid_top_v3_1",
+      1
+    ],
+    [
+      "mid_v3_0",
+      "mid_bottom_v3_0",
+      1
+    ],
+    [
+      "mid_v3_0",
+      "mid_bottom_v3_1",
+      1
+    ],
+    [
+      "mid_v3_1",
+      "mid_v3_2",
+      1
+    ],
+    [
+      "mid_v3_1",
+      "mid_top_v3_0",
+      1
+    ],
+    [
+      "mid_v3_1",
+      "mid_bottom_v3_0",
+      1
+    ],
+    [
+      "mid_v3_2",
+      "mid_top_v3_0",
+      1
+    ],
+    [
+      "mid_v3_2",
+      "mid_top_v3_1",
+      1
+    ],
+    [
+      "mid_top_v3_0",
+      "mid_top_v3_1",
+      1
+    ],
+    [
+      "mid_top_v3_0",
+      "mid_bottom_v3_0",
+      1
+    ],
+    [
+      "mid_top_v3_0",
+      "mid_bottom_v3_1",
+      1
+    ],
+    [
+      "mid_top_v3_1",
+      "mid_bottom_v3_0",
+      1
+    ],
+    [
+      "mid_bottom_v3_0",
+      "mid_bottom_v3_1",
+      1
+    ],
+    [
+      "b_main_v3_0",
+      "b_main_v3_1",
+      1
+    ],
+    [
+      "b_lobby_v3_0",
+      "b_lobby_v3_1",
+      1
+    ],
+    [
+      "b_lobby_v3_1",
+      "ct_b_v3_1",
+      1
+    ],
+    [
+      "ct_a_v3_0",
+      "ct_a_v3_1",
+      1
+    ],
+    [
+      "ct_a_v3_0",
+      "ct_b_v3_0",
+      1
+    ],
+    [
+      "ct_a_v3_0",
+      "ct_b_v3_1",
+      1
+    ],
+    [
+      "ct_a_v3_1",
+      "ct_b_v3_0",
+      1
+    ],
+    [
+      "ct_a_v3_1",
+      "ct_b_v3_1",
+      1
+    ],
+    [
+      "ct_b_v3_0",
+      "ct_b_v3_1",
+      1
+    ],
+    [
+      "ct_spawn_v3_0",
+      "ct_spawn_v3_1",
+      1
+    ],
+    [
+      "t_spawn_v3_0",
+      "t_spawn_v3_1",
+      1
+    ],
+    [
+      "t_spawn_v3_0",
+      "t_spawn_v3_2",
+      1
+    ],
+    [
+      "t_spawn_v3_1",
+      "t_spawn_v3_2",
+      1
+    ]
+  ],
+  "navigationStatus": "polygon-routes",
+  "combatProfile": "campaign-ballistics",
+  "defenseSupport": "contact-casualty",
+  "spatialFire": "shared-los",
+  "navigationSpeed": {
+    "run": 32,
+    "walk": 20
+  },
+  "roundRules": {
+    "maxTicks": 100,
+    "plantTicks": 4,
+    "spikeTicks": 45,
+    "defuseTicks": 7
+  },
+  "deployment": {
+    "atk": {},
+    "def": {
+      "mid": "mid_bottom",
+      "a_lobby": "a_site",
+      "b_lobby": "b_site"
+    }
+  },
+  "source": "素材库/地图官方/ascent-plan.webp",
+  "notes": "真实轮廓与已核对掩体上的连续路径/视线样板；门尚未进入回合，高度目前仅 A 二楼视线。",
+  "layoutVersion": "ascent-combat-v3",
+  "spatialVersion": 3,
+  "strictSpatial": true,
+  "fireModel": "timed-v3",
+  "informationPolicy": "delayed-reports",
+  "tickSeconds": 0.25,
+  "visualAsset": "地图风格/ascent-v2.svg",
+  "calibration": []
+}

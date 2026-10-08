@@ -45,6 +45,7 @@
   #coachBtns { margin-top:16px; display:flex; gap:10px; }
   #coachBtns button { flex:1; padding:9px 0; border-radius:5px; border:none; cursor:pointer; font-size:14px; }
   #btnGo { background:#2a3a4c; color:var(--txt); }
+  #btnAdjust { background:#4b7294; color:#fff; }
   #btnTimeout { background:var(--gold); color:#221a00; font-weight:bold; }
   #btnTimeout:disabled { background:#3a352a; color:#777; cursor:not-allowed; }
   /* 终局面板 */
@@ -68,6 +69,7 @@
       倍速
       <button data-s="0.5">0.5x</button><button data-s="1" class="active">1x</button>
       <button data-s="2">2x</button><button data-s="4">4x</button><button data-s="8">8x</button>
+      <button id="requestTimeout">请求战术暂停</button><button id="watchPause">暂停观看</button>
       <span style="margin-left:12px">点击选手查看枪线 · 回合间可叫暂停调整战术</span>
     </div>
     <div id="summaryBar"></div>
@@ -88,10 +90,10 @@
     <div class="wcol"><h3 style="color:var(--dim);font-size:12px;margin-bottom:4px">进攻战术比重</h3><div id="wAtk"></div></div>
     <div class="wcol"><h3 style="color:var(--dim);font-size:12px;margin-bottom:4px">防守战术比重</h3><div id="wDef"></div></div>
   </div>
-  <div style="margin-top:10px;font-size:13px">场上指挥（IGL）</div>
-  <select id="iglSel"></select>
+  <div style="margin-top:10px;font-size:13px" id="iglAuto"></div>
   <div id="coachBtns">
     <button id="btnGo">直接继续</button>
+    <button id="btnAdjust">调整计划并继续</button>
     <button id="btnTimeout">叫暂停并调整</button>
   </div>
 </div></div>
@@ -193,32 +195,57 @@ function drawMapBase() {
 }
 
 /* ---- 回合时间线：由事件重建 tick 时刻的场上状态 ---- */
+function pathPosition(route, progress) {
+  if (!route || route.length < 2) return null;
+  if (progress <= 0) return route[0];
+  if (progress >= 1) return route[route.length - 1];
+  const lengths = route.slice(1).map((point, i) => Math.hypot(point.x - route[i].x, point.y - route[i].y));
+  let left = lengths.reduce((a, b) => a + b, 0) * progress;
+  for (let i = 0; i < lengths.length; i++) {
+    if (left <= lengths[i]) {
+      const k = lengths[i] ? left / lengths[i] : 0;
+      return { x: route[i].x + (route[i + 1].x - route[i].x) * k, y: route[i].y + (route[i + 1].y - route[i].y) * k };
+    }
+    left -= lengths[i];
+  }
+  return route[route.length - 1];
+}
+
 function buildStates(evs, t) {
   const st = {};
   for (const e of evs) {
     if (e.type === 'round_start') {
-      for (const u of e.units) st[u.name] = { name: u.name, side: u.side, node: u.node, post: null, gun: u.gun, armor: u.armor, agent: u.agent, igl: u.igl, alive: true, moving: null, carrier: false };
+      for (const u of e.units) st[u.id || u.name] = { id: u.id || u.name, name: u.name, side: u.side, node: u.node, post: null, gun: u.gun, armor: u.armor, agent: u.agent, igl: u.igl, alive: true, moving: null, carrier: false };
     }
   }
+  const findUnit = (id, name) => st[id] || Object.values(st).find(u => u.name === name);
   const effects = [];
   let plantInfo = null;
   for (const e of evs) {
     if (e.t < 0 || e.t > t) continue;
-    const u = e.unit && st[e.unit];
+    const u = e.unit && findUnit(e.unitId, e.unit);
     switch (e.type) {
       case 'move': {
-        const s = st[e.unit]; if (!s || !s.alive) break;
+        const s = findUnit(e.unitId, e.unit); if (!s || !s.alive) break;
         if (t < e.t + e.ticks) {
           const from = nodePos(e.from), to = e.post ? (postPos(e.post) || nodePos(e.to)) : nodePos(e.to);
           const k = Math.min(1, (t - e.t) / e.ticks);
-          s.pos = { x: from.x + (to.x - from.x) * k, y: from.y + (to.y - from.y) * k };
+          s.pos = e.route ? pathPosition(e.route, k) : { x: from.x + (to.x - from.x) * k, y: from.y + (to.y - from.y) * k };
           s.moving = true;
-        } else { s.node = e.to; s.post = e.post || null; s.pos = null; s.moving = false; }
+        } else { s.node = e.to; s.post = e.post || null; s.pos = e.route ? e.route[e.route.length - 1] : null; s.moving = false; }
         break;
       }
-      case 'kill': { const v = st[e.victim]; if (v) { v.alive = false; v.moving = false; } break; }
+      case 'post_pick': {
+        if (u && !u.moving && e.post) {
+          u.post = e.post;
+          const p = postPos(e.post);
+          if (p) u.pos = { x: p.x, y: p.y };
+        }
+        break;
+      }
+      case 'kill': { const v = findUnit(e.victimId, e.victim); if (v) { v.alive = false; v.moving = false; if (Number.isFinite(e.x) && Number.isFinite(e.y)) v.pos = { x: e.x, y: e.y }; } break; }
       case 'ability':
-        if (e.archetype === 'revive' && e.done) { const v = st[e.unit]; if (v) v.alive = true; }
+        if (e.archetype === 'revive' && e.done) { const v = findUnit(e.unitId, e.unit); if (v) v.alive = true; }
         if (['smoke','wall'].includes(e.archetype)) effects.push({ kind: e.archetype, node: e.node, until: e.t + (e.archetype === 'wall' ? 14 : cfg.utility.smokeTicks) });
         if (e.archetype === 'molly') effects.push({ kind: 'molly', node: e.node, until: e.t + cfg.utility.mollyZoneTicks });
         if (e.archetype === 'flash' || e.archetype === 'stun') effects.push({ kind: 'flash', node: e.node, until: e.t + 1.2 });
@@ -229,7 +256,7 @@ function buildStates(evs, t) {
       case 'smoke': effects.push({ kind: 'smoke', node: e.node, until: e.until }); break;
       case 'molly': case 'molly_entry': effects.push({ kind: 'molly', node: e.node, until: e.t + cfg.utility.mollyZoneTicks }); break;
       case 'flash': effects.push({ kind: 'flash', node: e.node, until: e.t + 1.2 }); break;
-      case 'recon': effects.push({ kind: 'recon', node: (st[e.unit] || {}).node, t0: e.t, until: e.t + 2.5 }); break;
+      case 'recon': effects.push({ kind: 'recon', node: (findUnit(e.unitId, e.unit) || {}).node, t0: e.t, until: e.t + 2.5 }); break;
       case 'trap': effects.push({ kind: 'trap', node: e.node, until: e.t + 2 }); break;
       case 'plant': plantInfo = { t: e.t, site: e.site, spikeTicks: e.spikeTicks }; break;
       case 'spike_drop': if (plantInfo === null) break; break;
@@ -355,7 +382,8 @@ const EV_TEXT = {
   force_commit: (e) => `时间压力，强攻 ${e.site} 点`,
   mid_read: (e) => `中路读取：判断进攻 ${e.site}`,
   ability: (e) => `${e.ult ? '◆大招·' : ''}${e.agent}「${e.skill}」${e.fumble ? '（失误！）' : ''}`,
-  timeout: (e) => `${e.side === 'A' ? SPECT.teamA.name : SPECT.teamB.name} ${e.kind === 'halftime' ? '中场调整' : '叫暂停'}${e.manual ? '（你）' : ''}`,
+  timeout: (e) => `${e.side === 'A' ? SPECT.teamA.name : SPECT.teamB.name} ${e.kind === 'halftime' ? '中场调整' : e.timeoutInitiated ? '叫暂停' : '暂停中调整'}${e.manual ? '（你）' : ''}`,
+  coach_plan: (e) => `${e.side === 'A' ? SPECT.teamA.name : SPECT.teamB.name} 调整了战术计划${e.manual ? '（你）' : ''}`,
 };
 function feedPush(html, isKill) {
   const box = isKill ? document.getElementById('killfeed') : document.getElementById('eventfeed');
@@ -396,6 +424,7 @@ function stepMatch(input) {
   if (rs) for (const u of rs.units) roster[u.name] = { agent: u.agent };
   if (r.done) { matchResult = r.value; showFinal(); return; }
   windowInfo = r.value;
+  document.getElementById('requestTimeout').disabled = windowInfo.matchOver || (!windowInfo.canRequestTimeout && !windowInfo.canAdjust);
   const meta = fresh.find((e) => e.type === 'round_meta');
   const rn = meta ? meta.round : windowInfo.round;
   roundEvents[rn] = fresh.filter((e) => e.type !== 'coach_window');
@@ -417,6 +446,7 @@ function stepMatch(input) {
 
 function animLoop(ts) {
   requestAnimationFrame(animLoop);
+  if (watchingPaused) { lastTs = ts; return; }
   if (phase !== 'playing' && !review) return;
   if (!lastTs) lastTs = ts;
   let dt = (ts - lastTs) / 1000;
@@ -425,7 +455,7 @@ function animLoop(ts) {
   if (review) {
     review.tick += dt * BASE_TPS * speed;
     if (review.tick > review.dur) review.tick = 0; // 回看循环播放
-    render(roundEvents[review.round], review.tick, metaOf(review.round));
+    render(roundEvents[review.round], review.tick, metaOf(review.round, review.tick));
     return;
   }
   animTick += dt * BASE_TPS * speed;
@@ -437,20 +467,21 @@ function animLoop(ts) {
     if (e.type === 'kill') feedPush(`<b style="color:${e.side === 'atk' ? '#ff9d5c' : '#5cc8ff'}">${e.killer}</b> 击杀 ${e.victim}`, true);
     else if (EV_TEXT[e.type]) feedPush(`R${animRound} ${EV_TEXT[e.type](e)}`);
   }
-  render(evs, Math.min(animTick, animDur), metaOf(animRound));
+  render(evs, Math.min(animTick, animDur), metaOf(animRound, animTick));
   const end = evs.find((e) => e.type === 'round_end');
-  if (end && end.summary) document.getElementById('summaryBar').textContent = end.summary;
+  document.getElementById('summaryBar').textContent = end && end.summary && animTick >= end.t ? end.summary : `R${animRound} 正在进行`;
   if (animTick >= animDur) {
     phase = 'coach';
     if (windowInfo.matchOver) { stepMatch({ timeout: false }); return; }
-    openCoachWindow();
+    if (windowInfo.canAdjust || pauseRequested) openCoachWindow();
+    else stepMatch();
   }
 }
 
-function metaOf(rn) {
+function metaOf(rn, playbackTick = Infinity) {
   const evs = roundEvents[rn] || [];
   const m = evs.find((e) => e.type === 'round_meta');
-  const s = evs.find((e) => e.type === 'score');
+  const s = evs.find((e) => e.type === 'score' && e.t <= playbackTick);
   return m ? { ...m, scoreA: s ? s.scoreA : m.scoreA, scoreB: s ? s.scoreB : m.scoreB } : null;
 }
 
@@ -466,6 +497,16 @@ document.getElementById('reviewTag').onclick = () => {
 };
 
 /* ---- 教练窗口 ---- */
+let pauseRequested = false, watchingPaused = false;
+document.getElementById('requestTimeout').onclick = () => {
+  if (matchResult || phase !== 'playing' || windowInfo?.matchOver) return;
+  pauseRequested = true;
+  document.getElementById('requestTimeout').textContent = '已请求：本回合结束后调整';
+};
+document.getElementById('watchPause').onclick = () => {
+  watchingPaused = !watchingPaused;
+  document.getElementById('watchPause').textContent = watchingPaused ? '继续观看' : '暂停观看';
+};
 function weightRows(boxId, weights) {
   const box = document.getElementById(boxId);
   box.innerHTML = '';
@@ -489,7 +530,7 @@ function collectWeights(boxId) {
   const out = {};
   let sum = 0;
   document.getElementById(boxId).querySelectorAll('.wrow').forEach((r) => { out[r.dataset.fam] = parseFloat(r.dataset.w); sum += parseFloat(r.dataset.w); });
-  if (sum <= 0) return out;
+  if (sum <= 0) return null;
   for (const k of Object.keys(out)) out[k] /= sum; // 归一化
   return out;
 }
@@ -497,25 +538,18 @@ function collectWeights(boxId) {
 function openCoachWindow() {
   const info = windowInfo;
   const me = 'A';
-  document.getElementById('cwTitle').textContent = info.isHalftime ? '中场暂停 · 战术调整' : `教练窗口 · R${info.round} 结束`;
+  document.getElementById('cwTitle').textContent = info.isHalftime ? '中场暂停 · 战术调整' : info.timeoutCaller ? '对手暂停 · 双方可调整' : `战术暂停 · R${info.round} 结束`;
   document.getElementById('cwSub').textContent =
     `比分 ${info.scoreA}:${info.scoreB} · 经济 我方${info.economy.A} / 对方${info.economy.B} · 剩余暂停 ${info.timeoutsLeft[me]}` + (info.isHalftime ? ' · 中场调整不耗暂停' : '');
   const end = (roundEvents[animRound] || []).find((e) => e.type === 'round_end');
   document.getElementById('coachSummary').textContent = end && end.summary ? '上回合：' + end.summary : '';
   weightRows('wAtk', info.weights[me].atk);
   weightRows('wDef', info.weights[me].def);
-  const sel = document.getElementById('iglSel');
-  sel.innerHTML = '';
-  for (const p of SPECT.teamA.players) {
-    const o = document.createElement('option');
-    o.value = p.name;
-    o.textContent = `${p.name}（枪法${p.AIM} 意识${p.SEN} 协同${p.SYN}）${roster[p.name] ? ' · ' + roster[p.name].agent : ''}`;
-    if (p.name === info.iglPick[me]) o.selected = true;
-    sel.appendChild(o);
-  }
+  document.getElementById('iglAuto').textContent = `场上指挥：${info.iglPick[me]}（选手自主承担）`;
+  document.getElementById('btnAdjust').disabled = !info.canAdjust;
   const btnT = document.getElementById('btnTimeout');
-  if (info.isHalftime) {
-    btnT.textContent = '完成调整，开始下半场';
+  if (info.canAdjust) {
+    btnT.textContent = info.isHalftime ? '完成调整，开始下半场' : '确认暂停调整（不消耗我方次数）';
     btnT.disabled = false;
   } else {
     btnT.textContent = `叫暂停并调整（剩 ${info.timeoutsLeft[me]} 次）`;
@@ -524,17 +558,34 @@ function openCoachWindow() {
   document.getElementById('coachWin').style.display = 'flex';
 }
 
-document.getElementById('btnGo').onclick = () => {
+function closeCoachWindow() {
+  pauseRequested = false;
+  document.getElementById('requestTimeout').textContent = '请求战术暂停';
   document.getElementById('coachWin').style.display = 'none';
+}
+
+document.getElementById('btnGo').onclick = () => {
+  closeCoachWindow();
   stepMatch({ timeout: false });
 };
+document.getElementById('btnAdjust').onclick = () => {
+  const atk = collectWeights('wAtk'), def = collectWeights('wDef');
+  if (!atk || !def) { alert('进攻和防守至少各保留一个战术比重'); return; }
+  if (!windowInfo.canAdjust) return;
+  closeCoachWindow();
+  stepMatch({
+    timeout: false,
+    weights: { atk, def }
+  });
+};
 document.getElementById('btnTimeout').onclick = () => {
+  const atk = collectWeights('wAtk'), def = collectWeights('wDef');
+  if (!atk || !def) { alert('进攻和防守至少各保留一个战术比重'); return; }
   const input = {
-    timeout: true,
-    weights: { atk: collectWeights('wAtk'), def: collectWeights('wDef') },
-    iglPick: document.getElementById('iglSel').value
+    timeout: !windowInfo.canAdjust,
+    weights: { atk, def }
   };
-  document.getElementById('coachWin').style.display = 'none';
+  closeCoachWindow();
   stepMatch(input);
 };
 
@@ -556,10 +607,10 @@ function showFinal() {
 }
 
 /* ---- 控件 ---- */
-document.querySelectorAll('#speedbar button').forEach((b) => {
+document.querySelectorAll('#speedbar button[data-s]').forEach((b) => {
   b.onclick = () => {
     speed = parseFloat(b.dataset.s);
-    document.querySelectorAll('#speedbar button').forEach((x) => x.classList.remove('active'));
+    document.querySelectorAll('#speedbar button[data-s]').forEach((x) => x.classList.remove('active'));
     b.classList.add('active');
   };
 });
@@ -575,7 +626,7 @@ canvas.onclick = (ev) => {
     if (!s.alive) continue;
     const p = unitXY(s);
     const d = (p.x - x) ** 2 + (p.y - y) ** 2;
-    if (d < bd) { bd = d; best = s.name; }
+    if (d < bd) { bd = d; best = s.id; }
   }
   selectedUnit = best === selectedUnit ? null : best;
 };

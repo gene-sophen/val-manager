@@ -1,0 +1,64 @@
+{
+  "ascent": {
+    "name": "亚海悬城",
+    "layout": "ascent-v2.json",
+    "visual": "ascent-v2.svg",
+    "simulationReady": false
+  },
+  "haven": {
+    "name": "隐世修所",
+    "layout": "haven-v2.json",
+    "visual": "haven-v2.svg",
+    "simulationReady": false,
+    "anchorRmsPixels": 20.15
+  },
+  "split": {
+    "name": "霓虹町",
+    "layout": "split-v2.json",
+    "visual": "split-v2.svg",
+    "simulationReady": false,
+    "anchorRmsPixels": 34.96
+  },
+  "sunset": {
+    "name": "日落之城",
+    "layout": "sunset-v2.json",
+    "visual": "sunset-v2.svg",
+    "simulationReady": false,
+    "anchorRmsPixels": 36.27
+  },
+  "breeze": {
+    "name": "微风岛屿",
+    "layout": "breeze-v2.json",
+    "visual": "breeze-v2.svg",
+    "simulationReady": false,
+    "anchorRmsPixels": 63.66
+  },
+  "lotus": {
+    "name": "莲华古城",
+    "layout": "lotus-v2.json",
+    "visual": "lotus-v2.svg",
+    "simulationReady": false,
+    "anchorRmsPixels": 28.95
+  },
+  "fracture": {
+    "name": "裂变峡谷",
+    "layout": "fracture-v2.json",
+    "visual": "fracture-v2.svg",
+    "simulationReady": false,
+    "anchorRmsPixels": 28.59
+  },
+  "abyss": {
+    "name": "幽邃地窟",
+    "layout": "abyss-v2.json",
+    "visual": "abyss-v2.svg",
+    "simulationReady": false,
+    "anchorRmsPixels": 41.84
+  },
+  "summit": {
+    "name": "天枢云巅",
+    "layout": "summit-v2.json",
+    "visual": "summit-v2.svg",
+    "simulationReady": false,
+    "anchorRmsPixels": 27.4
+  }
+}

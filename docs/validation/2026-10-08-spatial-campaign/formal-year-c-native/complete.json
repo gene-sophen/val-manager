@@ -1,0 +1,1051 @@
+{
+  "seed": "formal-year-c",
+  "policy": {
+    "releaseId": "acceptance-candidate-20261008",
+    "versions": {
+      "ascent": "ascent-balance-5",
+      "haven": "haven-balance-3",
+      "split": "split-balance-3",
+      "sunset": "sunset-balance-3",
+      "breeze": "breeze-balance-3",
+      "lotus": "lotus-balance-3",
+      "fracture": "fracture-balance-3",
+      "abyss": "abyss-balance-3",
+      "summit": "summit-balance-3"
+    }
+  },
+  "engineExecution": "native same-source engine / current frontend",
+  "formalMaps": 33,
+  "rounds": 664,
+  "events": [
+    {
+      "phase": 0,
+      "map": "lotus",
+      "match": "0:CN:M4",
+      "bestOf": 3
+    },
+    {
+      "phase": 0,
+      "map": "breeze",
+      "match": "0:CN:M4",
+      "bestOf": 3
+    },
+    {
+      "phase": 1,
+      "map": "ascent",
+      "match": "1:world:S2:1:1:1",
+      "bestOf": 3
+    },
+    {
+      "phase": 1,
+      "map": "lotus",
+      "match": "1:world:S2:1:1:1",
+      "bestOf": 3
+    },
+    {
+      "phase": 1,
+      "map": "fracture",
+      "match": "1:world:S2:1:1:1",
+      "bestOf": 3
+    },
+    {
+      "phase": 2,
+      "map": "abyss",
+      "match": "2:CN:G1:0:1",
+      "bestOf": 3
+    },
+    {
+      "phase": 2,
+      "map": "lotus",
+      "match": "2:CN:G1:0:1",
+      "bestOf": 3
+    },
+    {
+      "phase": 3,
+      "map": "abyss",
+      "match": "3:CN:UF",
+      "bestOf": 3
+    },
+    {
+      "phase": 3,
+      "map": "haven",
+      "match": "3:CN:UF",
+      "bestOf": 3
+    },
+    {
+      "phase": 3,
+      "map": "summit",
+      "match": "3:CN:GF",
+      "bestOf": 5
+    },
+    {
+      "phase": 3,
+      "map": "haven",
+      "match": "3:CN:GF",
+      "bestOf": 5
+    },
+    {
+      "phase": 3,
+      "map": "lotus",
+      "match": "3:CN:GF",
+      "bestOf": 5
+    },
+    {
+      "phase": 4,
+      "map": "haven",
+      "match": "4:world:PO:UF",
+      "bestOf": 3
+    },
+    {
+      "phase": 4,
+      "map": "abyss",
+      "match": "4:world:PO:UF",
+      "bestOf": 3
+    },
+    {
+      "phase": 4,
+      "map": "breeze",
+      "match": "4:world:PO:UF",
+      "bestOf": 3
+    },
+    {
+      "phase": 4,
+      "map": "summit",
+      "match": "4:world:PO:GF",
+      "bestOf": 5
+    },
+    {
+      "phase": 4,
+      "map": "haven",
+      "match": "4:world:PO:GF",
+      "bestOf": 5
+    },
+    {
+      "phase": 4,
+      "map": "lotus",
+      "match": "4:world:PO:GF",
+      "bestOf": 5
+    },
+    {
+      "phase": 5,
+      "map": "lotus",
+      "match": "5:CN:G0:0:3",
+      "bestOf": 3
+    },
+    {
+      "phase": 5,
+      "map": "sunset",
+      "match": "5:CN:G0:0:3",
+      "bestOf": 3
+    },
+    {
+      "phase": 6,
+      "map": "lotus",
+      "match": "6:CN:UF",
+      "bestOf": 3
+    },
+    {
+      "phase": 6,
+      "map": "sunset",
+      "match": "6:CN:UF",
+      "bestOf": 3
+    },
+    {
+      "phase": 6,
+      "map": "lotus",
+      "match": "6:CN:GF",
+      "bestOf": 5
+    },
+    {
+      "phase": 6,
+      "map": "sunset",
+      "match": "6:CN:GF",
+      "bestOf": 5
+    },
+    {
+      "phase": 6,
+      "map": "fracture",
+      "match": "6:CN:GF",
+      "bestOf": 5
+    },
+    {
+      "phase": 6,
+      "map": "ascent",
+      "match": "6:CN:GF",
+      "bestOf": 5
+    },
+    {
+      "phase": 7,
+      "map": "split",
+      "match": "7:world:PO:UF",
+      "bestOf": 3
+    },
+    {
+      "phase": 7,
+      "map": "haven",
+      "match": "7:world:PO:UF",
+      "bestOf": 3
+    },
+    {
+      "phase": 7,
+      "map": "sunset",
+      "match": "7:world:PO:UF",
+      "bestOf": 3
+    },
+    {
+      "phase": 7,
+      "map": "split",
+      "match": "7:world:PO:GF",
+      "bestOf": 5
+    },
+    {
+      "phase": 7,
+      "map": "summit",
+      "match": "7:world:PO:GF",
+      "bestOf": 5
+    },
+    {
+      "phase": 7,
+      "map": "haven",
+      "match": "7:world:PO:GF",
+      "bestOf": 5
+    },
+    {
+      "phase": 7,
+      "map": "fracture",
+      "match": "7:world:PO:GF",
+      "bestOf": 5
+    }
+  ],
+  "restores": 2,
+  "regularPauses": 2,
+  "overtimePauses": 1,
+  "stages": [
+    {
+      "phase": 0,
+      "played": true,
+      "place": "第 2 名",
+      "formal": 1,
+      "quick": 5,
+      "roster": [
+        "happywei-金",
+        "SLOWLY-金",
+        "Knight-银",
+        "lucas-银",
+        "LuoK1ng-银"
+      ],
+      "points": 3,
+      "growth": {
+        "id": "1:0:stage",
+        "year": 1,
+        "phase": 0,
+        "type": "event",
+        "before": {
+          "team": {
+            "羁绊": 28.36866816143497,
+            "状态": 51.25156696897397,
+            "熟练": 55.496124909923026
+          },
+          "coach": {
+            "战术": 50.09771215677827,
+            "临场": 49.59319825871611,
+            "声望": 50
+          }
+        },
+        "after": {
+          "team": {
+            "羁绊": 28.65065065502183,
+            "状态": 51.25156696897397,
+            "熟练": 55.496124909923026
+          },
+          "coach": {
+            "战术": 50.09771215677827,
+            "临场": 49.59319825871611,
+            "声望": 54
+          }
+        },
+        "teamDelta": {
+          "羁绊": 0.28198249358685956,
+          "状态": 0,
+          "熟练": 0
+        },
+        "coachDelta": {
+          "战术": 0,
+          "临场": 0,
+          "声望": 4
+        },
+        "evaluation": 90.9090909090909,
+        "weight": 1,
+        "familiarGains": {
+          "happywei-金": 1.5,
+          "SLOWLY-金": 1.5,
+          "Knight-银": 1.5,
+          "lucas-银": 1.5,
+          "LuoK1ng-银": 1.5
+        },
+        "participants": [
+          "happywei-金",
+          "SLOWLY-金",
+          "Knight-银",
+          "lucas-银",
+          "LuoK1ng-银"
+        ]
+      },
+      "stageFeedback": {
+        "version": "stage-feedback-1",
+        "phase": 0,
+        "settled": [
+          "0:CN:M4"
+        ],
+        "samples": [
+          {
+            "mapId": "lotus",
+            "rounds": 16,
+            "residual": 0.234211447164419
+          },
+          {
+            "mapId": "breeze",
+            "rounds": 19,
+            "residual": 0.10305426942771045
+          }
+        ],
+        "adjustment": 0.2749597240364917
+      }
+    },
+    {
+      "phase": 1,
+      "played": true,
+      "place": "未晋级",
+      "formal": 1,
+      "quick": 2,
+      "roster": [
+        "happywei-金",
+        "SLOWLY-金",
+        "Knight-银",
+        "lucas-银",
+        "LuoK1ng-银"
+      ],
+      "points": 3,
+      "growth": {
+        "id": "1:1:stage",
+        "year": 1,
+        "phase": 1,
+        "type": "event",
+        "before": {
+          "team": {
+            "羁绊": 32.32059065892061,
+            "状态": 51.49248679938247,
+            "熟练": 58.381235474020485
+          },
+          "coach": {
+            "战术": 50.189647165991445,
+            "临场": 50.05639830530341,
+            "声望": 54
+          }
+        },
+        "after": {
+          "team": {
+            "羁绊": 32.592743435691986,
+            "状态": 51.49248679938247,
+            "熟练": 58.381235474020485
+          },
+          "coach": {
+            "战术": 50.189647165991445,
+            "临场": 50.05639830530341,
+            "声望": 54
+          }
+        },
+        "teamDelta": {
+          "羁绊": 0.27215277677137806,
+          "状态": 0,
+          "熟练": 0
+        },
+        "coachDelta": {
+          "战术": 0,
+          "临场": 0,
+          "声望": 0
+        },
+        "evaluation": null,
+        "weight": 2,
+        "familiarGains": {
+          "happywei-金": 2,
+          "SLOWLY-金": 2,
+          "Knight-银": 2,
+          "lucas-银": 2,
+          "LuoK1ng-银": 2
+        },
+        "participants": [
+          "happywei-金",
+          "SLOWLY-金",
+          "Knight-银",
+          "lucas-银",
+          "LuoK1ng-银"
+        ]
+      },
+      "stageFeedback": {
+        "version": "stage-feedback-1",
+        "phase": 1,
+        "settled": [
+          "1:world:S2:1:1:1"
+        ],
+        "samples": [
+          {
+            "mapId": "ascent",
+            "rounds": 23,
+            "residual": -0.0709152854452208
+          },
+          {
+            "mapId": "lotus",
+            "rounds": 20,
+            "residual": 0.12737854281763272
+          },
+          {
+            "mapId": "fracture",
+            "rounds": 20,
+            "residual": 0.14078472778610907
+          }
+        ],
+        "adjustment": 0.13449419267873
+      }
+    },
+    {
+      "phase": 2,
+      "played": true,
+      "place": "常规赛第 1 名",
+      "formal": 1,
+      "quick": 5,
+      "roster": [
+        "ZmjjKK-钻-24首尔",
+        "happywei-金",
+        "SLOWLY-金",
+        "nobody-金",
+        "zhe-金"
+      ],
+      "points": 8,
+      "growth": {
+        "id": "1:2:stage",
+        "year": 1,
+        "phase": 2,
+        "type": "event",
+        "before": {
+          "team": {
+            "羁绊": 31.5721994980064,
+            "状态": 51.52700383166584,
+            "熟练": 57.50912027317798
+          },
+          "coach": {
+            "战术": 50.21464970365368,
+            "临场": 51.02574067325266,
+            "声望": 54
+          }
+        },
+        "after": {
+          "team": {
+            "羁绊": 31.867931878364196,
+            "状态": 51.52700383166584,
+            "熟练": 57.50912027317798
+          },
+          "coach": {
+            "战术": 50.21464970365368,
+            "临场": 51.02574067325266,
+            "声望": 58
+          }
+        },
+        "teamDelta": {
+          "羁绊": 0.2957323803577978,
+          "状态": 0,
+          "熟练": 0
+        },
+        "coachDelta": {
+          "战术": 0,
+          "临场": 0,
+          "声望": 4
+        },
+        "evaluation": 100,
+        "weight": 1,
+        "familiarGains": {
+          "ZmjjKK-钻-24首尔": 2,
+          "happywei-金": 2,
+          "SLOWLY-金": 2,
+          "nobody-金": 2,
+          "zhe-金": 2
+        },
+        "participants": [
+          "ZmjjKK-钻-24首尔",
+          "happywei-金",
+          "SLOWLY-金",
+          "nobody-金",
+          "zhe-金"
+        ]
+      },
+      "stageFeedback": {
+        "version": "stage-feedback-1",
+        "phase": 2,
+        "settled": [
+          "2:CN:G1:0:1"
+        ],
+        "samples": [
+          {
+            "mapId": "abyss",
+            "rounds": 21,
+            "residual": -0.14918123847695242
+          },
+          {
+            "mapId": "lotus",
+            "rounds": 21,
+            "residual": -0.14148482250151928
+          }
+        ],
+        "adjustment": -0.27128832357990695
+      }
+    },
+    {
+      "phase": 3,
+      "played": true,
+      "place": "第 1 名",
+      "formal": 2,
+      "quick": 2,
+      "roster": [
+        "ZmjjKK-钻-24首尔",
+        "happywei-金",
+        "SLOWLY-金",
+        "nobody-金",
+        "zhe-金"
+      ],
+      "points": 14,
+      "growth": {
+        "id": "1:3:stage",
+        "year": 1,
+        "phase": 3,
+        "type": "event",
+        "before": {
+          "team": {
+            "羁绊": 36.11209037286406,
+            "状态": 51.44720384237868,
+            "熟练": 60.777215368944624
+          },
+          "coach": {
+            "战术": 50.374941109333975,
+            "临场": 50.60618742388745,
+            "声望": 58
+          }
+        },
+        "after": {
+          "team": {
+            "羁绊": 36.30965091768984,
+            "状态": 51.44720384237868,
+            "熟练": 60.777215368944624
+          },
+          "coach": {
+            "战术": 50.374941109333975,
+            "临场": 50.60618742388745,
+            "声望": 62
+          }
+        },
+        "teamDelta": {
+          "羁绊": 0.19756054482577667,
+          "状态": 0,
+          "熟练": 0
+        },
+        "coachDelta": {
+          "战术": 0,
+          "临场": 0,
+          "声望": 4
+        },
+        "evaluation": 100,
+        "weight": 1,
+        "familiarGains": {
+          "ZmjjKK-钻-24首尔": 2,
+          "happywei-金": 2,
+          "SLOWLY-金": 2,
+          "nobody-金": 2,
+          "zhe-金": 2
+        },
+        "participants": [
+          "ZmjjKK-钻-24首尔",
+          "happywei-金",
+          "SLOWLY-金",
+          "nobody-金",
+          "zhe-金"
+        ]
+      },
+      "stageFeedback": {
+        "version": "stage-feedback-1",
+        "phase": 3,
+        "settled": [
+          "3:CN:UF",
+          "3:CN:GF"
+        ],
+        "samples": [
+          {
+            "mapId": "abyss",
+            "rounds": 24,
+            "residual": -0.12111645994393394
+          },
+          {
+            "mapId": "haven",
+            "rounds": 18,
+            "residual": 0.056736823191435914
+          },
+          {
+            "mapId": "summit",
+            "rounds": 23,
+            "residual": -0.10323397296621073
+          },
+          {
+            "mapId": "haven",
+            "rounds": 24,
+            "residual": -0.12618611660735113
+          },
+          {
+            "mapId": "lotus",
+            "rounds": 15,
+            "residual": 0.1886597933265315
+          }
+        ],
+        "adjustment": -0.11732851310815445
+      }
+    },
+    {
+      "phase": 4,
+      "played": true,
+      "place": "第 1 名",
+      "formal": 2,
+      "quick": 2,
+      "roster": [
+        "ZmjjKK-钻-24首尔",
+        "happywei-金",
+        "SLOWLY-金",
+        "nobody-金",
+        "zhe-金"
+      ],
+      "points": 22,
+      "growth": {
+        "id": "1:4:stage",
+        "year": 1,
+        "phase": 4,
+        "type": "event",
+        "before": {
+          "team": {
+            "羁绊": 40.469375006878124,
+            "状态": 51.486594651280086,
+            "熟练": 64.06812953289041
+          },
+          "coach": {
+            "战术": 50.53969880109074,
+            "临场": 51.16716093045029,
+            "声望": 62
+          }
+        },
+        "after": {
+          "team": {
+            "羁绊": 40.738930659314256,
+            "状态": 51.486594651280086,
+            "熟练": 64.06812953289041
+          },
+          "coach": {
+            "战术": 50.53969880109074,
+            "临场": 51.16716093045029,
+            "声望": 65.8
+          }
+        },
+        "teamDelta": {
+          "羁绊": 0.2695556524361322,
+          "状态": 0,
+          "熟练": 0
+        },
+        "coachDelta": {
+          "战术": 0,
+          "临场": 0,
+          "声望": 3.799999999999997
+        },
+        "evaluation": 100,
+        "weight": 2,
+        "familiarGains": {
+          "ZmjjKK-钻-24首尔": 4,
+          "happywei-金": 4,
+          "SLOWLY-金": 4,
+          "nobody-金": 4,
+          "zhe-金": 4
+        },
+        "participants": [
+          "ZmjjKK-钻-24首尔",
+          "happywei-金",
+          "SLOWLY-金",
+          "nobody-金",
+          "zhe-金"
+        ]
+      },
+      "stageFeedback": {
+        "version": "stage-feedback-1",
+        "phase": 4,
+        "settled": [
+          "4:world:PO:UF",
+          "4:world:PO:GF"
+        ],
+        "samples": [
+          {
+            "mapId": "haven",
+            "rounds": 20,
+            "residual": 0.04427467383180694
+          },
+          {
+            "mapId": "abyss",
+            "rounds": 28,
+            "residual": -0.14584440307678614
+          },
+          {
+            "mapId": "breeze",
+            "rounds": 18,
+            "residual": 0.10918096261656662
+          },
+          {
+            "mapId": "summit",
+            "rounds": 16,
+            "residual": 0.2019212178982065
+          },
+          {
+            "mapId": "haven",
+            "rounds": 16,
+            "residual": 0.18632869181859368
+          },
+          {
+            "mapId": "lotus",
+            "rounds": 19,
+            "residual": 0.05543478991722306
+          }
+        ],
+        "adjustment": 0.14623920197528162
+      }
+    },
+    {
+      "phase": 5,
+      "played": true,
+      "place": "常规赛第 1 名",
+      "formal": 1,
+      "quick": 5,
+      "roster": [
+        "ZmjjKK-钻-24首尔",
+        "happywei-金",
+        "SLOWLY-金",
+        "vo0kashu-金",
+        "K1ra-金"
+      ],
+      "points": 27,
+      "growth": {
+        "id": "1:5:stage",
+        "year": 1,
+        "phase": 5,
+        "type": "event",
+        "before": {
+          "team": {
+            "羁绊": 34.663098713758615,
+            "状态": 50.51361613015242,
+            "熟练": 62.33110433979875
+          },
+          "coach": {
+            "战术": 50.4865433564081,
+            "临场": 50.44151654552359,
+            "声望": 65.8
+          }
+        },
+        "after": {
+          "team": {
+            "羁绊": 34.85893663837961,
+            "状态": 50.51361613015242,
+            "熟练": 62.33110433979875
+          },
+          "coach": {
+            "战术": 50.4865433564081,
+            "临场": 50.44151654552359,
+            "声望": 69.22
+          }
+        },
+        "teamDelta": {
+          "羁绊": 0.1958379246209958,
+          "状态": 0,
+          "熟练": 0
+        },
+        "coachDelta": {
+          "战术": 0,
+          "临场": 0,
+          "声望": 3.4200000000000017
+        },
+        "evaluation": 100,
+        "weight": 1,
+        "familiarGains": {
+          "ZmjjKK-钻-24首尔": 2,
+          "happywei-金": 2,
+          "SLOWLY-金": 2,
+          "vo0kashu-金": 2,
+          "K1ra-金": 2
+        },
+        "participants": [
+          "ZmjjKK-钻-24首尔",
+          "happywei-金",
+          "SLOWLY-金",
+          "vo0kashu-金",
+          "K1ra-金"
+        ]
+      },
+      "stageFeedback": {
+        "version": "stage-feedback-1",
+        "phase": 5,
+        "settled": [
+          "5:CN:G0:0:3"
+        ],
+        "samples": [
+          {
+            "mapId": "lotus",
+            "rounds": 18,
+            "residual": -0.1328892725959615
+          },
+          {
+            "mapId": "sunset",
+            "rounds": 18,
+            "residual": -0.12715228669046263
+          }
+        ],
+        "adjustment": -0.22289276510264924
+      }
+    },
+    {
+      "phase": 6,
+      "played": true,
+      "place": "第 1 名",
+      "formal": 2,
+      "quick": 2,
+      "roster": [
+        "ZmjjKK-钻-24首尔",
+        "happywei-金",
+        "SLOWLY-金",
+        "vo0kashu-金",
+        "K1ra-金"
+      ],
+      "points": 35,
+      "growth": {
+        "id": "1:6:stage",
+        "year": 1,
+        "phase": 6,
+        "type": "event",
+        "before": {
+          "team": {
+            "羁绊": 38.879826325723315,
+            "状态": 50.953635055738005,
+            "熟练": 65.35330477408597
+          },
+          "coach": {
+            "战术": 50.64150076514936,
+            "临场": 50.62489680650345,
+            "声望": 69.22
+          }
+        },
+        "after": {
+          "team": {
+            "羁绊": 39.009297196580306,
+            "状态": 50.953635055738005,
+            "熟练": 65.35330477408597
+          },
+          "coach": {
+            "战术": 50.64150076514936,
+            "临场": 50.62489680650345,
+            "声望": 72.298
+          }
+        },
+        "teamDelta": {
+          "羁绊": 0.12947087085699138,
+          "状态": 0,
+          "熟练": 0
+        },
+        "coachDelta": {
+          "战术": 0,
+          "临场": 0,
+          "声望": 3.078000000000003
+        },
+        "evaluation": 100,
+        "weight": 1,
+        "familiarGains": {
+          "ZmjjKK-钻-24首尔": 2,
+          "happywei-金": 2,
+          "SLOWLY-金": 2,
+          "vo0kashu-金": 2,
+          "K1ra-金": 2
+        },
+        "participants": [
+          "ZmjjKK-钻-24首尔",
+          "happywei-金",
+          "SLOWLY-金",
+          "vo0kashu-金",
+          "K1ra-金"
+        ]
+      },
+      "stageFeedback": {
+        "version": "stage-feedback-1",
+        "phase": 6,
+        "settled": [
+          "6:CN:UF",
+          "6:CN:GF"
+        ],
+        "samples": [
+          {
+            "mapId": "lotus",
+            "rounds": 24,
+            "residual": -0.15001300088670577
+          },
+          {
+            "mapId": "sunset",
+            "rounds": 17,
+            "residual": 0.09537425089434659
+          },
+          {
+            "mapId": "lotus",
+            "rounds": 17,
+            "residual": -0.45696028867592003
+          },
+          {
+            "mapId": "sunset",
+            "rounds": 26,
+            "residual": -0.12912281064678188
+          },
+          {
+            "mapId": "fracture",
+            "rounds": 15,
+            "residual": 0.1818176176336631
+          },
+          {
+            "mapId": "ascent",
+            "rounds": 21,
+            "residual": -0.060367427394561024
+          }
+        ],
+        "adjustment": -0.2772599869324965
+      }
+    },
+    {
+      "phase": 7,
+      "played": true,
+      "place": "第 1 名",
+      "formal": 2,
+      "quick": 5,
+      "roster": [
+        "ZmjjKK-钻-24首尔",
+        "happywei-金",
+        "SLOWLY-金",
+        "vo0kashu-金",
+        "K1ra-金"
+      ],
+      "points": 35,
+      "growth": {
+        "id": "1:7:stage",
+        "year": 1,
+        "phase": 7,
+        "type": "event",
+        "before": {
+          "team": {
+            "羁绊": 46.57929394322153,
+            "状态": 50.43616732319541,
+            "熟练": 71.04511023317
+          },
+          "coach": {
+            "战术": 50.74519995600954,
+            "临场": 50.78194493870055,
+            "声望": 72.298
+          }
+        },
+        "after": {
+          "team": {
+            "羁绊": 46.79196381611906,
+            "状态": 50.43616732319541,
+            "熟练": 71.04511023317
+          },
+          "coach": {
+            "战术": 50.74519995600954,
+            "临场": 50.78194493870055,
+            "声望": 75.0682
+          }
+        },
+        "teamDelta": {
+          "羁绊": 0.21266987289752848,
+          "状态": 0,
+          "熟练": 0
+        },
+        "coachDelta": {
+          "战术": 0,
+          "临场": 0,
+          "声望": 2.7702000000000027
+        },
+        "evaluation": 100,
+        "weight": 3,
+        "familiarGains": {
+          "ZmjjKK-钻-24首尔": 6,
+          "happywei-金": 6,
+          "SLOWLY-金": 6,
+          "vo0kashu-金": 6,
+          "K1ra-金": 6
+        },
+        "participants": [
+          "ZmjjKK-钻-24首尔",
+          "happywei-金",
+          "SLOWLY-金",
+          "vo0kashu-金",
+          "K1ra-金"
+        ]
+      },
+      "stageFeedback": {
+        "version": "stage-feedback-1",
+        "phase": 7,
+        "settled": [
+          "7:world:PO:UF",
+          "7:world:PO:GF"
+        ],
+        "samples": [
+          {
+            "mapId": "split",
+            "rounds": 17,
+            "residual": -0.37614703943212663
+          },
+          {
+            "mapId": "haven",
+            "rounds": 19,
+            "residual": 0.06629496184284589
+          },
+          {
+            "mapId": "sunset",
+            "rounds": 16,
+            "residual": -0.44134402880976553
+          },
+          {
+            "mapId": "split",
+            "rounds": 26,
+            "residual": -0.0738648461040895
+          },
+          {
+            "mapId": "summit",
+            "rounds": 22,
+            "residual": -0.04502230038919863
+          },
+          {
+            "mapId": "haven",
+            "rounds": 19,
+            "residual": -0.30940009048372363
+          },
+          {
+            "mapId": "fracture",
+            "rounds": 28,
+            "residual": -0.09557242440895175
+          }
+        ],
+        "adjustment": -0.4853744834091984
+      }
+    }
+  ],
+  "coach": {
+    "战术": 50.74519995600954,
+    "临场": 50.78194493870055,
+    "声望": 77.47047090909092
+  },
+  "familiarityEntries": 10,
+  "bytes": 1597445,
+  "nextYear": 2,
+  "complete": true
+}

@@ -1,0 +1,50 @@
+{
+  "approvedMaps": [
+    "haven",
+    "sunset",
+    "breeze",
+    "lotus",
+    "abyss",
+    "summit"
+  ],
+  "pendingMaps": [
+    "split",
+    "fracture"
+  ],
+  "releaseGate": true,
+  "evidence": "docs/validation/2026-10-07-multimap-balance/summary-held-j+held-k.json",
+  "scope": "New campaigns freeze the nine-map spatial policy; existing seasons keep their original model. Independent legacy preview defaults remain unchanged.",
+  "candidateVersions": {
+    "ascent": "ascent-balance-5",
+    "haven": "haven-balance-3",
+    "split": "split-balance-3",
+    "sunset": "sunset-balance-3",
+    "breeze": "breeze-balance-3",
+    "lotus": "lotus-balance-3",
+    "fracture": "fracture-balance-3",
+    "abyss": "abyss-balance-3",
+    "summit": "summit-balance-3"
+  },
+  "candidateEvidence": "docs/validation/2026-10-07-agent-autonomy/summary-final.json",
+  "candidateStatus": "Campaign functional closure passed. Side/roster win rates remain measured outcomes; user accepted Lotus attack tendency instead of a forced 55% ceiling.",
+  "campaignReleaseId": "campaign-spatial-20261008-1",
+  "campaignApprovedMaps": [
+    "ascent",
+    "haven",
+    "split",
+    "sunset",
+    "breeze",
+    "lotus",
+    "fracture",
+    "abyss",
+    "summit"
+  ],
+  "campaignEvidence": "docs/validation/2026-10-08-spatial-campaign.md",
+  "balanceAcceptance": {
+    "date": "2026-10-08",
+    "scope": "Functional campaign release; not a universal 45-55 balance certification",
+    "lotusMeasuredAttackRate": 57.38,
+    "userAcceptedMapVariation": true,
+    "noForcedOutcomeCap": true
+  }
+}

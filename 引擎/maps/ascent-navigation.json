@@ -1,0 +1,1256 @@
+{
+  "id": "ascent",
+  "name": "亚海悬城",
+  "sites": {
+    "A": "a_site",
+    "B": "b_site"
+  },
+  "spawns": {
+    "atk": "t_spawn",
+    "def": "ct_spawn"
+  },
+  "staging": {
+    "A": "ct_a",
+    "B": "ct_b"
+  },
+  "trapSpots": {
+    "a_site": "a_lobby",
+    "a_heaven": "a_lobby",
+    "a_short": "a_short",
+    "b_site": "b_lobby",
+    "b_back": "b_lobby",
+    "market": "market",
+    "mid_bottom": "mid"
+  },
+  "view": {
+    "width": 960,
+    "height": 960
+  },
+  "nodes": {
+    "t_spawn": {
+      "name": "进攻出生点",
+      "region": "spawn",
+      "cover": 0.2,
+      "advantage": "neutral",
+      "capacity": 8,
+      "x": 552,
+      "y": 237
+    },
+    "a_main": {
+      "name": "A大厅",
+      "region": "A",
+      "cover": 0.3,
+      "advantage": "neutral",
+      "capacity": 6,
+      "x": 282,
+      "y": 370
+    },
+    "a_lobby": {
+      "name": "A大",
+      "region": "A",
+      "cover": 0.4,
+      "advantage": "neutral",
+      "capacity": 6,
+      "x": 288,
+      "y": 492
+    },
+    "a_site": {
+      "name": "A包点",
+      "region": "A",
+      "cover": 0.5,
+      "advantage": "def",
+      "capacity": 6,
+      "x": 180,
+      "y": 643
+    },
+    "a_heaven": {
+      "name": "A二楼",
+      "region": "A",
+      "cover": 0.6,
+      "advantage": "def",
+      "capacity": 3,
+      "x": 180,
+      "y": 700
+    },
+    "a_short": {
+      "name": "A连接",
+      "region": "A",
+      "cover": 0.3,
+      "advantage": "neutral",
+      "capacity": 3,
+      "x": 332,
+      "y": 570
+    },
+    "mid_top": {
+      "name": "中路顶",
+      "region": "mid",
+      "cover": 0.3,
+      "advantage": "neutral",
+      "capacity": 4,
+      "x": 423,
+      "y": 337
+    },
+    "mid": {
+      "name": "中路",
+      "region": "mid",
+      "cover": 0.3,
+      "advantage": "neutral",
+      "capacity": 4,
+      "x": 518,
+      "y": 493
+    },
+    "mid_bottom": {
+      "name": "中路底",
+      "region": "mid",
+      "cover": 0.3,
+      "advantage": "def",
+      "capacity": 4,
+      "x": 490,
+      "y": 568
+    },
+    "market": {
+      "name": "市场",
+      "region": "B",
+      "cover": 0.5,
+      "advantage": "def",
+      "capacity": 3,
+      "x": 542,
+      "y": 655
+    },
+    "b_main": {
+      "name": "B大入口",
+      "region": "B",
+      "cover": 0.3,
+      "advantage": "neutral",
+      "capacity": 6,
+      "x": 684,
+      "y": 404
+    },
+    "b_lobby": {
+      "name": "B大",
+      "region": "B",
+      "cover": 0.4,
+      "advantage": "neutral",
+      "capacity": 6,
+      "x": 673,
+      "y": 565
+    },
+    "b_site": {
+      "name": "B包点",
+      "region": "B",
+      "cover": 0.5,
+      "advantage": "def",
+      "capacity": 6,
+      "x": 745,
+      "y": 681
+    },
+    "b_back": {
+      "name": "B点后",
+      "region": "B",
+      "cover": 0.5,
+      "advantage": "neutral",
+      "capacity": 4,
+      "x": 829,
+      "y": 700
+    },
+    "ct_spawn": {
+      "name": "防守出生点",
+      "region": "spawn",
+      "cover": 0.2,
+      "advantage": "def",
+      "capacity": 8,
+      "x": 442,
+      "y": 813
+    },
+    "ct_a": {
+      "name": "警家A连接",
+      "region": "A",
+      "cover": 0.4,
+      "advantage": "def",
+      "capacity": 4,
+      "x": 270,
+      "y": 770
+    },
+    "ct_b": {
+      "name": "警家B连接",
+      "region": "B",
+      "cover": 0.4,
+      "advantage": "def",
+      "capacity": 4,
+      "x": 620,
+      "y": 771
+    }
+  },
+  "edges": [
+    {
+      "a": "t_spawn",
+      "b": "a_main",
+      "ticks": 4,
+      "exposure": 0.1,
+      "route": [
+        {
+          "x": 552,
+          "y": 237
+        },
+        {
+          "x": 340,
+          "y": 237
+        },
+        {
+          "x": 340,
+          "y": 325
+        },
+        {
+          "x": 282,
+          "y": 325
+        },
+        {
+          "x": 282,
+          "y": 370
+        }
+      ]
+    },
+    {
+      "a": "a_main",
+      "b": "a_lobby",
+      "ticks": 3,
+      "exposure": 0.15,
+      "route": [
+        {
+          "x": 282,
+          "y": 370
+        },
+        {
+          "x": 288,
+          "y": 492
+        }
+      ]
+    },
+    {
+      "a": "a_lobby",
+      "b": "a_site",
+      "ticks": 3,
+      "exposure": 0.35,
+      "route": [
+        {
+          "x": 288,
+          "y": 492
+        },
+        {
+          "x": 145,
+          "y": 492
+        },
+        {
+          "x": 145,
+          "y": 570
+        },
+        {
+          "x": 180,
+          "y": 570
+        },
+        {
+          "x": 180,
+          "y": 643
+        }
+      ]
+    },
+    {
+      "a": "a_site",
+      "b": "a_heaven",
+      "ticks": 2,
+      "exposure": 0.2,
+      "route": [
+        {
+          "x": 180,
+          "y": 643
+        },
+        {
+          "x": 180,
+          "y": 700
+        }
+      ]
+    },
+    {
+      "a": "a_short",
+      "b": "a_site",
+      "ticks": 3,
+      "exposure": 0.3,
+      "route": [
+        {
+          "x": 332,
+          "y": 570
+        },
+        {
+          "x": 240,
+          "y": 570
+        },
+        {
+          "x": 240,
+          "y": 643
+        },
+        {
+          "x": 180,
+          "y": 643
+        }
+      ]
+    },
+    {
+      "a": "t_spawn",
+      "b": "mid_top",
+      "ticks": 3,
+      "exposure": 0.1,
+      "route": [
+        {
+          "x": 552,
+          "y": 237
+        },
+        {
+          "x": 480,
+          "y": 237
+        },
+        {
+          "x": 480,
+          "y": 290
+        },
+        {
+          "x": 423,
+          "y": 290
+        },
+        {
+          "x": 423,
+          "y": 337
+        }
+      ]
+    },
+    {
+      "a": "mid_top",
+      "b": "mid",
+      "ticks": 3,
+      "exposure": 0.25,
+      "route": [
+        {
+          "x": 423,
+          "y": 337
+        },
+        {
+          "x": 423,
+          "y": 440
+        },
+        {
+          "x": 460,
+          "y": 440
+        },
+        {
+          "x": 460,
+          "y": 493
+        },
+        {
+          "x": 518,
+          "y": 493
+        }
+      ]
+    },
+    {
+      "a": "mid",
+      "b": "a_short",
+      "ticks": 3,
+      "exposure": 0.25,
+      "route": [
+        {
+          "x": 518,
+          "y": 493
+        },
+        {
+          "x": 365,
+          "y": 493
+        },
+        {
+          "x": 365,
+          "y": 570
+        },
+        {
+          "x": 332,
+          "y": 570
+        }
+      ]
+    },
+    {
+      "a": "mid",
+      "b": "mid_bottom",
+      "ticks": 3,
+      "exposure": 0.3,
+      "route": [
+        {
+          "x": 518,
+          "y": 493
+        },
+        {
+          "x": 490,
+          "y": 568
+        }
+      ]
+    },
+    {
+      "a": "mid_bottom",
+      "b": "market",
+      "ticks": 2,
+      "exposure": 0.25,
+      "route": [
+        {
+          "x": 490,
+          "y": 568
+        },
+        {
+          "x": 490,
+          "y": 655
+        },
+        {
+          "x": 542,
+          "y": 655
+        }
+      ]
+    },
+    {
+      "a": "t_spawn",
+      "b": "b_main",
+      "ticks": 4,
+      "exposure": 0.1,
+      "route": [
+        {
+          "x": 552,
+          "y": 237
+        },
+        {
+          "x": 628,
+          "y": 237
+        },
+        {
+          "x": 628,
+          "y": 404
+        },
+        {
+          "x": 684,
+          "y": 404
+        }
+      ]
+    },
+    {
+      "a": "b_main",
+      "b": "b_lobby",
+      "ticks": 3,
+      "exposure": 0.15,
+      "route": [
+        {
+          "x": 684,
+          "y": 404
+        },
+        {
+          "x": 724,
+          "y": 404
+        },
+        {
+          "x": 724,
+          "y": 480
+        },
+        {
+          "x": 700,
+          "y": 480
+        },
+        {
+          "x": 700,
+          "y": 565
+        },
+        {
+          "x": 673,
+          "y": 565
+        }
+      ]
+    },
+    {
+      "a": "b_lobby",
+      "b": "b_site",
+      "ticks": 3,
+      "exposure": 0.35,
+      "route": [
+        {
+          "x": 673,
+          "y": 565
+        },
+        {
+          "x": 673,
+          "y": 610
+        },
+        {
+          "x": 745,
+          "y": 610
+        },
+        {
+          "x": 745,
+          "y": 681
+        }
+      ]
+    },
+    {
+      "a": "b_site",
+      "b": "b_back",
+      "ticks": 2,
+      "exposure": 0.2,
+      "route": [
+        {
+          "x": 745,
+          "y": 681
+        },
+        {
+          "x": 829,
+          "y": 681
+        },
+        {
+          "x": 829,
+          "y": 700
+        }
+      ]
+    },
+    {
+      "a": "market",
+      "b": "b_site",
+      "ticks": 3,
+      "exposure": 0.3,
+      "route": [
+        {
+          "x": 542,
+          "y": 655
+        },
+        {
+          "x": 595,
+          "y": 655
+        },
+        {
+          "x": 595,
+          "y": 620
+        },
+        {
+          "x": 745,
+          "y": 620
+        },
+        {
+          "x": 745,
+          "y": 681
+        }
+      ]
+    },
+    {
+      "a": "ct_spawn",
+      "b": "ct_a",
+      "ticks": 3,
+      "exposure": 0.05,
+      "route": [
+        {
+          "x": 442,
+          "y": 813
+        },
+        {
+          "x": 380,
+          "y": 813
+        },
+        {
+          "x": 380,
+          "y": 770
+        },
+        {
+          "x": 270,
+          "y": 770
+        }
+      ]
+    },
+    {
+      "a": "ct_spawn",
+      "b": "ct_b",
+      "ticks": 3,
+      "exposure": 0.05,
+      "route": [
+        {
+          "x": 442,
+          "y": 813
+        },
+        {
+          "x": 442,
+          "y": 771
+        },
+        {
+          "x": 620,
+          "y": 771
+        }
+      ]
+    },
+    {
+      "a": "ct_a",
+      "b": "a_site",
+      "ticks": 3,
+      "exposure": 0.2,
+      "route": [
+        {
+          "x": 270,
+          "y": 770
+        },
+        {
+          "x": 270,
+          "y": 700
+        },
+        {
+          "x": 180,
+          "y": 700
+        },
+        {
+          "x": 180,
+          "y": 643
+        }
+      ]
+    },
+    {
+      "a": "ct_a",
+      "b": "a_heaven",
+      "ticks": 2,
+      "exposure": 0.15,
+      "route": [
+        {
+          "x": 270,
+          "y": 770
+        },
+        {
+          "x": 270,
+          "y": 700
+        },
+        {
+          "x": 180,
+          "y": 700
+        }
+      ]
+    },
+    {
+      "a": "ct_b",
+      "b": "b_site",
+      "ticks": 3,
+      "exposure": 0.2,
+      "route": [
+        {
+          "x": 620,
+          "y": 771
+        },
+        {
+          "x": 620,
+          "y": 710
+        },
+        {
+          "x": 745,
+          "y": 710
+        },
+        {
+          "x": 745,
+          "y": 681
+        }
+      ]
+    },
+    {
+      "a": "ct_b",
+      "b": "market",
+      "ticks": 3,
+      "exposure": 0.2,
+      "route": [
+        {
+          "x": 620,
+          "y": 771
+        },
+        {
+          "x": 620,
+          "y": 655
+        },
+        {
+          "x": 542,
+          "y": 655
+        }
+      ]
+    },
+    {
+      "a": "ct_spawn",
+      "b": "mid_bottom",
+      "ticks": 4,
+      "exposure": 0.15,
+      "route": [
+        {
+          "x": 442,
+          "y": 813
+        },
+        {
+          "x": 442,
+          "y": 695
+        },
+        {
+          "x": 490,
+          "y": 695
+        },
+        {
+          "x": 490,
+          "y": 568
+        }
+      ]
+    },
+    {
+      "a": "mid_bottom",
+      "b": "ct_b",
+      "ticks": 3,
+      "exposure": 0.15,
+      "route": [
+        {
+          "x": 490,
+          "y": 568
+        },
+        {
+          "x": 490,
+          "y": 620
+        },
+        {
+          "x": 620,
+          "y": 620
+        },
+        {
+          "x": 620,
+          "y": 771
+        }
+      ]
+    }
+  ],
+  "posts": {
+    "a_main_outside": {
+      "node": "a_main",
+      "name": "A大厅站位",
+      "x": 283.4,
+      "y": 367.2,
+      "cover": 0.2
+    },
+    "a_main_door": {
+      "node": "a_main",
+      "name": "A大厅站位",
+      "x": 284.8,
+      "y": 360.2,
+      "cover": 0.3
+    },
+    "a_lobby_car": {
+      "node": "a_lobby",
+      "name": "A大站位",
+      "x": 289.4,
+      "y": 497.6,
+      "cover": 0.5
+    },
+    "a_lobby_open": {
+      "node": "a_lobby",
+      "name": "A大站位",
+      "x": 286.6,
+      "y": 485,
+      "cover": 0.15
+    },
+    "a_lobby_link": {
+      "node": "a_lobby",
+      "name": "A大站位",
+      "x": 297.8,
+      "y": 483.6,
+      "cover": 0.3
+    },
+    "a_site_default": {
+      "node": "a_site",
+      "name": "A包点站位",
+      "x": 178.6,
+      "y": 647.2,
+      "cover": 0.4
+    },
+    "a_site_dice": {
+      "node": "a_site",
+      "name": "A包点站位",
+      "x": 184.2,
+      "y": 638.24,
+      "cover": 0.6
+    },
+    "a_site_gen": {
+      "node": "a_site",
+      "name": "A包点站位",
+      "x": 175.24,
+      "y": 636,
+      "cover": 0.5
+    },
+    "a_site_open": {
+      "node": "a_site",
+      "name": "A包点站位",
+      "x": 182.8,
+      "y": 645.8,
+      "cover": 0.15
+    },
+    "a_heaven_rail": {
+      "node": "a_heaven",
+      "name": "A二楼站位",
+      "x": 178.04,
+      "y": 703.36,
+      "cover": 0.5
+    },
+    "a_heaven_deep": {
+      "node": "a_heaven",
+      "name": "A二楼站位",
+      "x": 185.6,
+      "y": 695.8,
+      "cover": 0.4
+    },
+    "a_short_tree": {
+      "node": "a_short",
+      "name": "A连接站位",
+      "x": 329.76,
+      "y": 573.36,
+      "cover": 0.4
+    },
+    "a_short_entry": {
+      "node": "a_short",
+      "name": "A连接站位",
+      "x": 323.6,
+      "y": 564.4,
+      "cover": 0.2
+    },
+    "mid_top_cat": {
+      "node": "mid_top",
+      "name": "中路顶站位",
+      "x": 420.2,
+      "y": 333.64,
+      "cover": 0.3
+    },
+    "mid_top_open": {
+      "node": "mid_top",
+      "name": "中路顶站位",
+      "x": 426.36,
+      "y": 340.36,
+      "cover": 0.15
+    },
+    "mid_catwalk": {
+      "node": "mid",
+      "name": "中路站位",
+      "x": 514.64,
+      "y": 489.64,
+      "cover": 0.3
+    },
+    "mid_courtyard": {
+      "node": "mid",
+      "name": "中路站位",
+      "x": 521.36,
+      "y": 496.36,
+      "cover": 0.2
+    },
+    "mid_bot_arch": {
+      "node": "mid_bottom",
+      "name": "中路底站位",
+      "x": 489.44,
+      "y": 571.36,
+      "cover": 0.3
+    },
+    "mid_bot_link": {
+      "node": "mid_bottom",
+      "name": "中路底站位",
+      "x": 493.36,
+      "y": 564.08,
+      "cover": 0.35
+    },
+    "market_door": {
+      "node": "market",
+      "name": "市场站位",
+      "x": 540.6,
+      "y": 658.36,
+      "cover": 0.4
+    },
+    "market_window": {
+      "node": "market",
+      "name": "市场站位",
+      "x": 546.2,
+      "y": 651.64,
+      "cover": 0.5
+    },
+    "b_main_outside": {
+      "node": "b_main",
+      "name": "B大入口站位",
+      "x": 682.6,
+      "y": 401.2,
+      "cover": 0.2
+    },
+    "b_main_door": {
+      "node": "b_main",
+      "name": "B大入口站位",
+      "x": 681.2,
+      "y": 393.36,
+      "cover": 0.3
+    },
+    "b_lobby_lane": {
+      "node": "b_lobby",
+      "name": "B大站位",
+      "x": 671.6,
+      "y": 570.6,
+      "cover": 0.3
+    },
+    "b_lobby_open": {
+      "node": "b_lobby",
+      "name": "B大站位",
+      "x": 674.4,
+      "y": 558.84,
+      "cover": 0.15
+    },
+    "b_site_default": {
+      "node": "b_site",
+      "name": "B包点站位",
+      "x": 743.6,
+      "y": 685.2,
+      "cover": 0.4
+    },
+    "b_site_boat": {
+      "node": "b_site",
+      "name": "B包点站位",
+      "x": 749.2,
+      "y": 676.24,
+      "cover": 0.6
+    },
+    "b_site_open": {
+      "node": "b_site",
+      "name": "B包点站位",
+      "x": 742.2,
+      "y": 679.04,
+      "cover": 0.15
+    },
+    "b_back_lane": {
+      "node": "b_back",
+      "name": "B点后站位",
+      "x": 827.6,
+      "y": 702.8,
+      "cover": 0.4
+    },
+    "b_back_corner": {
+      "node": "b_back",
+      "name": "B点后站位",
+      "x": 833.2,
+      "y": 695.8,
+      "cover": 0.5
+    },
+    "ct_a_ramp": {
+      "node": "ct_a",
+      "name": "警家A连接站位",
+      "x": 271.4,
+      "y": 774.76,
+      "cover": 0.35
+    },
+    "ct_a_heavenlink": {
+      "node": "ct_a",
+      "name": "警家A连接站位",
+      "x": 265.8,
+      "y": 780.36,
+      "cover": 0.3
+    },
+    "ct_b_ramp": {
+      "node": "ct_b",
+      "name": "警家B连接站位",
+      "x": 618.6,
+      "y": 775.76,
+      "cover": 0.35
+    },
+    "ct_b_marketlink": {
+      "node": "ct_b",
+      "name": "警家B连接站位",
+      "x": 613.84,
+      "y": 784.16,
+      "cover": 0.3
+    }
+  },
+  "sightlines": [
+    [
+      "a_heaven_rail",
+      "a_main_outside",
+      0.45
+    ],
+    [
+      "a_heaven_rail",
+      "a_main_door",
+      0.35
+    ],
+    [
+      "a_heaven_rail",
+      "a_lobby_car",
+      0.3
+    ],
+    [
+      "a_heaven_rail",
+      "a_lobby_open",
+      0.4
+    ],
+    [
+      "a_heaven_rail",
+      "a_site_default",
+      0.25
+    ],
+    [
+      "a_heaven_rail",
+      "a_site_open",
+      0.3
+    ],
+    [
+      "a_heaven_deep",
+      "a_lobby_open",
+      0.35
+    ],
+    [
+      "a_site_dice",
+      "a_main_door",
+      0.35
+    ],
+    [
+      "a_site_dice",
+      "a_lobby_open",
+      0.3
+    ],
+    [
+      "a_site_default",
+      "a_lobby_open",
+      0.4
+    ],
+    [
+      "a_site_default",
+      "a_lobby_car",
+      0.35
+    ],
+    [
+      "a_site_default",
+      "a_short_entry",
+      0.35
+    ],
+    [
+      "a_site_gen",
+      "a_short_entry",
+      0.3
+    ],
+    [
+      "a_site_open",
+      "a_short_entry",
+      0.4
+    ],
+    [
+      "a_site_open",
+      "a_lobby_open",
+      0.45
+    ],
+    [
+      "a_short_tree",
+      "a_site_open",
+      0.25
+    ],
+    [
+      "a_short_tree",
+      "mid_catwalk",
+      0.3
+    ],
+    [
+      "a_short_entry",
+      "a_heaven_rail",
+      0.4
+    ],
+    [
+      "a_lobby_link",
+      "a_short_tree",
+      0.35
+    ],
+    [
+      "mid_top_cat",
+      "mid_courtyard",
+      0.35
+    ],
+    [
+      "mid_top_open",
+      "mid_courtyard",
+      0.45
+    ],
+    [
+      "mid_catwalk",
+      "mid_bot_arch",
+      0.35
+    ],
+    [
+      "mid_courtyard",
+      "mid_bot_arch",
+      0.4
+    ],
+    [
+      "mid_courtyard",
+      "mid_bot_link",
+      0.35
+    ],
+    [
+      "mid_bot_arch",
+      "market_door",
+      0.3
+    ],
+    [
+      "mid_bot_link",
+      "ct_a_heavenlink",
+      0.3
+    ],
+    [
+      "market_window",
+      "b_site_open",
+      0.35
+    ],
+    [
+      "market_window",
+      "b_site_default",
+      0.3
+    ],
+    [
+      "market_door",
+      "b_lobby_lane",
+      0.35
+    ],
+    [
+      "market_door",
+      "b_lobby_open",
+      0.4
+    ],
+    [
+      "b_lobby_lane",
+      "b_site_default",
+      0.4
+    ],
+    [
+      "b_lobby_open",
+      "b_site_default",
+      0.45
+    ],
+    [
+      "b_lobby_open",
+      "b_site_open",
+      0.5
+    ],
+    [
+      "b_back_lane",
+      "b_lobby_open",
+      0.35
+    ],
+    [
+      "b_back_lane",
+      "b_site_open",
+      0.25
+    ],
+    [
+      "b_back_corner",
+      "b_site_open",
+      0.2
+    ],
+    [
+      "b_back_corner",
+      "b_lobby_open",
+      0.3
+    ],
+    [
+      "b_site_boat",
+      "b_main_door",
+      0.35
+    ],
+    [
+      "b_site_default",
+      "b_main_door",
+      0.4
+    ],
+    [
+      "ct_a_ramp",
+      "a_site_default",
+      0.25
+    ],
+    [
+      "ct_a_ramp",
+      "a_site_open",
+      0.3
+    ],
+    [
+      "ct_a_heavenlink",
+      "a_heaven_rail",
+      0.3
+    ],
+    [
+      "ct_b_ramp",
+      "b_site_default",
+      0.25
+    ],
+    [
+      "ct_b_ramp",
+      "b_site_open",
+      0.3
+    ],
+    [
+      "ct_b_marketlink",
+      "market_door",
+      0.3
+    ],
+    [
+      "ct_b_marketlink",
+      "market_window",
+      0.35
+    ],
+    [
+      "a_site_dice",
+      "ct_a_ramp",
+      0.3
+    ],
+    [
+      "a_site_gen",
+      "ct_a_ramp",
+      0.25
+    ],
+    [
+      "a_site_default",
+      "ct_a_heavenlink",
+      0.25
+    ],
+    [
+      "a_heaven_rail",
+      "ct_a_ramp",
+      0.2
+    ],
+    [
+      "b_site_boat",
+      "ct_b_ramp",
+      0.3
+    ],
+    [
+      "b_site_boat",
+      "ct_b_marketlink",
+      0.3
+    ],
+    [
+      "b_site_open",
+      "ct_b_marketlink",
+      0.35
+    ],
+    [
+      "b_back_lane",
+      "ct_b_ramp",
+      0.25
+    ]
+  ],
+  "navigationStatus": "region-corridors",
+  "combatProfile": "campaign-ballistics",
+  "defenseSupport": "contact-casualty",
+  "spatialFire": "shared-los",
+  "navigationSpeed": {
+    "run": 36,
+    "walk": 24
+  },
+  "roundRules": {
+    "spikeTicks": 45,
+    "defuseTicks": 7
+  },
+  "deployment": {
+    "atk": {},
+    "def": {
+      "mid": "mid_bottom",
+      "a_lobby": "a_site",
+      "b_lobby": "b_site"
+    }
+  },
+  "source": "素材库/地图官方/ascent-plan.webp",
+  "notes": "按官方图校准的区域导航；墙体细节、高低差、门与箱体未完整复刻。"
+}

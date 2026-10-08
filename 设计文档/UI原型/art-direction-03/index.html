@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>白色游戏界面 · A/B 材质对比</title><link rel="stylesheet" href="comparison.css"><link rel="stylesheet" href="board.css"></head>
+<body>
+  <header class="board-header"><a class="wordmark" href="index.html"><span class="mark">VM<span>03</span></span><span>VAL MANAGER<small>ART DIRECTION / ROUND THREE</small></span></a><div class="header-notes"><span>白色为主 · 增加厚度 · 找回游戏感</span><a href="../art-direction-01/index.html?theme=paper">回看第一轮 ↗</a></div></header>
+  <main class="board">
+    <aside class="brief"><span class="kicker">MATERIAL & INTERACTION</span><h1>干净的白，<br>扎实的<br><em>游戏手感。</em></h1><p class="brief-copy">借鉴多邻国与皇室战争。<br>重做轮廓、厚度和字体，<br>让立体感更干净、更明确。</p>
+      <div class="divider"></div><span class="label">切换对比页面</span><nav class="page-picker" aria-label="选择对比页面"><button data-page="home" aria-pressed="true"><span>01</span>俱乐部首页<b>↗</b></button><button data-page="squad" aria-pressed="false"><span>02</span>选手名单<b>↗</b></button><button data-page="detail" aria-pressed="false"><span>03</span>卡面详情<b>↗</b></button><button data-page="components" aria-pressed="false"><span>04</span>按钮与组件<b>↗</b></button></nav>
+      <div class="depth-note"><span class="depth-icon" aria-hidden="true"><i></i><i></i><i></i></span><div><strong>字体和组件，一起重做。</strong><p>中文 Noto Sans SC<br>英文与数字 Nunito</p></div></div>
+      <p class="scope-note">仅比较视觉与界面手感<br>所有数据为样稿，玩法未接入</p>
+    </aside>
+    <section class="comparison" aria-label="两种界面风格对比">
+      <div class="mobile-picker" role="group" aria-label="手机对比方案"><button data-mobile-skin="playful" aria-pressed="true">A · 清爽弹性</button><button data-mobile-skin="arena" aria-pressed="false">B · 竞技厚度</button></div>
+      <article class="concept-card selected" data-concept="playful"><header class="concept-header"><span class="letter">A</span><div><h2>清爽弹性</h2><p>参考多邻国 · 清晰轮廓 / 实色侧壁</p></div><a id="playful-link" href="concept.html?skin=playful#home" target="_blank" rel="noopener" aria-label="单独打开俱乐部方案">↗</a></header><div class="preview-shell playful-shell"><iframe id="playful-frame" src="concept.html?skin=playful#home" title="A 清爽弹性交互原型"></iframe></div><footer class="concept-caption"><strong>清晰、圆润、有弹性。</strong><span>白色主场 · 蓝色操作 · 轻快的游戏感</span></footer></article>
+      <article class="concept-card" data-concept="arena"><header class="concept-header"><span class="letter">B</span><div><h2>竞技厚度</h2><p>参考皇室战争 · 厚按键 / 明确亮边</p></div><a id="arena-link" href="concept.html?skin=arena#home" target="_blank" rel="noopener" aria-label="单独打开竞技台方案">↗</a></header><div class="preview-shell arena-shell"><iframe id="arena-frame" src="concept.html?skin=arena#home" title="B 竞技厚度交互原型"></iframe></div><footer class="concept-caption"><strong>厚实、饱满、有竞技感。</strong><span>白色主场 · 金色主键 · 更强的动作感</span></footer></article>
+    </section>
+  </main>
+  <footer class="board-footer"><span>03 / 游戏手感与字体探索</span><span>同样的内容，不同的材质与手感。</span><span>可点击、滚动、切换卡面</span></footer>
+  <script>
+    function choosePage(name){
+      if(!['home','squad','detail','components'].includes(name))name='home';
+      document.querySelectorAll('[data-page]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.page===name)));
+      for(const skin of ['playful','arena']){
+        const url=name==='components'?'components.html?skin='+skin:'concept.html?skin='+skin+'#'+name;
+        document.getElementById(skin+'-frame').src=url;document.getElementById(skin+'-link').href=url;
+      }
+      history.replaceState(null,'','#'+name);
+    }
+    document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>choosePage(b.dataset.page)));
+    document.querySelectorAll('[data-mobile-skin]').forEach(b=>b.addEventListener('click',()=>{
+      document.querySelectorAll('[data-mobile-skin]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+      document.querySelectorAll('[data-concept]').forEach(x=>x.classList.toggle('selected',x.dataset.concept===b.dataset.mobileSkin));
+    }));
+    if(location.hash)choosePage(location.hash.slice(1));
+  </script>
+</body></html>

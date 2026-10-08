@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>设计令牌预览 v2 · 赛区色谱系统</title>
+<style>
+@font-face{font-family:'Anton';src:url('../../素材库/字体/Anton-400.woff2') format('woff2');font-weight:400}
+@font-face{font-family:'Rajdhani';src:url('../../素材库/字体/Rajdhani-500.woff2') format('woff2');font-weight:500}
+@font-face{font-family:'Rajdhani';src:url('../../素材库/字体/Rajdhani-600.woff2') format('woff2');font-weight:600}
+@font-face{font-family:'Rajdhani';src:url('../../素材库/字体/Rajdhani-700.woff2') format('woff2');font-weight:700}
+:root{
+  --bg-0:#05080c; --bg-1:#0f1923; --bg-2:#16222e; --bg-3:#1e2e3d;
+  --line:#26343f; --txt-1:#ece8e1; --txt-2:#8b98a5; --txt-3:#5b6774;
+  --region-cn:#e5395a; --region-emea:#f0b232; --region-pac:#22c8d8; --region-amer:#f2622e;
+  --q-gold:#E8B93E; --q-silver:#C9D4DE; --q-bronze:#B08968; --q-diamond:#A9F1FF;
+  --side-atk:#ff4655; --side-def:#22c8d8;
+  --ok:#9fd06a; --warn:#ffcf5c; --danger:#ff4655;
+  --cut-lg:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);
+  --cut:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  --cut-sm:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px);
+  --hex:polygon(25% 1.5%,75% 1.5%,100% 50%,75% 98.5%,25% 98.5%,0 50%);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg-0);color:var(--txt-1);font-family:'Rajdhani','Microsoft YaHei',sans-serif;font-weight:500;
+  width:960px;margin:0 auto;padding:28px 0 40px}
+h1{font-family:'Anton';font-weight:400;font-size:26px;letter-spacing:2px}
+.sub{color:var(--txt-2);font-size:13px;margin-top:4px;letter-spacing:1px}
+.sec{margin-top:26px}
+.sec-t{font-size:12px;color:var(--txt-2);letter-spacing:3px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.sec-t::before{content:'';width:3px;height:12px;background:var(--q-gold);transform:skewX(-15deg)}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+
+/* 底色 */
+.sw{width:150px;clip-path:var(--cut);border:1px solid var(--line)}
+.sw .fill{height:64px}
+.sw .lab{padding:8px 10px;font-size:11px;background:var(--bg-2)}
+.sw .lab b{display:block;font-size:12.5px}
+.sw .lab span{color:var(--txt-3);font-size:10px}
+
+/* 赛区 */
+.region-card{width:216px;background:var(--bg-1);border:1px solid var(--line);clip-path:var(--cut);overflow:hidden}
+.region-card .band{height:6px}
+.region-card .hd{display:flex;align-items:center;gap:10px;padding:12px 14px 4px}
+.region-card .hd img{width:34px;height:34px;object-fit:contain}
+.region-card .hd .nm{font-family:'Anton';font-size:15px;letter-spacing:1px}
+.region-card .hd .cc{font-size:10px;color:var(--txt-3)}
+.region-card .demo{margin:10px 12px 12px;padding:9px 12px;background:var(--bg-2);clip-path:var(--cut-sm);font-size:12px;font-weight:700;letter-spacing:1px;border-left:3px solid}
+.region-card .demo small{display:block;font-weight:500;color:var(--txt-2);font-size:10px;margin-top:2px}
+.rc-cn .band{background:var(--region-cn)} .rc-cn .demo{border-color:var(--region-cn);box-shadow:inset 0 0 18px rgba(229,57,90,.12)}
+.rc-cn .nm{color:var(--region-cn)}
+.rc-emea .band{background:var(--region-emea)} .rc-emea .demo{border-color:var(--region-emea);box-shadow:inset 0 0 18px rgba(240,178,50,.12)}
+.rc-emea .nm{color:var(--region-emea)}
+.rc-pac .band{background:var(--region-pac)} .rc-pac .demo{border-color:var(--region-pac);box-shadow:inset 0 0 18px rgba(34,200,216,.12)}
+.rc-pac .nm{color:var(--region-pac)}
+.rc-amer .band{background:var(--region-amer)} .rc-amer .demo{border-color:var(--region-amer);box-shadow:inset 0 0 18px rgba(242,98,46,.12)}
+.rc-amer .nm{color:var(--region-amer)}
+
+/* 品质卡 */
+.qframe{padding:2px;clip-path:var(--cut)}
+.qframe.gold{background:linear-gradient(160deg,#f7dc85,var(--q-gold) 50%,#8a6a1c)}
+.qframe.silver{background:linear-gradient(160deg,#f2f7fb,var(--q-silver) 50%,#7b8894)}
+.qframe.bronze{background:linear-gradient(160deg,#d9b598,var(--q-bronze) 50%,#6e5138)}
+.qframe.diamond{background:linear-gradient(160deg,#e2fbff,var(--q-diamond) 50%,#4d93a3)}
+.pcard{width:150px}
+.pcard .inner{clip-path:var(--cut);background:var(--bg-1);display:flex;flex-direction:column;overflow:hidden}
+.pcard .ph{position:relative;height:120px;overflow:hidden;background:#1a222c}
+.pcard .ph img{width:100%;height:100%;object-fit:cover;object-position:center 12%}
+.pcard .ph::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(11,15,20,.95))}
+.pcard .pid{font-family:'Anton';font-size:16px;text-align:center;margin-top:-15px;position:relative;text-shadow:0 2px 4px #000}
+.pcard .pteam{font-size:10px;color:var(--txt-2);text-align:center;margin-top:1px}
+.pcard .pstats{display:flex;justify-content:space-around;padding:6px 4px 8px;border-top:1px solid var(--line);margin-top:6px}
+.pcard .pstats div{text-align:center;line-height:1.1}
+.pcard .pstats b{font-weight:700;font-size:14px;display:block}
+.pcard .pstats span{font-size:9px;color:var(--txt-2)}
+
+/* 对抗色 · 比分条 */
+.scorebar{width:420px;display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(180deg,var(--bg-2),var(--bg-1));border:1px solid var(--line);clip-path:var(--cut)}
+.scorebar img{width:32px;height:32px;object-fit:contain}
+.scorebar .sc{font-family:'Anton';font-size:26px;letter-spacing:2px}
+.scorebar .me{color:var(--side-def)} .scorebar .op{color:var(--side-atk)}
+.scorebar .rd{font-size:10px;color:var(--txt-2);line-height:1.3}
+
+/* 字体 */
+.type-row{display:flex;align-items:baseline;gap:18px;margin-bottom:8px}
+.type-row .sz{font-size:10px;color:var(--txt-3);width:44px;text-align:right}
+
+/* 切角/按钮 */
+.btn{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#f2cd6a,var(--q-gold) 55%,#a8842a);color:#191204;font-family:inherit;font-weight:700;font-size:14px;letter-spacing:3px;border:none;clip-path:var(--cut-sm);padding:11px 26px;cursor:pointer}
+.btn.ghost{background:var(--bg-2);color:var(--txt-1);border:1px solid var(--line)}
+.btn.atk{background:linear-gradient(160deg,#ff8a97,var(--side-atk) 55%,#a3242e);color:#fff}
+.btn:disabled{background:var(--bg-3);color:var(--txt-3)}
+.tag{font-size:10.5px;padding:3px 10px;clip-path:var(--cut-sm);border:1px solid}
+.hex-demo{width:64px;height:72px;clip-path:var(--hex);padding:2.5px;background:linear-gradient(160deg,#f7dc85,var(--q-gold),#8a6a1c)}
+.hex-demo img{width:100%;height:100%;clip-path:var(--hex);object-fit:cover;object-position:center 10%}
+.note{font-size:10.5px;color:var(--txt-3);margin-top:8px;font-style:italic}
+</style>
+</head>
+<body>
+<h1>无畏契约电竞经理 · 设计令牌 v2</h1>
+<div class="sub">方案 A · 赛区色谱系统 —— 官方深色骨架 × 四赛区组织色 × 品质/对抗功能色</div>
+
+<div class="sec">
+  <div class="sec-t">底层 · 深色骨架（官方 #0f1923 系）</div>
+  <div class="row">
+    <div class="sw"><div class="fill" style="background:var(--bg-0)"></div><div class="lab"><b>页面最底</b><span>--bg-0 #05080c</span></div></div>
+    <div class="sw"><div class="fill" style="background:var(--bg-1)"></div><div class="lab"><b>主背景</b><span>--bg-1 #0f1923</span></div></div>
+    <div class="sw"><div class="fill" style="background:var(--bg-2)"></div><div class="lab"><b>面板</b><span>--bg-2 #16222e</span></div></div>
+    <div class="sw"><div class="fill" style="background:var(--bg-3)"></div><div class="lab"><b>悬浮/按压</b><span>--bg-3 #1e2e3d</span></div></div>
+    <div class="sw"><div class="fill" style="background:var(--txt-1)"></div><div class="lab"><b>主文字·米白</b><span>--txt-1 #ece8e1</span></div></div>
+    <div class="sw"><div class="fill" style="background:var(--txt-2)"></div><div class="lab"><b>次要文字</b><span>--txt-2 #8b98a5</span></div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">中层 · 赛区色谱（红 · 黄 · 蓝 · 橙，信息组织轴）</div>
+  <div class="row">
+    <div class="region-card rc-cn">
+      <div class="band"></div>
+      <div class="hd"><img src="../../素材库/赛区图标/CN.png"><div><div class="nm">CN 赛区</div><div class="cc">#e5395a 红</div></div></div>
+      <div class="demo">第一赛段常规赛<small>征程节点 · 赛区色描边+内发光</small></div>
+    </div>
+    <div class="region-card rc-emea">
+      <div class="band"></div>
+      <div class="hd"><img src="../../素材库/赛区图标/EMEA.png" style="filter:invert(72%) sepia(58%) saturate(500%) hue-rotate(2deg)"><div><div class="nm">EMEA 赛区</div><div class="cc">#f0b232 黄</div></div></div>
+      <div class="demo">大师赛①<small>黑标转金 · 黄金联赛感</small></div>
+    </div>
+    <div class="region-card rc-pac">
+      <div class="band"></div>
+      <div class="hd"><img src="../../素材库/赛区图标/PAC.png"><div><div class="nm">PAC 赛区</div><div class="cc">#22c8d8 蓝</div></div></div>
+      <div class="demo">季后赛②<small>与观赛防守方同族青蓝</small></div>
+    </div>
+    <div class="region-card rc-amer">
+      <div class="band"></div>
+      <div class="hd"><img src="../../素材库/赛区图标/AMER.png"><div><div class="nm">AMER 赛区</div><div class="cc">#f2622e 橙</div></div></div>
+      <div class="demo">大师赛②<small>取自 AMER 橙色徽章</small></div>
+    </div>
+  </div>
+  <div class="note">赛区色只出现在「赛事 / 选手归属」语境：征程节点、卡面赛区徽标、图鉴筛选、观赛比分底色。</div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">顶层 · 品质色（只管稀有度）</div>
+  <div class="row">
+    <div class="pcard"><div class="qframe gold"><div class="inner">
+      <div class="ph"><img src="../../素材库/选手半身像/Haodong.png"></div>
+      <div class="pid">Haodong</div><div class="pteam">EDG · 金卡</div>
+      <div class="pstats"><div><b style="color:#f7dc85">92</b><span>枪法</span></div><div><b style="color:#f7dc85">85</b><span>协同</span></div><div><b style="color:#f7dc85">88</b><span>意识</span></div></div>
+    </div></div></div>
+    <div class="pcard"><div class="qframe silver"><div class="inner">
+      <div class="ph"><img src="../../素材库/选手半身像/stax.png"></div>
+      <div class="pid">stax</div><div class="pteam">T1 · 银卡</div>
+      <div class="pstats"><div><b style="color:#eaf1f7">82</b><span>枪法</span></div><div><b style="color:#eaf1f7">86</b><span>协同</span></div><div><b style="color:#eaf1f7">84</b><span>意识</span></div></div>
+    </div></div></div>
+    <div class="pcard"><div class="qframe bronze"><div class="inner">
+      <div class="ph"><img src="../../素材库/选手半身像/Marved.png"></div>
+      <div class="pid">Marved</div><div class="pteam">NRG · 铜卡</div>
+      <div class="pstats"><div><b style="color:#d8b794">68</b><span>枪法</span></div><div><b style="color:#d8b794">60</b><span>协同</span></div><div><b style="color:#d8b794">64</b><span>意识</span></div></div>
+    </div></div></div>
+    <div class="pcard"><div class="qframe diamond"><div class="inner">
+      <div class="ph"><img src="../../素材库/选手半身像/Boaster.png"></div>
+      <div class="pid">Boaster</div><div class="pteam">FNC · 钻卡</div>
+      <div class="pstats"><div><b style="color:var(--q-diamond)">85</b><span>枪法</span></div><div><b style="color:var(--q-diamond)">90</b><span>协同</span></div><div><b style="color:var(--q-diamond)">88</b><span>意识</span></div></div>
+    </div></div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">对抗色（仅观赛语境） · 官方红 × 青蓝</div>
+  <div class="scorebar">
+    <img src="../../素材库/队伍logo/EDG.png">
+    <div class="sc"><span class="me">5</span> : <span class="op">3</span></div>
+    <img src="../../素材库/队伍logo/T1.png">
+    <div class="rd"><b style="color:var(--txt-1)">回合 9</b> · 上半场<br>我方=青蓝 / 敌方=官方红</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">字体阶梯 · Anton（标题/数字） + Rajdhani（正文）</div>
+  <div class="type-row"><span class="sz">32</span><span class="anton" style="font-family:'Anton';font-size:32px;letter-spacing:2px">CHAMPIONS</span></div>
+  <div class="type-row"><span class="sz">24</span><span style="font-family:'Anton';font-size:24px">13 : 11</span></div>
+  <div class="type-row"><span class="sz">18</span><span style="font-size:18px;font-weight:700">季后赛① · 半决赛</span></div>
+  <div class="type-row"><span class="sz">13</span><span style="font-size:13px">Haodong 残局 1v2 收尾，默契 +4</span></div>
+  <div class="type-row"><span class="sz">11</span><span style="font-size:11px;color:var(--txt-2)">来源：阶段成绩 · 影响转会市场吸引力</span></div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">切角语言与组件</div>
+  <div class="row" style="align-items:center">
+    <button class="btn">确 认 出 征</button>
+    <button class="btn ghost">返回阵容</button>
+    <button class="btn atk">出 战</button>
+    <button class="btn" disabled>确认出征</button>
+    <span class="tag" style="border-color:rgba(34,200,216,.4);color:var(--region-pac);background:rgba(34,200,216,.08)">捷风+雷兹 决斗联动</span>
+    <span class="tag" style="border-color:rgba(229,57,90,.4);color:var(--region-cn);background:rgba(229,57,90,.08)">关键场</span>
+    <div class="hex-demo"><img src="../../素材库/选手半身像/SUYGETSU.png"></div>
+  </div>
+  <div class="note">切角三档：16px 卡包/大面板 · 10px 卡片/按钮 · 7px 标签/小按钮；六边形仅用于头像与阵容卡槽。动效：120ms 按压 / 220ms 面板 / 400ms 转场。</div>
+</div>
+</body>
+</html>

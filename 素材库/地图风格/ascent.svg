@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 960">
+  <title>亚海悬城 · 柔色战术简图</title>
+  <desc>依据官方俯视布局简绘，保留 A、B、中路和出生点连接。装饰不作为碰撞或枪线数据。</desc>
+  <defs>
+    <pattern id="paper" width="36" height="36" patternUnits="userSpaceOnUse"><circle cx="18" cy="18" r="1.2" fill="#dce8f0"/></pattern>
+    <filter id="lift" x="-10%" y="-10%" width="120%" height="125%"><feDropShadow dx="0" dy="9" stdDeviation="0" flood-color="#cadce7" flood-opacity=".55"/></filter>
+  </defs>
+  <rect width="960" height="960" fill="#f2f7fb"/>
+  <rect width="960" height="960" fill="url(#paper)"/>
+  <g filter="url(#lift)" stroke="#b4ccdb" stroke-width="4" stroke-linejoin="round">
+    <path fill="#fffdf5" d="M508 101H540V72H594V165H648V370H740V492H728V596H800V634H854V726H800V739H654V791H497V880H382V801H343V791H252V718H125V604H125V570H98V473H254V304H331V267H317V205H369V188H508Z"/>
+    <path fill="#e3edf3" d="M361 268H458V311H361Z M321 358H400V476H322Z M461 292H610V417H540V443H461Z M539 496H593V546H626V496H695V546H583V592H539Z M381 602H470V652H418V744H381Z M201 514H325V543H201Z M269 600H306V650H340V759H282V719H326V684H269Z"/>
+    <path fill="#dcebf1" stroke="#bad4de" d="M437 480H537V588H472V538H427V515H365V486H437Z"/>
+    <path fill="#fff0cb" stroke="#d8c38b" d="M126 605H248V683H126Z"/>
+    <path fill="#dff1f9" stroke="#9fcade" d="M695 623H800V735H695Z"/>
+    <path fill="#eef4f8" d="M125 686H325V718H125Z M510 616H576V686H510Z"/>
+  </g>
+  <g fill="#d7e4eb" stroke="#b9cedb" stroke-width="2">
+    <rect x="147" y="638" width="23" height="18" rx="3"/><rect x="215" y="620" width="15" height="36" rx="3"/>
+    <rect x="730" y="694" width="28" height="16" rx="3"/><rect x="759" y="652" width="18" height="28" rx="3"/>
+    <rect x="486" y="525" width="16" height="17" rx="3"/>
+  </g>
+  <g fill="none" stroke="#b9d2df" stroke-width="3" stroke-linecap="round"><path d="M136 693H176M136 701H176M136 709H176 M651 746V774M660 746V774M669 746V774"/></g>
+  <g font-family="sans-serif" text-anchor="middle" font-weight="700" font-size="22">
+    <g fill="#64889f"><text x="552" y="215">进攻出生点</text><text x="442" y="844">防守出生点</text></g>
+    <g fill="#6c8ba0" font-size="19"><text x="286" y="413">A 大厅</text><text x="423" y="336">中路顶</text><text x="493" y="513">中路</text><text x="668" y="451">B 大厅</text><text x="321" y="581">A 连接</text><text x="541" y="659">市场</text></g>
+    <g fill="#95783b" font-size="30"><text x="181" y="631">A</text></g><g fill="#508baa" font-size="30"><text x="747" y="666">B</text></g>
+    <g fill="#829dad" font-size="17"><text x="218" y="707">二楼</text><text x="803" y="706">后点</text></g>
+  </g>
+  <g fill="#bfd8cb"><circle cx="368" cy="622" r="9"/><circle cx="362" cy="641" r="11"/><circle cx="363" cy="664" r="10"/></g>
+  <g fill="#adcabd" stroke="#8fb7a2" stroke-width="2"><circle cx="107" cy="380" r="15"/><circle cx="140" cy="356" r="10"/><circle cx="828" cy="467" r="14"/><circle cx="850" cy="485" r="9"/></g>
+</svg>

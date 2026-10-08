@@ -1,0 +1,218 @@
+{
+  "version": "card-effects-1",
+  "source": "金卡特性方向.md / 钻卡设计草案.md",
+  "status": "CN-first-playable; numbers pending balance",
+  "goldNames": {
+    "swagzor": "首杀机器",
+    "zmjjkk": "大场面先生",
+    "slowly": "首杀机器",
+    "whzy": "重炮手",
+    "splash": "快刀手",
+    "rarga": "快刀手",
+    "zhe": "重炮手",
+    "happywei": "定海神针",
+    "vo0kashu": "铁壁",
+    "chichoo": "铁壁",
+    "nobody": "定海神针",
+    "siufatbb": "定海神针",
+    "lysoar": "黏合剂",
+    "k1ra": "快刀手",
+    "spring": "补枪手",
+    "oxy": "首杀机器",
+    "zekken": "首杀机器",
+    "aspas": "大场面先生",
+    "lukxo": "重炮手",
+    "tkzin": "快刀手",
+    "keiko": "快刀手",
+    "asuna": "黏合剂",
+    "ethan": "黏合剂",
+    "brawk": "补枪手",
+    "trent": "补枪手",
+    "verno": "残局大师",
+    "valyn": "定海神针",
+    "kingg": "定海神针",
+    "less": "老六",
+    "bang": "残局大师",
+    "s0pp": "首杀机器",
+    "wo0t": "首杀机器",
+    "derke": "快刀手",
+    "alfajer": "重炮手",
+    "marteen": "重炮手",
+    "kamo": "重炮手",
+    "riens": "重炮手",
+    "lêwn": "重炮手",
+    "dos9": "黏合剂",
+    "trexx": "补枪手",
+    "sayonara": "残局大师",
+    "n4rrate": "老六",
+    "nats": "老六",
+    "ruxic": "读心者",
+    "chronicle": "大场面先生",
+    "t3xture": "首杀机器",
+    "buzz": "首杀机器",
+    "meiy": "快刀手",
+    "jinggg": "快刀手",
+    "francis": "快刀手",
+    "primmie": "重炮手",
+    "something": "大场面先生",
+    "patmen": "重炮手",
+    "meteor": "残局大师",
+    "rb": "定海神针",
+    "izu": "补枪手",
+    "f0rsaken": "黏合剂",
+    "stax": "定海神针",
+    "d4v41": "定海神针",
+    "monyet": "读心者"
+  },
+  "traits": {
+    "首杀机器": {
+      "condition": "opening",
+      "buff": {
+        "aim": 4
+      }
+    },
+    "快刀手": {
+      "condition": "rush",
+      "buff": {
+        "aim": 3,
+        "syn": 3
+      }
+    },
+    "重炮手": {
+      "condition": "multikill",
+      "buff": {
+        "aim": 4
+      }
+    },
+    "大场面先生": {
+      "condition": "match-point",
+      "buff": {
+        "aim": 3,
+        "syn": 3,
+        "sen": 3
+      }
+    },
+    "残局大师": {
+      "condition": "clutch",
+      "buff": {
+        "sen": 4
+      }
+    },
+    "孤胆英雄": {
+      "condition": "last-alive",
+      "buff": {
+        "aim": 3,
+        "sen": 3
+      }
+    },
+    "黏合剂": {
+      "condition": "combo",
+      "buff": {
+        "syn": 4
+      }
+    },
+    "补枪手": {
+      "condition": "trade",
+      "buff": {
+        "syn": 4
+      }
+    },
+    "定海神针": {
+      "condition": "loss-streak",
+      "buff": {
+        "aim": 2,
+        "syn": 2,
+        "sen": 2
+      }
+    },
+    "老六": {
+      "condition": "ambush",
+      "buff": {
+        "sen": 4
+      }
+    },
+    "铁壁": {
+      "condition": "defense",
+      "buff": {
+        "syn": 3,
+        "sen": 3
+      }
+    },
+    "读心者": {
+      "condition": "information",
+      "buff": {
+        "sen": 4
+      }
+    },
+    "Eco 刺客": {
+      "condition": "eco",
+      "buff": {
+        "aim": 4
+      }
+    }
+  },
+  "diamond": [
+    {
+      "name": "ZmjjKK",
+      "cut": "23东京",
+      "trait": "首杀机器",
+      "moment": "冥驹审判",
+      "condition": "clutch",
+      "kind": "event-lock",
+      "senMultiplier": 1.3
+    },
+    {
+      "name": "ZmjjKK",
+      "cut": "24首尔",
+      "trait": "大场面先生",
+      "moment": "降维打击",
+      "condition": "match-point",
+      "kind": "second-chance",
+      "mapping": "原回合胜率两骰取优转换为本回合实际射击命中两骰取优；不重抽整回合、不绕过枪线"
+    },
+    {
+      "name": "CHICHOO",
+      "cut": "25曼谷",
+      "trait": "残局大师",
+      "moment": "一人成军",
+      "condition": "last-alive",
+      "kind": "duel-chain",
+      "aimPerKill": 3,
+      "cap": 9,
+      "mapping": "在实际可见敌人中持续锁定一个目标，每击破一人递增枪法；敌方仍可正常射击，不人为冻结空间中的其他人"
+    },
+    {
+      "name": "Spring",
+      "cut": "25多伦多",
+      "trait": "黏合剂",
+      "moment": "黑马之蹄",
+      "condition": "trailing-three",
+      "kind": "rally",
+      "buff": {
+        "aim": 3,
+        "syn": 3
+      },
+      "mapping": "本图追平前全队局部执行增益；追平后消失，不改原卡"
+    },
+    {
+      "name": "whzy",
+      "cut": "23洛杉矶",
+      "trait": "首杀机器",
+      "moment": "无情判官",
+      "condition": "stronger-opponent",
+      "kind": "giant-killer",
+      "buff": {
+        "aim": 6
+      },
+      "rounds": 3
+    }
+  ],
+  "limits": {
+    "perMapMoment": 1,
+    "attributes": [
+      0,
+      100
+    ]
+  },
+  "note": "仅当前 CN 五个钻卡切面；其他赛区钻卡明确不支持，不替换或猜测。声望通过成长/熟识/羁绊影响，不另叠子弹命中奖励。"
+}

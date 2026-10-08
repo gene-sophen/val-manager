@@ -1,0 +1,15 @@
+const {chromium}=require('playwright');const assert=require('assert/strict');const path=require('path');
+(async()=>{
+const b=await chromium.launch({channel:'msedge',headless:true});const p=await b.newPage({viewport:{width:1040,height:1160},reducedMotion:'reduce'});const errors=[];p.on('pageerror',e=>errors.push(e.message));
+await p.goto('http://127.0.0.1:8765/'+encodeURI('设计文档/UI原型/navigation-rebuild-01/index.html')+'#archive/album');await p.evaluate(()=>document.fonts.ready);
+await p.locator('#filter-entry').click();await p.locator('[data-filter-field="tier"][data-filter-value="金"]').click();await p.locator('[data-filter-field="region"][data-filter-value="CN"]').click();assert.equal(await p.locator('#filter-apply').innerText(),'查看 3 张');assert.equal(await p.locator('#results .balance-card').count(),22);
+await p.keyboard.press('Escape');assert.equal(await p.locator('#results .balance-card').count(),22);assert(await p.locator('#filter-entry').evaluate(e=>e===document.activeElement));
+await p.locator('#filter-entry').click();assert.equal(await p.locator('[data-filter-field="tier"][data-filter-value="all"]').getAttribute('aria-pressed'),'true');
+await p.locator('[data-filter-field="tier"][data-filter-value="金"]').click();await p.locator('[data-filter-field="region"][data-filter-value="CN"]').click();await p.locator('[data-filter-field="albumSort"][data-filter-value="rating"]').click();
+await p.screenshot({path:path.join(__dirname,'preview/album-filter-panel.png'),fullPage:true});await p.locator('#filter-apply').click();assert.equal(await p.locator('#results .balance-card').count(),3);assert.match(await p.locator('#results .balance-name').first().innerText(),/CHICHOO/);assert.equal(await p.locator('#filter-tags button').count(),3);
+await p.locator('#filter-entry').click();await p.locator('#filter-reset').click();await p.locator('#filter-close').click();assert.equal(await p.locator('#results .balance-card').count(),3);
+await p.locator('[data-clear-filter="region"]').click();assert.equal(await p.locator('#results .balance-card').count(),12);
+await p.locator('#filter-entry').click();await p.locator('#filter-reset').click();await p.locator('#filter-apply').click();assert.equal(await p.locator('#results .balance-card').count(),22);
+for(const width of [320,360,390,430]){await p.setViewportSize({width,height:640});await p.locator('#filter-entry').click();assert(await p.locator('#filter-dialog').evaluate(e=>e.scrollWidth<=e.clientWidth+1&&e.getBoundingClientRect().bottom<=innerHeight+1));await p.locator('#filter-close').click();assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));}
+await p.setViewportSize({width:390,height:844});await p.locator('#filter-entry').click();await p.locator('#filter-dialog').screenshot({path:path.join(__dirname,'preview/filter-phone.png')});assert.deepEqual(errors,[]);console.log('PASS filter draft/cancel/apply/reset, live counts, sorting, chip removal, focus and small-screen bounds.');await b.close();
+})().catch(e=>{console.error(e);process.exit(1)});

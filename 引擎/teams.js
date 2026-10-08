@@ -2,11 +2,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const CARDS_PATH = path.join(__dirname, '..', '数据源', 'cards_full.json');
-let _cards = null;
 function loadCards() {
-  if (!_cards) _cards = JSON.parse(fs.readFileSync(CARDS_PATH, 'utf8'));
-  return _cards;
+  return require('../游戏/catalog').cards;
 }
 
 const TIER_ALIAS = { '铜': '铜', '银': '银', '金': '金', '钻': '钻', B: '铜', S: '银', G: '金', D: '钻' };
@@ -30,9 +27,11 @@ function sampleByTier(tier, n, rng) {
 function resolveTeam(spec, rng) {
   let players;
   if (spec.players) {
-    const cards = loadCards();
+    const catalog = require('../游戏/catalog');
     players = spec.players.map((name) => {
-      const c = cards.find((x) => x.name === name);
+      const c = typeof name === 'string' && name.includes(':')
+        ? catalog.getCard(name)
+        : catalog.findByName(name).find(card => card.tier !== '钻') || catalog.findByName(name)[0];
       if (!c) throw new Error(`找不到选手卡: ${name}`);
       return c;
     });

@@ -1,19 +1,22 @@
 // 教练系统：赛前布置 / 局间暂停 / 中场调整 / IGL 任命
-// 教练三维：战术 / 声望 / 临场（30~99）；本期只有"战术"维生效——
+// 教练三维：战术 / 声望 / 临场（0~100）；战术影响读取，临场影响负状态恢复。
 // 战术分越高，暂停时读取对手战术族倾向越准，给出的克制调整越靠谱
 const cfg = require('./config');
+const style = require('../游戏/team-style');
 const { OFFENSE, DEFENSE } = require('./tactics');
 
 function clampAttr(v) {
-  return Math.max(30, Math.min(99, v == null ? cfg.coach.tacticsDefault : v));
+  const value = v == null ? cfg.coach.tacticsDefault : v;
+  if (!Number.isFinite(value)) throw new Error('教练属性必须为有限数值');
+  return Math.max(0, Math.min(100, value));
 }
 
 function makeCoach({ name, tactics, prestige, clutch }) {
   return {
     name: name || '教练',
     tactics: clampAttr(tactics),
-    prestige: clampAttr(prestige), // 建档，本期未启用
-    clutch: clampAttr(clutch)      // 建档，本期未启用
+    prestige: clampAttr(prestige), // 声望经成长/熟识反哺队伍，不直接叠命中
+    clutch: clampAttr(clutch)      // 暂停负状态恢复
   };
 }
 
@@ -21,14 +24,16 @@ function makeCoach({ name, tactics, prestige, clutch }) {
 // 战术比重：队伍配置与版本强势族（meta）按战术分加权混合——好教练的赛前布置更贴近版本
 // IGL 任命：好教练看意识与协同（SEN+SYN）；战术分低的教练偏爱枪男当指挥（aimPenalty 反噬）
 function preMatchSetup({ coach, team }) {
-  const base = team.tactics || cfg.defaultTactics;
-  const k = (coach.tactics - 30) / 69 * cfg.coach.metaBlend;
+  const base = team.tacticalProfile ? {atk:style.weights('attack',style.order(team.tacticalProfile,'attack')),def:style.weights('defense',style.order(team.tacticalProfile,'defense'))} : team.tactics || cfg.defaultTactics;
+  const k = team.tacticalProfile ? 0 : Math.max(0, (coach.tactics - 30) / 70) * cfg.coach.metaBlend;
   const blend = (b, meta) => {
     const out = {};
     for (const f of Object.keys(meta)) out[f] = (b[f] || 0) * (1 - k) + meta[f] * k;
     return out;
   };
-  const tacticWeights = { atk: blend(base.atk, cfg.coach.metaAtk), def: blend(base.def, cfg.coach.metaDef) };
+  const campaign = 'contact' in base.atk;
+  const uniform = weights => Object.fromEntries(Object.keys(weights).map(f => [f, 1 / Object.keys(weights).length]));
+  const tacticWeights = { atk: blend(base.atk, campaign ? uniform(base.atk) : cfg.coach.metaAtk), def: blend(base.def, campaign ? uniform(base.def) : cfg.coach.metaDef) };
   const aimBias = 1 - coach.tactics / 100; // 战术 99 → 0，战术 30 → 0.7
   let iglPick = null, bestScore = -1e9;
   for (const p of team.players) {
@@ -40,15 +45,18 @@ function preMatchSetup({ coach, team }) {
 
 // 教练状态初始化（每队一个，贯穿整场）
 // tacticsScore：CLI/调用方指定的战术分；teams 配置 coach.tactics 优先
-function initCoachState(team, tacticsScore) {
-  const coach = makeCoach({ name: `${team.name}教练`, tactics: team.coach && team.coach.tactics != null ? team.coach.tactics : tacticsScore });
+function initCoachState(team, tacticsScore, options = {}) {
+  const coach = makeCoach({ name: `${team.name}教练`, ...team.coach, tactics: team.coach && team.coach.tactics != null ? team.coach.tactics : tacticsScore });
   const setup = preMatchSetup({ coach, team });
+  const weights = options.manual ? (team.tactics || cfg.defaultTactics) : setup.tacticWeights;
   return {
     coach,
-    weights: setup.tacticWeights,
-    baseWeights: { atk: { ...setup.tacticWeights.atk }, def: { ...setup.tacticWeights.def } }, // 初始布置（无信号暂停时回摆用）
-    iglPick: (team.coach && team.coach.igl) || setup.iglPick, // 队伍配置可指定 IGL 覆盖
+    ...(team.tacticalProfile?{tacticalProfile:style.snapshot(team.tacticalProfile)}:{}),
+    weights: { atk: { ...weights.atk }, def: { ...weights.def } },
+    baseWeights: { atk: { ...weights.atk }, def: { ...weights.def } },
+    iglPick: options.manual ? (team.iglName || setup.iglPick) : ((team.coach && team.coach.igl) || setup.iglPick),
     timeoutsLeft: cfg.coach.timeouts,
+    overtimeTimeoutsLeft: 0,
     halftimeUsed: false
   };
 }
@@ -61,15 +69,20 @@ function initCoachState(team, tacticsScore) {
 function adjust(state, ctx, kind) {
   const pRead = cfg.coach.readBase + (state.coach.tactics - 30) * cfg.coach.readTacticsCoef;
   if (ctx.units) {
-    for (const u of ctx.units) {
-      u.mentality = Math.max(-1, Math.min(1, (u.mentality || 0) + cfg.coach.timeoutComposure));
-    }
+    recoverMentality(ctx.units, state.coach.clutch);
   }
   const out = {};
   const reads = {};
   for (const mySide of ['atk', 'def']) {
     const oppSide = mySide === 'atk' ? 'def' : 'atk';
-    const oppFamilies = mySide === 'atk' ? DEFENSE : OFFENSE; // 读的是对手在 oppSide 侧的族
+    if(state.tacticalProfile){
+      const own=mySide==='atk'?'attack':'defense',other=oppSide==='atk'?'attack':'defense';let read=null,readOk=false;
+      if(ctx.oppSignal?.[oppSide]){read=style.keys[other].indexOf(ctx.oppTendency?.[oppSide]);readOk=read>=0&&ctx.rng()<pRead;if(!readOk)read=Math.floor(ctx.rng()*5);}
+      const order=style.order(state.tacticalProfile,own,read==null?[]:[read],Math.max(0,Math.min(1,pRead)));
+      state.weights[mySide]=style.weights(own,order);out[mySide]={...state.weights[mySide]};reads[mySide]={read:read==null?null:style.keys[other][read],readOk,counter:read==null?null:style.keys[own][order[0]]};continue;
+    }
+    const campaign = 'contact' in state.weights.atk;
+    const oppFamilies = campaign ? (mySide === 'atk' ? require('./tactics').CAMPAIGN_DEFENSE : require('./tactics').CAMPAIGN_OFFENSE) : (mySide === 'atk' ? DEFENSE : OFFENSE);
     if (!ctx.oppSignal || !ctx.oppSignal[oppSide]) {
       state.weights[mySide] = { ...state.baseWeights[mySide] }; // 无信号：回摆初始布置
       out[mySide] = { ...state.weights[mySide] };
@@ -82,7 +95,10 @@ function adjust(state, ctx, kind) {
       read = oppFamilies[Math.floor(ctx.rng() * oppFamilies.length)]; // 读错：随机抓一个
       readOk = false;
     }
-    const counter = (mySide === 'atk' ? cfg.coach.counterAtk : cfg.coach.counterDef)[read];
+    const counter = (campaign ? (mySide === 'atk'
+      ? { push: 'rush', hold: 'fake', trap: 'mid', flank: 'contact', retake: 'lurk' }
+      : { rush: 'trap', mid: 'push', fake: 'hold', lurk: 'flank', contact: 'retake' })
+      : (mySide === 'atk' ? cfg.coach.counterAtk : cfg.coach.counterDef))[read];
     if (!counter) { // 防御：读到的族不在克制表则不调整
       reads[mySide] = { read, readOk: false, counter: null };
       out[mySide] = { ...state.weights[mySide] };
@@ -118,12 +134,20 @@ function aiDecide(state, ctx) {
     state.halftimeUsed = true;
     return adjust(state, ctx, 'halftime');
   }
-  if (state.timeoutsLeft <= 0) return null;
-  if (ctx.loseStreak >= cfg.coach.loseStreakTrigger || ctx.oppSameStreak >= cfg.coach.sameFamilyTrigger) {
-    state.timeoutsLeft--;
+  const timeoutKey = ctx.isOvertime ? 'overtimeTimeoutsLeft' : 'timeoutsLeft';
+  if (wantsTimeout(state, ctx)) {
+    state[timeoutKey]--;
     return adjust(state, ctx, 'timeout');
   }
   return null;
 }
 
-module.exports = { makeCoach, preMatchSetup, initCoachState, aiDecide, adjust };
+function wantsTimeout(state, ctx) {
+  const key = ctx.isOvertime ? 'overtimeTimeoutsLeft' : 'timeoutsLeft';
+  return !ctx.isHalftime && state[key] > 0 && (ctx.loseStreak >= cfg.coach.loseStreakTrigger || ctx.oppSameStreak >= cfg.coach.sameFamilyTrigger);
+}
+function recoverMentality(units, clutch = 50, bonus = 0) {
+  const fraction = Math.min(1, 0.1 + 0.002 * clampAttr(clutch) + bonus);
+  for (const unit of units) if (unit.mentality < 0) unit.mentality *= 1 - fraction;
+}
+module.exports = { makeCoach, preMatchSetup, initCoachState, aiDecide, adjust, wantsTimeout, recoverMentality };

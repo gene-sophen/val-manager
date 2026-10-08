@@ -1,8 +1,9 @@
 // 极简战报：每回合一句话中文摘要（模板渲染事件流，只读不改）
 // 样例："R7｜金卡快攻 爆弹冲点打A｜brawk 三杀破点｜金卡快攻 5:2 银卡默认（拆包）"
 const FAMILY_NAME = {
-  rush: '爆弹冲点', mid: '中路接触', lurk: '边线渗透', fake: '假打转点',
-  push: '防守前压', hold: '默认架点', stack: '赌点防守'
+  rush: '爆弹强攻', mid: '默认控图', lurk: '分路渗透', fake: '佯攻转点',
+  push: '前压争夺', hold: '分区控图', stack: '赌点防守',
+  contact: '接触反打', trap: '诱敌设伏', flank: '侧翼绕后', retake: '稳守反清'
 };
 const REASON_NAME = { elimination: '歼灭', explosion: '爆能器引爆', defuse: '拆包', timeout: '超时' };
 const NUM = ['', '', '双', '三', '四', '五'];

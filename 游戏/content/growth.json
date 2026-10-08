@@ -1,0 +1,14 @@
+{
+  "version": "prototype-v1",
+  "options": [
+    { "id": "entry-sync", "route": "团队突破", "name": "同步突破", "effect": "entrySync", "description": "两人以上同步进点时，额外降低架枪抢先命中机会。", "maxStacks": 1, "scope": "run", "eventCode": "growth_entry_sync" },
+    { "id": "retake-rally", "route": "逆风调整", "name": "回防集结", "effect": "retakeRally", "description": "回防机动的每段路线缩短约一秒。", "maxStacks": 1, "scope": "run", "eventCode": "growth_retake_rally" },
+    { "id": "timeout-reset", "route": "逆风调整", "name": "暂停重整", "effect": "timeoutReset", "description": "有限暂停额外恢复一次团队心态；仍消耗暂停次数。", "maxStacks": 1, "scope": "run", "eventCode": "growth_timeout_reset" },
+    { "id": "recon-focus", "route": "信息转点", "name": "侦察整理", "effect": "reconFocus", "description": "本队有效侦察报告带来更强的已观察区域信息。", "maxStacks": 1, "scope": "run", "eventCode": "growth_recon_focus" },
+    { "id": "mid-shift", "route": "信息转点", "name": "中路转点", "effect": "midShift", "description": "中路读取后更早完成转点决策。", "maxStacks": 1, "scope": "run", "eventCode": "growth_mid_shift" },
+    { "id": "entry-rehearsal", "route": "团队突破", "name": "破点演练", "effect": "entryRehearsal", "description": "进点集结窗口更宽，错开一秒的队友仍能形成同步。", "maxStacks": 1, "scope": "run", "eventCode": "growth_entry_rehearsal" },
+    { "id": "stage-breach-core", "route": "阶段升级·突破体系", "name": "破点核心", "effects": ["entry-sync", "entry-rehearsal"], "description": "同步进点减损与延长集结窗口同时生效。", "maxStacks": 1, "scope": "run", "eventCode": "stage_breach_core", "stageOnly": true },
+    { "id": "stage-information", "route": "阶段升级·信息体系", "name": "信息网络", "effects": ["recon-focus", "mid-shift"], "description": "侦察整理与中路快速转点同时生效。", "maxStacks": 1, "scope": "run", "eventCode": "stage_information", "stageOnly": true },
+    { "id": "stage-reset", "route": "阶段升级·韧性体系", "name": "韧性体系", "effects": ["retake-rally", "timeout-reset"], "description": "回防集结与暂停重整同时生效。", "maxStacks": 1, "scope": "run", "eventCode": "stage_reset", "stageOnly": true }
+  ]
+}

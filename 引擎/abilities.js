@@ -51,7 +51,8 @@ function cast(round, u, sk, extra = {}) {
   // 池内/池外失误概率，心态调制（沿用 whiff 体系）
   const fumbleP = (u.inPool ? P.whiffIn : P.whiffOut) * A.fumbleMult * (1 - (u.mentality || 0) * M.eventSwing * 0.5);
   const fumble = round.rng() < fumbleP;
-  const power = (fumble ? A.fumblePower : 1) * (sk.def.params.power || 1);
+  const signature=round.map.data?.externalEffectsVersion&&u.player?.tier!=='铜'&&u.player?.agents?.[0]===u.agent?1.15:1;
+  const power = (fumble ? A.fumblePower : 1) * (sk.def.params.power || 1) * signature;
   const arch = sk.def.archetype;
   round.stats[u.side === 'atk' ? 'utilsAtk' : 'utilsDef']++;
   if (arch in round.stats.utilsByType) round.stats.utilsByType[arch]++;
@@ -72,6 +73,7 @@ function triggerCast(round, u, archetype, extra = {}, force = false) {
     const r = cast(round, u, sk, extra);
     return r ? { power: r.power, via: 'skill', skill: sk } : null;
   }
+  if(require('./behavior-policy').multimapEnabled(round)&&(u.kit||u.agent))return null;
   if (!u.utils || u.utils <= 0) return null;
   if (!force && !round.thinkUse(u)) return null;
   u.utils--;
@@ -110,25 +112,38 @@ function wallRegion(round, region, ticks) {
 // ---- 反应式触发点 ----
 // 进攻落点封烟：阻断回防路线；技能烟额外封锁指向包点的守方枪线（炼狱三连烟封 3 条）
 function onCommitSmoke(round, u) {
-  const r = triggerCast(round, u, 'smoke', { site: round.committedSite });
+  let caster=u;
+  if(require('./behavior-policy').multimapEnabled(round)){
+    const candidates=round.atk.filter(a=>a.alive&&a.stun<=0&&!(a.abilityBusyUntil>round.t)).map(a=>({a,skill:findSkill(a,'smoke')})).filter(({a,skill})=>skill&&Math.hypot(a.position.x-u.position.x,a.position.y-u.position.y)<=(skill.def.params.ranged||['幽影','炼狱','星礈','暮蝶'].includes(a.agent)?600:160)).sort((a,b)=>b.a.syn-a.a.syn||a.a.id.localeCompare(b.a.id));
+    if(!candidates.length)return false;caster=candidates[0].a;
+  }
+  const r = triggerCast(round, caster, 'smoke', { site: round.committedSite });
   if (!r) return false;
+  if(require('./behavior-policy').multimapEnabled(round))caster.abilityBusyUntil=round.t+.5;
   const staging = round.map.data.staging[round.committedSite];
   round.smokedEdges[round.edgeKey(staging, u.node)] = round.t + U.smokeTicks;
+  if (round.map.geometry && round.map.geometry.contains(round.map.nodes[u.node])) {
+    round.geometrySmokes.push({ x: round.map.nodes[u.node].x, y: round.map.nodes[u.node].y,
+      radius: 35, until: round.t + U.smokeTicks });
+  }
   if (r.skill) {
     const P = r.skill.def.params;
     const multi = P.multi || 1;
     smokeSightlinesInto(round, u.node, Math.round((P.ticks || A.smokeSightTicks) * r.power), multi);
   }
-  round.emit('smoke', { node: u.node, edge: [staging, u.node], by: u.name, until: round.t + U.smokeTicks });
+  const shape = round.map.geometry ? { x: round.map.nodes[u.node].x, y: round.map.nodes[u.node].y, radius: 35 } : {};
+  round.emit('smoke', { node: u.node, edge: [staging, u.node], by: caster.name, until: round.t + U.smokeTicks, ...shape });
   return true;
 }
 
 // 进点闪光（含大招闪）：返回致盲强度；隔墙闪招牌（铁臂/斯凯）让点内敌人额外震荡滞留
 function onEntryFlash(round, entrant) {
   // 每方每 6 tick 最多一颗闪（技能充能脱离了经济约束，防止回防闪连发）
-  if (round.t - (round.lastFlashTick[entrant.side] || -99) <= 6) return 0;
+  const last=round.map?.data?.strictSpatial?(round.lastFlashTick[entrant.side]??-99):(round.lastFlashTick[entrant.side]||-99);
+  if (round.t - last <= 6) return 0;
   const candidates = [];
-  for (const u of round.occ[entrant.node]) {
+  const nearby=round.map.data?.strictSpatial ? round.units.filter(u=>u.position&&Math.hypot(u.position.x-entrant.position.x,u.position.y-entrant.position.y)<=70) : round.occ[entrant.node];
+  for (const u of nearby) {
     if (u.alive && u.side === entrant.side && !u.flashUsedRound && (u.utils > 0 || findSkill(u, 'flash'))) candidates.push(u);
   }
   candidates.sort((a, b) => b.syn - a.syn); // 道具效率高的先想
@@ -139,6 +154,10 @@ function onEntryFlash(round, entrant) {
     const flash = U.flashReduce * round.synFactor(c.syn) * r.power;
     round.lastFlashTick[entrant.side] = round.t;
     round.emit('flash', { node: entrant.node, side: entrant.side, by: c.name });
+    if(round.map.data?.strictSpatial) {
+      const visible=round.visibleEnemiesAt(c);for(const e of visible)if(Math.hypot(e.position.x-c.position.x,e.position.y-c.position.y)<=140){const seconds=Math.min(1.5,.5+flash);if(round.pendingFlashHits)round.pendingFlashHits.push({unit:e,seconds,by:c.name});else{e.stun=Math.max(e.stun,seconds);round.emit('flash_hit',{unit:e.name,unitId:e.id,by:c.name,x:e.position.x,y:e.position.y,until:round.t+e.stun});}}
+      return flash;
+    }
     if (r.skill && r.skill.def.params.throughWall) {
       // 隔墙闪招牌（铁臂/斯凯）：点内敌人短暂失衡（1 tick，避免回防团战一边倒）
       for (const e of round.enemiesAt(entrant.node, entrant.side)) {
@@ -159,6 +178,10 @@ function onDefuseSmoke(round, defuser) {
     if (!sk || !thinkCast(round, m)) continue;
     const r = cast(round, m, sk, { cover: defuser.name });
     if (!r) continue;
+    if(require('./behavior-policy').enabled(round)){
+      const goal=round.spike.position||defuser.position,smoke={x:goal.x,y:goal.y,radius:28,until:round.t+(round.rules?.defuseTicks||7)+2};
+      round.geometrySmokes.push(smoke);round.emit('smoke',{node:defuser.node,by:m.name,side:'def',cover:true,...smoke});return;
+    }
     smokeSightlinesInto(round, defuser.node, cfg.round.defuseTicks + 3, 2); // 封最致命的 2 条
     return;
   }
@@ -198,12 +221,15 @@ function tick(round) {
     const v = rv.unit;
     if (v.alive) continue;
     v.alive = true;
+    v.hp = 100;
     v.stun = A.reviveStun;
     v.holdTicks = 0;
     v.node = rv.node;
     v.post = null;
+    v.position = { x: round.map.nodes[rv.node].x, y: round.map.nodes[rv.node].y };
     round.occ[rv.node].add(v);
-    round.emit('ability', { side: v.side, unit: v.name, agent: rv.agent, skill: rv.skillName, key: 'x', archetype: 'revive', node: rv.node, ult: true, done: true });
+    round.emit('ability', { side: v.side, unit: v.name, unitId: v.id, hp: v.hp,
+      agent: rv.agent, skill: rv.skillName, key: 'x', archetype: 'revive', node: rv.node, ult: true, done: true });
   }
   // 炮台：每 2 tick 对可见敌人做一次低伤害判定；首次发现给信息
   if (round.t % 2) return;
@@ -211,7 +237,7 @@ function tick(round) {
     if (!t.owner.alive) continue;
     for (const e of round.units) {
       if (!e.alive || e.side === t.owner.side) continue;
-      const visible = e.node === t.node
+      const visible = round.map.data?.strictSpatial ? require('./observation').canObserve(round,t.owner,e) : e.node === t.node
         || (t.post && e.post && round.map.canSee(t.post, e.post) && !round.sightBlocked(t.post, e.post));
       if (!visible) continue;
       if (!t.seen.has(e)) {
@@ -249,10 +275,16 @@ function scoreSkill(round, u, sk) {
       return null;
     }
     case 'stun': case 'ult_stun': { // 震荡：同节点有敌时（先手的震慑工具，分值压低避免团战一边倒）
-      if (round.enemiesAt(u.node, u.side).length === 0) return null;
+      if ((require('./behavior-policy').enabled(round)?round.visibleEnemiesAt(u).filter(e=>Math.hypot(e.position.x-u.position.x,e.position.y-u.position.y)<=140):round.enemiesAt(u.node, u.side)).length === 0) return null;
       return { prior: arch === 'ult_stun' ? 2.6 : 1.8 };
     }
     case 'molly': case 'ult_molly': { // 进攻守包：守方集结完毕反扑瞬间燃烧封锁包点（拦回防+封拆包）
+      if(require('./behavior-policy').zonesEnabled(round)){
+        if((round.damageZones||[]).some(z=>z.owner===u&&round.t<z.until))return null;
+        if(round.visibleEnemiesAt(u).some(e=>Math.hypot(e.position.x-u.position.x,e.position.y-u.position.y)<=150))return {prior:3.2};
+        if(u.side==='atk'&&round.planted&&round.flags.retakeHit&&Math.hypot(u.position.x-round.spike.position.x,u.position.y-round.spike.position.y)<180)return {prior:3};
+        return null;
+      }
       if (u.side === 'atk' && round.planted && round.map.region(u.node) === round.plantSite
         && round.flags.retakeHit
         && !(round.mollyZone && round.t < round.mollyZone.until)) return { prior: arch === 'ult_molly' ? 3.4 : 3.0 };
@@ -284,7 +316,7 @@ function scoreSkill(round, u, sk) {
         if (t < 6 || t > round.atkIntent.pace.commitTick + 6) return null;
         return { prior: 2.2 };
       }
-      const maxInfo = Math.max(round.defInfo.A.strength, round.defInfo.B.strength);
+      const maxInfo = Math.max(...Object.keys(round.map.data.sites).map(s=>round.defInfo[s].strength));
       if (round.planted || maxInfo >= cfg.ai.rotateNeedInfo || t < U.reconTick) return null;
       return { prior: 2.2 };
     }
@@ -295,7 +327,8 @@ function scoreSkill(round, u, sk) {
 function candidates(round, u) {
   const out = [];
   for (const sk of readySkills(u)) {
-    const c = scoreSkill(round, u, sk);
+    const original = scoreSkill(round, u, sk);
+    const c = require('./behavior-policy').nextEnabled(round)?require('./spatial-behavior-v2').skillCandidate(round,u,sk,original):original;
     if (c) out.push({ action: 'useAbility', skill: sk, prior: c.prior });
   }
   return out;
@@ -325,7 +358,8 @@ function exec(round, u, sk) {
       const ticks = Math.round((P.ticks || 12) * power);
       const R = u.side === 'atk' ? round.committedSite : round.map.region(u.node);
       if (P.region) {
-        wallRegion(round, R, ticks); // 蝰蛇毒幕：封一片跨界枪线
+        if(require('./behavior-policy').multimapEnabled(round))require('./spatial-behavior').wallEffect(round,u,R,ticks);
+        else wallRegion(round, R, ticks); // Legacy journals keep symbolic sight walls.
       } else {
         // 冰墙类：封锁本区入口边（穿越大幅减速）
         const staging = round.map.data.staging[R];
@@ -336,6 +370,10 @@ function exec(round, u, sk) {
     }
     case 'stun': case 'ult_stun': {
       const ticks = P.ticks || A.stunTicks;
+      if(require('./behavior-policy').enabled(round)){
+        for(const e of round.visibleEnemiesAt(u).filter(e=>Math.hypot(e.position.x-u.position.x,e.position.y-u.position.y)<=140))if(round.pendingBrainStuns)round.pendingBrainStuns.push({unit:e,seconds:ticks});else e.stun=Math.max(e.stun,ticks);
+        break;
+      }
       for (const e of round.enemiesAt(u.node, u.side)) e.stun = Math.max(e.stun, ticks);
       if (P.throughWall) { // 铁臂招牌：隔墙震荡波及相邻节点
         for (const { to } of round.map.adj[u.node]) {
@@ -345,7 +383,11 @@ function exec(round, u, sk) {
       break;
     }
     case 'molly': case 'ult_molly': // 守包燃烧：封锁包点，拖延拆包
-      round.mollyZone = { node: round.map.siteNode(round.plantSite), until: t + Math.round((P.zoneTicks || U.mollyZoneTicks) * power), deny: true };
+      if(require('./behavior-policy').zonesEnabled(round)){
+        const target=round.visibleEnemiesAt(u).filter(e=>Math.hypot(e.position.x-u.position.x,e.position.y-u.position.y)<=150).sort((a,b)=>Math.hypot(a.position.x-u.position.x,a.position.y-u.position.y)-Math.hypot(b.position.x-u.position.x,b.position.y-u.position.y))[0],goal=target?.position||(u.side==='atk'&&round.planted?round.spike.position:null);
+        if(goal){const burst=['雷兹','猎枭'].includes(u.agent),activeAt=t+.5+Math.hypot(u.position.x-goal.x,u.position.y-goal.y)/400,zone={owner:u,position:{...goal},radius:28,activeAt,until:activeAt+(burst?1:Math.round((P.zoneTicks||U.mollyZoneTicks)*power)),lastDamageAt:t,power,burst,deny:!burst&&u.side==='atk'&&round.planted};u.abilityBusyUntil=t+.5;(round.damageZones??=[]).push(zone);round.emit('molly_zone',{unit:u.name,unitId:u.id,side:u.side,x:goal.x,y:goal.y,radius:zone.radius,activeAt,until:zone.until,deny:zone.deny,burst});}break;
+      }
+      round.mollyZone = { node: round.map.siteNode(round.plantSite), until: t + Math.round((P.zoneTicks || U.mollyZoneTicks) * power), deny: true,...(require('./behavior-policy').enabled(round)?{position:{...round.spike.position},radius:28}:{}) };
       break;
     case 'decoy': {
       const R = round.map.region(u.node);
@@ -362,26 +404,23 @@ function exec(round, u, sk) {
       u.aimbuffMult = P.mult || A.aimbuffMult;
       break;
     case 'recon': case 'ult_recon': {
+      const currentRegion = round.map.region(u.node);
       if (u.side === 'atk') {
-        // 揭示守军两点分布，全队改打薄弱点（brain.pickTargetSite 消费）
-        const count = { A: 0, B: 0 };
-        for (const d of round.def) {
-          if (!d.alive) continue;
-          const R = round.map.region(d.node);
-          if (R === 'A' || R === 'B') count[R]++;
-        }
-        round.flags.atkRecon = count;
+        // 原型侦察只覆盖当前目标点，不能直接获得另一侧的真实人数。
+        const site = u.targetSite || round.committedSite
+          || (Object.keys(round.map.data.sites).includes(currentRegion) ? currentRegion : round.atkIntent.site);
+        const count = require('./behavior-policy').nextEnabled(round)?require('./spatial-behavior-v2').recon(round,u,site):round.def.filter(d => d.alive && round.map.region(d.node) === site).length;
+        round.flags.atkRecon = { site, count };
+        round.emit('recon_result', { side: 'atk', site, count, by: u.name });
       } else {
-        // 防守侦察大招：全盘扫描（deep 无视隐蔽），真实信息
-        const count = { A: 0, B: 0, mid: 0 };
-        for (const a of round.atk) {
-          if (!a.alive) continue;
-          count[round.map.region(a.node)] = (count[round.map.region(a.node)] || 0) + 1;
+        const region = currentRegion;
+        const count = require('./behavior-policy').nextEnabled(round)?require('./spatial-behavior-v2').recon(round,u,region):round.atk.filter(a => a.alive && round.map.region(a.node) === region).length;
+        round.emit('recon_result', { side: 'def', site: region, count, by: u.name });
+        if (count > 0) {
+          const focus = round.hasGrowth && round.hasGrowth('def', 'recon-focus') ? 1 : 0;
+          round.addInfo(region, Math.round(U.reconInfo * power) + focus, null);
+          if (focus) round.triggerGrowth('def', 'recon-focus', u.name);
         }
-        let region = 'A';
-        if (count.B > count.A) region = 'B';
-        else if (count.B === count.A && round.rng() < 0.5) region = 'B';
-        round.addInfo(region, Math.round(U.reconInfo * power), null);
       }
       break;
     }

@@ -1,8 +1,9 @@
 // 战斗推演引擎 v0 · 全部可调数值集中在此，便于平衡迭代
 module.exports = {
   match: {
-    firstTo: 13,        // 先到 N 胜（可压缩为 9 等）
+    firstTo: 13,        // 至少 N 胜且领先两分（压缩模式同步修改半场）
     halfRounds: 12,     // 半场回合数，之后换边
+    initialAttacker: 'A',
     overtimeMoney: 5000 // 加时局双方经济
   },
   round: {
@@ -32,7 +33,12 @@ module.exports = {
   },
   gun: {
     // 档位 0 手枪 / 1 冲锋枪（半起）/ 2 步枪；作为击杀概率乘子
-    mod: [0.78, 1.0, 1.32]
+    mod: [0.78, 1.0, 1.32],
+    ballistics: [
+      { damage: 34, accuracy: 0.48, magazine: 8, reloadTicks: 2 },
+      { damage: 38, accuracy: 0.55, magazine: 20, reloadTicks: 2 },
+      { damage: 43, accuracy: 0.62, magazine: 25, reloadTicks: 3 }
+    ]
   },
   armor: {
     // 目标护甲对"被击杀概率"的乘子
@@ -52,6 +58,7 @@ module.exports = {
     entryShotSen: 0.002,    // 每点 SEN 增加抢先概率
     entryBonus: 1.5,       // 抢先一枪的伤害乘子（1.6→1.5：Phase6 平衡回调，攻方胜率偏低）
     tradeBase: 0.4,        // 补枪基础概率（乘 SYN/100）
+    syncMin: 2,           // 同一进点窗口内至少两名友方才触发协同减免
     syncReduce: 0.003,      // 同步进点（>=2人同到）按平均 SYN 降低被抢先概率
     multiTargetPenalty: 0.12 // 同节点每多一个敌人，单人输出分散惩罚（暂不启用）
   },

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="graphite">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#171d1d">
+  <title>FIELDNOTES · 视觉探索 01</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="studio">
+    <header class="studio-header">
+      <a class="studio-brand" href="#"><span class="brand-mark" aria-hidden="true">f.</span><span>FIELDNOTES<span class="brand-sub">VAL MANAGER · ART DIRECTION 01</span></span></a>
+      <div class="studio-controls"><span class="control-caption">界面底色</span><div class="theme-switch" role="group" aria-label="选择视觉主题"><button data-theme-value="graphite" aria-pressed="true"><i class="color-dot dark"></i>暖石墨</button><button data-theme-value="paper" aria-pressed="false"><i class="color-dot light"></i>暖灰白</button></div><button class="spec-button" id="spec-button">设计语言 <span aria-hidden="true">↗</span></button></div>
+    </header>
+    <section class="intro" aria-label="视觉方向说明">
+      <div><div class="eyebrow">一支队伍，不止一组数字。</div><h1>理性有序，<em>热爱有形。</em></h1></div>
+      <p>以数据建立秩序，以人物留下记忆。<br>温润的中性色、自然的人物影像，以及安静而清晰的界面。</p>
+    </section>
+    <main class="screens" aria-label="手机界面视觉原型">
+      <section class="screen-column" data-view="home">
+        <div class="screen-label"><span><b>01</b> 俱乐部首页</span><span>归属与日常</span></div>
+        <div class="device">
+          <div class="app-screen" id="home-screen">
+            <header class="app-header"><div class="club-brand"><img src="../../../素材库/队伍logo/EDG.png" alt="EDG"><span>我的俱乐部<small>EDWARD GAMING</small></span></div><button class="icon-button theme-mobile" aria-label="切换深浅主题" data-action="theme"><svg><use href="#sun"/></svg></button><button class="icon-button" aria-label="打开设计说明" data-action="notes"><svg><use href="#dots"/></svg></button></header>
+            <div class="scroll-body">
+              <div class="home-heading"><p class="eyebrow">THE CLUB / 俱乐部手记</p><h2>每一次并肩，<br>都值得被记住。</h2><span class="tiny-index">VOL. 01 <span></span> CN</span></div>
+              <button class="hero-portrait" data-action="player" data-player="ZmjjKK" aria-label="查看 ZmjjKK 选手档案">
+                <span class="hero-grid" aria-hidden="true"></span><span class="hero-word" aria-hidden="true">TOGETHER.</span>
+                <img class="hero-person rear" src="../../../素材库/选手半身像/CHICHOO.png" alt=""><img class="hero-person front" src="../../../素材库/选手半身像/ZmjjKK.png" alt="ZmjjKK 与 CHICHOO">
+                <span class="portrait-caption"><span><small>熟悉的面孔，共同的目标</small><strong>OUR PEOPLE.</strong></span><span class="round-arrow"><svg><use href="#arrow"/></svg></span></span>
+              </button>
+              <div class="team-metrics"><div><span>阵容成员</span><strong>05<small>人</small></strong></div><div><span>平均能力</span><strong>74.8</strong></div><div><span>所属赛区</span><strong>CN<small>中国</small></strong></div></div>
+              <button class="line-action" data-action="view" data-target="squad"><span><span class="small-label">YOUR ROSTER</span><strong>认识你的队伍</strong></span><svg><use href="#arrow"/></svg></button>
+              <section class="journal"><div class="section-heading"><h3>队伍手记</h3><span>CLUB JOURNAL</span></div><div class="journal-entry"><span class="journal-date">01<small>NOTE</small></span><div><h4>把每个人，放在合适的位置。</h4><p>从认识五位选手开始，写下属于这支队伍的故事。</p></div></div></section>
+              <p class="demo-footnote">视觉样稿 · 阵容与文案仅作展示</p>
+            </div>
+            <nav class="bottom-nav" aria-label="首页导航"><button class="active" data-action="view" data-target="home"><svg><use href="#home"/></svg><span>俱乐部</span></button><button data-action="view" data-target="squad"><svg><use href="#people"/></svg><span>选手</span></button><button data-action="view" data-target="detail"><svg><use href="#cards"/></svg><span>卡册</span></button></nav>
+          </div>
+        </div>
+      </section>
+      <section class="screen-column" data-view="squad">
+        <div class="screen-label"><span><b>02</b> 选手名单</span><span>清晰而有性格</span></div>
+        <div class="device"><div class="app-screen" id="squad-screen">
+          <header class="app-header"><span class="header-title">队伍档案<span class="header-code">ROSTER / 05</span></span><button class="icon-button" aria-label="查看队伍说明" data-action="notes"><svg><use href="#dots"/></svg></button></header>
+          <div class="scroll-body squad-body">
+            <div class="roster-heading"><p class="eyebrow">INDIVIDUALS. ONE TEAM.</p><h2>五个名字，<br>一种默契。</h2><p class="heading-note">每个人都有自己的出场方式。</p></div>
+            <div class="roster-tools"><div class="view-switch" role="group" aria-label="选手显示方式"><button class="selected" data-roster-view="list" aria-pressed="true"><svg><use href="#list"/></svg>名单</button><button data-roster-view="portraits" aria-pressed="false"><svg><use href="#grid"/></svg>影像</button></div><button class="sort-button" id="sort-button" aria-label="切换排序方式">默认顺序 <svg><use href="#sort"/></svg></button></div>
+            <div class="list-column-head"><span>选手 / 擅长特工</span><span>能力</span></div>
+            <div id="player-list" class="player-list"></div>
+            <div class="roster-note"><svg><use href="#info"/></svg><p>数字是了解选手的起点。<br><span>点击姓名，看看他的另一面。</span></p></div>
+            <p class="demo-footnote">能力值沿用素材数据 · 不代表新版玩法</p>
+          </div>
+          <nav class="bottom-nav" aria-label="选手页导航"><button data-action="view" data-target="home"><svg><use href="#home"/></svg><span>俱乐部</span></button><button class="active" data-action="view" data-target="squad"><svg><use href="#people"/></svg><span>选手</span></button><button data-action="view" data-target="detail"><svg><use href="#cards"/></svg><span>卡册</span></button></nav>
+        </div></div>
+      </section>
+      <section class="screen-column" data-view="detail">
+        <div class="screen-label"><span><b>03</b> 选手与卡面</span><span>被认真收藏的光芒</span></div>
+        <div class="device"><div class="app-screen detail-screen" id="detail-screen">
+          <header class="app-header"><button class="icon-button" data-action="view" data-target="squad" aria-label="返回选手名单"><svg><use href="#back"/></svg></button><span class="detail-header-label">PLAYER FILE <b id="file-number">001</b></span><button class="icon-button" id="favorite-button" aria-label="收藏选手" aria-pressed="false"><svg><use href="#bookmark"/></svg></button></header>
+          <div class="scroll-body detail-body">
+            <div class="detail-title"><div><p id="player-subtitle" class="eyebrow">CN / EDWARD GAMING</p><h2 id="player-name">ZmjjKK<span class="name-dot"></span></h2></div><span id="player-tier" class="quality-label">金卡</span></div>
+            <div class="card-stage"><span class="stage-corner tl"></span><span class="stage-corner tr"></span><span class="stage-corner bl"></span><span class="stage-corner br"></span><span class="stage-side">PLAYER COLLECTION</span><div class="card-window"><iframe id="card-frame" src="card-art.html?player=ZmjjKK" title="现有 v16 选手卡卡面" scrolling="no"></iframe></div><span class="stage-edition" id="stage-edition">STANDARD EDITION / 01</span></div>
+            <div class="card-editions" role="group" aria-label="卡面版本"><button class="selected" data-edition="standard" aria-pressed="true">常规卡面</button><button data-edition="diamond" aria-pressed="false">东京 · 珍藏</button></div>
+            <div class="detail-section-heading"><h3>能力轮廓</h3><span>PLAYER PROFILE</span></div>
+            <div id="ability-bars" class="ability-bars"></div>
+            <div class="detail-section-heading hero-pool-title"><h3>熟悉的角色</h3><span>AGENT POOL</span></div><div id="agent-pool" class="agent-pool"></div>
+            <p class="demo-footnote">复用现有卡面 · 属性用于视觉示意</p>
+          </div>
+          <div class="detail-footer"><button class="primary-button" id="view-art-button"><svg><use href="#expand"/></svg>欣赏完整卡面<span>↗</span></button></div>
+        </div></div>
+      </section>
+    </main>
+    <footer class="studio-footer"><span><i></i> VISUAL STUDY · 交互可体验，玩法未接入</span><span>自然人物 / 精确排版 / 克制材质</span><a href="../../../docs/plans/2026-09-30-visual-foundation.md">设计计划 ↗</a></footer>
+  </div>
+  <dialog id="notes-dialog" class="notes-dialog"><div class="dialog-head"><span class="eyebrow">DESIGN LANGUAGE / 01</span><button class="icon-button" data-close="notes-dialog" aria-label="关闭设计说明"><svg><use href="#close"/></svg></button></div><h2>让秩序清晰，<br>让人物被看见。</h2><p>这是一轮基础视觉探索。导航、阵容与叙事仅为构图示例，不定义新玩法。</p><div class="swatches"><div><i style="background:#171d1d"></i><span>暖石墨</span><code>#171D1D</code></div><div><i style="background:#f0ede5"></i><span>纸白</span><code>#F0EDE5</code></div><div><i style="background:#a5c4b4"></i><span>鼠尾草</span><code>#A5C4B4</code></div><div><i style="background:#c5ab87"></i><span>砂岩</span><code>#C5AB87</code></div></div><div class="design-rules"><p><b>01 / 理性</b>稳定的对齐、等宽数字、明确的阅读顺序。</p><p><b>02 / 温度</b>自然肤色、真实姓名，以及有呼吸的留白。</p><p><b>03 / 珍藏</b>卡面保留材质，界面成为安静的衬底。</p></div><p class="dialog-caption">中文正文使用本机中文字体；数字与英文使用已有 Rajdhani，展示标题局部使用 Anton。两种底色共享同一套组件。</p></dialog>
+  <dialog id="art-dialog" class="art-dialog"><div class="dialog-head"><span>PLAYER COLLECTION</span><button class="icon-button" data-close="art-dialog" aria-label="关闭卡面鉴赏"><svg><use href="#close"/></svg></button></div><div class="full-art-window"><iframe id="full-card-frame" title="完整选手卡" scrolling="no"></iframe></div><p>每一个名字，都值得被认真收藏。</p></dialog>
+  <div id="toast" role="status" class="toast"></div>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol><symbol id="back" viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></symbol><symbol id="dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol><symbol id="home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10H3Zm6 10v-7h6v7"/></symbol><symbol id="people" viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3m2-17a3 3 0 0 1 0 6m1 5a5 5 0 0 1 3 5"/></symbol><symbol id="cards" viewBox="0 0 24 24"><rect x="7" y="3" width="13" height="17" rx="2"/><path d="m4 6-2 14 11 2M11 8h5m-5 4h5"/></symbol><symbol id="bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4Z"/></symbol><symbol id="list" viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M3 6h1m-1 6h1m-1 6h1"/></symbol><symbol id="grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol><symbol id="sort" viewBox="0 0 24 24"><path d="M7 4v16m-4-4 4 4 4-4M17 20V4m-4 4 4-4 4 4"/></symbol><symbol id="info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></symbol><symbol id="expand" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m8 0h5v-5"/></symbol><symbol id="close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol><symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1 1m12 12 1 1M5 19l1-1M18 6l1-1"/></symbol>
+  </defs></svg>
+  <script src="players.js"></script><script src="app.js"></script>
+</body>
+</html>

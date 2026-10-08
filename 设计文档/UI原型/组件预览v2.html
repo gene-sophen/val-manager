@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>组件库预览 v2.1 · 厚重版</title>
+<style>
+@font-face{font-family:'Anton';src:url('../../素材库/字体/Anton-400.woff2') format('woff2');font-weight:400}
+@font-face{font-family:'Rajdhani';src:url('../../素材库/字体/Rajdhani-500.woff2') format('woff2');font-weight:500}
+@font-face{font-family:'Rajdhani';src:url('../../素材库/字体/Rajdhani-600.woff2') format('woff2');font-weight:600}
+@font-face{font-family:'Rajdhani';src:url('../../素材库/字体/Rajdhani-700.woff2') format('woff2');font-weight:700}
+@font-face{font-family:'Smiley';src:url('../../素材库/字体/SmileySans-Oblique.woff2') format('woff2')}
+:root{
+  --bg-0:#05080c; --bg-1:#0f1923; --bg-2:#16222e; --bg-3:#1e2e3d;
+  --line:#2c3d4c; --txt-1:#ece8e1; --txt-2:#9aa8b5; --txt-3:#6d7a87;
+  --region-cn:#e5395a; --region-emea:#f0b232; --region-pac:#22c8d8; --region-amer:#f2622e;
+  --q-gold:#E8B93E; --q-silver:#C9D4DE; --q-bronze:#B08968; --q-diamond:#A9F1FF;
+  --side-atk:#ff4655; --side-def:#22c8d8; --ok:#9fd06a; --warn:#ffcf5c;
+  --cut-lg:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);
+  --cut:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  --cut-sm:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px);
+  --cut-xs:polygon(5px 0,100% 0,100% calc(100% - 5px),calc(100% - 5px) 100%,0 100%,0 5px);
+  --hex-sm:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  --hex-frame:path('M 134.6,4.3 Q 150.0,0.0 165.4,4.3 L 284.6,38.0 Q 300.0,42.3 300.0,58.3 L 300.0,411.7 Q 300.0,427.7 284.6,432.0 L 165.4,465.7 Q 150.0,470.0 134.6,465.7 L 15.4,432.0 Q 0.0,427.7 0.0,411.7 L 0.0,58.3 Q 0.0,42.3 15.4,38.0 Z');
+  --hex-body:path('M 136.5,12.7 Q 150.0,8.9 163.5,12.7 L 280.8,45.8 Q 294.3,49.6 294.3,63.6 L 294.3,406.4 Q 294.3,420.4 280.8,424.2 L 163.5,457.3 Q 150.0,461.1 136.5,457.3 L 19.2,424.2 Q 5.7,420.4 5.7,406.4 L 5.7,63.6 Q 5.7,49.6 19.2,45.8 Z');
+  --noise:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="140" height="140" filter="url(%23n)"/></svg>');
+  --tex-copper:url('../../素材库/底纹/铜.png');
+  --tex-silver:url('../../素材库/底纹/银.png');
+  --tex-gold:url('../../素材库/底纹/金.png');
+  --tex-dia:url('../../素材库/底纹/钻.png');
+  --tex-holo:url('../../素材库/底纹/全息.png');
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg-0);color:var(--txt-1);font-family:'Rajdhani','Microsoft YaHei',sans-serif;font-weight:500;padding:24px 0 40px;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1{font-family:'Anton';font-weight:400;font-size:24px;letter-spacing:2px;padding:0 24px}
+.sub{color:var(--txt-2);font-size:12.5px;margin:4px 0 20px;padding:0 24px}
+.boards{display:flex;gap:18px;flex-wrap:wrap;padding:0 24px}
+.board{width:390px;flex:0 0 auto;background:var(--bg-1);border:1px solid var(--line);padding:14px 12px 18px;position:relative;overflow:hidden}
+.b-t{font-size:11px;color:var(--txt-2);letter-spacing:3px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.b-t::before{content:'';width:3px;height:12px;background:var(--q-gold);transform:skewX(-15deg)}
+.note{font-size:10px;color:var(--txt-3);margin-top:8px;font-style:italic}
+
+/* ================= 厚重感基础 ================= */
+/* 厚面板：顶部受光 + 底部暗边 + 外投影（drop-shadow 适配切角） */
+.panel-th{
+  background:linear-gradient(180deg,#1c2937 0%,#141e29 55%,#101823 100%);
+  clip-path:var(--cut);
+  box-shadow:inset 0 2px 0 rgba(236,232,225,.1),inset 0 -3px 0 rgba(0,0,0,.45),inset 0 0 0 1px rgba(60,80,100,.25);
+  filter:drop-shadow(0 4px 0 rgba(3,6,9,.55)) drop-shadow(0 10px 16px rgba(0,0,0,.4));
+}
+/* ===== CR 级按钮：双层结构（.btn-o 描边壳 + .btn 主体）===== */
+/* 外壳 = 深色描边 + 底部厚度 + 环境投影；主体 = 渐变亮面 + 穹面高光 + 内倒角 */
+.btn-o{display:inline-block;padding:2px;clip-path:var(--cut-sm);cursor:pointer;
+  background:linear-gradient(180deg,#9c7d24 0%,#5c470e 30%,#33270a 70%,#1f1703 100%);
+  filter:drop-shadow(0 5px 0 rgba(24,18,2,.95)) drop-shadow(0 12px 18px rgba(0,0,0,.55));
+  transition:transform .1s ease,filter .1s ease}
+.btn-o:active{transform:translateY(4px);
+  filter:drop-shadow(0 1px 0 rgba(24,18,2,.95)) drop-shadow(0 4px 6px rgba(0,0,0,.45))}
+.btn{position:relative;display:flex;align-items:center;justify-content:center;gap:6px;
+  font-family:'Smiley','Anton','Microsoft YaHei',sans-serif;font-size:15px;letter-spacing:3px;
+  border:none;cursor:pointer;clip-path:var(--cut-xs);padding:11px 24px 13px;color:#fff;
+  background:linear-gradient(180deg,#ffdf8e 0%,#f5c94e 38%,#e3ab28 68%,#b9871c 100%);
+  box-shadow:inset 0 2px 1px rgba(255,255,255,.7),inset 0 -4px 2px rgba(146,102,14,.65),
+    inset 2px 0 2px rgba(255,255,255,.14),inset -2px 0 2px rgba(0,0,0,.18);
+  text-shadow:0 1px 0 rgba(94,64,6,.85),0 2px 2px rgba(0,0,0,.3)}
+/* 穹面高光 */
+.btn::before{content:'';position:absolute;left:5px;right:5px;top:2px;height:46%;pointer-events:none;
+  clip-path:polygon(4px 0,calc(100% - 4px) 0,100% 100%,0 100%);
+  background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.04))}
+.btn>*{position:relative;z-index:1}
+/* 红（进攻/出战） */
+.btn-o.atk{background:linear-gradient(180deg,#a8333f 0%,#5a1219 30%,#2a070a 70%,#1a0406 100%);
+  filter:drop-shadow(0 5px 0 rgba(34,5,8,.95)) drop-shadow(0 12px 18px rgba(0,0,0,.55))}
+.btn-o.atk:active{filter:drop-shadow(0 1px 0 rgba(34,5,8,.95)) drop-shadow(0 4px 6px rgba(0,0,0,.45))}
+.btn-o.atk .btn{background:linear-gradient(180deg,#ff8f9b 0%,#f9505f 38%,#e53444 68%,#b3212e 100%);
+  box-shadow:inset 0 2px 1px rgba(255,255,255,.6),inset 0 -4px 2px rgba(140,18,28,.65),
+    inset 2px 0 2px rgba(255,255,255,.14),inset -2px 0 2px rgba(0,0,0,.18);
+  text-shadow:0 1px 0 rgba(110,12,20,.9),0 2px 4px rgba(0,0,0,.35)}
+/* 幽灵（次级） */
+.btn-o.ghost{background:linear-gradient(180deg,#647c92 0%,#33424f 30%,#1c2630 70%,#121a22 100%);
+  filter:drop-shadow(0 5px 0 rgba(8,12,16,.95)) drop-shadow(0 12px 18px rgba(0,0,0,.5))}
+.btn-o.ghost:active{filter:drop-shadow(0 1px 0 rgba(8,12,16,.95)) drop-shadow(0 4px 6px rgba(0,0,0,.45))}
+.btn-o.ghost .btn{color:#dce6ee;background:linear-gradient(180deg,#3c5266 0%,#2a3c4d 45%,#1d2b38 100%);
+  box-shadow:inset 0 2px 1px rgba(236,232,225,.22),inset 0 -4px 2px rgba(0,0,0,.5),
+    inset 2px 0 2px rgba(236,232,225,.06),inset -2px 0 2px rgba(0,0,0,.2);
+  text-shadow:0 1px 0 rgba(6,10,14,.9),0 2px 4px rgba(0,0,0,.4)}
+.btn-o.ghost .btn::before{background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.02))}
+/* 禁用 */
+.btn-o.dis{cursor:not-allowed;background:linear-gradient(180deg,#46525e 0%,#262e37 40%,#141a20 100%);
+  filter:drop-shadow(0 5px 0 rgba(8,11,14,.9))}
+.btn-o.dis .btn{color:var(--txt-3);background:linear-gradient(180deg,#2b3641,#1e2730 60%,#171f27);
+  box-shadow:inset 0 1px 0 rgba(236,232,225,.06),inset 0 -3px 2px rgba(0,0,0,.45);
+  text-shadow:none;cursor:not-allowed}
+.btn-o.dis .btn::before{display:none}
+.col-btns .btn-o{display:block}
+.btn-o>.btn{width:100%}
+/* 艺术字标题：得意黑（中文） + Anton（拉丁/数字），实心亮色 + 多层刻面投影 */
+.title-art{
+  font-family:'Anton','Smiley','Microsoft YaHei',sans-serif;font-size:30px;letter-spacing:2px;line-height:1.35;
+  color:#f7dc85;
+  text-shadow:0 1px 0 #fff3c2,0 2px 0 #c89a2a,0 3px 0 #7a5f1a,0 4px 0 rgba(0,0,0,.55),0 7px 14px rgba(0,0,0,.55);
+}
+.title-art.red{color:#ff8a97;
+  text-shadow:0 1px 0 #ffd3d9,0 2px 0 #d92c3a,0 3px 0 #7d1420,0 4px 0 rgba(0,0,0,.55),0 7px 14px rgba(0,0,0,.55)}
+.title-art.cyan{color:#7fe7f2;
+  text-shadow:0 1px 0 #e0fbff,0 2px 0 #22a8b8,0 3px 0 #0f5d68,0 4px 0 rgba(0,0,0,.55),0 7px 14px rgba(0,0,0,.55)}
+
+/* 顶栏/底栏加厚 */
+.topbar{display:flex;align-items:center;gap:8px;padding:7px 10px;clip-path:var(--cut-sm);
+  background:linear-gradient(180deg,#22303f 0%,#16222e 60%,#121b25 100%);
+  box-shadow:inset 0 2px 0 rgba(236,232,225,.1),inset 0 -3px 0 rgba(0,0,0,.5);
+  filter:drop-shadow(0 3px 0 rgba(3,6,9,.6))}
+.hex-avatar{width:36px;height:40px;clip-path:var(--hex-sm);padding:2.5px;flex:0 0 auto;
+  background:linear-gradient(160deg,#fff3c2,var(--q-gold) 55%,#8a6a1c);
+  filter:drop-shadow(0 2px 0 rgba(0,0,0,.5))}
+.hex-avatar img{width:100%;height:100%;clip-path:var(--hex-sm);object-fit:cover;object-position:center 15%;display:block;background:#222}
+.coach-meta{line-height:1.15}
+.coach-meta .nm{font-weight:700;font-size:13px}
+.coach-meta .mm{font-size:9.5px;color:var(--txt-2)}
+.coach-meta .mm b{color:var(--warn)}
+.icon-btn{min-width:38px;height:38px;padding:0 8px;display:flex;align-items:center;justify-content:center;gap:4px;
+  clip-path:var(--cut-sm);color:var(--txt-1);font-size:14px;
+  background:linear-gradient(180deg,#3c5266 0%,#2a3c4d 45%,#1d2b38 100%);
+  box-shadow:inset 0 2px 1px rgba(236,232,225,.22),inset 0 -3px 2px rgba(0,0,0,.5),inset 0 0 0 1px rgba(10,16,22,.6);
+  filter:drop-shadow(0 -1px 0 rgba(70,90,110,.5)) drop-shadow(0 3px 0 #0a1016) drop-shadow(0 6px 8px rgba(0,0,0,.4))}
+.icon-btn .cnt{font-size:11px;font-weight:700;color:var(--warn)}
+.tabbar{display:flex;margin-top:10px;clip-path:var(--cut-sm);
+  background:linear-gradient(0deg,#22303f 0%,#16222e 60%,#121b25 100%);
+  box-shadow:inset 0 -2px 0 rgba(236,232,225,.06),inset 0 3px 0 rgba(0,0,0,.5);
+  filter:drop-shadow(0 -3px 0 rgba(3,6,9,.6))}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0 8px;color:var(--txt-2);font-size:11.5px;font-weight:700;letter-spacing:1px;position:relative}
+.tab svg{width:20px;height:20px;fill:currentColor}
+.tab.on{color:var(--q-gold)}
+.tab.on::before{content:'';position:absolute;top:0;left:20%;right:20%;height:3px;background:linear-gradient(180deg,#f7dc85,var(--q-gold));box-shadow:0 0 10px var(--q-gold);clip-path:polygon(0 0,100% 0,80% 100%,20% 100%)}
+
+/* ================= 选手卡（嵌入定稿 v16 卡面原型，JS 缩放） ================= */
+.cardwrap{position:relative;flex:0 0 auto}
+.card{width:300px;height:470px;position:absolute;left:0;top:0;transform-origin:top left;
+  filter:drop-shadow(0 16px 26px rgba(0,0,0,.6))}
+.frame{position:absolute;inset:0;clip-path:var(--hex-frame);background-size:cover;background-position:center}
+.bevel{position:absolute;inset:0;clip-path:var(--hex-frame);z-index:2;
+  background:linear-gradient(175deg,rgba(255,255,255,.45),rgba(255,255,255,.04) 22%,rgba(0,0,0,.18) 55%,rgba(0,0,0,.6))}
+.cbody{position:absolute;inset:0;clip-path:var(--hex-body);z-index:3;overflow:hidden;
+  background:linear-gradient(168deg,#18222d 0%,#111820 45%,#0b1015 100%)}
+.grain{position:absolute;inset:0;z-index:2;background-image:var(--noise);opacity:.06;mix-blend-mode:overlay;pointer-events:none}
+.vignette{position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:radial-gradient(ellipse 75% 62% at 50% 38%,transparent 52%,rgba(0,0,0,.42) 100%)}
+.r-铜 .frame{background-image:var(--tex-copper)}
+.r-银 .frame{background-image:var(--tex-silver)}
+.r-金 .frame{background-image:var(--tex-gold)}
+.r-钻 .frame{background-image:var(--tex-dia)}
+.r-金{filter:drop-shadow(0 16px 26px rgba(0,0,0,.6)) drop-shadow(0 0 16px rgba(232,185,62,.3))}
+.r-钻{filter:drop-shadow(0 16px 26px rgba(0,0,0,.6)) drop-shadow(0 0 18px rgba(169,241,255,.4))}
+.gem{position:absolute;top:15px;left:50%;transform:translateX(-50%) rotate(45deg);z-index:6}
+.r-铜 .gem{width:9px;height:9px;background:var(--q-bronze);border-radius:2px}
+.r-银 .gem{width:11px;height:11px;background:var(--q-silver);border-radius:2px;box-shadow:0 0 6px rgba(201,212,222,.6)}
+.r-金 .gem{width:13px;height:13px;background:linear-gradient(135deg,#fff3c2,var(--q-gold));border-radius:3px;box-shadow:0 0 10px rgba(232,185,62,.9)}
+.r-钻 .gem{width:14px;height:14px;background:linear-gradient(135deg,#f2feff,var(--q-diamond) 60%,#b99df1);border-radius:3px;box-shadow:0 0 14px rgba(169,241,255,.95)}
+.rating{position:absolute;top:70px;left:36px;z-index:5;font-family:'Anton';font-size:52px;line-height:1;transform:skew(-4deg);filter:drop-shadow(0 3px 6px rgba(0,0,0,.9))}
+.r-铜 .rating{color:#E4C6A4;-webkit-text-stroke:1.1px rgba(8,12,16,.85)}
+.r-银 .rating{color:#EFF5FA;-webkit-text-stroke:1.1px rgba(8,12,16,.85)}
+.r-金 .rating{color:#FCE49B;-webkit-text-stroke:1.1px rgba(8,12,16,.85)}
+.r-钻 .rating{color:#D8F6FF;-webkit-text-stroke:1.1px rgba(8,12,16,.85)}
+.rating::before{content:attr(data-n);position:absolute;left:0;top:0;z-index:-1;color:transparent;
+  -webkit-text-stroke:4px transparent;background-size:cover;background-position:center;
+  -webkit-background-clip:text;background-clip:text}
+.r-铜 .rating::before{background-image:var(--tex-copper)}
+.r-银 .rating::before{background-image:var(--tex-silver)}
+.r-金 .rating::before{background-image:var(--tex-gold)}
+.r-钻 .rating::before{background-image:var(--tex-dia)}
+.corner{position:absolute;top:66px;right:27px;z-index:5}
+.corner .tlo{width:56px;height:56px;object-fit:contain;padding:5px;border-radius:7px;
+  background:linear-gradient(180deg,rgba(236,232,225,.94),rgba(200,208,216,.9));border:1px solid rgba(13,20,27,.5);
+  box-shadow:0 3px 10px rgba(0,0,0,.55)}
+.rgen{position:absolute;top:40px;left:50%;transform:translateX(-50%);width:26px;height:26px;object-fit:contain;z-index:6;filter:drop-shadow(0 2px 5px rgba(0,0,0,.6))}
+.pbg{position:absolute;top:64px;bottom:210px;left:26px;right:26px;z-index:0;overflow:hidden}
+.pbg::before{content:'';position:absolute;inset:0;z-index:1;
+  background:repeating-linear-gradient(125deg,rgba(236,232,225,.028) 0 2px,transparent 2px 14px)}
+.pbg .watermark{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);z-index:2;width:150px;height:150px;object-fit:contain;opacity:.1;filter:grayscale(.2)}
+.portrait{position:absolute;top:74px;bottom:215px;left:38px;right:38px;z-index:1}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:center 10%;display:block;
+  clip-path:polygon(0 0,100% 0,100% 92%,50% 100%,0 92%)}
+.scrim{position:absolute;left:-16px;right:-16px;bottom:-8px;height:74px;z-index:2;
+  background:linear-gradient(180deg,transparent,rgba(9,14,19,.95) 60%,#0b1015 90%)}
+.deco{position:absolute;inset:0;z-index:4;pointer-events:none}
+.wing{position:absolute;top:285px;width:26px;height:110px;z-index:4;pointer-events:none;opacity:.5;
+  background-image:var(--tex-gold);background-size:cover;background-position:center;
+  clip-path:polygon(0 0,60% 8%,100% 18%,60% 28%,100% 38%,60% 48%,100% 58%,60% 68%,100% 78%,60% 88%,0 100%)}
+.wing.l{left:8px}.wing.r{right:8px;transform:scaleX(-1)}
+.who{position:absolute;left:0;right:0;top:248px;padding:0 25px;z-index:5;text-align:center}
+.pid{font-family:'Anton';font-size:30px;letter-spacing:1.5px;line-height:1;text-shadow:0 2px 6px rgba(0,0,0,.9),0 0 18px rgba(0,0,0,.7)}
+.r-金 .pid::after{content:'';display:block;height:2px;margin:7px auto 0;border-radius:2px;width:48px;
+  background:linear-gradient(90deg,transparent,var(--q-gold),transparent)}
+.agents{position:absolute;left:0;right:0;top:288px;z-index:5;display:flex;gap:10px;justify-content:center}
+.ag{width:37px;text-align:center}
+.ag .heximg{width:37px;height:42px;clip-path:var(--hex-sm);background:#16202a;position:relative}
+.ag img{width:100%;height:100%;object-fit:cover;display:block}
+.ag.sig .heximg{clip-path:none;background:none}
+.ag.sig .heximg::before{content:'';position:absolute;inset:0;clip-path:var(--hex-sm)}
+.r-银 .ag.sig .heximg::before{background:linear-gradient(160deg,#f4f9fc,#C9D4DE 55%,#7d8d9b)}
+.r-金 .ag.sig .heximg::before{background:linear-gradient(160deg,#fff3c2,#E8B93E 55%,#8a6a1c)}
+.r-钻 .ag.sig .heximg::before{background:linear-gradient(160deg,#f2feff,#A9F1FF 55%,#b99df1)}
+.ag.sig .heximg::after{content:'';position:absolute;inset:2.5px;clip-path:var(--hex-sm);background:#0d141b}
+.ag.sig .heximg img{position:absolute;inset:4.5px;width:calc(100% - 9px);height:calc(100% - 9px);clip-path:var(--hex-sm);z-index:1}
+.badges{position:absolute;left:0;right:0;top:326px;z-index:5;display:flex;gap:8px;justify-content:center}
+.r-金 .badges{top:383px}
+.plate{flex:0 0 auto;display:flex;align-items:center;gap:7px;padding:5px 12px 5px 5px;border-radius:7px;
+  background:linear-gradient(180deg,rgba(27,38,48,.94),rgba(16,24,32,.94));
+  border:1px solid #2a3742;box-shadow:inset 0 1px 0 rgba(236,232,225,.06),0 3px 7px rgba(0,0,0,.45)}
+.plate .picon{flex:none;width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center}
+.plate .ptext b{display:block;font-size:11.5px;letter-spacing:1px;white-space:nowrap}
+.plate.trait{border-color:rgba(232,185,62,.45)}
+.plate.trait .picon{background:rgba(232,185,62,.14);border:1px solid rgba(232,185,62,.5)}
+.plate.trait .ptext b{color:var(--q-gold)}
+.plate.moment{border-color:rgba(169,241,255,.55);box-shadow:inset 0 1px 0 rgba(233,253,255,.1),0 0 14px rgba(169,241,255,.2)}
+.plate.moment .picon{background:rgba(169,241,255,.12);border:1px solid rgba(169,241,255,.55)}
+.plate.moment .ptext b{color:var(--q-diamond)}
+.stats{position:absolute;left:0;right:0;top:331px;margin:0 60px;z-index:5;display:flex}
+.stat{flex:1;text-align:center;position:relative}
+.stat+.stat::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;
+  background:linear-gradient(180deg,transparent,#2a3742,transparent)}
+.stat b{display:block;font-size:24px;font-weight:700;line-height:1.1;-webkit-text-stroke:.8px rgba(8,12,16,.85);
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.8))}
+.r-铜 .stat b{color:#D8B794}
+.r-银 .stat b{color:#EAF1F7}
+.r-金 .stat b{color:#F7DC85}
+.stat span{display:block;font-size:10.5px;font-weight:700;letter-spacing:2.5px;color:var(--txt-2)}
+/* 钻卡独立布局 */
+.r-钻 .rating{top:68px;left:35px}
+.r-钻 .corner{display:none}
+.r-钻 .pbg{top:60px;bottom:230px;left:20px;right:16px}
+.r-钻 .portrait{top:95px;left:41px;width:218px;height:168px}
+.r-钻 .portrait img{object-position:center 20%;clip-path:polygon(8% 0,100% 0,100% 90%,50% 100%,0 90%,0 8%)}
+.r-钻 .scrim{left:-66px;right:-16px;bottom:-8px;height:84px}
+.d-banner{position:absolute;top:240px;left:14px;right:14px;z-index:5;text-align:center;
+  padding:9px 0 8px;background:linear-gradient(180deg,rgba(24,34,44,.95),rgba(13,19,25,.95));
+  border:1px solid rgba(169,241,255,.35);
+  clip-path:polygon(4% 0,96% 0,100% 50%,96% 100%,4% 100%,0 50%);
+  box-shadow:0 4px 12px rgba(0,0,0,.5)}
+.d-pid{font-family:'Anton';font-size:32px;letter-spacing:4px;line-height:1;transform:skew(-6deg);
+  background-image:var(--tex-dia);background-size:cover;background-position:center;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-text-stroke:1.8px rgba(8,12,16,.9);filter:drop-shadow(0 0 10px rgba(169,241,255,.3))}
+.d-cut{position:absolute;top:296px;left:0;right:0;z-index:5;text-align:center;
+  font-size:10.5px;letter-spacing:3px;color:var(--q-diamond);text-shadow:0 0 8px rgba(169,241,255,.45)}
+.r-钻 .agents{left:76px;right:auto;top:317px;width:56px}
+.r-钻 .ag{width:56px}
+.r-钻 .ag .heximg{width:46px;height:52px;margin:0 auto}
+.r-钻 .badges{left:41px;right:auto;top:376px;width:132px;justify-content:center}
+.d-stat{position:absolute;left:184px;z-index:5;display:flex;align-items:baseline;gap:4px}
+.d-stat b{font-size:21px;font-weight:700;line-height:1.1;color:#C9F4FF;-webkit-text-stroke:.8px rgba(8,12,16,.85);
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.85))}
+.d-stat span{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--txt-2)}
+.ds1{top:316px}.ds2{top:344px}.ds3{top:374px}
+.sheen{position:absolute;inset:0;z-index:7;pointer-events:none;opacity:0;
+  background-image:var(--tex-holo);background-size:cover;background-position:center;mix-blend-mode:screen}
+.r-钻 .sheen{opacity:.3}
+
+/* ================= 征程节点（厚面板 + 赛区色） ================= */
+.jnode{width:100%;margin-bottom:12px;padding:11px 13px;position:relative;clip-path:var(--cut);
+  background:linear-gradient(180deg,#1c2937,#121b25 70%);
+  box-shadow:inset 0 2px 0 rgba(236,232,225,.09),inset 0 -3px 0 rgba(0,0,0,.45);
+  filter:drop-shadow(0 4px 0 rgba(3,6,9,.55)) drop-shadow(0 8px 12px rgba(0,0,0,.35))}
+.jnode .stage{display:flex;align-items:center;gap:7px}
+.jnode .stage img{width:20px;height:20px;object-fit:contain}
+.jnode .stage .nm{font-weight:700;font-size:14.5px;letter-spacing:1px}
+.jnode .badge{margin-left:auto;font-size:10.5px;font-weight:700;padding:3px 9px;clip-path:var(--cut-sm);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -2px 0 rgba(0,0,0,.35)}
+.jnode .sub{font-size:10.5px;color:var(--txt-2);margin-top:4px}
+.jnode.done .badge{background:linear-gradient(180deg,#4c6b34,#33491f);color:#c6ec9b}
+.jnode.locked{opacity:.45;filter:grayscale(.7)}
+.jnode.locked .badge{background:var(--bg-3);color:var(--txt-3)}
+.jnode.current{animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{filter:drop-shadow(0 4px 0 rgba(3,6,9,.55)) drop-shadow(0 0 0 rgba(232,185,62,0))}
+  50%{filter:drop-shadow(0 4px 0 rgba(3,6,9,.55)) drop-shadow(0 0 16px rgba(232,185,62,.5))}}
+.jnode.current .badge{background:linear-gradient(180deg,#f2cd6a,#c89a2a);color:#241804}
+.jnode.r-cn{border-left:4px solid var(--region-cn)}
+.jnode.r-emea{border-left:4px solid var(--region-emea)}
+.jnode.r-pac{border-left:4px solid var(--region-pac)}
+.jnode.r-amer{border-left:4px solid var(--region-amer)}
+
+/* 默契条（CR 式凹槽 + 高光填充） */
+.chem-panel{margin-top:12px;padding:13px 14px}
+.chem-top{display:flex;align-items:baseline;gap:8px}
+.chem-top .lab{font-size:12px;color:var(--txt-2);letter-spacing:2px}
+.chem-top .val{font-family:'Anton';font-size:28px;color:#f7dc85;text-shadow:0 2px 0 rgba(0,0,0,.7)}
+.chem-top .mx{font-size:11px;color:var(--txt-3)}
+.chem-bar{position:relative;height:14px;margin:22px 0 6px;clip-path:polygon(5px 0,100% 0,calc(100% - 5px) 100%,0 100%);
+  background:linear-gradient(180deg,#070b0f,#0d141b);
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.8),inset 0 -1px 0 rgba(236,232,225,.06)}
+.chem-bar .fill{position:absolute;top:2px;bottom:2px;left:2px;
+  background:linear-gradient(180deg,#ffe9a8 0%,var(--q-gold) 45%,#a8842a 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 10px rgba(232,185,62,.4);
+  clip-path:polygon(3px 0,100% 0,calc(100% - 3px) 100%,0 100%)}
+.chem-bar .th{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--side-def);box-shadow:0 0 6px var(--side-def)}
+.chem-bar .th i{position:absolute;top:-15px;left:-6px;font-size:9px;color:var(--side-def);font-style:normal}
+.chem-note{font-size:9.5px;color:var(--txt-3);line-height:1.6}
+.syn-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.syn-tag{font-size:10px;padding:4px 10px;clip-path:var(--cut-sm);
+  background:rgba(34,200,216,.1);border:1px solid rgba(34,200,216,.4);color:var(--region-pac);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -2px 0 rgba(0,0,0,.3)}
+.syn-tag.warm{background:rgba(255,207,92,.1);border-color:rgba(255,207,92,.4);color:var(--warn)}
+
+/* 观赛 */
+.scorebar{display:flex;align-items:center;gap:10px;padding:9px 12px;clip-path:var(--cut);
+  background:linear-gradient(180deg,#22303f,#141e29 70%);
+  box-shadow:inset 0 2px 0 rgba(236,232,225,.1),inset 0 -3px 0 rgba(0,0,0,.45);
+  filter:drop-shadow(0 4px 0 rgba(3,6,9,.55))}
+.scorebar img{width:30px;height:30px;object-fit:contain}
+.scorebar .sc{font-family:'Anton';font-size:24px;letter-spacing:2px;text-shadow:0 2px 0 rgba(0,0,0,.7)}
+.scorebar .me{color:var(--side-def)} .scorebar .op{color:var(--side-atk)}
+.scorebar .rd{font-size:9.5px;color:var(--txt-2);line-height:1.3}
+.scorebar .rd b{color:var(--txt-1)}
+.timer-ring{margin-left:auto;width:34px;height:34px}
+.feed-item{display:flex;gap:8px;align-items:baseline;font-size:12.5px;padding:7px 9px;margin-bottom:6px;line-height:1.5;
+  clip-path:var(--cut-sm);background:linear-gradient(180deg,#1a2632,#141e29);
+  box-shadow:inset 0 1px 0 rgba(236,232,225,.07),inset 0 -2px 0 rgba(0,0,0,.35)}
+.feed-item .rd-no{font-size:9px;color:var(--txt-3);flex:0 0 34px}
+.feed-item.atk{border-left:3px solid var(--side-atk)}
+.feed-item.def{border-left:3px solid var(--side-def)}
+.feed-item b.a{color:var(--side-atk)} .feed-item b.d{color:var(--side-def)}
+.cmd-row{display:flex;gap:9px;margin-bottom:9px}
+.cmd-btn{flex:1;position:relative;padding:11px 0 13px;text-align:center;font-weight:700;font-size:12.5px;letter-spacing:2px;color:var(--txt-2);
+  clip-path:var(--cut-sm);cursor:pointer;transition:transform .12s,filter .12s;
+  background:linear-gradient(180deg,#3c5266 0%,#2a3c4d 45%,#1d2b38 100%);
+  box-shadow:inset 0 2px 1px rgba(236,232,225,.2),inset 0 -4px 2px rgba(0,0,0,.5);
+  filter:drop-shadow(0 -1px 0 rgba(70,90,110,.4)) drop-shadow(0 4px 0 #0a1016) drop-shadow(0 8px 10px rgba(0,0,0,.35))}
+.cmd-btn::before{content:'';position:absolute;left:5px;right:5px;top:2px;height:44%;pointer-events:none;
+  clip-path:polygon(4px 0,calc(100% - 4px) 0,100% 100%,0 100%);
+  background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.02))}
+.cmd-btn:active{transform:translateY(3px);filter:drop-shadow(0 1px 0 #0a1016)}
+.cmd-btn.on{color:#f7dc85;background:linear-gradient(180deg,#6b571e 0%,#4a3d14 45%,#332a0d 100%);
+  box-shadow:inset 0 2px 1px rgba(242,205,106,.5),inset 0 -4px 2px rgba(0,0,0,.55);
+  filter:drop-shadow(0 -1px 0 rgba(242,205,106,.4)) drop-shadow(0 4px 0 #161004) drop-shadow(0 0 14px rgba(232,185,62,.25));
+  text-shadow:0 1px 0 rgba(40,30,4,.9)}
+.cmd-btn.pause{color:var(--warn)}
+
+/* 结算 */
+.result-mini{text-align:center;padding:20px 12px;clip-path:var(--cut);
+  background:radial-gradient(ellipse at 50% 0%,#1c2937,#0a0e13 75%);
+  box-shadow:inset 0 2px 0 rgba(236,232,225,.08),inset 0 -3px 0 rgba(0,0,0,.5);
+  filter:drop-shadow(0 4px 0 rgba(3,6,9,.55))}
+.res-verdict{font-family:'Anton';font-size:46px;letter-spacing:4px;transform:skewX(-4deg);line-height:1;
+  background:linear-gradient(180deg,#fff 0%,#f2cd6a 45%,#b8860b 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 3px 0 rgba(0,0,0,.85)) drop-shadow(0 0 22px rgba(232,185,62,.45))}
+.res-score-line{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:8px}
+.res-score-line img{width:38px;height:38px;object-fit:contain}
+.res-score-line .sc{font-family:'Anton';font-size:28px;letter-spacing:2px;text-shadow:0 2px 0 rgba(0,0,0,.8)}
+.res-block{padding:11px 13px;margin-top:10px;text-align:left}
+.res-block .bt{font-size:10px;color:var(--txt-2);letter-spacing:2px;margin-bottom:6px}
+.mvp-row{display:flex;align-items:center;gap:10px}
+.mvp-row .mhex{width:44px;height:50px;clip-path:var(--hex-sm);padding:2px;background:linear-gradient(160deg,#fff3c2,var(--q-gold),#8a6a1c)}
+.mvp-row .mhex img{width:100%;height:100%;clip-path:var(--hex-sm);object-fit:cover;object-position:center 12%}
+.mvp-row .nm{font-family:'Anton';font-size:15px}
+.mvp-row .tg{font-size:9px;color:var(--q-gold)}
+.mvp-stats{margin-left:auto;display:flex;gap:12px}
+.mvp-stats div{text-align:center}
+.mvp-stats b{font-family:'Anton';font-size:15px;color:var(--side-def);display:block}
+.mvp-stats span{font-size:9px;color:var(--txt-2)}
+.delta-line{font-size:12px;line-height:1.8}
+.delta-line b{color:var(--warn)} .delta-line .up{color:var(--ok)}
+
+/* 开包 */
+.pack-visual{width:150px;height:204px;margin:0 auto;position:relative;cursor:pointer;
+  clip-path:var(--cut-lg);
+  filter:drop-shadow(0 6px 0 rgba(3,6,9,.6)) drop-shadow(0 14px 20px rgba(0,0,0,.5)) drop-shadow(0 0 22px rgba(232,185,62,.25))}
+.pack-visual .tex{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9}
+.pack-visual .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,18,.25),rgba(10,14,18,.78) 75%);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.25),inset 0 -4px 0 rgba(0,0,0,.5)}
+.pack-visual .lb{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.pack-visual .t1{font-family:'Anton';font-size:22px;letter-spacing:3px;color:#f7dc85;text-shadow:0 2px 8px #000}
+.pack-visual .t2{font-size:9.5px;letter-spacing:4px;color:var(--txt-2)}
+
+/* 弹窗 / toast / 详情 */
+.modal-demo{background:rgba(4,7,10,.6);padding:26px 18px;margin-top:12px}
+.modal-box{padding:16px 16px 18px}
+.swap-cmp{display:flex;align-items:center;justify-content:center;gap:12px;margin:8px 0}
+.swap-cmp .hx{width:56px;height:64px;clip-path:var(--hex-sm);padding:2px;background:linear-gradient(160deg,#5a7089,#2a3742)}
+.swap-cmp .hx img{width:100%;height:100%;clip-path:var(--hex-sm);object-fit:cover;object-position:center 12%}
+.swap-cmp .arr{font-family:'Anton';font-size:20px;color:var(--txt-2)}
+.chem-delta{text-align:center;font-size:14px;font-weight:700;margin:8px 0}
+.chem-delta .dn{color:var(--side-atk)}
+.warn-line{text-align:center;font-size:11px;color:#ff8a97;background:rgba(255,70,85,.12);border:1px solid rgba(255,70,85,.45);
+  padding:7px;margin:8px 0;clip-path:var(--cut-sm);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.toast-demo{margin:14px auto 0;width:fit-content;background:linear-gradient(180deg,#2a3847,#1a2632);border:1px solid var(--q-gold);
+  font-size:12px;padding:10px 18px;clip-path:var(--cut-sm);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 6px 14px rgba(0,0,0,.5)}
+.sheet{padding:14px;clip-path:polygon(16px 0,100% 0,100% 100%,0 100%)}
+.detail-top{display:flex;gap:12px}
+.detail-info{flex:1;padding-top:4px}
+.detail-info .did{font-family:'Anton';font-size:20px;text-shadow:0 2px 0 rgba(0,0,0,.7)}
+.detail-info .dteam{font-size:10.5px;color:var(--txt-2);margin:2px 0 8px}
+.statbar{margin:7px 0}
+.statbar .sr{display:flex;font-size:10px;color:var(--txt-2)}
+.statbar .sr b{margin-left:auto;color:var(--txt-1);font-size:12px}
+.statbar .bar{height:8px;margin-top:3px;clip-path:polygon(3px 0,100% 0,calc(100% - 3px) 100%,0 100%);
+  background:linear-gradient(180deg,#070b0f,#0d141b);box-shadow:inset 0 2px 3px rgba(0,0,0,.8)}
+.statbar .bar i{display:block;height:100%;background:linear-gradient(180deg,#7fe7f2,var(--side-def) 50%,#1899a8);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+.obs-item{font-size:11px;line-height:1.5;padding:8px 10px;margin-bottom:6px;clip-path:var(--cut-sm);
+  background:linear-gradient(180deg,#1a2632,#141e29);border-left:3px solid var(--side-def);
+  box-shadow:inset 0 1px 0 rgba(236,232,225,.06),inset 0 -2px 0 rgba(0,0,0,.3)}
+.obs-item.neg{border-left-color:var(--side-atk)}
+.obs-item .when{display:block;font-size:9px;color:var(--txt-3);margin-top:2px}
+</style>
+</head>
+<body>
+<h1>组件库 v2.1 · 厚重版</h1>
+<div class="sub">选手卡直接嵌入定稿卡面原型 v16（transform 缩放） · 组件参考皇室战争：立体按钮 / 凹槽进度条 / 金属艺术字</div>
+
+<div class="boards">
+
+  <!-- 板1：导航 + 按钮 + 艺术字 -->
+  <div class="board">
+    <div class="b-t">艺术字标题</div>
+    <div class="title-art">冠军之路</div>
+    <div style="height:8px"></div>
+    <div class="title-art red" style="font-size:24px">季后赛 · 半决赛</div>
+    <div style="height:8px"></div>
+    <div class="title-art cyan" style="font-size:24px">大师赛 · 东京</div>
+
+    <div class="b-t" style="margin-top:20px">立体按钮（按压下沉 4px）</div>
+    <div class="col-btns" style="display:flex;flex-direction:column;gap:14px">
+      <div class="btn-o"><button class="btn"><span>确 认 出 征</span></button></div>
+      <div class="btn-o atk"><button class="btn"><span>出 战</span></button></div>
+      <div class="btn-o ghost"><button class="btn"><span>返回阵容</span></button></div>
+      <div class="btn-o dis"><button class="btn"><span>确认出征</span></button></div>
+    </div>
+
+    <div class="b-t" style="margin-top:20px">全局导航（加厚）</div>
+    <div class="topbar">
+      <div class="hex-avatar"><img src="../../素材库/选手半身像/inspire.png"></div>
+      <div class="coach-meta"><div class="nm">教练 · 阿岚</div><div class="mm">声望<b>72</b> 战术<b>65</b> 临场<b>58</b></div></div>
+      <div style="margin-left:auto;display:flex;gap:6px">
+        <span class="icon-btn">🎴<span class="cnt">×2</span></span><span class="icon-btn">⚙</span>
+      </div>
+    </div>
+    <div class="tabbar">
+      <span class="tab on"><svg viewBox="0 0 24 24"><path d="M4 21V4l7 3 9-2v12l-9 2-7-3v3z"/></svg>征程</span>
+      <span class="tab"><svg viewBox="0 0 24 24"><path d="M12 1l8 5.5v9L12 21l-8-5.5v-9z"/></svg>阵容</span>
+      <span class="tab"><svg viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z M8 7h6M8 11h8M8 15h5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>抽卡</span>
+    </div>
+
+    <div class="b-t" style="margin-top:20px">弹窗 · 换人预览</div>
+    <div class="modal-demo">
+      <div class="modal-box panel-th">
+        <div class="b-t" style="margin-bottom:8px">换人预览</div>
+        <div class="swap-cmp"><div class="hx"><img src="../../素材库/选手半身像/heybay.png"></div><span class="arr">▶</span><div class="hx"><img src="../../素材库/选手半身像/Rossy.png"></div></div>
+        <div style="text-align:center;font-size:11.5px;color:var(--txt-2)">heybay 下场 · Rossy 上场（铜卡）</div>
+        <div class="chem-delta">默契 78 → <span class="dn">56（-22）</span></div>
+        <div class="warn-line">⚠ 默契将跌破协同加成阈值（60）！</div>
+        <div style="display:flex;gap:10px;margin-top:12px"><span class="btn-o ghost" style="flex:1"><span class="btn"><span>取 消</span></span></span><span class="btn-o" style="flex:1"><span class="btn"><span>确认换人</span></span></span></div>
+      </div>
+    </div>
+    <div class="toast-demo">换人完成：Rossy 进入阵容</div>
+  </div>
+
+  <!-- 板2：选手卡 -->
+  <div class="board">
+    <div class="b-t">选手卡 · 嵌入定稿 v16（缩放复用）</div>
+    <div id="card-row" style="display:flex;gap:8px"></div>
+    <div class="note">列表/网格场景用 transform:scale 缩到小尺寸，卡面样式零重写；点开详情回到大尺寸。</div>
+    <div class="b-t" style="margin-top:18px">详情大图（金卡）</div>
+    <div style="display:flex;justify-content:center"><div id="card-big"></div></div>
+  </div>
+
+  <!-- 板3：征程 + 默契 -->
+  <div class="board">
+    <div class="b-t">征程节点 · 赛区色组织轴（厚面板）</div>
+    <div class="jnode done r-cn">
+      <div class="stage"><img src="../../素材库/赛区图标/CN.png"><span class="nm">启点赛</span><span class="badge">冠军</span></div>
+      <div class="sub">已完赛 · 成绩：冠军</div>
+    </div>
+    <div class="jnode done r-pac">
+      <div class="stage"><img src="../../素材库/赛区图标/PAC.png"><span class="nm">大师赛①</span><span class="badge">4强</span></div>
+      <div class="sub">已完赛 · 成绩：4强</div>
+    </div>
+    <div class="jnode current r-cn">
+      <div class="stage"><img src="../../素材库/赛区图标/CN.png"><span class="nm">第一赛段常规赛</span><span class="badge">进行中</span></div>
+      <div class="sub">第 5 轮 · 积分榜前二晋级季后赛</div>
+    </div>
+    <div class="jnode locked r-amer">
+      <div class="stage"><img src="../../素材库/赛区图标/AMER.png"><span class="nm">大师赛②</span><span class="badge">未解锁</span></div>
+    </div>
+    <div class="jnode locked r-emea">
+      <div class="stage"><img src="../../素材库/赛区图标/EMEA.png" style="filter:invert(72%) sepia(58%) saturate(500%) hue-rotate(2deg)"><span class="nm">冠军赛 ◆</span><span class="badge">未解锁</span></div>
+    </div>
+
+    <div class="b-t" style="margin-top:18px">默契面板（凹槽进度条）</div>
+    <div class="chem-panel panel-th">
+      <div class="chem-top"><span class="lab">队伍默契</span><span class="val">78</span><span class="mx">/ 100</span></div>
+      <div class="chem-bar"><div class="fill" style="width:calc(78% - 4px)"></div><div class="th" style="left:60%"><i>60</i></div><div class="th" style="left:80%"><i>80</i></div></div>
+      <div class="chem-note">阈值60：激活协同加成 · 阈值80：解锁成长上限</div>
+      <div class="syn-tags"><span class="syn-tag">捷风+雷兹 决斗联动</span><span class="syn-tag warm">双闪配合 +4%</span><span class="syn-tag">老牌指挥坐镇</span></div>
+    </div>
+
+    <div class="b-t" style="margin-top:18px">选手详情 · 半屏层</div>
+    <div class="sheet panel-th" style="clip-path:polygon(16px 0,100% 0,100% 100%,0 100%)">
+      <div class="detail-top">
+        <div id="card-mini"></div>
+        <div class="detail-info">
+          <div class="did">ZmjjKK</div>
+          <div class="dteam">EDG · 金卡 · 🔥火热</div>
+          <div class="statbar"><div class="sr"><span>枪法</span><b>90</b></div><div class="bar"><i style="width:90%"></i></div></div>
+          <div class="statbar"><div class="sr"><span>协同</span><b>65</b></div><div class="bar"><i style="width:65%"></i></div></div>
+          <div class="statbar"><div class="sr"><span>意识</span><b>70</b></div><div class="bar"><i style="width:70%"></i></div></div>
+        </div>
+      </div>
+      <div class="obs-item" style="margin-top:10px">「关键时刻不手软，疑似大心脏」<span class="when">季后赛① · 半决赛</span></div>
+      <div class="obs-item neg">「连杀后喜欢前压，偶尔白给」<span class="when">常规赛 · 第3轮</span></div>
+    </div>
+  </div>
+
+  <!-- 板4：观赛 + 结算 + 开包 -->
+  <div class="board">
+    <div class="b-t">观赛 · 比分条 / 战况 / 指挥</div>
+    <div class="scorebar">
+      <img src="../../素材库/队伍logo/EDG.png">
+      <div class="sc"><span class="me">5</span> : <span class="op">3</span></div>
+      <img src="../../素材库/队伍logo/T1.png">
+      <div class="rd"><b>回合 9</b> · 上半场<br>经济 ¥3,400 / ¥2,150</div>
+      <svg class="timer-ring" viewBox="0 0 36 36">
+        <circle cx="18" cy="18" r="15.5" fill="none" stroke="#26343f" stroke-width="3"/>
+        <circle cx="18" cy="18" r="15.5" fill="none" stroke="#ffcf5c" stroke-width="3" stroke-dasharray="97.4" stroke-dashoffset="32" transform="rotate(-90 18 18)"/>
+        <text x="18" y="22" text-anchor="middle" font-size="11" fill="#ece8e1" font-family="Rajdhani">38</text>
+      </svg>
+    </div>
+    <div style="margin-top:10px">
+      <div class="feed-item def"><span class="rd-no">回合8</span><span><b class="d">ZmjjKK</b> 击杀了 <b class="a">stax</b> · 残局 1v1 得手</span></div>
+      <div class="feed-item atk"><span class="rd-no">回合8</span><span><b class="a">Munchkin</b> 击杀了 <b class="d">heybay</b> · A 点突破</span></div>
+      <div class="feed-item def"><span class="rd-no">回合7</span><span><b class="d">SUYGETSU</b> 三杀守下 B 点 · 燃烧弹封路</span></div>
+    </div>
+    <div style="margin-top:10px">
+      <div class="cmd-row"><span class="cmd-btn">进攻</span><span class="cmd-btn on">均衡</span><span class="cmd-btn">防守</span></div>
+      <div class="cmd-row"><span class="cmd-btn">更换 IGL</span><span class="cmd-btn pause">⏸ 请求暂停</span></div>
+    </div>
+
+    <div class="b-t" style="margin-top:18px">结算 · 胜利播报</div>
+    <div class="result-mini">
+      <div class="res-verdict">WIN</div>
+      <div class="res-score-line"><img src="../../素材库/队伍logo/EDG.png"><div class="sc">13 : 11</div><img src="../../素材库/队伍logo/FPX.png"></div>
+      <div class="res-block panel-th">
+        <div class="bt">本场 MVP · 亮点数据</div>
+        <div class="mvp-row">
+          <div class="mhex"><img src="../../素材库/选手半身像/ZmjjKK.png"></div>
+          <div><div class="nm">ZmjjKK</div><div class="tg">MVP · 决斗位</div></div>
+          <div class="mvp-stats"><div><b>27</b><span>击杀</span></div><div><b>1.42</b><span>K/D</span></div></div>
+        </div>
+      </div>
+      <div class="res-block panel-th"><div class="bt">默契与状态变化</div>
+        <div class="delta-line">队伍默契 <b>78 → 82</b> <span class="up">(+4)</span></div>
+      </div>
+    </div>
+
+    <div class="b-t" style="margin-top:18px">开包 · 卡包</div>
+    <div style="text-align:center">
+      <div class="pack-visual">
+        <img class="tex" src="../../素材库/底纹/金.png"><div class="ov"></div>
+        <div class="lb"><div class="t1">卡包</div><div class="t2">赛年 S2 · 普通包</div></div>
+      </div>
+      <div style="margin-top:16px"><span class="btn-o" style="width:200px"><span class="btn"><span>开 包</span></span></span></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const A = p => '../../素材库/' + p;
+const EMEA_TINT = 'filter:invert(72%) sepia(58%) saturate(500%) hue-rotate(2deg)';
+
+/* 定稿卡面原型 v16 的组件化复刻（金银铜 + 钻） */
+function cardHTML(o){
+  const regionImg = `<img class="rgen" src="${A('赛区图标/'+o.region+'.png')}" ${o.region==='EMEA'?`style="${EMEA_TINT}"`:''}>`;
+  const agents = (o.agents||[]).map((a,i) =>
+    `<div class="ag${i===0 && o.q!=='铜' ? ' sig':''}"><div class="heximg"><img src="${A('英雄头像/'+a+'.png')}"></div></div>`).join('');
+  const stats = `<div class="stats">
+    <div class="stat"><b>${o.g}</b><span>枪法</span></div>
+    <div class="stat"><b>${o.s}</b><span>协同</span></div>
+    <div class="stat"><b>${o.m}</b><span>意识</span></div></div>`;
+  if(o.q === '钻'){
+    return `<div class="card r-钻">
+      <div class="frame"></div><div class="bevel"></div>
+      <div class="cbody">
+        <div class="pbg"><img class="watermark" src="${A('队伍logo/'+o.team+'.png')}"></div>
+        <div class="portrait"><img src="${A('切面海报/'+o.poster)}"><div class="scrim"></div></div>
+        <div class="vignette"></div><div class="grain"></div>
+        ${decoSVG('钻')}
+        <div class="sheen"></div><div class="gem"></div>${regionImg}
+        <div class="rating" data-n="${o.rating}">${o.rating}</div>
+        <div class="d-banner"><div class="d-pid">${o.id}</div></div>
+        <div class="d-cut">${o.cut}</div>
+        <div class="agents"><div class="ag sig"><div class="heximg"><img src="${A('英雄头像/'+o.agents[0]+'.png')}"></div></div></div>
+        <div class="badges"><div class="plate moment"><div class="picon"><svg width="14" height="14" style="color:#A9F1FF"><use href="#i-scope"/></svg></div><div class="ptext"><b>${o.moment}</b></div></div></div>
+        <div class="d-stat ds1"><span>枪法</span><b>${o.g}</b></div>
+        <div class="d-stat ds2"><span>协同</span><b>${o.s}</b></div>
+        <div class="d-stat ds3"><span>意识</span><b>${o.m}</b></div>
+      </div></div>`;
+  }
+  return `<div class="card r-${o.q}">
+    <div class="frame"></div><div class="bevel"></div>
+    <div class="cbody">
+      <div class="pbg"><img class="watermark" src="${A('队伍logo/'+o.team+'.png')}"></div>
+      <div class="portrait"><img src="${A('选手半身像/'+o.id+'.png')}"><div class="scrim"></div></div>
+      <div class="vignette"></div><div class="grain"></div>
+      ${o.q==='金'?'<div class="wing l"></div><div class="wing r"></div>':''}
+      ${decoSVG(o.q)}
+      <div class="gem"></div>${regionImg}
+      <div class="rating" data-n="${o.rating}">${o.rating}</div>
+      <div class="corner"><img class="tlo" src="${A('队伍logo/'+o.team+'.png')}"></div>
+      <div class="who"><div class="pid">${o.id}</div></div>
+      <div class="agents">${agents}</div>
+      ${o.q==='金'?`<div class="badges"><div class="plate trait"><div class="picon"><svg width="14" height="14" style="color:#E8B93E"><use href="#i-star"/></svg></div><div class="ptext"><b>${o.trait}</b></div></div></div>`:''}
+      ${stats}
+    </div></div>`;
+}
+/* 各品质 SVG 花边（抄自卡面原型 v16） */
+function decoSVG(q){
+  const OUTER = 'M 138.5,23.2 Q 150.0,20.0 161.5,23.2 L 275.7,55.4 Q 287.2,58.7 287.2,70.7 L 287.2,399.3 Q 287.2,411.3 275.7,414.6 L 161.5,446.8 Q 150.0,450.0 138.5,446.8 L 24.3,414.6 Q 12.8,411.3 12.8,399.3 L 12.8,70.7 Q 12.8,58.7 24.3,55.4 Z';
+  const INNER = 'M 140.4,29.7 Q 150.0,27.0 159.6,29.7 L 273.1,61.7 Q 282.8,64.5 282.8,74.5 L 282.8,395.5 Q 282.8,405.5 273.1,408.3 L 159.6,440.3 Q 150.0,443.0 140.4,440.3 L 26.9,408.3 Q 17.2,405.5 17.2,395.5 L 17.2,74.5 Q 17.2,64.5 26.9,61.7 Z';
+  if(q === '铜') return `<svg class="deco" viewBox="0 0 300 470">
+    <path d="${OUTER}" fill="none" stroke="rgba(0,0,0,.55)" stroke-width="2" transform="translate(0,-1)"/>
+    <path d="${OUTER}" fill="none" stroke="rgba(214,181,145,.3)" stroke-width=".8" transform="translate(0,.8)"/></svg>`;
+  if(q === '银') return `<svg class="deco" viewBox="0 0 300 470" style="color:#C9D4DE">
+    <path d="${OUTER}" fill="none" stroke="rgba(0,0,0,.6)" stroke-width="2.6" transform="translate(0,-1.2)"/>
+    <path d="${OUTER}" fill="none" stroke="#C9D4DE" stroke-width="1.1" opacity=".75"/>
+    <use href="#medal" x="277" y="49" width="18" height="18"/><use href="#medal" x="5" y="49" width="18" height="18"/>
+    <use href="#medal" x="277" y="398" width="18" height="18" opacity=".55"/><use href="#medal" x="5" y="398" width="18" height="18" opacity=".55"/></svg>`;
+  if(q === '金') return `<svg class="deco" viewBox="0 0 300 470" style="color:#E8B93E">
+    <path d="${OUTER}" fill="none" stroke="rgba(0,0,0,.65)" stroke-width="3.2" transform="translate(0,-1.4)"/>
+    <path d="${OUTER}" fill="none" stroke="#E8B93E" stroke-width="1.5" opacity=".9"/>
+    <path d="${INNER}" fill="none" stroke="#E8B93E" stroke-width=".7" opacity=".45"/>
+    <use href="#medal" x="140" y="11" width="19" height="19"/><use href="#medal" x="277" y="49" width="19" height="19"/><use href="#medal" x="4" y="49" width="19" height="19"/>
+    <use href="#medal" x="277" y="398" width="19" height="19" opacity=".6"/><use href="#medal" x="4" y="398" width="19" height="19" opacity=".6"/><use href="#medal" x="140" y="438" width="19" height="19" opacity=".6"/>
+    <g stroke="#E8B93E" fill="none" opacity=".75"><path d="M150 30 v16 M130 33 l7 13 M170 33 l-7 13 M112 41 l11 9 M188 41 l-11 9" stroke-width="1.2"/><path d="M150 34 v8 M136 37 l4 6 M164 37 l-4 6" stroke-width=".7" opacity=".6"/></g></svg>`;
+  return `<svg class="deco" viewBox="0 0 300 470" style="color:#A9F1FF">
+    <defs><linearGradient id="prism2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A9F1FF"/><stop offset=".5" stop-color="#f2feff"/><stop offset=".8" stop-color="#b99df1"/><stop offset="1" stop-color="#A9F1FF"/></linearGradient></defs>
+    <path d="${OUTER}" fill="none" stroke="rgba(0,0,0,.65)" stroke-width="3.4" transform="translate(0,-1.4)"/>
+    <path d="${OUTER}" fill="none" stroke="url(#prism2)" stroke-width="1.8"/>
+    <path d="${INNER}" fill="none" stroke="url(#prism2)" stroke-width=".8" opacity=".5"/>
+    <use href="#medal" x="140" y="11" width="20" height="20"/><use href="#medal" x="277" y="49" width="20" height="20"/><use href="#medal" x="4" y="49" width="20" height="20"/>
+    <use href="#medal" x="277" y="398" width="20" height="20" opacity=".6"/><use href="#medal" x="4" y="398" width="20" height="20" opacity=".6"/>
+    <path d="M126 452 L150 434 L174 452" fill="none" stroke="rgba(0,0,0,.6)" stroke-width="2.4" transform="translate(0,-1)"/>
+    <path d="M126 452 L150 434 L174 452" fill="none" stroke="url(#prism2)" stroke-width="1.3"/>
+    <path d="M136 452 L150 440 L164 452" fill="none" stroke="url(#prism2)" stroke-width=".8" opacity=".6"/></svg>`;
+}
+/* 缩放挂载：300×470 卡面 → 任意宽度 */
+function mountCard(el, o, w){
+  const s = w / 300;
+  el.classList.add('cardwrap');
+  el.style.width = w + 'px'; el.style.height = (470 * s) + 'px';
+  el.innerHTML = cardHTML(o);
+  el.firstElementChild.style.transform = `scale(${s})`;
+}
+
+const KANG = {id:'ZmjjKK', team:'EDG', region:'CN', q:'金', rating:83, g:90, s:65, m:70, agents:['捷风','霓虹','夜露'], trait:'大场面先生'};
+mountCard(document.getElementById('card-big'), KANG, 190);
+mountCard(document.getElementById('card-mini'), KANG, 104);
+const row = document.getElementById('card-row');
+[
+  {id:'Haodong', team:'TEC', region:'CN', q:'铜', rating:47, g:34, s:46, m:47, agents:['零','幽影']},
+  {id:'Knight', team:'BLG', region:'CN', q:'银', rating:74, g:68, s:70, m:63, agents:['幽影','猎枭','黑梦']},
+  KANG,
+  {id:'ZmjjKK', team:'EDG', region:'CN', q:'钻', rating:90, g:88, s:75, m:80, poster:'23东京_ZmjjKK.png', cut:'2023 · 东京大师赛', agents:['捷风'], moment:'冥驹审判'},
+].forEach(o => { const d = document.createElement('div'); row.appendChild(d); mountCard(d, o, 86); });
+</script>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="2" fill="currentColor"/></symbol>
+  <symbol id="i-scope" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 4v16 M4 12h16" stroke="currentColor" stroke-width="1.2" opacity=".7"/><path d="M3 3 L8 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="medal" viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" transform="rotate(45 10 10)" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="6" y="6" width="8" height="8" transform="rotate(45 10 10)" fill="none" stroke="currentColor" stroke-width=".9" opacity=".6"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></symbol>
+</defs></svg>
+</body>
+</html>
