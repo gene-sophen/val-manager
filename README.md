@@ -1,5 +1,7 @@
 # VAL MANAGER
 
+当前玩家可见版本为 **v0.3**，启动后顶部及设置页显示版本号；下一次内容更新发布使用 **v0.4**。显示版本以 `index.html` 的 `#app-version` 为准；发布时同时更新资源查询版本及 Service Worker 缓存标识，避免手机混用旧资源。本次只补充版本标识，仍属于 v0.3。
+
 组建五人阵容，进行地图BP与战术调整，完成一个电竞赛年。
 
 手机试玩：[https://gene-sophen.github.io/val-manager/](https://gene-sophen.github.io/val-manager/)。Android可从浏览器菜单安装；iPhone用Safari打开后通过“分享→添加到主屏幕”。首次联网等待资源准备完成再离线使用，建议使用Wi-Fi。

@@ -195,3 +195,7 @@ body:not(.qa-workbench) .prototype-workbench{display:flex;justify-content:center
 @media(prefers-reduced-motion:reduce){
  :is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button:not(:disabled):active{transform:none}
 }
+.app-phone .balance-top{gap:8px}
+.app-phone #page-title{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.app-phone .app-version{flex:none;margin-left:auto;padding:4px 8px;border:1px solid var(--vm-line);border-radius:8px;background:var(--vm-soft);color:var(--vm-muted);font-size:12px;font-weight:700;line-height:1.4;white-space:nowrap}
+.app-phone .app-version+.header-menu{flex:none;margin-left:0}
