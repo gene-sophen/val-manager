@@ -1,0 +1,41 @@
+✔ a closed release still fails closed and legacy numerical fixtures retain their model (123.8457ms)
+✔ an incomplete release gate fails before opening a new year or consuming cards (50.6157ms)
+✔ a formally selected map freezes its season policy, respects real heroes and restores the same next round (11815.3153ms)
+✔ published new campaigns select the nine frozen revisions while loading an old year preserves its model (275.5672ms)
+✔ invalid release rejects before the content upgrade wrapper changes a frozen season (88.3394ms)
+✔ optimized URLs keep frozen card source paths unchanged and use small derivatives for thumbnails (123.3129ms)
+✔ all generated image paths are present and current-game image payload is substantially smaller (67.2325ms)
+✔ application boot and offline shell include the presentation and image resolvers (4.9802ms)
+✔ every boot script and stylesheet is versioned so a phone cannot mix old and new components (1.6144ms)
+✔ offline requests choose an exact cached version before any legacy URL fallback (26.358ms)
+✔ new play defaults to 2x; migration changes only the old default preference and respects later manual choices (128.7513ms)
+✔ legacy explicit slow/fast choices survive the default migration; invalid speed recovers to 2x (47.4147ms)
+✔ an update still installing is offered only after the waiting worker is ready (3.096ms)
+✔ activation never overtakes a durable save and a failed save cannot reload the career (1.0882ms)
+✔ failed installation preserves the current client instead of pretending that an update is ready (0.5549ms)
+✔ offline shell includes every actual boot script and all shell URLs resolve locally (5.6015ms)
+✔ current app parses, starts with transactional store and preserves pathname in isolated harness (1.69ms)
+✔ close ordinary scores stay summaries, first pistol/half pistol and genuinely important boundaries are replayed (1.4901ms)
+✔ winning clutches use actual events without changing the committed replay (0.3657ms)
+✔ skips are scoped to a unique year/match/map/round and fast-forward never mounts a replay (0.2739ms)
+✔ summary retains the site and objective result without detailed gunfire commentary (1.2007ms)
+✔ next-round skips animation and commits exactly one fine round; shared windows block it and JSON continuation is deterministic (1737.2195ms)
+✔ spatial career retains frozen behavior, replay journal, pending shared window and score (61.4477ms)
+✔ unknown or incomplete spatial season policy is rejected before restore (52.4996ms)
+✔ map mismatch, numerical fallback or truncated spatial journal cannot replace a valid career (81.024ms)
+✔ live templates and compact pack/album templates render with no invented future results (455.5893ms)
+✔ entire live campaign persists actual map/participation facts and stays idempotent across refresh and GF (5101.7319ms)
+✔ fixture chapter preview retains its old sample behavior and live start is explicitly separate (727.3899ms)
+✔ nine real map posters and layouts match their recorded Riot URLs and content hashes (16.4481ms)
+✔ quick-win streak state stays bounded near neutral and tie-only participants are not Champions entrants (708.0445ms)
+✔ real seeded review finals exercise upper and lower BO5 authority, five maps and trophy settlement (1770.7642ms)
+✔ Ascent review follows a real legal matchup, fixed hero picks and fine-engine timeout budgets (3206.9099ms)
+✔ draw archive renders only completed stages and reading does not change scores or growth (932.9094ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13234.3901

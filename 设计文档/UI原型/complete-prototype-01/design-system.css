@@ -1,0 +1,128 @@
+/* Shared visual language. Keep card rarity, map art and gameplay colours independent. */
+:root{
+ --vm-ink:#37566e;--vm-muted:#637f92;--vm-line:#dce8ef;
+ --vm-paper:#fff;--vm-soft:#f6fafc;--vm-selected:#edf8fe;
+ --vm-blue:#24a5df;--vm-blue-dark:#1685bc;--vm-blue-ink:#217da7;
+ --vm-control-radius:12px;--vm-surface-radius:16px;--vm-dialog-radius:20px;
+ --vm-edge:0 2px 0 #dce8ef;--vm-selected-edge:0 2px 0 #b8dced;
+}
+:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus){color:var(--vm-ink)}
+:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) :is(button,input,select){font-family:inherit}
+:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button{
+ cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+ line-height:1.5;
+}
+:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) :is(button,a,input,select,summary):focus-visible{
+ outline:3px solid var(--vm-blue-dark);outline-offset:3px;
+}
+/* Primary actions retain the familiar blue, tactile treatment. */
+:is(.app-phone,.balance-dialog,.filter-dialog) .blue-button{
+ min-height:48px;padding:12px 16px;border:1px solid var(--vm-blue);
+ border-radius:var(--vm-control-radius);background:var(--vm-blue);color:white;
+ font-size:14px;font-weight:800;box-shadow:0 4px 0 var(--vm-blue-dark);
+}
+/* Auxiliary actions and tools share one surface; context determines their size. */
+:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) :is(
+ .quiet-button,.match-controls button,.match-actions button,.playback-controls button,
+ .home-shortcuts button,.pack-section-heading button,.spatial-header button,
+ .spatial-tools button,.spatial-map-note button,.commentary-header button,
+ .spatial-focus footer button,.tactic-list button,#filter-reset
+){
+ min-height:44px;border:1px solid var(--vm-line);border-radius:var(--vm-control-radius);
+ background:var(--vm-paper);color:var(--vm-ink);box-shadow:var(--vm-edge);font-weight:700;
+}
+.app-phone .match-controls button{padding:10px 8px;font-size:12px}
+.app-phone .spatial-header button{min-width:48px}
+.app-phone .commentary-header button{padding:8px 12px}
+.app-phone [data-action=auto-agents]{margin-top:0}
+.app-phone [data-action=abandon-run]{color:#98655c;background:#fff9f7;border-color:#eadcd6}
+.app-phone .all-agent-picker>summary{min-height:44px;padding-block:12px;color:var(--vm-muted)}
+.app-phone .spatial-replay input[type=range]{height:44px;margin-block:0;accent-color:var(--vm-blue-dark)}
+.app-phone .commentary-feed li{background:var(--vm-soft);color:var(--vm-ink);border-radius:10px}
+.app-phone .commentary-feed li.star{background:#fff8ea}
+.app-phone .spatial-tools{flex-wrap:wrap}
+.app-phone .spatial-time{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--vm-muted)}
+/* Selection is always blue-tinted with an outline, rather than colour alone. */
+:is(.app-phone,.balance-dialog,.filter-dialog) :is(
+ .segmented button,.pack-tabs button,.agent-options button,.pick-control,.side-choice button
+){
+ min-height:44px;border:1px solid var(--vm-line);border-radius:var(--vm-control-radius);
+ background:var(--vm-paper);color:var(--vm-ink);font-weight:700;box-shadow:var(--vm-edge);
+}
+.app-phone .pack-tabs button{min-height:64px}
+.app-phone .segmented{background:var(--vm-soft);border-radius:var(--vm-surface-radius);padding:4px;gap:4px}
+:is(.app-phone,.balance-dialog,.filter-dialog) :is(
+ .segmented,.pack-tabs,.agent-options,.club-grid,.map-grid,.side-choice,.pack-section-heading
+) button[aria-pressed=true],
+.app-phone .pick-control[aria-pressed=true],
+.app-phone .match-controls button[aria-pressed=true],
+.app-phone [data-spatial-play][aria-pressed=true],
+.app-phone .commentary-header button[aria-pressed=true]{
+ border-color:#79bddf;background:var(--vm-selected);color:var(--vm-blue-ink);
+ box-shadow:var(--vm-selected-edge);
+}
+.app-phone .main-nav button{border-radius:var(--vm-control-radius);color:var(--vm-muted);font-weight:800}
+.app-phone .main-nav button[aria-current=page]{border-color:#79bddf;background:var(--vm-selected);color:var(--vm-blue-ink);box-shadow:var(--vm-selected-edge)}
+.app-phone .main-nav .core-nav[aria-current=page]{background:var(--vm-blue);border-color:var(--vm-blue);color:white;box-shadow:0 4px 0 var(--vm-blue-dark)}
+/* Content surfaces use the same quiet border and slightly wider corner. */
+.app-phone :is(.round-report,.coach-window,.plain-details,.agent-assignment section,
+ .chosen-map,.change-rows,.year-highlights,.season-record,.tactic-list>div){
+ border-color:var(--vm-line);border-radius:var(--vm-surface-radius);
+}
+.app-phone :is(.round-report,.coach-window){background:var(--vm-soft)}
+.app-phone .round-report.round-win{border-left-color:#57abc8}
+.app-phone .round-report.round-loss{border-left-color:#c3a173}
+.app-phone :is(.muted,.rule-note,.round-report p,.round-report small,.coach-window p,
+ .map-grid small,.pack-tabs small,.chosen-map span,.setting-info small){color:var(--vm-muted)}
+.app-phone :is(.club-grid,.map-grid) button{border-radius:var(--vm-surface-radius);box-shadow:var(--vm-edge)}
+.app-phone .plain-details{background:var(--vm-paper)}
+.app-phone .plain-details>summary{min-height:48px;color:var(--vm-ink);padding:12px 14px}
+.app-phone .plain-details[open]>summary{background:var(--vm-soft);border-bottom:1px solid var(--vm-line)}
+.app-phone .match-team-state{padding:12px;background:var(--vm-soft);border-radius:var(--vm-control-radius)}
+/* Header/close controls and fields have the same scale as in-page controls. */
+.app-phone :is(.header-menu,.page-back),
+:is(.balance-dialog,.filter-dialog,.spatial-focus)>header>button{
+ display:grid;place-items:center;flex:0 0 44px;min-width:44px;width:44px;min-height:44px;height:44px;
+ padding:0;border:1px solid var(--vm-line);border-radius:var(--vm-control-radius);
+ background:var(--vm-soft);color:var(--vm-ink);font-size:22px;box-shadow:none;
+}
+.app-phone .text-action{color:var(--vm-blue-ink);font-size:12px;min-height:44px;border-radius:var(--vm-control-radius)}
+.app-phone .setting-row{padding-inline:8px;border-radius:8px;color:var(--vm-ink)}
+.app-phone .setting-toggle{position:relative;padding-block:14px}
+.app-phone .setting-toggle input{width:44px;height:28px;margin:8px 0;accent-color:var(--vm-blue-dark)}
+.app-phone .setting-toggle:focus-within{outline:3px solid var(--vm-blue-dark);outline-offset:3px;border-radius:8px}
+:is(.app-phone,.balance-dialog,.filter-dialog) :is(input[type=text],input[type=search],select){
+ min-height:44px;color:var(--vm-ink);border-color:var(--vm-line);border-radius:var(--vm-control-radius);
+}
+:is(.balance-dialog,.filter-dialog){
+ box-sizing:border-box;width:calc(100vw - 24px);max-width:390px;max-height:calc(100dvh - 24px);
+ padding:0;overflow:auto;border:1px solid var(--vm-line);border-radius:var(--vm-dialog-radius);
+ box-shadow:0 12px 40px #37566e29;
+}
+:is(.balance-dialog,.filter-dialog)::backdrop,.spatial-focus::backdrop{background:#29445b59}
+:is(.balance-dialog,.filter-dialog)>header{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;
+ min-height:68px;border-bottom:1px solid var(--vm-line);background:white;position:sticky;top:0;z-index:5;
+}
+:is(.balance-dialog,.filter-dialog)>header :is(strong,h2){margin:0;font-size:16px;line-height:1.5}
+.filter-dialog #filter-fields{padding:16px}
+.filter-dialog>footer{display:flex;gap:12px;padding:12px 16px 16px;border-top:1px solid var(--vm-line)}
+.filter-dialog>footer button{flex:1}
+/* Unified feedback. Disabled map cards remain readable as BP history. */
+:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button:disabled{
+ cursor:default;opacity:.5;box-shadow:none;transform:none;
+}
+:is(.app-phone,.balance-dialog,.filter-dialog) .blue-button:disabled{
+ background:#d4e3ec;border-color:#d4e3ec;color:#607b8e;opacity:1;box-shadow:none;
+}
+.app-phone .map-grid button:disabled{opacity:.65;background:#f4f7f9}
+:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button:not(:disabled):active{
+ transform:translateY(2px);box-shadow:none;
+}
+@media(hover:hover) and (pointer:fine){
+ :is(.app-phone,.balance-dialog,.filter-dialog) .blue-button:not(:disabled):hover{background:#1d98cf}
+ :is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) :is(.quiet-button,.match-controls button,.home-shortcuts button,.spatial-tools button,.commentary-header button,.setting-row,.text-action):not(:disabled):hover{background:var(--vm-selected)}
+}
+@media(prefers-reduced-motion:reduce){
+ :is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button:not(:disabled):active{transform:none}
+}

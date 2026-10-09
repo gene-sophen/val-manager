@@ -1,0 +1,212 @@
+{
+  "navigation": [
+    {
+      "nav": [
+        {
+          "height": 48,
+          "left": 12,
+          "right": 105.33333587646484,
+          "text": "战队"
+        },
+        {
+          "height": 48,
+          "left": 113.33333587646484,
+          "right": 206.6666717529297,
+          "text": "征战"
+        },
+        {
+          "height": 48,
+          "left": 214.6666717529297,
+          "right": 308.00000762939453,
+          "text": "档案"
+        }
+      ],
+      "overflow": 0,
+      "page": "home",
+      "width": 320
+    },
+    {
+      "nav": [
+        {
+          "height": 48,
+          "left": 12,
+          "right": 118.66667175292967,
+          "text": "战队"
+        },
+        {
+          "height": 48,
+          "left": 126.66667175292967,
+          "right": 233.33334350585935,
+          "text": "征战"
+        },
+        {
+          "height": 48,
+          "left": 241.33334350585935,
+          "right": 348.00001525878906,
+          "text": "档案"
+        }
+      ],
+      "overflow": 0,
+      "page": "home",
+      "width": 360
+    },
+    {
+      "nav": [
+        {
+          "height": 48,
+          "left": 12,
+          "right": 128.6666717529297,
+          "text": "战队"
+        },
+        {
+          "height": 48,
+          "left": 136.6666717529297,
+          "right": 253.33334350585935,
+          "text": "征战"
+        },
+        {
+          "height": 48,
+          "left": 261.3333435058594,
+          "right": 378.00001525878906,
+          "text": "档案"
+        }
+      ],
+      "overflow": 0,
+      "page": "home",
+      "width": 390
+    },
+    {
+      "nav": [
+        {
+          "height": 48,
+          "left": 12,
+          "right": 142,
+          "text": "战队"
+        },
+        {
+          "height": 48,
+          "left": 150,
+          "right": 280,
+          "text": "征战"
+        },
+        {
+          "height": 48,
+          "left": 288,
+          "right": 418,
+          "text": "档案"
+        }
+      ],
+      "overflow": 0,
+      "page": "home",
+      "width": 430
+    }
+  ],
+  "bp": [
+    {
+      "columns": "139px 139px",
+      "largeText": true,
+      "overflow": 0,
+      "page": "bp",
+      "selected": [
+        {
+          "background": "rgb(237, 248, 254)",
+          "border": "rgb(121, 189, 223)",
+          "radius": "16px"
+        }
+      ],
+      "width": 320
+    },
+    {
+      "columns": "154px 154px",
+      "largeText": true,
+      "overflow": 0,
+      "page": "bp",
+      "selected": [
+        {
+          "background": "rgb(237, 248, 254)",
+          "border": "rgb(121, 189, 223)",
+          "radius": "16px"
+        }
+      ],
+      "width": 360
+    },
+    {
+      "columns": "169px 169px",
+      "largeText": true,
+      "overflow": 0,
+      "page": "bp",
+      "selected": [
+        {
+          "background": "rgb(237, 248, 254)",
+          "border": "rgb(121, 189, 223)",
+          "radius": "16px"
+        }
+      ],
+      "width": 390
+    },
+    {
+      "columns": "189px 189px",
+      "largeText": true,
+      "overflow": 0,
+      "page": "bp",
+      "selected": [
+        {
+          "background": "rgb(237, 248, 254)",
+          "border": "rgb(121, 189, 223)",
+          "radius": "16px"
+        }
+      ],
+      "width": 430
+    }
+  ],
+  "finalControls": {
+    "overflow": 0,
+    "testDatabase": "val-manager-test-ui-ada83e55-c294-41c7-b7b9-6785cc48576e",
+    "tools": [
+      {
+        "height": 44,
+        "label": "2×",
+        "pressed": null,
+        "radius": "12px"
+      },
+      {
+        "height": 44,
+        "label": "▶ 回放本分",
+        "pressed": "false",
+        "radius": "12px"
+      },
+      {
+        "height": 44,
+        "label": "开启语音",
+        "pressed": "false",
+        "radius": "12px"
+      },
+      {
+        "height": 44,
+        "label": "自动推进",
+        "pressed": "false",
+        "radius": "12px"
+      },
+      {
+        "height": 44,
+        "label": "战术暂停 · 2",
+        "pressed": null,
+        "radius": "12px"
+      },
+      {
+        "height": 44,
+        "label": "快进到结算",
+        "pressed": null,
+        "radius": "12px"
+      },
+      {
+        "height": 44,
+        "label": "保存并退出",
+        "pressed": null,
+        "radius": "12px"
+      }
+    ],
+    "version": "http://127.0.0.1:8765/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/UI%E5%8E%9F%E5%9E%8B/complete-prototype-01/design-system.css?v=20261009-design-2",
+    "width": 390
+  }
+}
