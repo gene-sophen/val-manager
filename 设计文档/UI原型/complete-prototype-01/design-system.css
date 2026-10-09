@@ -1,8 +1,8 @@
 /* Shared visual language. Keep card rarity, map art and gameplay colours independent. */
 :root{
- --vm-ink:#37566e;--vm-muted:#637f92;--vm-line:#dce8ef;
+ --vm-ink:#37566e;--vm-muted:#5c7588;--vm-line:#dce8ef;
  --vm-paper:#fff;--vm-soft:#f6fafc;--vm-selected:#edf8fe;
- --vm-blue:#24a5df;--vm-blue-dark:#1685bc;--vm-blue-ink:#217da7;
+ --vm-blue:#187eaf;--vm-blue-dark:#12658e;--vm-blue-ink:#206f94;
  --vm-control-radius:12px;--vm-surface-radius:16px;--vm-dialog-radius:20px;
  --vm-edge:0 2px 0 #dce8ef;--vm-selected-edge:0 2px 0 #b8dced;
 }
@@ -26,7 +26,7 @@
  .quiet-button,.match-controls button,.match-actions button,.playback-controls button,
  .home-shortcuts button,.pack-section-heading button,.spatial-header button,
  .spatial-tools button,.spatial-map-note button,.commentary-header button,
- .spatial-focus footer button,.tactic-list button,#filter-reset
+ .spatial-focus footer button,.tactic-list button,.players-empty button,#filter-reset
 ){
  min-height:44px;border:1px solid var(--vm-line);border-radius:var(--vm-control-radius);
  background:var(--vm-paper);color:var(--vm-ink);box-shadow:var(--vm-edge);font-weight:700;
@@ -65,7 +65,7 @@
 .app-phone .main-nav button[aria-current=page]{border-color:#79bddf;background:var(--vm-selected);color:var(--vm-blue-ink);box-shadow:var(--vm-selected-edge)}
 .app-phone .main-nav .core-nav[aria-current=page]{background:var(--vm-blue);border-color:var(--vm-blue);color:white;box-shadow:0 4px 0 var(--vm-blue-dark)}
 /* Content surfaces use the same quiet border and slightly wider corner. */
-.app-phone :is(.round-report,.coach-window,.plain-details,.agent-assignment section,
+.app-phone :is(.round-report,.coach-window,.plain-details,.spatial-replay,.scout-card,.match-panel,.prep-match,.agent-assignment section,
  .chosen-map,.change-rows,.year-highlights,.season-record,.tactic-list>div){
  border-color:var(--vm-line);border-radius:var(--vm-surface-radius);
 }
@@ -120,9 +120,78 @@
  transform:translateY(2px);box-shadow:none;
 }
 @media(hover:hover) and (pointer:fine){
- :is(.app-phone,.balance-dialog,.filter-dialog) .blue-button:not(:disabled):hover{background:#1d98cf}
+ :is(.app-phone,.balance-dialog,.filter-dialog) .blue-button:not(:disabled):hover{background:#14729f}
  :is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) :is(.quiet-button,.match-controls button,.home-shortcuts button,.spatial-tools button,.commentary-header button,.setting-row,.text-action):not(:disabled):hover{background:var(--vm-selected)}
 }
+
+/* Final density and interaction rules, shared across every collection and detail. */
+.app-phone #subpage-dock>button{width:100%;min-height:48px;margin:0}
+:is(.app-phone,.balance-dialog,.filter-dialog) :is(
+ .archive-switch button,.filter-options button,.profile-version-tabs button,.thumb-pick
+){min-height:44px;border:1px solid var(--vm-line);border-radius:var(--vm-control-radius);background:var(--vm-paper);color:var(--vm-ink);box-shadow:var(--vm-edge);font-weight:700;line-height:1.5}
+:is(.app-phone,.balance-dialog,.filter-dialog) :is(
+ .archive-switch button,.filter-options button,.profile-version-tabs button,.thumb-pick
+)[aria-pressed=true]{border-color:#79bddf;background:var(--vm-selected);color:var(--vm-blue-ink);box-shadow:var(--vm-selected-edge)}
+.app-phone .archive-switch{background:var(--vm-soft);border-radius:var(--vm-surface-radius);padding:4px;gap:4px}
+.filter-dialog .filter-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.filter-dialog [data-field=tier] .filter-options{grid-template-columns:repeat(5,minmax(0,1fr))}
+.filter-dialog fieldset{margin:0 0 20px;padding:0;border:0;min-width:0}
+.filter-dialog legend{margin-bottom:12px;font-size:12px;font-weight:800;color:var(--vm-ink)}
+.filter-dialog .filter-options button{min-width:0;padding:8px 4px;font-size:12px}
+.filter-dialog>footer{position:sticky;bottom:0;background:white;z-index:5}
+.balance-dialog .dialog-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.balance-dialog .dialog-actions>button{min-width:0;white-space:normal;padding:10px}
+.balance-dialog .dialog-actions>button:last-child:nth-child(odd){grid-column:1/-1}
+.balance-dialog :is(.scene-list,.page-list){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.balance-dialog :is(.scene-list,.page-list)>button{min-width:0;min-height:44px;border-radius:var(--vm-control-radius);overflow-wrap:anywhere}
+.balance-dialog [data-action=confirm-abandon]{background:#a65e51;border-color:#a65e51;box-shadow:0 3px 0 #854638}
+.app-phone .card-thumb{display:grid;grid-template-rows:auto auto;aspect-ratio:auto;border-radius:10px;text-align:center}
+.app-phone .card-thumb img{aspect-ratio:2/3;width:100%;height:auto}
+.app-phone .card-thumb b{top:4px;right:4px;bottom:auto;font-size:11px;padding:3px 4px;background:#fffffff0}
+.app-phone .thumb-name{display:block;width:100%;min-width:0;padding:5px 3px;min-height:24px;background:#fff;font-size:10px;font-weight:700;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.app-phone .thumb-pick{padding:8px 2px;white-space:normal;font-size:10px;border-radius:8px}
+.app-phone .thumb-select{min-width:0;padding:2px;border-radius:12px}
+.app-phone .thumb-select.selected{background:var(--vm-selected);outline:2px solid #79bddf;outline-offset:1px}
+.app-phone .pack-section>.pack-thumb-grid,.app-phone #page-body>.pack-thumb-grid{padding-inline:16px}
+.app-phone .mini-player[aria-pressed=true]{background:var(--vm-selected);border-color:#79bddf}
+.app-phone .roster-list{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;padding:0 16px}
+.app-phone .roster-row{display:grid;grid-template-columns:52px minmax(0,1fr) 42px;gap:12px;align-items:center;min-height:88px;width:100%;padding:10px;border:1px solid var(--vm-line);border-radius:var(--vm-surface-radius);background:white;text-align:left;color:var(--vm-ink);box-shadow:var(--vm-edge)}
+.app-phone .roster-row>img{width:52px;height:64px;object-fit:cover;object-position:top;border-radius:10px;background:var(--vm-soft)}
+.app-phone .roster-row[data-tier=金]{border-left:3px solid #c5a352}
+.app-phone .roster-row[data-tier=钻]{border-left:3px solid #9b81c7}
+.app-phone .roster-row[data-tier=银]{border-left:3px solid #94b1c3}
+.app-phone .roster-info{display:grid;gap:4px;min-width:0}
+.app-phone .roster-info>strong{font-size:14px;overflow-wrap:anywhere}
+.app-phone .roster-info>small{font-size:11px;color:var(--vm-muted)}
+.app-phone .roster-stats{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:11px;color:var(--vm-muted)}
+.app-phone .roster-stats b{color:var(--vm-ink)}
+.app-phone .roster-stats .emphasis{color:var(--vm-blue-ink);font-weight:800}
+.app-phone .roster-rating{display:grid;text-align:center;gap:2px}
+.app-phone .roster-rating>b{font-size:24px;line-height:1.2}
+.app-phone .roster-rating>small{font-size:10px;color:var(--vm-muted)}
+.app-phone .players-tools{min-width:0;gap:10px}
+.app-phone .players-search{min-width:0}
+.app-phone .players-search input{width:100%;min-width:0}
+.app-phone .players-sort{min-width:96px;max-width:36%}
+.app-phone .players-sort select{width:100%;padding-inline:10px;font-size:12px}
+.app-phone .filter-tags{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+.app-phone .filter-tags button{min-height:44px;padding:8px;border-radius:10px;color:var(--vm-blue-ink)}
+.app-phone .archive-filter-summary{gap:8px;flex-wrap:wrap}
+.app-phone .prep-roster{display:grid;grid-template-columns:minmax(0,1fr);padding:0 12px 12px;gap:10px}
+.app-phone .prep-roster .roster-row{min-width:0}
+.app-phone :is(.career-link,.season-record,.relationship-list>button,.version-record,.series-maps button){color:var(--vm-ink);border-color:var(--vm-line);border-radius:var(--vm-surface-radius);box-shadow:var(--vm-edge)}
+.app-phone :is(.profile-version-tabs,.profile-versions){flex-wrap:wrap}
+.app-phone.large-text .roster-info>strong{font-size:16px}
+@media(max-width:359px){.app-phone .roster-list{padding-inline:12px}.app-phone .roster-row{grid-template-columns:46px minmax(0,1fr) 36px;gap:8px}.app-phone .roster-row>img{width:46px;height:60px}.app-phone .roster-stats{gap:3px 6px}}
+/* The shipped app presents the game. The isolated QA harness retains its workbench. */
+body:not(.qa-workbench) .prototype-guide{display:none}
+body:not(.qa-workbench) .prototype-workbench{display:flex;justify-content:center;max-width:none;width:100%;padding:24px;gap:0}
+@media(min-width:701px){body:not(.qa-workbench) .app-phone{width:min(430px,calc(100vw - 48px));height:min(844px,calc(100dvh - 48px))}}
+@media(max-width:700px){body:not(.qa-workbench) .prototype-workbench{display:block;padding:0;height:100%;width:100%}}
+:is(.balance-dialog,.filter-dialog) [hidden]{display:none!important}
+.balance-dialog .dialog-status{margin:0 14px 14px;padding:12px;border:1px solid var(--vm-line);border-radius:var(--vm-control-radius);background:var(--vm-soft);font-size:12px;line-height:1.6;color:var(--vm-ink)}
+.balance-dialog .field-error{margin:0 0 12px;font-size:12px;line-height:1.5;color:#9a5148}
+.balance-dialog input[aria-invalid=true]{border-color:#b86658}
 @media(prefers-reduced-motion:reduce){
  :is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button:not(:disabled):active{transform:none}
 }

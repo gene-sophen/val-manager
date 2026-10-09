@@ -1,0 +1,42 @@
+✔ cold detail links return to the correct containing list (0.8855ms)
+✔ match and completed workflow back routes never re-enter obsolete preparation (0.1967ms)
+✔ settings and player detail preserve the opener; duplicate and expired openers fall back (0.129ms)
+✔ only progress/confirmation uses the primary dock; return and card inspection are auxiliary (0.1993ms)
+✔ resume respects unfinished veto, agent choices and tactics without restarting a map (0.2198ms)
+✔ native Back cannot expose expired draft or restart preparations after a match starts (0.1807ms)
+✔ optimized URLs keep frozen card source paths unchanged and use small derivatives for thumbnails (128.6648ms)
+✔ all generated image paths are present and current-game image payload is substantially smaller (66.4473ms)
+✔ application boot and offline shell include the presentation and image resolvers (4.1129ms)
+✔ every boot script and stylesheet is versioned so a phone cannot mix old and new components (2.4069ms)
+✔ offline requests choose an exact cached version before any legacy URL fallback (23.8837ms)
+✔ an update still installing is offered only after the waiting worker is ready (2.9843ms)
+✔ activation never overtakes a durable save and a failed save cannot reload the career (1.6336ms)
+✔ failed installation preserves the current client instead of pretending that an update is ready (1.4711ms)
+✔ offline shell includes every actual boot script and all shell URLs resolve locally (6.5117ms)
+✔ current app parses, starts with transactional store and preserves pathname in isolated harness (1.7512ms)
+✔ close ordinary scores stay summaries, first pistol/half pistol and genuinely important boundaries are replayed (0.9455ms)
+✔ winning clutches use actual events without changing the committed replay (0.2805ms)
+✔ skips are scoped to a unique year/match/map/round and fast-forward never mounts a replay (0.186ms)
+✔ summary retains the site and objective result without detailed gunfire commentary (0.7778ms)
+✔ next-round skips animation and commits exactly one fine round; shared windows block it and JSON continuation is deterministic (1826.1485ms)
+✔ live templates and compact pack/album templates render with no invented future results (504.0366ms)
+✔ entire live campaign persists actual map/participation facts and stays idempotent across refresh and GF (4310.602ms)
+✔ fixture chapter preview retains its old sample behavior and live start is explicitly separate (594.67ms)
+✔ nine real map posters and layouts match their recorded Riot URLs and content hashes (13.8844ms)
+✔ quick-win streak state stays bounded near neutral and tie-only participants are not Champions entrants (611.7011ms)
+✔ real seeded review finals exercise upper and lower BO5 authority, five maps and trophy settlement (1569.1819ms)
+✔ Ascent review follows a real legal matchup, fixed hero picks and fine-engine timeout budgets (3187.4942ms)
+✔ draw archive renders only completed stages and reading does not change scores or growth (779.2661ms)
+✔ CN snapshot keeps actual card abilities, distinct diamond cuts, local portraits, badges and agent assets (16.9623ms)
+✔ all game and archive templates render from the unified state, including both reinforcement qualities (10.4011ms)
+✔ unopened and nonexistent versions are not silently added or shown as owned (1.4464ms)
+✔ world-event templates show an international fixture opponent, and qualification is separate from a match win (0.6065ms)
+✔ completed year archive retains departed participants instead of final five only (2.9685ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11841.4143

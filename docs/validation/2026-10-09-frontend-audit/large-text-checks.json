@@ -1,0 +1,317 @@
+[
+  {
+    "page": "征战首页",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "选择主队",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "开启卡包",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "逐张揭晓",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "比较三个包",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "选择五人",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "阵容确认",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "赛历",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "阶段成绩",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "赛前备战",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "地图 BP",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "特工选择",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "战术排序",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "战报 / 观赛",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "单图结算",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "系列赛结算",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "阶段结算",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "补强阵容",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "补强比较",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "赛年收获",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "战队名单",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "队伍资料",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "地图资料",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "图鉴",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "选手资料",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "钻卡资料",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "生涯",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "教练资料",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "历年回顾",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "选手关系",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "荣誉记录",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "设置",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "加载状态",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "错误恢复",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  },
+  {
+    "page": "离线状态",
+    "large": true,
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "width": 320
+  }
+]

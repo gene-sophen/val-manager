@@ -1,0 +1,1253 @@
+[
+  {
+    "page": "征战首页",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "征战",
+    "width": 320
+  },
+  {
+    "page": "征战首页",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "征战",
+    "width": 390
+  },
+  {
+    "page": "征战首页",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "征战",
+    "width": 430
+  },
+  {
+    "page": "选择主队",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "选择主队",
+    "width": 320
+  },
+  {
+    "page": "选择主队",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "选择主队",
+    "width": 390
+  },
+  {
+    "page": "选择主队",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "选择主队",
+    "width": 430
+  },
+  {
+    "page": "开启卡包",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "开启初始卡包",
+    "width": 320
+  },
+  {
+    "page": "开启卡包",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "开启初始卡包",
+    "width": 390
+  },
+  {
+    "page": "开启卡包",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "开启初始卡包",
+    "width": 430
+  },
+  {
+    "page": "逐张揭晓",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "揭晓选手",
+    "width": 320
+  },
+  {
+    "page": "逐张揭晓",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "揭晓选手",
+    "width": 390
+  },
+  {
+    "page": "逐张揭晓",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "揭晓选手",
+    "width": 430
+  },
+  {
+    "page": "比较三个包",
+    "dock": "blue-button full",
+    "grids": [
+      {
+        "class": "thumb-grid pack-thumb-grid",
+        "columns": "56.3958px 56.3958px 56.4062px 56.3958px 56.3958px"
+      },
+      {
+        "class": "thumb-grid pack-thumb-grid",
+        "columns": "56.3958px 56.3958px 56.4062px 56.3958px 56.3958px"
+      },
+      {
+        "class": "thumb-grid pack-thumb-grid",
+        "columns": "56.3958px 56.3958px 56.4062px 56.3958px 56.3958px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "选择一个整包",
+    "width": 320
+  },
+  {
+    "page": "比较三个包",
+    "dock": "blue-button full",
+    "grids": [
+      {
+        "class": "thumb-grid pack-thumb-grid",
+        "columns": "70.3958px 70.3958px 70.4062px 70.3958px 70.3958px"
+      },
+      {
+        "class": "thumb-grid pack-thumb-grid",
+        "columns": "70.3958px 70.3958px 70.4062px 70.3958px 70.3958px"
+      },
+      {
+        "class": "thumb-grid pack-thumb-grid",
+        "columns": "70.3958px 70.3958px 70.4062px 70.3958px 70.3958px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "选择一个整包",
+    "width": 390
+  },
+  {
+    "page": "比较三个包",
+    "dock": "blue-button full",
+    "grids": [
+      {
+        "class": "thumb-grid pack-thumb-grid",
+        "columns": "78.3958px 78.3958px 78.4062px 78.3958px 78.3958px"
+      },
+      {
+        "class": "thumb-grid pack-thumb-grid",
+        "columns": "78.3958px 78.3958px 78.4062px 78.3958px 78.3958px"
+      },
+      {
+        "class": "thumb-grid pack-thumb-grid",
+        "columns": "78.3958px 78.3958px 78.4062px 78.3958px 78.3958px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "选择一个整包",
+    "width": 430
+  },
+  {
+    "page": "选择五人",
+    "dock": "blue-button full",
+    "grids": [
+      {
+        "class": "thumb-grid pack-thumb-grid",
+        "columns": "53.5938px 53.6042px 53.5938px 53.6042px 53.6042px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "组成五人队",
+    "width": 320
+  },
+  {
+    "page": "选择五人",
+    "dock": "blue-button full",
+    "grids": [
+      {
+        "class": "thumb-grid pack-thumb-grid",
+        "columns": "66px 66px 66px 66px 66px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "组成五人队",
+    "width": 390
+  },
+  {
+    "page": "选择五人",
+    "dock": "blue-button full",
+    "grids": [
+      {
+        "class": "thumb-grid pack-thumb-grid",
+        "columns": "74px 74px 74px 74px 74px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "组成五人队",
+    "width": 430
+  },
+  {
+    "page": "阵容确认",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "阵容确认",
+    "width": 320
+  },
+  {
+    "page": "阵容确认",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "阵容确认",
+    "width": 390
+  },
+  {
+    "page": "阵容确认",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "阵容确认",
+    "width": 430
+  },
+  {
+    "page": "赛历",
+    "dock": "quiet-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "赛年赛历",
+    "width": 320
+  },
+  {
+    "page": "赛历",
+    "dock": "quiet-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "赛年赛历",
+    "width": 390
+  },
+  {
+    "page": "赛历",
+    "dock": "quiet-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "赛年赛历",
+    "width": 430
+  },
+  {
+    "page": "阶段成绩",
+    "dock": "quiet-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "阶段成绩",
+    "width": 320
+  },
+  {
+    "page": "阶段成绩",
+    "dock": "quiet-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "阶段成绩",
+    "width": 390
+  },
+  {
+    "page": "阶段成绩",
+    "dock": "quiet-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "阶段成绩",
+    "width": 430
+  },
+  {
+    "page": "赛前备战",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "赛前备战",
+    "width": 320
+  },
+  {
+    "page": "赛前备战",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "赛前备战",
+    "width": 390
+  },
+  {
+    "page": "赛前备战",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "赛前备战",
+    "width": 430
+  },
+  {
+    "page": "地图 BP",
+    "dock": "blue-button full",
+    "grids": [
+      {
+        "class": "map-grid",
+        "columns": "139px 139px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "地图 BP",
+    "width": 320
+  },
+  {
+    "page": "地图 BP",
+    "dock": "blue-button full",
+    "grids": [
+      {
+        "class": "map-grid",
+        "columns": "169px 169px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "地图 BP",
+    "width": 390
+  },
+  {
+    "page": "地图 BP",
+    "dock": "blue-button full",
+    "grids": [
+      {
+        "class": "map-grid",
+        "columns": "189px 189px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "地图 BP",
+    "width": 430
+  },
+  {
+    "page": "特工选择",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "选择特工",
+    "width": 320
+  },
+  {
+    "page": "特工选择",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "选择特工",
+    "width": 390
+  },
+  {
+    "page": "特工选择",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "选择特工",
+    "width": 430
+  },
+  {
+    "page": "战术排序",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "战术布置",
+    "width": 320
+  },
+  {
+    "page": "战术排序",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "战术布置",
+    "width": 390
+  },
+  {
+    "page": "战术排序",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "战术布置",
+    "width": 430
+  },
+  {
+    "page": "战报 / 观赛",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "比赛进行中",
+    "width": 320
+  },
+  {
+    "page": "战报 / 观赛",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "比赛进行中",
+    "width": 390
+  },
+  {
+    "page": "战报 / 观赛",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "比赛进行中",
+    "width": 430
+  },
+  {
+    "page": "单图结算",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "单图结算",
+    "width": 320
+  },
+  {
+    "page": "单图结算",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "单图结算",
+    "width": 390
+  },
+  {
+    "page": "单图结算",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "单图结算",
+    "width": 430
+  },
+  {
+    "page": "系列赛结算",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "系列赛结算",
+    "width": 320
+  },
+  {
+    "page": "系列赛结算",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "系列赛结算",
+    "width": 390
+  },
+  {
+    "page": "系列赛结算",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "系列赛结算",
+    "width": 430
+  },
+  {
+    "page": "阶段结算",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "阶段结算",
+    "width": 320
+  },
+  {
+    "page": "阶段结算",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "阶段结算",
+    "width": 390
+  },
+  {
+    "page": "阶段结算",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "阶段结算",
+    "width": 430
+  },
+  {
+    "page": "补强阵容",
+    "dock": "blue-button full",
+    "grids": [
+      {
+        "class": "thumb-grid pack-thumb-grid",
+        "columns": "53.5938px 53.6042px 53.5938px 53.6042px 53.6042px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "开启补强卡包",
+    "width": 320
+  },
+  {
+    "page": "补强阵容",
+    "dock": "blue-button full",
+    "grids": [
+      {
+        "class": "thumb-grid pack-thumb-grid",
+        "columns": "66px 66px 66px 66px 66px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "开启补强卡包",
+    "width": 390
+  },
+  {
+    "page": "补强阵容",
+    "dock": "blue-button full",
+    "grids": [
+      {
+        "class": "thumb-grid pack-thumb-grid",
+        "columns": "74px 74px 74px 74px 74px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "开启补强卡包",
+    "width": 430
+  },
+  {
+    "page": "补强比较",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "补强确认",
+    "width": 320
+  },
+  {
+    "page": "补强比较",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "补强确认",
+    "width": 390
+  },
+  {
+    "page": "补强比较",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "补强确认",
+    "width": 430
+  },
+  {
+    "page": "赛年收获",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "赛年收获",
+    "width": 320
+  },
+  {
+    "page": "赛年收获",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "赛年收获",
+    "width": 390
+  },
+  {
+    "page": "赛年收获",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "赛年收获",
+    "width": 430
+  },
+  {
+    "page": "战队名单",
+    "grids": [
+      {
+        "class": "roster-list",
+        "columns": "286px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "战队",
+    "width": 320
+  },
+  {
+    "page": "战队名单",
+    "grids": [
+      {
+        "class": "roster-list",
+        "columns": "348px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "战队",
+    "width": 390
+  },
+  {
+    "page": "战队名单",
+    "grids": [
+      {
+        "class": "roster-list",
+        "columns": "388px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "战队",
+    "width": 430
+  },
+  {
+    "page": "队伍资料",
+    "dock": "quiet-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "战队资料",
+    "width": 320
+  },
+  {
+    "page": "队伍资料",
+    "dock": "quiet-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "战队资料",
+    "width": 390
+  },
+  {
+    "page": "队伍资料",
+    "dock": "quiet-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "战队资料",
+    "width": 430
+  },
+  {
+    "page": "地图资料",
+    "grids": [
+      {
+        "class": "map-grid",
+        "columns": "139px 139px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "地图资料",
+    "width": 320
+  },
+  {
+    "page": "地图资料",
+    "grids": [
+      {
+        "class": "map-grid",
+        "columns": "169px 169px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "地图资料",
+    "width": 390
+  },
+  {
+    "page": "地图资料",
+    "grids": [
+      {
+        "class": "map-grid",
+        "columns": "189px 189px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "地图资料",
+    "width": 430
+  },
+  {
+    "page": "图鉴",
+    "grids": [
+      {
+        "class": "thumb-grid album-thumb-grid",
+        "columns": "65.25px 65.25px 65.25px 65.25px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "档案",
+    "width": 320
+  },
+  {
+    "page": "图鉴",
+    "grids": [
+      {
+        "class": "thumb-grid album-thumb-grid",
+        "columns": "82.75px 82.75px 82.75px 82.75px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "档案",
+    "width": 390
+  },
+  {
+    "page": "图鉴",
+    "grids": [
+      {
+        "class": "thumb-grid album-thumb-grid",
+        "columns": "92.75px 92.75px 92.75px 92.75px"
+      }
+    ],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "档案",
+    "width": 430
+  },
+  {
+    "page": "选手资料",
+    "dock": "quiet-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "选手资料",
+    "width": 320
+  },
+  {
+    "page": "选手资料",
+    "dock": "quiet-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "选手资料",
+    "width": 390
+  },
+  {
+    "page": "选手资料",
+    "dock": "quiet-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "选手资料",
+    "width": 430
+  },
+  {
+    "page": "钻卡资料",
+    "dock": "quiet-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "选手资料",
+    "width": 320
+  },
+  {
+    "page": "钻卡资料",
+    "dock": "quiet-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "选手资料",
+    "width": 390
+  },
+  {
+    "page": "钻卡资料",
+    "dock": "quiet-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "选手资料",
+    "width": 430
+  },
+  {
+    "page": "生涯",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "档案",
+    "width": 320
+  },
+  {
+    "page": "生涯",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "档案",
+    "width": 390
+  },
+  {
+    "page": "生涯",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "档案",
+    "width": 430
+  },
+  {
+    "page": "教练资料",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "教练资料",
+    "width": 320
+  },
+  {
+    "page": "教练资料",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "教练资料",
+    "width": 390
+  },
+  {
+    "page": "教练资料",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "教练资料",
+    "width": 430
+  },
+  {
+    "page": "历年回顾",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "第 1 赛年",
+    "width": 320
+  },
+  {
+    "page": "历年回顾",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "第 1 赛年",
+    "width": 390
+  },
+  {
+    "page": "历年回顾",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "第 1 赛年",
+    "width": 430
+  },
+  {
+    "page": "选手关系",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "选手关系",
+    "width": 320
+  },
+  {
+    "page": "选手关系",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "选手关系",
+    "width": 390
+  },
+  {
+    "page": "选手关系",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "选手关系",
+    "width": 430
+  },
+  {
+    "page": "荣誉记录",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "荣誉记录",
+    "width": 320
+  },
+  {
+    "page": "荣誉记录",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "荣誉记录",
+    "width": 390
+  },
+  {
+    "page": "荣誉记录",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "荣誉记录",
+    "width": 430
+  },
+  {
+    "page": "设置",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "设置",
+    "width": 320
+  },
+  {
+    "page": "设置",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "设置",
+    "width": 390
+  },
+  {
+    "page": "设置",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "设置",
+    "width": 430
+  },
+  {
+    "page": "加载状态",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "加载中",
+    "width": 320
+  },
+  {
+    "page": "加载状态",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "加载中",
+    "width": 390
+  },
+  {
+    "page": "加载状态",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "加载中",
+    "width": 430
+  },
+  {
+    "page": "错误恢复",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "暂时无法载入",
+    "width": 320
+  },
+  {
+    "page": "错误恢复",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "暂时无法载入",
+    "width": 390
+  },
+  {
+    "page": "错误恢复",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "暂时无法载入",
+    "width": 430
+  },
+  {
+    "page": "离线状态",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 320,
+    "small": [],
+    "title": "离线浏览",
+    "width": 320
+  },
+  {
+    "page": "离线状态",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 390,
+    "small": [],
+    "title": "离线浏览",
+    "width": 390
+  },
+  {
+    "page": "离线状态",
+    "dock": "blue-button full",
+    "grids": [],
+    "outside": [],
+    "overflow": 0,
+    "phoneWidth": 430,
+    "small": [],
+    "title": "离线浏览",
+    "width": 430
+  }
+]
