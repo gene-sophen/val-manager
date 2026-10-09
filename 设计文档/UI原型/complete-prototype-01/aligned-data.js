@@ -6,6 +6,6 @@
  D.sync=s=>{R.init(s);D.packs=s.packs;D.maps=s.activeMaps.map(id=>({...R.mapCatalog.find(m=>m.id===id),score:Math.round(s.mapKnowledge[id])}));};
  D.softPlan=m=>`<img class="map-layout" src="../../../素材库/地图风格/${m.id}-v2.svg" alt="${m.name} · 真实布局简绘">`;
  D.plan=m=>`<button class="map-layout-button" data-map-plan="${m.id}" aria-label="放大 ${m.name} 战术图">${D.softPlan(m)}</button>`;
- D.art=(m,live=false)=>live?D.plan(m):`<img class="map-poster" src="../../../素材库/地图官方/${m.id}-poster.webp" alt="${m.name} · 官方地图实景">`;
+ D.art=(m,live=false)=>live?D.plan(m):`<img class="map-poster" src="${window.VM_IMAGES?.asset('地图官方/'+m.id+'-poster.webp','thumb')||'../../../素材库/地图官方/'+m.id+'-poster.webp'}" decoding="async" alt="${m.name} · 官方地图实景">`;
  D.demoRoster=()=>['ZmjjKK','nobody','Smoggy','CHICHOO','stew'].map(name=>R.key(D.cards.find(p=>p.name===name&&p.tier!=='钻')));
 })();

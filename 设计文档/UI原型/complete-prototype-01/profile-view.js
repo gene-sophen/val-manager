@@ -2,7 +2,7 @@
 (() => {
  'use strict';
  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- const asset=s=>'../../../素材库/'+encodeURI(s);
+ const asset=(s,kind='full')=>window.VM_IMAGES?.asset(s,kind)||'../../../素材库/'+encodeURI(s);
  const key=p=>DEMO.key(p);
  const regions={CN:'中国',AMER:'美洲',EMEA:'欧洲中东非',PAC:'太平洋'};
  const cup='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3h8v5a4 4 0 0 1-8 0V3Z M8 5H4v2a4 4 0 0 0 4 4 M16 5h4v2a4 4 0 0 1-4 4 M12 12v6 M8 21h8 M9 18h6"/></svg>';

@@ -1,0 +1,29 @@
+[
+  {
+    "aura": "block",
+    "card": "1",
+    "left": 12,
+    "right": 308,
+    "scrollOverflow": 0,
+    "tier": "铜",
+    "width": 296
+  },
+  {
+    "aura": "block",
+    "card": "1",
+    "left": 12,
+    "right": 308,
+    "scrollOverflow": 0,
+    "tier": "银",
+    "width": 296
+  },
+  {
+    "aura": "block",
+    "card": "1",
+    "left": 12,
+    "right": 308,
+    "scrollOverflow": 0,
+    "tier": "钻",
+    "width": 296
+  }
+]

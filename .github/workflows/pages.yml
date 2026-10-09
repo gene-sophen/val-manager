@@ -22,7 +22,7 @@ jobs:
       - name: Build the shared spatial engine
         run: node 游戏/build-spatial.cjs
       - name: Check release and PWA contracts
-        run: node --test 游戏/tests/campaign-spatial-policy.test.js 游戏/tests/spatial-career-store.test.js 游戏/tests/playback-preference.test.js 游戏/tests/release-assets.test.js
+        run: node --test 游戏/tests/campaign-spatial-policy.test.js 游戏/tests/spatial-career-store.test.js 游戏/tests/playback-preference.test.js 游戏/tests/release-assets.test.js 游戏/tests/mobile-images.test.js 游戏/tests/round-presentation.test.js 游戏/tests/pwa-update.test.js
       - name: Build and validate static release
         run: node 游戏/build-pages.cjs
       - uses: actions/configure-pages@v5

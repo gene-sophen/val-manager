@@ -1,0 +1,24 @@
+{
+  "uiVersion": "20261009-mobile-2",
+  "tests": {
+    "passed": 398,
+    "failed": 0
+  },
+  "images": {
+    "sourceFiles": 527,
+    "sourceBytes": 188541117,
+    "fullBytes": 10537626,
+    "thumbBytes": 3871232,
+    "currentGameBeforeBytes": 140955116,
+    "currentGameAfterBytes": 6009956
+  },
+  "viewports": [
+    320,
+    360,
+    390,
+    430
+  ],
+  "layout": "Three equal navigation tabs, two-column BP, zero measured horizontal overflow; large-text BP checked.",
+  "replay": "Critical rounds only; next-round commits one round and skips its playback. Shared windows remain until confirmation.",
+  "scope": "No simulation behavior, frozen cards or existing career database changed."
+}

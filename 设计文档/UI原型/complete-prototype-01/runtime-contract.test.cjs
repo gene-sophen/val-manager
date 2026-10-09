@@ -8,7 +8,7 @@ test('live templates and compact pack/album templates render with no invented fu
  assert.equal(s.spatialEnabled,false,'legacy numerical UI fixture preserves its model');
  for(const name of ['home','prepare','bp','calendar','standings']){const v=F[name](s);assert(!v.body.includes('undefined'),name);}
  assert(F.home({...s,run:'draft'}).body);assert(F.packs(s).body.includes('pack-thumb-grid'));assert(!F.packs(s).body.includes('finish-pack'));assert(!F.reveal(s).body.includes('finish-pack'));assert(A.album(s).body.includes('class="thumb-grid album-thumb-grid" id="album-results"'));
- bp(x,s);s.agents={0:Object.fromEntries(s.roster.map((k,i)=>[k,x.AGENT_SELECTION.recommend(F.lineup(s),x.CN_CONTENT.agents,F.matchMap(s).id).agents[i]]))};R.startMap(s);assert.equal(R.results(s).length,0);assert(F.match(s).body.includes('准备开赛'));assert(F.agents(s).body.includes('★ 招牌'));assert(F.match(s).body.includes('柔色战术简图'));
+ bp(x,s);s.agents={0:Object.fromEntries(s.roster.map((k,i)=>[k,x.AGENT_SELECTION.recommend(F.lineup(s),x.CN_CONTENT.agents,F.matchMap(s).id).agents[i]]))};R.startMap(s);assert.equal(R.results(s).length,0);assert(F.match(s).body.includes('准备开赛'));assert(F.agents(s).body.includes('★ 招牌'));assert(F.match(s).body.includes('data-map-plan'));assert.equal(F.match(s).action,'next-round');
 });
 test('entire live campaign persists actual map/participation facts and stays idempotent across refresh and GF',()=>{
  const x=load(),{DEMO:D,PROTOTYPE_RULES:R,FLOW_UI:F}=x;let s=begin(x);let formal=0;

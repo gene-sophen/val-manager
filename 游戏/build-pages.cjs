@@ -11,7 +11,7 @@ function build(output=path.join(root,'_site')){
  for(const dir of ['complete-prototype-01','art-direction-01','art-direction-03','layout-rebuild-01','navigation-rebuild-01'])tree('设计文档/UI原型/'+dir,dir==='complete-prototype-01');
  for(const file of fs.readdirSync(path.join(root,'游戏')))if(file.endsWith('.js'))copy('游戏/'+file);
  tree('引擎/maps');
- for(const dir of ['选手半身像','英雄头像','队伍logo','切面海报','地图官方','地图参考','地图风格','底纹','赛区图标','字体'])tree('素材库/'+dir);
+ for(const dir of ['选手半身像','英雄头像','队伍logo','切面海报','地图官方','地图参考','地图风格','底纹','赛区图标','字体','优化'])tree('素材库/'+dir);
  const html='<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url='+app+'/index.html"><title>VAL MANAGER</title></head><body><a href="'+app+'/index.html">进入 VAL MANAGER</a></body></html>';
  fs.writeFileSync(path.join(output,'index.html'),html);fs.writeFileSync(path.join(output,'.nojekyll'),'');
  const included=new Set(files),context={self:{addEventListener(){}},URL};vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(root,app,'sw.js'),'utf8')+'\nthis.shell=SHELL;',context);
