@@ -20,5 +20,6 @@
   return {headline,facts:facts.slice(-2)};
  }
  function advance(s,R,cards){if(s.coachWindow||s.adjusting||R.mapOver(s))return false;s.playing=false;s.fastForward=false;R.skipReplay?.(s);s.skippedReplay=s.year+':'+s.matchToken+':'+s.map+':'+((s.liveMaps?.[s.map]?.rounds.length||s.round)+1);if(s.simulation==='live')R.stepRound(s);else{const win=R.rounds(s)[s.map][s.round];s.round++;R.roundGrowth(s,win,cards);R.settleMap(s,cards);}return true;}
- return {token,keyRound,mode,brief,advance};
+ function skipCurrent(s,R){const info=mode(s);if(!info.replay||s.watchedReplay===info.token)return false;s.playing=false;R.skipReplay?.(s);s.skippedReplay=info.token;return true;}
+ return {token,keyRound,mode,brief,advance,skipCurrent};
 });

@@ -4,4 +4,5 @@ const root=path.resolve(__dirname,'../../..'),dir=path.join(root,'设计文档/U
 const name='val-manager-test-ui-'+crypto.randomUUID();let html=fs.readFileSync(path.join(dir,'index.html'),'utf8');
 html=html.replace('<head>','<head><meta name="career-test-database" content="'+name+'"><base href="'+base+'">').replace('VAL MANAGER / UI PROTOTYPE','独立完整征战验收 / '+name).replace('这一年，由你执教。','验收赛年，不使用个人存档。');
 if(!process.argv.includes('--production-layout'))html=html.replace('<body>','<body class="qa-workbench">');
+if(process.argv.includes('--match-checkpoint')){const C=require('../../career-store'),state=C.unpack(JSON.parse(fs.readFileSync(path.join(root,'docs/validation/2026-10-08-spatial-campaign/browser-checkpoint.json'),'utf8')));state.lastRoute='campaign/match';html=html.replace('<script src=',`<script type="application/json" id="career-test-initial">${JSON.stringify(state).replaceAll('<','\\u003c')}</script><script src=`);}
 const output=path.join(root,'游戏/out/career-browser-check.html');fs.writeFileSync(output,html);console.log(JSON.stringify({output,database:name}));
