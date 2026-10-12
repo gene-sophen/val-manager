@@ -12,7 +12,7 @@
   if(Object.values(kills).some(n=>n>=4))return '四杀时刻';
   return null;
  }
- function mode(s){const m=s.liveMaps?.[s.map],key=keyRound(m);return {key,token:token(s),replay:!!m?.spatial&&!!m.rounds.length&&!!key&&!s.fastForward&&s.skippedReplay!==token(s)};}
+ function mode(s){const m=s.liveMaps?.[s.map],key=keyRound(m);return {key,token:token(s),replay:(s.watchPreference!=='summary'||s.forceWatchReplay===token(s))&&!!m?.spatial&&!!m.rounds.length&&!!key&&!s.fastForward&&s.skippedReplay!==token(s)};}
  function brief(m){const r=m?.rounds.at(-1);if(!r)return {headline:'准备开赛',facts:[]};const events=m.replay?.events||[],end=events.find(e=>e.type==='round_end'),plant=events.find(e=>e.type==='plant');
   const reason=end?.reason,headline=reason==='defuse'?'回防拆包':reason==='explosion'?'守包成功':reason==='timeout'?'守住时间':r.win?'赢下回合':'丢掉回合';
   const facts=[];if(plant)facts.push(plant.unit+' 在 '+plant.site+' 点下包');

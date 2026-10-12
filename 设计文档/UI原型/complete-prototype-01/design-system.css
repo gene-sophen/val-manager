@@ -200,26 +200,57 @@ body:not(.qa-workbench) .prototype-workbench{display:flex;justify-content:center
 .app-phone .app-version{flex:none;margin-left:auto;padding:4px 8px;border:1px solid var(--vm-line);border-radius:8px;background:var(--vm-soft);color:var(--vm-muted);font-size:12px;font-weight:700;line-height:1.4;white-space:nowrap}
 .app-phone .app-version+.header-menu{flex:none;margin-left:0}
 
-/* v0.4: every actionable control uses the same blue surface and white label. */
-:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button,
-:is(.balance-dialog,.filter-dialog) a.blue-button{
- background:linear-gradient(180deg,#187eaf,#156f9d)!important;color:#fff!important;
- border-color:#1679aa!important;border-radius:12px;box-shadow:0 3px 0 #105b83!important;
- min-height:44px;font-weight:750;letter-spacing:.01em;
-}
-:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button :is(span,strong,small,p){color:inherit!important}
-:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button:not(.card-thumb) b{color:inherit!important}
-:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button[aria-pressed=true],
-.app-phone button[aria-current=page]{background:#105b83!important;border-color:#0c4565!important;box-shadow:inset 0 0 0 2px #b4e5ff,0 3px 0 #0c4565!important}
-:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button:disabled{background:#d4e3ec!important;border-color:#d4e3ec!important;color:#526e80!important;box-shadow:none!important;opacity:1}
-.app-phone .page-back{margin-right:0}
-.app-phone .balance-top:has(#page-back:not([hidden])) #page-title{flex:1}
-.app-phone .header-menu,.app-phone .page-back{font-weight:600}
-.app-phone .thumb-name{background:#1679aa;color:white!important}
-.app-phone .card-thumb b{color:#206f94!important}
-.app-phone .main-nav button{min-height:48px}
-.app-phone .setting-group .setting-row{margin-block:8px;padding:12px;min-height:48px;border:1px solid #1679aa}
-.app-phone .round-busy{padding:12px 16px;background:#edf8fe;border-bottom:1px solid #c4e4f5;color:#206f94;font-size:12px;line-height:1.6}
-.app-phone .round-error{margin:14px 16px;padding:14px;background:#fff6ec;border:1px solid #e7cbae;border-radius:14px;font-size:12px;line-height:1.6}
-.app-phone .round-error button{padding:10px 14px;min-height:44px}
-@media(hover:hover){:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button:not(:disabled):hover{background:#126b98!important}}
+/* v0.5: blue is an action hierarchy, not a paint layer over content. */
+:root{--vm-ink:#263d50;--vm-muted:#526b7d}
+.app-phone{font-size:14px}.app-phone :is(p,.experience-note,.rule-note){font-size:14px;line-height:1.65}
+.app-phone :is(.page-heading,.page-pad>h3,.experience-panel>h3){font-size:20px;line-height:1.35}
+:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button{min-height:44px;font-weight:700;letter-spacing:0}
+:is(.app-phone,.balance-dialog,.filter-dialog) .blue-button{background:linear-gradient(180deg,#187eaf,#156f9d);color:#fff;box-shadow:0 3px 0 #105b83}
+.app-phone .main-nav button,.app-phone .main-nav .core-nav[aria-current=page]{background:#fff;color:var(--vm-blue-ink);box-shadow:none;border:1px solid var(--vm-line)}
+.app-phone .main-nav button[aria-current=page]{background:var(--vm-selected);border:2px solid var(--vm-blue);box-shadow:none}
+.app-phone .setting-row{margin-block:6px;background:var(--vm-soft);color:var(--vm-blue-ink);min-height:48px;border:1px solid var(--vm-line);padding:12px}
+.app-phone :is(.agent-options,.club-grid,.map-grid,.pack-tabs,.segmented,.filter-options) button[aria-pressed=true]{outline:2px solid var(--vm-blue);outline-offset:-2px}
+.app-phone :is(.map-grid,.club-grid) button[aria-pressed=true]:after{content:'✓ 已选';position:absolute;top:8px;left:8px;padding:4px 7px;border-radius:6px;background:#12658e;color:#fff;font-size:12px}
+.app-phone :is(.map-grid,.club-grid) button{position:relative}
+.app-phone .experience-panel{margin:16px;padding:16px;border:1px solid var(--vm-line);border-radius:16px;background:#fff}
+.app-phone .experience-panel>h3{margin:0 0 12px}.experience-note{color:var(--vm-muted);margin:10px 0}
+.app-phone .experience-panel .experience-panel{margin:12px 0;padding:12px}.app-phone .page-pad .experience-panel{margin-inline:0}
+.ability-summary{display:flex;gap:12px;flex-wrap:wrap;font-size:14px}.ability-summary b{font-size:16px;color:var(--vm-ink)}
+.club-lineup{display:flex;align-items:end;justify-content:center;gap:4px;min-height:80px;overflow:hidden}.club-lineup img{width:18%;max-width:90px;height:112px;object-fit:cover;object-position:top;border-radius:14px 14px 4px 4px;background:var(--vm-soft)}
+.coach-room{padding:24px 20px}.coach-room h3{font-size:26px;margin:12px 0 20px}.coach-room>button{margin-top:14px}.season-stamp{font-size:12px;font-weight:800;color:var(--vm-blue-ink);border:1px solid var(--vm-line);padding:6px 10px;border-radius:20px}
+.core-loop{display:flex;list-style:none;gap:8px;padding:0;margin:18px 0;justify-content:space-between;color:var(--vm-blue-ink);font-size:13px}.core-loop li:not(:last-child):after{content:' →';color:var(--vm-muted)}
+.recovery-card{background:var(--vm-selected)!important;margin-bottom:0!important}.recovery-card h3{font-size:18px!important}
+.preparation-steps{display:flex;justify-content:space-between;gap:8px;list-style:none;margin:0;padding:14px 16px;border-bottom:1px solid var(--vm-line);font-size:12px;background:var(--vm-soft)}
+.preparation-steps li{display:grid;gap:4px;color:var(--vm-muted);min-width:0}.preparation-steps b{font-size:14px}.preparation-steps .current{color:var(--vm-blue-ink);font-weight:800}.preparation-steps .done{color:#397e66}.preparation-steps small{font-size:11px}
+.intel-strip{margin:12px 16px;border:1px solid var(--vm-line);padding:10px 12px;border-radius:12px;background:var(--vm-soft)}.intel-strip summary{min-height:44px;cursor:pointer;line-height:1.5;font-size:13px;color:var(--vm-blue-ink)}.intel-strip p{margin:8px 0}
+.recent-reveals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:16px}.recent-reveals img{width:100%}
+.selected-lineup{position:sticky;top:0;z-index:4;background:#fff!important;margin-top:0!important}.selected-lineup .club-lineup{min-height:0;height:55px}.selected-lineup .club-lineup img{height:55px;width:40px}.selected-lineup .experience-note{font-size:12px}.selected-lineup h3{font-size:16px!important;margin-bottom:4px!important}
+.pick-reason{display:block;font-size:11px;line-height:1.5;padding-top:6px;color:var(--vm-muted)}
+.card-comparison{margin:16px;padding:16px;border:1px solid var(--vm-line);border-radius:16px;background:var(--vm-soft)}.card-comparison h3{font-size:18px;margin:0 0 12px}.comparison-columns,.inherit-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.comparison-columns>div{min-width:0}.comparison-columns p,.comparison-columns .experience-note{font-size:12px}.comparison-columns .ability-summary{display:grid;gap:4px}
+.inherit-columns h4{margin:0}.inherit-columns p{font-size:13px}
+.agent-search{display:grid;gap:6px;margin:16px 0;font-size:13px}.agent-search input{width:100%;min-height:44px;box-sizing:border-box}.agent-filter{flex-wrap:wrap}.agent-filter button{padding:8px;flex:1 1 50px}
+.hero-summary{display:flex;gap:8px;flex-wrap:wrap}.hero-summary span{font-size:12px;padding:5px 8px;background:var(--vm-soft);border-radius:8px}.agent-options button small{display:block;font-size:11px}.agent-options.full-agent-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.agent-options.full-agent-list button{min-width:0;font-size:12px}
+.tactic-cards{list-style:none;margin:16px 0;padding:0;display:grid;gap:12px}.tactic-cards>li{padding:14px;border:1px solid var(--vm-line);border-radius:16px}.tactic-cards>li>div:first-child{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.tactic-cards small{margin-left:auto;color:var(--vm-muted)}.priority-number{width:26px;height:26px;border-radius:8px;background:var(--vm-selected);display:grid;place-items:center;color:var(--vm-blue-ink)}.tactic-cards p{margin:10px 0}.tactic-cards .matchup-hint{font-size:12px;color:var(--vm-muted)}.tactic-moves{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:8px}.tactic-moves button{min-width:0;font-size:12px;padding:8px 4px}
+.app-phone .match-stage{padding:8px 12px 16px}.app-phone .match-stage>.experience-panel{margin:12px 0}.app-phone .match-context{font-size:12px;margin-bottom:6px;gap:6px;flex-wrap:wrap}.app-phone .live-score{padding:8px 0;margin:0}.app-phone .live-score b{font-size:34px}.app-phone .live-score>span{font-size:14px}.app-phone .match-stage .spatial-replay{margin:6px 0 12px}.app-phone .spatial-header{padding:8px 10px}.app-phone .spatial-legend{font-size:12px}.app-phone .spatial-map{max-height:370px}.app-phone .spatial-tools{margin-top:0}.app-phone .spatial-map-note{padding:0}.app-phone .round-report{padding:12px;margin-top:12px}.app-phone .round-report h3{font-size:18px}.app-phone .round-report small{font-size:12px}
+.app-phone .match-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.match-controls>h3{grid-column:1/-1;font-size:16px!important}.match-controls>button{padding:10px!important}.app-phone .coach-window{margin-block:14px}.coach-window h3{font-size:16px}.match-stage .experience-note{font-size:13px}
+.spatial-focus-score{font-size:16px;margin:0}.spatial-focus .spatial-focus-tools{display:flex;gap:8px;align-items:center;padding:8px 12px}.spatial-focus .spatial-focus-tools button{padding:8px 12px}.spatial-focus .spatial-map{max-height:none}
+.growth-visible{display:grid;grid-template-columns:1fr auto auto;gap:8px;margin:8px 0;font-size:14px;align-items:center}.growth-visible small{color:var(--vm-blue-ink);font-size:13px}
+.roster-tools{margin:10px 16px}.roster-tools summary{min-height:44px;padding:12px 0;box-sizing:border-box;font-size:13px;color:var(--vm-blue-ink)}.roster-tools .players-tools{padding:0}.app-phone .roster-info>strong{font-size:16px}.app-phone .roster-info>small,.app-phone .roster-stats span{font-size:12px}
+.collection-badge{font-size:11px;color:var(--vm-blue-ink);line-height:1.5;padding:4px 2px;text-align:center}.album-thumb-grid>div{min-width:0}.album-sort{display:flex;align-items:center;gap:12px;padding:0 16px;margin-bottom:12px;font-size:13px}.album-sort select{min-width:0;flex:1}
+.app-phone .thumb-name{font-size:11px}.danger-zone{margin:24px 16px;padding:16px;border:1px solid #ead1cb;border-radius:16px;background:#fffaf8}.danger-zone h3{font-size:16px}.danger-zone button{margin-top:12px;color:#915b4a!important;background:transparent!important;box-shadow:none!important}.trait-explanation summary{font-size:16px;min-height:44px;line-height:1.6}.trait-explanation p{font-size:14px}
+.event-stage>.page-pad>h3:first-child,.event-stage>.page-pad>.change-rows:first-of-type,.event-stage>.page-pad>.rule-note:first-of-type{display:none}.event-points>.page-pad>h4,.event-points>.page-pad>h4+.change-rows{display:none}.standings-switch{margin:16px}.event-content .change-rows>div:has(span:first-child){min-height:44px}.event-content .change-rows>div:has(span:first-child)::marker{color:var(--vm-blue)}
+.round-busy{padding:12px 16px;background:var(--vm-selected);font-size:13px;color:var(--vm-blue-ink)}.round-error{padding:16px;border:1px solid #e7cbae;border-radius:12px;margin:16px}.round-error button{padding:10px 14px}
+@media(min-width:1000px){body:not(.qa-workbench) .app-phone{width:min(1120px,calc(100vw - 48px));height:calc(100dvh - 48px)}.app-phone .page-pad{max-width:960px;margin:auto}body:not(.qa-workbench) .app-phone #page-body:has(.pack-section){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding:16px}body:not(.qa-workbench) .app-phone #page-body:has(.pack-section)>:not(.pack-section){grid-column:1/-1}.app-phone .pack-section{min-width:0}body:not(.qa-workbench) .app-phone .match-stage:has(.spatial-replay){display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,1fr);gap:12px;max-width:none}body:not(.qa-workbench) .match-stage:has(.spatial-replay)>.match-context,body:not(.qa-workbench) .match-stage:has(.spatial-replay)>.live-score{grid-column:1/-1}body:not(.qa-workbench) .match-stage:has(.spatial-replay)>.spatial-replay{grid-column:1;grid-row:3/span 7}.app-phone .spatial-map{max-height:560px}.app-phone .experience-panel,.app-phone .roster-list{max-width:960px}body:not(.qa-workbench) .app-phone .agent-assignment{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}}
+@media(max-width:360px){.app-phone :is(.page-pad,.experience-panel){padding:12px}.app-phone .spatial-map{max-height:300px}.tactic-moves{grid-template-columns:1fr 1fr}.tactic-moves>button:first-child{grid-column:1/-1}.comparison-columns{gap:8px}.core-loop{font-size:12px}}
+@media(max-height:500px) and (orientation:landscape){.app-phone .match-stage:has(.spatial-replay){display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,1fr);gap:12px}.match-stage>.match-context,.match-stage>.live-score{grid-column:1/-1}.match-stage>.spatial-replay{grid-column:1;grid-row:3/span 6}.app-phone .spatial-map{max-height:330px}}
+.app-phone.large-text :is(.experience-note,.rule-note,p){font-size:16px}.app-phone.large-text :is(.ability-summary,.hero-summary,.growth-visible,.preparation-steps){font-size:15px}.app-phone.large-text .live-score b{font-size:38px}.app-phone .setting-row b{color:inherit}
+
+.spatial-focus .spatial-map{--portrait-size:1.35}.spatial-focus .spatial-units g>*:not(title){transform:scale(var(--portrait-size,1))}
+
+.image-unavailable{object-fit:contain!important;background:var(--vm-soft);color:var(--vm-muted);font-size:12px}
+
+.card-comparison>summary{min-height:44px;font-size:15px;font-weight:800;color:var(--vm-blue-ink);cursor:pointer}.reference-basis>summary{font-size:12px;min-height:44px;color:var(--vm-blue-ink);cursor:pointer}.pack-section .experience-panel>h3{font-size:16px!important}.pack-section .experience-panel{padding:12px;margin:0 0 12px}.pack-section .experience-note{font-size:12px!important;margin:6px 0}.pack-section .ability-summary{gap:8px;font-size:13px}.pack-section .experience-panel .ability-summary b{font-size:14px}
+
+.our-position{border:2px solid var(--vm-blue)!important;background:var(--vm-selected);border-radius:12px;padding:12px}.app-phone .roster-row{min-height:80px}.app-phone .roster-row>img{height:56px}.experience-panel>details>summary{min-height:44px;padding-block:12px;box-sizing:border-box;font-size:13px;color:var(--vm-blue-ink)}
+
+.app-phone :is(.profile-region,.profile-rating span,.profile-agents span,.profile-feature span,.profile-event,.profile-records small,.team-state-metrics span,.pack-tabs small,.map-grid small,.style-tag,.opponent-style small){font-size:12px;color:var(--vm-muted)}.app-phone :is(.profile-feature strong,.profile-records p,.opponent-style h4){font-size:14px;color:var(--vm-ink)}.app-phone .profile-versions button{font-size:13px}.app-phone .agent-options:not(.full-agent-list) button{font-size:13px}.app-phone .agent-options:not(.full-agent-list) img{width:24px;height:24px}

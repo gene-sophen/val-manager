@@ -30,10 +30,10 @@
   }
   return parent(route,s);
  }
- function dockTone(view){return view.action==='card-face'||/^返回/.test(view.dock||'')?'secondary':'primary';}
+ function dockTone(view){return view.dockTone==='secondary'||view.action==='card-face'||/^返回/.test(view.dock||'')?'secondary':'primary';}
  function resume(s={}){
   if(s.run==='reinforce')return 'campaign/reinforce';
-  if(s.run==='draft')return s.chosenPack!==null&&s.chosenPack!==undefined?'campaign/pick':'campaign/packs';
+  if(s.run==='draft')return s.chosenPack!==null&&s.chosenPack!==undefined?(s.lineup?.length===5?'campaign/confirm':'campaign/pick'):s.opened?.every(n=>n===10)?'campaign/compare':'campaign/packs';
   if(s.completedMatch)return 'campaign';
   if((s.bp?.length||0)<7)return s.bp?.length?'campaign/bp':'campaign/prepare';
   if((s.sideChosen||[]).some(v=>!v))return 'campaign/bp';
