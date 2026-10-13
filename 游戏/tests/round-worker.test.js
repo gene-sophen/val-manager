@@ -11,6 +11,18 @@ test('background rounds preserve frozen results, growth and windows through work
 test('duplicate clicks, worker timeout and late messages never commit another round',async()=>{
  let fake;const client=Client.create({timeout:15,spawn:()=>fake={postMessage(){},terminate(){this.closed=true;}}});const pending=client.run('key',{});await assert.rejects(client.run('key',{}),/正在推演/);await assert.rejects(pending,/超时/);assert(fake.closed);fake.onmessage({data:{id:1,map:{wrong:true}}});const retry=client.run('key',{});fake.onmessage({data:{id:2,map:{home:1},round:{number:1}}});assert.equal((await retry).map.home,1);client.cancel();
 });
+
+test('cold replay recovery verifies the old journal off-thread and preserves every committed result',async()=>{
+ const fs=require('node:fs'),C=require('../career-store'),state=C.unpack(JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../docs/validation/2026-10-08-spatial-campaign/browser-checkpoint.json'),'utf8'))),m=state.liveMaps[state.map],original=JSON.parse(JSON.stringify(m));delete m.replay;
+ const client=Client.create({spawn}),progress=[];
+ try{const result=await client.run('old-replay',{m},{operation:'replay',onProgress:p=>progress.push(p)});assert.deepEqual(result.replay,original.replay);assert.deepEqual(result.map.rounds,original.rounds);assert.deepEqual(result.map.spatial,original.spatial);assert(!m.replay);assert(progress.some(p=>p.phase==='recover'&&p.completed===m.rounds.length&&p.total===m.rounds.length));
+ const corrupt=JSON.parse(JSON.stringify(m));corrupt.rounds[0].home+=1;await assert.rejects(client.run('corrupt',{m:corrupt},{operation:'replay'}),/不一致/);assert.deepEqual(m.rounds,original.rounds);}
+ finally{client.cancel();}
+});
+
+test('progress messages do not resolve jobs and cancelled replay messages are ignored',async()=>{
+ let fake;const client=Client.create({spawn:()=>fake={postMessage(){},terminate(){}}}),progress=[];const p=client.run('cold',{}, {operation:'replay',onProgress:v=>progress.push(v)});fake.onmessage({data:{id:1,progress:{completed:1,total:12}}});assert.equal(progress.length,1);client.cancel('停止回放');await assert.rejects(p,/停止/);fake.onmessage({data:{id:1,replay:{wrong:true}}});const next=client.run('next',{});fake.onmessage({data:{id:2,round:{number:13}}});assert.equal((await next).round.number,13);client.cancel();
+});
 test('skipping the unfinished current replay preserves its score, growth and pause window',()=>{
  const s={year:1,matchToken:'one',map:0,round:1,coachWindow:'opponent',playing:true,liveMaps:[{spatial:{},rounds:[{number:1,home:1,away:0}]}]};let skipped=0;const R={skipReplay:()=>skipped++};assert(P.skipCurrent(s,R));assert.equal(s.round,1);assert.equal(s.coachWindow,'opponent');assert.equal(P.mode(s).replay,false);assert.equal(P.skipCurrent(s,R),false);assert.equal(skipped,1);
 });

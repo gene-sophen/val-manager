@@ -1,0 +1,32 @@
+[
+  {
+    "operation": "save",
+    "database": "val-manager-test-abort-1cb5e37e-24eb-4b60-b4db-ba6f30c58443",
+    "error": "存档事务失败",
+    "flushRejected": true,
+    "unchanged": true,
+    "revisionStable": true,
+    "checkpointStable": true,
+    "restored": true
+  },
+  {
+    "operation": "restore",
+    "database": "val-manager-test-abort-d2a393e2-96c1-401d-9a82-186e2d8090c4",
+    "error": "存档事务失败",
+    "flushRejected": false,
+    "unchanged": true,
+    "revisionStable": true,
+    "checkpointStable": true,
+    "restored": true
+  },
+  {
+    "operation": "restart",
+    "database": "val-manager-test-abort-7bb30709-dba9-4f34-ac98-dc8262bf9212",
+    "error": "存档事务失败",
+    "flushRejected": false,
+    "unchanged": true,
+    "revisionStable": true,
+    "checkpointStable": true,
+    "restored": true
+  }
+]

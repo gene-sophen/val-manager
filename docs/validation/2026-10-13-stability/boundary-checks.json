@@ -1,0 +1,15 @@
+{
+  "source": "2026-10-08 repository sample derived to halftime; numerical overtime fixture",
+  "stageSettled": true,
+  "checks": [
+    "old-halftime 读取、显示与刷新保持已结算数据",
+    "old-map-result 读取、显示与刷新保持已结算数据",
+    "old-cross-map 读取、显示与刷新保持已结算数据",
+    "旧空间比赛：系列赛结算按钮进入真实后续对阵或阶段结算",
+    "old-series-result 读取、显示与刷新保持已结算数据",
+    "old-stage-result 读取、显示与刷新保持已结算数据",
+    "真实12:12的数值模型样本：加时暂停与刷新保持比分和窗口",
+    "numerical-overtime 读取、显示与刷新保持已结算数据"
+  ],
+  "errors": []
+}

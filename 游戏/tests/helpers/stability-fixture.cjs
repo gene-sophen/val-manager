@@ -1,0 +1,3 @@
+// Recreate the review fixture from a tracked public test checkpoint; no personal database.
+const fs=require('node:fs'),path=require('node:path'),C=require('../../career-store'),H=require('./live-ui.cjs');
+module.exports=()=>{const root=path.resolve(__dirname,'../../..'),x=H.load('stability-recheck',{spatial:true}),R=x.PROTOTYPE_RULES,s=C.unpack(JSON.parse(fs.readFileSync(path.join(root,'docs/validation/2026-10-08-spatial-campaign/browser-checkpoint.json'),'utf8')));C.contentBridge(x.DEMO,R,x.CN_CONTENT).bind(s);R.init(s);x.DEMO.sync(s);while(s.round<12){s.coachWindow='';R.stepRound(s);}s.playing=false;s.lastRoute='campaign/match';C.validate(s);return JSON.parse(JSON.stringify(s));};

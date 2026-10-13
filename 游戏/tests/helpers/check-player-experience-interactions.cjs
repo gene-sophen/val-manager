@@ -1,6 +1,6 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'../../..'),{chromium}=require(path.join(process.env.VM_TEST_NODE_MODULES||'C:/Users/13670/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules','playwright'));
-const out=path.join(root,'docs/validation/2026-10-12-player-experience');
+const out=process.env.VM_TEST_OUTPUT||path.join(root,'docs/validation/2026-10-12-player-experience');fs.mkdirSync(out,{recursive:true});
 let browser;
 (async()=>{browser=await chromium.launch({headless:true,executablePath:process.env.VM_TEST_CHROME||'C:/Users/13670/AppData/Local/Google/Chrome/Application/chrome.exe'});const context=await browser.newContext({viewport:{width:390,height:844}}),page=await context.newPage(),errors=[],checks=[];page.setDefaultTimeout(15000);page.on('pageerror',e=>errors.push(e.message));
  await page.goto('http://127.0.0.1:8765/游戏/out/career-browser-check.html?ux=interaction');const database=await page.locator('meta[name=career-test-database]').getAttribute('content');assert(/^val-manager-test-/.test(database));

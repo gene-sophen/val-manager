@@ -76,7 +76,7 @@ function behaviorMap(map,version){
  }return revisions.get(version);
 }
 
-function session(m) {
+function session(m,onProgress) {
  if(![1,2,3,4,5,6].includes(m.spatial.version))throw Error('未知空间模型版本，不能改写旧局');
  const initial=clone(m.spatial.initial),s={events:[],boundary:null,g:null};
  for(const team of [initial.home,initial.away])if(team.tacticalProfile)require('./team-style').validate(team.tacticalProfile);
@@ -88,13 +88,13 @@ function session(m) {
  if(['ascent-balance-3','ascent-balance-4','ascent-balance-5'].includes(initial.behaviorVersion)&&(m.mapId!=='ascent'||m.spatial.version!==5))throw Error('行为版本与地图不匹配');
  if(cache.has(m))return cache.get(m);
  s.g=matchGen({teamA:initial.home,teamB:initial.away,map:behaviorMap(m.spatial.version===6?registry.get(m.mapId):m.spatial.version===1?legacyMap:m.spatial.version===5?mapV5:m.spatial.version===4?mapV4:m.spatial.version===3?mapV3:map,initial.behaviorVersion),rng:random(initial.seed),logger:e=>s.events.push(e),playerCoach:'A',matchCfg:{initialAttacker:initial.side==='attack'?'A':'B',observationPolicy:'public-events'}});
- for(let i=0;i<m.rounds.length;i++) {s.events=[];const next=s.g.next(i?m.spatial.commands[i-1]:undefined);if(next.done)throw Error('回放提前结束');s.boundary=next.value;const prior=m.rounds[i];if(prior.home!==s.boundary.scoreA||prior.away!==s.boundary.scoreB)throw Error('存档推演结果不一致');}
+ for(let i=0;i<m.rounds.length;i++) {s.events=[];const next=s.g.next(i?m.spatial.commands[i-1]:undefined);if(next.done)throw Error('回放提前结束');s.boundary=next.value;const prior=m.rounds[i];if(prior.home!==s.boundary.scoreA||prior.away!==s.boundary.scoreB)throw Error('存档推演结果不一致');onProgress?.({completed:i+1,total:m.rounds.length});}
  cache.set(m,s);return s;
 }
-function step(m,home,away,priority,selected) {
+function step(m,home,away,priority,selected,options={}) {
  if(!m.spatial)initialize(m,home,away,priority,selected);
  if(m.spatial.boundary?.matchOver)throw Error('地图已结束');
- const s=session(m),command={teamState:teamState(home,m.mapId)};
+ const s=session(m,options.onProgress),command={teamState:teamState(home,m.mapId)};
  if(m.spatial.pendingTimeout)command.timeout=true;
  if(s.boundary?.canAdjust||command.timeout)command.weights=weights(priority);
  s.events=[];
@@ -124,9 +124,18 @@ function replay(m,number=m.rounds.length) {
  if(m.replay?.round===number)return clone(m.replay);
  const copy=clone(m);copy.rounds=copy.rounds.slice(0,number);const s=session(copy),events=s.events.filter(e=>e.round===number),end=events.find(e=>e.type==='round_end');return {round:number,ticks:end.t,events:clone(events),...((m.mapId==='ascent'?m.spatial.initial.behaviorVersion==='ascent-balance-5':/-balance-[123]$/.test(m.spatial.initial.behaviorVersion||''))?{behaviorVersion:m.spatial.initial.behaviorVersion}:{}),...(m.spatial.version>=3?{layoutVersion:versionData(m.spatial.version,m.mapId).layoutVersion}:{})};
 }
+// Warm the same session used by step; verification never changes the historical ledger.
+function recover(m,onProgress){
+ if(!m.spatial||!m.rounds.length)throw Error('没有可恢复的空间回合');
+ const s=session(m,onProgress);
+ if(m.replay?.round===m.rounds.length)return clone(m.replay);
+ const events=s.events.filter(e=>e.round===m.rounds.length),end=events.find(e=>e.type==='round_end');
+ if(!end)throw Error('历史回放缺少结算事件');
+ return {round:m.rounds.length,ticks:end.t,events:clone(events),...((m.mapId==='ascent'?m.spatial.initial.behaviorVersion==='ascent-balance-5':/-balance-[123]$/.test(m.spatial.initial.behaviorVersion||''))?{behaviorVersion:m.spatial.initial.behaviorVersion}:{}),...(m.spatial.version>=3?{layoutVersion:versionData(m.spatial.version,m.mapId).layoutVersion}:{})};
+}
 function replayMap(record){const multi=registry.byLayout(record.layoutVersion);if(multi)return record.behaviorVersion?behaviorMap(registry.get(multi.id),record.behaviorVersion).data:multi;if(record.layoutVersion?.endsWith('-combat-v6'))throw Error('未知地图布局，不能用 Ascent 替代');if(record.layoutVersion===mapDataV5.layoutVersion)return record.behaviorVersion?behaviorMap(mapV5,record.behaviorVersion).data:mapDataV5;if(record.layoutVersion===mapDataV4.layoutVersion)return mapDataV4;if(record.layoutVersion===mapDataV3.layoutVersion)return mapDataV3;return mapData;}
 function frame(record,tick) {return snapshotAt(record.events,Math.max(0,Math.min(record.ticks,tick)),replayMap(record));}
 function inspectVisibility(version,from,to,doors={},mapId='ascent',behaviorVersion){const selected=version===6?behaviorMap(registry.get(mapId),behaviorVersion):version===5?behaviorMap(mapV5,behaviorVersion):version===4?mapV4:mapV3,a=selected.posts[from],b=selected.posts[to];if(!a||!b)throw Error('未知站位');return {visible:selected.geometry.visibleFraction(a,b,{doors}),trace:selected.geometry.shootTrace(a,b,{doors})};}
 function simulate(seed,home,away,priority,options={}){const m=require('./round-outcome').create(seed,options.mapId||'ascent',options.side||'attack');initialize(m,home,away,priority,options.selected,{version:options.version??(m.mapId==='ascent'?3:6),behaviorVersion:options.behaviorVersion});if(options.awayPriority)m.spatial.initial.away.tactics=weights(options.awayPriority);while(!m.spatial.boundary?.matchOver){step(m,home,away,priority);options.onRound?.(m.replay,m);}return m;}
 const inputContract=Object.freeze({version:'spatial-inputs-1',players:['AIM','SYN','SEN','tier','cut','agents'],team:['羁绊','状态','熟练'],coach:['战术','临场','声望'],map:'mapKnowledge[mapId]',tactics:['attack','defense'],profile:'team-style-1',effects:external.registry.version,range:[0,100],prestige:'growth-only; no direct shot bonus',freeze:'players, coach, heroes, profiles frozen per map; team/map state updated at round boundary'});
-module.exports={campaignPolicy,inputContract,validateInputs:(team,priority,selected,mapId='ascent')=>pack(team,priority,selected,true,true,mapId),combatGeometry:(id,behaviorVersion)=>behaviorMap(id==='ascent'?mapV5:registry.get(id),behaviorVersion).geometry,mapIds:registry.ids,combatMap:id=>registry.get(id).data,available,initialize,step,requestTimeout,replay,frame,weights,mapData,mapDataV3,mapDataV4,mapDataV5,replayMap,inspectVisibility,simulate};
+module.exports={campaignPolicy,inputContract,validateInputs:(team,priority,selected,mapId='ascent')=>pack(team,priority,selected,true,true,mapId),combatGeometry:(id,behaviorVersion)=>behaviorMap(id==='ascent'?mapV5:registry.get(id),behaviorVersion).geometry,mapIds:registry.ids,combatMap:id=>registry.get(id).data,available,initialize,step,requestTimeout,replay,recover,frame,weights,mapData,mapDataV3,mapDataV4,mapDataV5,replayMap,inspectVisibility,simulate};

@@ -254,3 +254,29 @@ body:not(.qa-workbench) .prototype-workbench{display:flex;justify-content:center
 .our-position{border:2px solid var(--vm-blue)!important;background:var(--vm-selected);border-radius:12px;padding:12px}.app-phone .roster-row{min-height:80px}.app-phone .roster-row>img{height:56px}.experience-panel>details>summary{min-height:44px;padding-block:12px;box-sizing:border-box;font-size:13px;color:var(--vm-blue-ink)}
 
 .app-phone :is(.profile-region,.profile-rating span,.profile-agents span,.profile-feature span,.profile-event,.profile-records small,.team-state-metrics span,.pack-tabs small,.map-grid small,.style-tag,.opponent-style small){font-size:12px;color:var(--vm-muted)}.app-phone :is(.profile-feature strong,.profile-records p,.opponent-style h4){font-size:14px;color:var(--vm-ink)}.app-phone .profile-versions button{font-size:13px}.app-phone .agent-options:not(.full-agent-list) button{font-size:13px}.app-phone .agent-options:not(.full-agent-list) img{width:24px;height:24px}
+
+/* Stability: persistent state, usable recovery and paired coach decisions. */
+.app-phone .session-status{padding:8px 14px;background:#edf5fa;color:#294e65;font-size:13px;font-weight:700;border-bottom:1px solid var(--vm-line);line-height:1.5}
+.app-phone .persistent-save{padding:5px 14px;color:#526b7d;background:#fff;font-size:12px;line-height:1.5;border-bottom:1px solid #edf2f5}
+.app-phone #subpage-dock.coach-action-dock{display:grid;grid-template-columns:minmax(96px,.75fr) minmax(0,1.6fr);gap:8px}
+.app-phone #subpage-dock.coach-action-dock button{font-size:13px;min-height:48px;padding:10px 8px;margin:0}
+.app-phone .campaign>.blue-button{margin-bottom:16px}
+.app-phone :is(.phase-label,.match-format,.match-context span,.next-stage,.stage-title small){color:#526b7d!important;opacity:1!important}
+.app-phone .recovery-actions{display:grid;gap:10px;margin-top:16px}.app-phone .recovery-shell p{font-size:14px;line-height:1.7;color:#37566e}
+.app-phone .replay-recovery{padding:12px;border:1px solid var(--vm-line);border-radius:14px;background:var(--vm-soft);margin:12px 0}
+.campaign-side{display:none}
+@media(min-width:1000px){body:not(.qa-workbench) .campaign-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr);gap:24px;padding:16px}body:not(.qa-workbench) .campaign-side{display:block;border:1px solid var(--vm-line);border-radius:16px;padding:20px;background:var(--vm-soft)}body:not(.qa-workbench) .campaign-core .recovery-card{margin:0 0 12px}body:not(.qa-workbench) .campaign-side h3{font-size:18px;margin-bottom:16px}}
+
+/* State rows must not displace navigation into implicit grid tracks. */
+.app-phone{display:flex;flex-direction:column;min-height:0}
+.app-phone>.balance-top{flex:0 0 auto;min-height:60px}
+.app-phone>.balance-scroll{flex:1 1 0%;min-height:0;overflow-y:auto;width:100%}
+.app-phone>:not(.balance-scroll){flex-shrink:0}
+@media(max-width:700px){.app-phone>.balance-top{min-height:calc(56px + env(safe-area-inset-top));padding-top:env(safe-area-inset-top)}}
+@media(max-width:999px) and (max-height:500px){body:not(.qa-workbench){margin:0;overflow:hidden}body:not(.qa-workbench) .prototype-workbench{display:block;padding:0;width:100%;height:100dvh}body:not(.qa-workbench) .prototype-guide{display:none}body:not(.qa-workbench) .app-phone{width:100%;height:100dvh;max-height:100dvh;min-height:0;border-radius:0}}
+
+.home-calendar{list-style:none;padding:0;margin:0 0 16px}.home-calendar li{display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid var(--vm-line);font-size:14px}.home-calendar li[aria-current]{font-weight:800;color:var(--vm-blue-dark)}.home-calendar small{font-size:12px;color:#526b7d}
+
+.campaign-core .blue-button{margin-bottom:16px}.home-stage-label{margin:16px 0 10px;font-size:14px;font-weight:800;color:var(--vm-ink)}
+
+.campaign-core .page-pad>.blue-button{margin-top:14px}.app-phone .round-report>span{color:var(--vm-muted)}.app-phone .balance-top h2{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.coach-window .window-evidence{margin-top:10px}
