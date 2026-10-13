@@ -1,0 +1,9 @@
+{
+  "database": "val-manager-test-journey-storage-aaa30628-e0c0-4f62-ab93-227784376044",
+  "notPremature": true,
+  "abortAtomic": true,
+  "immutable": true,
+  "readonly": true,
+  "ready": true,
+  "recoverable": true
+}

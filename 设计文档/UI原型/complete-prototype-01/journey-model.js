@@ -1,0 +1,29 @@
+/* Player explanations use committed public data; never predict outcomes or award growth. */
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory(require('./experience-model'),require('../../../游戏/agent-selection'),require('./navigation'));else root.PLAYER_JOURNEY=factory(root.PLAYER_EXPERIENCE,root.AGENT_SELECTION,root.VM_NAV);})(typeof window==='object'?window:globalThis,(P,A,N)=>{
+ const roles={duelist:'突破',controller:'烟位',initiator:'信息与协同',sentinel:'防线'};
+ const ended=m=>!!m&&Math.max(m.home,m.away)>=13&&Math.abs(m.home-m.away)>=2;
+ function task(s){const route=N.resume(s),m=s.liveMaps?.[s.map],stage=s.stageRecords?.find(r=>r.phase===s.phase);let label='进入备战',reason='确认地图、特工与攻防方案',go=route,action='';
+  if(s.run==='none'){label='选择主队，开始征战';go='campaign/start';reason='先选赛事席位，再开三个初始包';}
+  else if(s.run==='finished'){label='开始新的赛年';go='campaign/start';reason='保留已获得的收藏与生涯积累，重新组队';}
+  else if(stage){label=s.phase===7?'查看赛年收获':'查看本阶段结算';go=s.phase===7?'campaign/year-result':'campaign/stage-result';reason='本阶段已结算，确认成绩与后续资格';}
+  else if(s.run==='draft'){label=route.endsWith('confirm')?'确认五人阵容':route.endsWith('pick')?'继续选人 · '+s.lineup.length+'/5':route.endsWith('compare')?'比较三包，选择一个':'继续揭晓 · '+s.opened.reduce((a,b)=>a+b,0)+'/30';reason=route.endsWith('confirm')?'查看阵容取舍后，确认本赛年五人首发':'选一个整包，从十张中组成五人，无替补';}
+  else if(s.run==='reinforce'){go=s.reinforce?.length===5&&s.reinforcementOpened===10?'campaign/reinforce-review':'campaign/reinforce';label=go.endsWith('review')?'查看换人前后对照':s.reinforcementOpened<10?'继续揭晓补强包':'选择补强队员';reason='确认后离队者不可换回，先比较能力与磨合';}
+  else if(s.completedMatch){go='campaign/series-result';label='查看系列赛结果';reason='本场赛果已记录，接下来确认后续赛程';}
+  else if(s.run==='match'&&ended(m)){go='campaign/map-result';label='查看本图结果';reason='本图结束，确认系列比分与下一张地图';}
+  else if(s.adjusting){go='campaign/tactics';label='继续调整攻防方案';reason='当前仍是草案；应用后才用于后续比分';}
+  else if(s.coachWindow){go='';action='resume-from-home';label=s.coachWindow==='half'?'保留战术，开始下半场':'保留战术，继续比赛';reason=s.coachWindow==='half'?'半场结束，下一分交换攻防':s.coachWindow==='opponent'?'对方请求战术暂停，双方均可调整':'我方战术暂停，双方均可调整';}
+  else if(s.run==='match'){go='campaign/match';label='继续第 '+((s.round||0)+1)+' 分';reason='已完成 '+(s.round||0)+' 分，队员自行执行，执教窗口可调整';}
+  else if(route==='campaign/bp'){label='完成地图禁选 · '+s.bp.length+'/7';reason='按顺位确认本场地图与开局攻防';}
+  else if(route==='campaign/agents'){label='完成本图特工搭配';reason='还需确认五位队员的特工，本图开始后不能换';}
+  return {label,reason,go,action,map:m?.mapId||null,score:m?[m.home,m.away]:null,series:(s.liveMaps||[]).reduce((n,m)=>{if(ended(m))n[m.home>m.away?0:1]++;return n;},[0,0])};
+ }
+ function backup(e){const s=e?.state||{},m=s.liveMaps?.[s.map];return {version:e?.clientVersion||'旧版本（未记录）',year:s.year,phase:s.phase,club:s.club||'',opponent:s.opponentId||s.stageSession?.pending?.a&&[s.stageSession.pending.a,s.stageSession.pending.b].find(t=>t!==s.club)||'',map:m?.mapId||null,score:m?[m.home,m.away]:null,round:s.round||0,time:Number.isFinite(e?.updatedAt)?e.updatedAt:null};}
+ function changes(before,after){return ['attack','defense'].map(side=>({side,from:before?.[side]||[],to:after?.[side]||[],changed:JSON.stringify(before?.[side]||[])!==JSON.stringify(after?.[side]||[])}));}
+ function agentReasons(ps,picks,map,previous={}){const chosen=ps.map(p=>picks[p.name+'-'+p.tier+(p.cut?'-'+p.cut:'')]||picks[p.cardId]||picks[p.name]),count={};for(const a of chosen.filter(Boolean))count[A.role(a)]=(count[A.role(a)]||0)+1;
+  return ps.map((p,i)=>{const agent=chosen[i];if(!agent)return {name:p.name,agent:null,benefit:'待选择',cost:''};const key=p.name+'-'+p.tier+(p.cut?'-'+p.cut:''),best=Object.values(A.roles).flat().sort((a,b)=>A.fit(p,b,map)-A.fit(p,a,map))[0],owner=ps.find((q,j)=>j!==i&&chosen[j]===best),benefits=[];if(A.signature(p)===agent)benefits.push('使用招牌');else if(p.agents?.includes(agent))benefits.push('使用擅长');if(A.fit(p,agent,map)-A.fit(p,agent,'unknown')>3.9)benefits.push('地图适配较好');if(count[A.role(agent)]===1)benefits.push('补足'+roles[A.role(agent)]);let cost='';if(A.fit(p,best,map)>A.fit(p,agent,map)+.01)cost=owner?'个人首选 '+best+' 已分配给 '+owner.name:'为职责覆盖让出个人适配最高的 '+best;if(!p.agents?.includes(agent))cost+=(cost?'；':'')+'当前特工不在擅长池';return {name:p.name,agent,from:previous[key]||'',benefit:benefits.join(' · ')||'保留队伍职责',cost:cost||'未见个人适配让步；仍需队员在场执行'};});
+ }
+ function lineupTradeoff(ps){const v=P.summary(ps),teams={};for(const p of ps)teams[p.team]=(teams[p.team]||0)+1;return {missing:v.missing,coverage:v.coverage,sameTeam:Object.entries(teams).filter(([,n])=>n>1).map(([team,n])=>({team,n})),ability:v.abilities};}
+ function feedback(m,change){if(!change)return null;const before=(m?.rounds||[]).filter(r=>r.number<=change.afterRound).slice(-3),after=(m?.rounds||[]).filter(r=>r.number>change.afterRound).slice(0,3);const count=rs=>rs.reduce((out,r)=>{const k=(r.side==='attack'?'进攻':'防守')+' · '+r.ownTactic;out[k]=(out[k]||0)+1;return out;},{});return {afterRound:change.afterRound,kind:change.kind,before:count(before),after:count(after),seen:after.length,wins:after.filter(r=>r.win).length,losses:after.filter(r=>!r.win).length,changed:changes(change.from,change.to).filter(c=>c.changed).map(c=>c.side),switched:!!before.length&&!!after.length&&before.at(-1).side!==after[0].side};}
+ function recentChange(s){const rows=(s.coachingChanges||[]).filter(c=>c.year===s.year&&c.match===s.matchToken&&c.map===s.map);return rows.filter(c=>changes(c.from,c.to).some(x=>x.changed)).at(-1)||rows.at(-1)||null;}
+ return {roles,ended,task,backup,changes,agentReasons,lineupTradeoff,feedback,recentChange};
+});
