@@ -27,3 +27,7 @@
 ## 实际手机验收边界
 
 已完成桌面Chrome手机尺寸与旧档流程检查；真实手机PWA升级、软键盘、安全区、屏幕阅读器和系统强杀期间写盘仍需真机体验。无需清档，进入设置可先导出备份，并检查页头版本为v0.7。
+
+## 发布
+
+2026-10-14发布v0.7，提交 `3b9d5a6`，GitHub Actions [38432329707](https://github.com/gene-sophen/val-manager/actions/runs/38432329707)成功。线上8项核心资源与本地逐项一致，缓存名为 `vm-ui-complete-v07`；结果见 `2026-10-13-player-journeys/online-assets.json`。

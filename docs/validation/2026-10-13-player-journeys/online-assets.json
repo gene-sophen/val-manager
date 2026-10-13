@@ -1,0 +1,55 @@
+{
+  "releaseCommit": "3b9d5a6261aade4107af64de49409e90fcf2eaa8",
+  "actionsRun": 38432329707,
+  "version": "v0.7",
+  "assets": [
+    {
+      "file": "设计文档/UI原型/complete-prototype-01/index.html",
+      "same": true,
+      "sha256": "fe6c66a04fc91f5e0f7b90935637f249d0f238620156306392efe6be2fa45604",
+      "bytes": 8130
+    },
+    {
+      "file": "设计文档/UI原型/complete-prototype-01/app.js",
+      "same": true,
+      "sha256": "32702063d57f8363698a1c26d74f225a571b04f167d904e2bf9e9065aafd4bf4",
+      "bytes": 72188
+    },
+    {
+      "file": "设计文档/UI原型/complete-prototype-01/journey-model.js",
+      "same": true,
+      "sha256": "c76b33dd32b794846adfea6a537e61518aaaf0dd09e8a0f4b62dee02ef45472c",
+      "bytes": 6548
+    },
+    {
+      "file": "设计文档/UI原型/complete-prototype-01/journey-views.js",
+      "same": true,
+      "sha256": "13e7fa096e22ae1e4a94a75dac0261bd1bdde5e8d37a6f4c8a51c8931f2519e6",
+      "bytes": 10413
+    },
+    {
+      "file": "设计文档/UI原型/complete-prototype-01/design-system.css",
+      "same": true,
+      "sha256": "e185356a1dfb4629d299b7097ab1545d7e84110d653aed76b12bbe272981c0ca",
+      "bytes": 36731
+    },
+    {
+      "file": "设计文档/UI原型/complete-prototype-01/sw.js",
+      "same": true,
+      "sha256": "12bbb188cb50ee61ccff8c70661a116b545dca1c8723ddd1584a877a62dde0c0",
+      "bytes": 8312
+    },
+    {
+      "file": "设计文档/UI原型/complete-prototype-01/round-worker.js",
+      "same": true,
+      "sha256": "ca87236ddea5c022780df53b02c7d4d8e898ba2edd0450678341c2797d41f85b",
+      "bytes": 1115
+    },
+    {
+      "file": "游戏/career-store.js",
+      "same": true,
+      "sha256": "ba0e9185a155fb4f2e8eb8ae7889758eebc5af030c8d18515b3a3ea5ad68ea63",
+      "bytes": 13689
+    }
+  ]
+}
