@@ -1,0 +1,58 @@
+[
+  {
+    "source": "设计文档/UI原型/共享资源/art-direction-01/players.js",
+    "alias": "设计文档/UI原型/art-direction-01/players.js"
+  },
+  {
+    "source": "设计文档/UI原型/共享资源/art-direction-03/cards.css",
+    "alias": "设计文档/UI原型/art-direction-03/cards.css"
+  },
+  {
+    "source": "设计文档/UI原型/共享资源/art-direction-03/card-renderer.js",
+    "alias": "设计文档/UI原型/art-direction-03/card-renderer.js"
+  },
+  {
+    "source": "设计文档/UI原型/共享资源/art-direction-03/pack-samples.js",
+    "alias": "设计文档/UI原型/art-direction-03/pack-samples.js"
+  },
+  {
+    "source": "设计文档/UI原型/共享资源/art-direction-03/collection-samples.js",
+    "alias": "设计文档/UI原型/art-direction-03/collection-samples.js"
+  },
+  {
+    "source": "设计文档/UI原型/共享资源/art-direction-03/fonts/NotoSansSC-ui.woff",
+    "alias": "设计文档/UI原型/art-direction-03/fonts/NotoSansSC-ui.woff"
+  },
+  {
+    "source": "设计文档/UI原型/共享资源/art-direction-03/fonts/Nunito-ui.woff",
+    "alias": "设计文档/UI原型/art-direction-03/fonts/Nunito-ui.woff"
+  },
+  {
+    "source": "设计文档/UI原型/共享资源/layout-rebuild-01/home-balance.css",
+    "alias": "设计文档/UI原型/layout-rebuild-01/home-balance.css"
+  },
+  {
+    "source": "设计文档/UI原型/共享资源/layout-rebuild-01/players-balance.css",
+    "alias": "设计文档/UI原型/layout-rebuild-01/players-balance.css"
+  },
+  {
+    "source": "设计文档/UI原型/共享资源/layout-rebuild-01/fonts/NotoSansSC-layout.woff",
+    "alias": "设计文档/UI原型/layout-rebuild-01/fonts/NotoSansSC-layout.woff"
+  },
+  {
+    "source": "设计文档/UI原型/共享资源/navigation-rebuild-01/navigation.css",
+    "alias": "设计文档/UI原型/navigation-rebuild-01/navigation.css"
+  },
+  {
+    "source": "设计文档/UI原型/共享资源/navigation-rebuild-01/subpages.css",
+    "alias": "设计文档/UI原型/navigation-rebuild-01/subpages.css"
+  },
+  {
+    "source": "设计文档/UI原型/共享资源/navigation-rebuild-01/profiles.css",
+    "alias": "设计文档/UI原型/navigation-rebuild-01/profiles.css"
+  },
+  {
+    "source": "设计文档/UI原型/共享资源/navigation-rebuild-01/fonts/NotoSansSC-nav.woff",
+    "alias": "设计文档/UI原型/navigation-rebuild-01/fonts/NotoSansSC-nav.woff"
+  }
+]

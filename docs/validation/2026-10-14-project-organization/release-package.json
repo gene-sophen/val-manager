@@ -1,0 +1,62 @@
+{
+  "files": 1761,
+  "archivePublished": false,
+  "aliases": [
+    {
+      "alias": "设计文档/UI原型/art-direction-01/players.js",
+      "same": true
+    },
+    {
+      "alias": "设计文档/UI原型/art-direction-03/cards.css",
+      "same": true
+    },
+    {
+      "alias": "设计文档/UI原型/art-direction-03/card-renderer.js",
+      "same": true
+    },
+    {
+      "alias": "设计文档/UI原型/art-direction-03/pack-samples.js",
+      "same": true
+    },
+    {
+      "alias": "设计文档/UI原型/art-direction-03/collection-samples.js",
+      "same": true
+    },
+    {
+      "alias": "设计文档/UI原型/art-direction-03/fonts/NotoSansSC-ui.woff",
+      "same": true
+    },
+    {
+      "alias": "设计文档/UI原型/art-direction-03/fonts/Nunito-ui.woff",
+      "same": true
+    },
+    {
+      "alias": "设计文档/UI原型/layout-rebuild-01/home-balance.css",
+      "same": true
+    },
+    {
+      "alias": "设计文档/UI原型/layout-rebuild-01/players-balance.css",
+      "same": true
+    },
+    {
+      "alias": "设计文档/UI原型/layout-rebuild-01/fonts/NotoSansSC-layout.woff",
+      "same": true
+    },
+    {
+      "alias": "设计文档/UI原型/navigation-rebuild-01/navigation.css",
+      "same": true
+    },
+    {
+      "alias": "设计文档/UI原型/navigation-rebuild-01/subpages.css",
+      "same": true
+    },
+    {
+      "alias": "设计文档/UI原型/navigation-rebuild-01/profiles.css",
+      "same": true
+    },
+    {
+      "alias": "设计文档/UI原型/navigation-rebuild-01/fonts/NotoSansSC-nav.woff",
+      "same": true
+    }
+  ]
+}

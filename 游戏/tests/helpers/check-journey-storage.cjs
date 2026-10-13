@@ -1,6 +1,6 @@
 // Real transactions, with unique test databases only. Never opens the player database.
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),H=require('./live-ui.cjs'),C=require('../../career-store');
-const root=path.resolve(__dirname,'../../..'),out=path.join(root,'docs/validation/2026-10-13-player-journeys');
+const root=path.resolve(__dirname,'../../..'),out=process.env.VM_TEST_OUTPUT||path.join(root,'docs/validation/2026-10-13-player-journeys');
 const x=H.load('journey-storage'),s=H.begin(x);H.veto(x,s);C.contentBridge(x.DEMO,x.PROTOTYPE_RULES,x.CN_CONTENT).freeze(s);
 s.agents[0]=Object.fromEntries(x.FLOW_UI.lineup(s).map((p,i)=>[x.DEMO.key(p),x.AGENT_SELECTION.recommend(x.FLOW_UI.lineup(s),x.CN_CONTENT.agents,x.FLOW_UI.matchMap(s).id).agents[i]]));
 const started=structuredClone(s);started.run='match';x.PROTOTYPE_RULES.startMap(started);started.lastRoute='campaign/match';

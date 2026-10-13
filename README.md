@@ -1,19 +1,45 @@
 # VAL MANAGER
 
-当前玩家可见版本为 **v0.7**。征战首页整合当前任务与具体下一步，特工资料返回保留筛选和位置；战术调整先看对照，再查看随后三分的真实执行。结算先显示结果、赛年影响与下一步；设置提供可辨认的自动保存和开赛前检查点。保留 v0.6 的事务恢复与 Worker 回放校验；资源与 Service Worker 同步更新。
+当前版本 **v0.8**。本版整理目录、共享运行资源与开发工具；玩法和引擎沿用v0.7，现有PWA地址与浏览器存档保持兼容。
 
-组建五人阵容，进行地图BP与战术调整，完成一个电竞赛年。
+[手机试玩](https://gene-sophen.github.io/val-manager/) · [完整目录导航](docs/PROJECT_LAYOUT.md) · [当前玩法设计](设计文档/01_当前设计/征战模式重做定案与待确认事项.md)
 
-手机试玩：[https://gene-sophen.github.io/val-manager/](https://gene-sophen.github.io/val-manager/)。Android可从浏览器菜单安装；iPhone用Safari打开后通过“分享→添加到主屏幕”。首次联网等待资源准备完成再离线使用，建议使用Wi-Fi。
+组建五人阵容，进行地图BP、特工选择与战术调整，完成2026电竞赛年。新征战使用九图空间引擎，观战默认2×；联机和自选组队是后续模式。
 
-当前新赛年使用九图空间引擎，默认观战2×。玩家操作包括选主队、三个初始包逐张揭晓、选一包选五人、赛前地图/特工/战术、暂停/中场和两次补强。进行中的旧赛年保留原模型。
+| 目录 | 内容 |
+|---|---|
+| `设计文档/UI原型/complete-prototype-01/` | 唯一正式前端与PWA入口 |
+| `设计文档/UI原型/共享资源/` | 正式前端实际使用的卡牌、样式、字体与兼容URL清单 |
+| `游戏/`、`引擎/` | 业务规则、比赛引擎与测试；游戏开发工具统一在 `游戏/tools/` |
+| `设计文档/` | 当前玩法、专题设计及选手卡资料 |
+| `数据源/`、`素材库/` | 制作数据、原始素材与优化资源 |
+| `docs/` | 工程导航、计划、用户反馈与验收证据 |
+| `归档/` | 旧UI、旧引擎演示、历史维护脚本及被替代的说明 |
+| `.artifacts/` | 本地发布副本、未发布诊断与整理日志，不提交Git |
+| `视频/` | 独立视频工作区；大体积制作依赖与成片留在本机 |
 
-存档保存在当前设备和站点的浏览器内，不会随GitHub同步；换设备可在设置导出/导入备份。关闭或清除浏览器数据前请自行备份。
+## 本地运行
 
-本地启动静态服务器后打开`设计文档/UI原型/complete-prototype-01/index.html`。运行`node 游戏/build-spatial.cjs`重建同源引擎，`node 游戏/build-pages.cjs`生成独立`_site`发布目录；目录已存在时构建拒绝覆盖。GitHub Actions在main更新后校验并部署GitHub Pages，只发布运行资源，不发布测试存档、诊断输出或原始数据网页。
+在项目根目录执行：
 
-设计与范围见[当前设计](设计文档/01_当前设计/当前完成情况与剩余工作.md)，工程闭环见[验收记录](docs/validation/2026-10-08-spatial-campaign.md)。自选组队与联机是后续模式；部分海外数据代理、长期阵容平衡与续局重演性能仍待迭代。
+```powershell
+node 游戏/tools/build-spatial.cjs
+python -m http.server 8765 --bind 127.0.0.1
+```
 
-2026-10-09手机版更新：三栏导航、两列BP与明确选边、WebP小尺寸资源、同步品质揭晓、关键分沙盘/普通分战报、单分推进及保存后安全更新。398项回归通过，见[手机验收](docs/validation/2026-10-09-mobile.md)。
+打开 `http://127.0.0.1:8765/设计文档/UI原型/complete-prototype-01/`。正式入口保留原路径，避免目录整理改变已安装PWA的地址和存档来源。
 
-2026-10-14 更新：v0.7当前任务与决策反馈，完整旅程和恢复检查见[验收记录](docs/validation/2026-10-14-player-journeys.md)。
+## 构建与验证
+
+```powershell
+node scripts/check-project-layout.cjs
+node 游戏/tools/build-pages.cjs
+$tests = @(rg --files 游戏/tests 引擎/tests -g '*.test.js')
+node --test @tests
+```
+
+默认发布输出为 `.artifacts/releases/current/`。构建拒绝覆盖已有目录；需要再次构建时指定新的输出路径，例如 `node 游戏/tools/build-pages.cjs .artifacts/releases/v08-check`。GitHub Actions自动构建并部署main，只发布正式运行资源与兼容资源URL。
+
+存档在当前设备和站点的浏览器内，不随GitHub同步。换设备可在设置导出/导入备份。手机仍显示旧版时使用“设置→检查更新→保存并更新”。
+
+本轮整理与验证见[目录整理验收](docs/validation/reports/2026-10-14-project-organization.md)。之前的[玩家旅程验收](docs/validation/reports/2026-10-14-player-journeys.md)保留作为v0.7依据。

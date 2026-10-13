@@ -1,6 +1,6 @@
 // Three complete journeys in isolated real IndexedDB/Chrome contexts; no default database.
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict'),C=require('../../career-store');
-const root=path.resolve(__dirname,'../../..'),dir=path.join(root,'设计文档/UI原型/complete-prototype-01'),out=path.join(root,'docs/validation/2026-10-13-player-journeys');fs.mkdirSync(out,{recursive:true});
+const root=path.resolve(__dirname,'../../..'),dir=path.join(root,'设计文档/UI原型/complete-prototype-01'),out=process.env.VM_TEST_OUTPUT||path.join(root,'docs/validation/2026-10-13-player-journeys');fs.mkdirSync(out,{recursive:true});
 const {chromium}=require(path.join(process.env.VM_TEST_NODE_MODULES||'C:/Users/13670/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules','playwright'));
 let browser;const checks=[],errors=[],databaseNames=[];
 function fixture(){const name='val-manager-test-journey-'+crypto.randomUUID();let html=fs.readFileSync(path.join(dir,'index.html'),'utf8');html=html.replace('<head>','<head><meta name="career-test-database" content="'+name+'"><base href="/设计文档/UI原型/complete-prototype-01/">');fs.writeFileSync(path.join(root,'游戏/out/career-browser-check.html'),html);databaseNames.push(name);return name;}

@@ -1,0 +1,27 @@
+# 号角队伍页「选手名单」按赛事统计；2026-10-03 读取；冒号后为出场回合。
+TH|VCT 2026: EMEA联赛 S2|Wo0t:371,RieNs:371,Koshmaras:371,benjyfishy:371,Boo:371
+EDG|VCT 2026: 上海全球冠军赛|ZmjjKK:76,nobody:76,Smoggy:76,stew:76,CHICHOO:76
+FPX|VCT 2026: CN联赛 S2|Setrod:438,AAAAY:438,kovaQ:438,Xlele:438,coconut:438
+NOVA|VCT 2026: CN联赛 S2|swagzor:494,GuanG:494,cb:494,Ezeir:494,qiutiaN:494
+TYL|VCT 2026: 上海全球冠军赛|SLOWLY:91,Splash:91,Scales:91,Erv:91,SiuFatBB:91
+TE|VCT 2026: CN联赛 S2|Kai:675,DeLb:675,FengF:675,Fkey:675,LuoK1ng:675
+BLG|VCT 2026: CN联赛 S2|whzy:591,Knight:591,Nephh:591,Rushia:591,FT:591
+DRG|VCT 2026: CN联赛 S2|vo0kashu:561,Life:561,SpiritZ1:561,Nicc:561,Verse:561
+XLG|VCT 2026: 上海全球冠军赛|Rarga:83,lysoar:83,WsLeo:83,happywei:83,NoMan:83
+JDG|VCT 2026: 上海全球冠军赛|zhe:95,BerLIN:95,jkuro:95,crownfisher:95,Yuicaw:95
+WOL|VCT 2026: CN联赛 S2|glacier:519,Spring:519,Yosemite:519,Deryeon:519,aluba:519
+TEC|VCT 2026: CN联赛 S2|ra1ny:433,Dynamite:678,lucas:678,Coco:678,Spitfires:245,Haodong:678
+KC|VCT 2026: EMEA联赛 S2|LêwN:456,N4RRATE:456,avez:456,dos9:456,SUYGETSU:456
+TL|VCT 2026: 上海全球冠军赛|kamo:116,GSR:116,nAts:116,Kicks:116,trexx:116
+NS|VCT 2026: 上海全球冠军赛|Francis:89,xross:89,Rb:89,Ivy:89,Dambi:89
+T1|VCT 2026: 上海全球冠军赛|BuZz:101,Meteor:101,Munchkin:101,iZu:101,stax:101
+GEN|VCT 2026: 太平洋联赛 S2|t3xture:421,Ash:421,Raxcal:421,Karon:421,Efina:421
+VL|VCT 2026: 太平洋联赛 S2|Foxy9:446,XuNa:446,Zexy:446,oonzmlp:446,Klaus:199,C1ndeR:247
+NAVI|VCT 2026: EMEA联赛 S2|hiro:400,Ruxic:400,ExiT:400,Kolosha:72,chloric:400,CyvOph:328
+FNC|VCT 2026: EMEA联赛 S2|Alfajer:398,kaajak:398,Cloud:398,crashies:398,Boaster:398
+KRX|VCT 2026: 太平洋联赛 S2|HYUNMIN:524,yong:328,free1ng:524,BeYN:524,MaKo:524,Flicker:196
+NV|VCT 2026: 美洲联赛 S2|nightz:429,keznit:429,Demon1:429,GLYPH:429,Rossy:429
+RRQ|VCT 2026: 太平洋联赛 S2|Monyet:404,crazyguy:404,Xan:352,Jemkin:342,xffero:404,Kushy:114
+FS|VCT 2026: 太平洋联赛 S2|Primmie:494,JitboyS:494,killua:494,Seph1roth:494,Crws:494
+M8|VCT 2026: EMEA联赛 S2|marteen:367,Minny:367,starxo:367,Proxh:367,H1ber:87,bipo:280
+FUR|VCT 2026: 美洲联赛 S2|eeiu:56,basic:563,Shyy:563,koalanoob:563,artzin:563,C0M:507

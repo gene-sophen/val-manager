@@ -37,7 +37,7 @@ test('content manifest hashes all runtime sources; existing player abilities rem
   for (const [file, hash] of Object.entries(manifest.hashes)) {
     assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(__dirname, '../..', file))).digest('hex'), hash, file);
   }
-  const baseline = require('../../docs/validation/2026-10-03-rebuild-baseline.json');
+  const baseline = require('../../docs/validation/2026-10-03-baseline/2026-10-03-rebuild-baseline.json');
   for (const file of ['数据源/cards_full.json', '数据源/diamond_cards.json']) assert.equal(manifest.hashes[file], baseline.hashes[file]);
 });
 test('a run freezes pool and odds so later catalogue edits cannot alter its reinforcement draws', () => {

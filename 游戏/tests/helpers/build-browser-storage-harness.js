@@ -1,7 +1,7 @@
 // Browser-only IndexedDB integration checks. Uses a fresh, isolated database per run.
 const fs = require('node:fs');
 const path = require('node:path');
-const { bundle } = require('../../build_web');
+const { bundle } = require('../../tools/build_web');
 const output = path.join(__dirname, '../../out/storage-check.html');
 const script = `
 const { indexedDBStore } = __require('', '游戏/storage.js');

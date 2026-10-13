@@ -1,0 +1,5073 @@
+{
+  "contentVersion": "review-2026-10-03-v1",
+  "status": "design_approved_not_runtime_config",
+  "capturedOn": "2026-10-03",
+  "timezone": "Asia/Shanghai",
+  "rankingDisplayedUpdate": "2026.10.03 06:09",
+  "rankingSource": "https://web.haojiao.cc/wiki/power_ranking/t2Ud5pOQlscKLbRC",
+  "cardSourceHashes": {
+    "数据源/cards_full.json": "42d594d24d28a142c3175c6cc3abbafe5dd31cb02a3e426bfce64a0a515d903f",
+    "数据源/diamond_cards.json": "26885c6c8569cb09688315df0659a90cfcef3be3671c8cd47f9e568f99a569fe"
+  },
+  "notes": [
+    "地图近三月窗口没有明确起止日，不伪造日期；混合赛事和阵容，只作覆盖与校准素材。",
+    "五人提议已获用户批准，但不是全部已核实首发；proposalBasis 保留赛事依据与推定的区别。",
+    "其他赛区挑战者入围名单未包含，50队不是完整全球资格赛数据。",
+    "未调用任何运行时导入；固定选手三维不修改。"
+  ],
+  "mapCoverage": {
+    "Breeze": {
+      "teams": 42,
+      "cnTeams": 10,
+      "teamMapAppearances": 131
+    },
+    "Sunset": {
+      "teams": 50,
+      "cnTeams": 12,
+      "teamMapAppearances": 225
+    },
+    "Ascent": {
+      "teams": 48,
+      "cnTeams": 12,
+      "teamMapAppearances": 190
+    },
+    "Lotus": {
+      "teams": 47,
+      "cnTeams": 12,
+      "teamMapAppearances": 199
+    },
+    "Haven": {
+      "teams": 46,
+      "cnTeams": 10,
+      "teamMapAppearances": 188
+    },
+    "Summit": {
+      "teams": 49,
+      "cnTeams": 12,
+      "teamMapAppearances": 167
+    },
+    "Split": {
+      "teams": 48,
+      "cnTeams": 12,
+      "teamMapAppearances": 182
+    },
+    "Abyss": {
+      "teams": 22,
+      "cnTeams": 5,
+      "teamMapAppearances": 40
+    },
+    "Fracture": {
+      "teams": 4,
+      "cnTeams": 0,
+      "teamMapAppearances": 4
+    }
+  },
+  "teams": [
+    {
+      "code": "EDG",
+      "region": "CN",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/5gjweC11brGhuRBR",
+      "sourceListedPlayers": [
+        "stew",
+        "Jieni7",
+        "Smoggy",
+        "ZmjjKK",
+        "nobody",
+        "CHICHOO"
+      ],
+      "rankingScore": 57.16,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 6,
+          "w": 3,
+          "l": 3
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 6,
+          "w": 3,
+          "l": 3
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 5,
+          "w": 2,
+          "l": 3
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 5,
+          "w": 1,
+          "l": 4
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 4,
+          "w": 3,
+          "l": 1
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 3,
+          "w": 0,
+          "l": 3
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: 上海全球冠军赛",
+        "players": [
+          {
+            "name": "ZmjjKK",
+            "rounds": 76
+          },
+          {
+            "name": "nobody",
+            "rounds": 76
+          },
+          {
+            "name": "Smoggy",
+            "rounds": 76
+          },
+          {
+            "name": "stew",
+            "rounds": 76
+          },
+          {
+            "name": "CHICHOO",
+            "rounds": 76
+          }
+        ]
+      },
+      "proposedFive": [
+        "ZmjjKK",
+        "nobody",
+        "Smoggy",
+        "stew",
+        "CHICHOO"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Jieni7"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": [
+        {
+          "player": "stew",
+          "cardTeam": "JDG",
+          "opponentTeam": "EDG"
+        }
+      ]
+    },
+    {
+      "code": "NOVA",
+      "region": "CN",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/lAvuB3JCl3CVSHmt",
+      "sourceListedPlayers": [
+        "cb",
+        "swagzor",
+        "qiutiaN",
+        "Ezeir",
+        "GuanG",
+        "kodeth",
+        "Green"
+      ],
+      "rankingScore": 68.66,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 6,
+          "w": 3,
+          "l": 3
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 5,
+          "w": 3,
+          "l": 2
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 4,
+          "w": 4,
+          "l": 0
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 4,
+          "w": 3,
+          "l": 1
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: CN联赛 S2",
+        "players": [
+          {
+            "name": "swagzor",
+            "rounds": 494
+          },
+          {
+            "name": "GuanG",
+            "rounds": 494
+          },
+          {
+            "name": "cb",
+            "rounds": 494
+          },
+          {
+            "name": "Ezeir",
+            "rounds": 494
+          },
+          {
+            "name": "qiutiaN",
+            "rounds": 494
+          }
+        ]
+      },
+      "proposedFive": [
+        "swagzor",
+        "GuanG",
+        "cb",
+        "Ezeir",
+        "qiutiaN"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "kodeth",
+        "Green"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [
+        "kodeth"
+      ],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "TYL",
+      "region": "CN",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/UyZ5hCVrWnSbxZMJ",
+      "sourceListedPlayers": [
+        "SiuFatBB",
+        "Erv",
+        "Splash",
+        "Scales",
+        "SLOWLY",
+        "xihe"
+      ],
+      "rankingScore": 68.02,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 8,
+          "w": 5,
+          "l": 3
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 7,
+          "w": 6,
+          "l": 1
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 7,
+          "w": 5,
+          "l": 2
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 6,
+          "w": 2,
+          "l": 4
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 5,
+          "w": 2,
+          "l": 3
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: 上海全球冠军赛",
+        "players": [
+          {
+            "name": "SLOWLY",
+            "rounds": 91
+          },
+          {
+            "name": "Splash",
+            "rounds": 91
+          },
+          {
+            "name": "Scales",
+            "rounds": 91
+          },
+          {
+            "name": "Erv",
+            "rounds": 91
+          },
+          {
+            "name": "SiuFatBB",
+            "rounds": 91
+          }
+        ]
+      },
+      "proposedFive": [
+        "SLOWLY",
+        "Splash",
+        "Scales",
+        "Erv",
+        "SiuFatBB"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "xihe"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [
+        "xihe"
+      ],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "AG",
+      "region": "CN",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/f9evIvOaEpLosAGm",
+      "sourceListedPlayers": [
+        "Bai",
+        "f4ngeer",
+        "iamgrq",
+        "Shr1mp",
+        "K1ra"
+      ],
+      "rankingScore": 62.21,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 8,
+          "w": 4,
+          "l": 4
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 8,
+          "w": 3,
+          "l": 5
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 6,
+          "w": 4,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 6,
+          "w": 3,
+          "l": 3
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 5,
+          "w": 2,
+          "l": 3
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "Bai",
+        "f4ngeer",
+        "iamgrq",
+        "Shr1mp",
+        "K1ra"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "TE",
+      "region": "CN",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/oGJeZMVL7VeCbo5q",
+      "sourceListedPlayers": [
+        "Toosy",
+        "Abo",
+        "DeLb",
+        "Fkey",
+        "LuoK1ng",
+        "Kai",
+        "FengF"
+      ],
+      "rankingScore": 59.99,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 10,
+          "w": 5,
+          "l": 5
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 6,
+          "w": 2,
+          "l": 4
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 5,
+          "w": 3,
+          "l": 2
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: CN联赛 S2",
+        "players": [
+          {
+            "name": "Kai",
+            "rounds": 675
+          },
+          {
+            "name": "DeLb",
+            "rounds": 675
+          },
+          {
+            "name": "FengF",
+            "rounds": 675
+          },
+          {
+            "name": "Fkey",
+            "rounds": 675
+          },
+          {
+            "name": "LuoK1ng",
+            "rounds": 675
+          }
+        ]
+      },
+      "proposedFive": [
+        "Kai",
+        "DeLb",
+        "FengF",
+        "Fkey",
+        "LuoK1ng"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Toosy",
+        "Abo"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [
+        "Toosy"
+      ],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "FPX",
+      "region": "CN",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/yhdMO1gwv1gppU9q",
+      "sourceListedPlayers": [
+        "coconut",
+        "Xlele",
+        "Setrod",
+        "AAAAY"
+      ],
+      "rankingScore": 59.95,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 8,
+          "w": 4,
+          "l": 4
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 7,
+          "w": 4,
+          "l": 3
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 6,
+          "w": 3,
+          "l": 3
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 6,
+          "w": 2,
+          "l": 4
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 3,
+          "w": 3,
+          "l": 0
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 3,
+          "w": 3,
+          "l": 0
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: CN联赛 S2",
+        "players": [
+          {
+            "name": "Setrod",
+            "rounds": 438
+          },
+          {
+            "name": "AAAAY",
+            "rounds": 438
+          },
+          {
+            "name": "kovaQ",
+            "rounds": 438
+          },
+          {
+            "name": "Xlele",
+            "rounds": 438
+          },
+          {
+            "name": "coconut",
+            "rounds": 438
+          }
+        ]
+      },
+      "proposedFive": [
+        "Setrod",
+        "AAAAY",
+        "kovaQ",
+        "Xlele",
+        "coconut"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [
+        "kovaQ"
+      ],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "XLG",
+      "region": "CN",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/N9vFlF5iWKDVEnBn",
+      "sourceListedPlayers": [
+        "WsLeo",
+        "lysoar",
+        "NoMan",
+        "happywei",
+        "Rarga",
+        "Sharks"
+      ],
+      "rankingScore": 59.2,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 8,
+          "w": 3,
+          "l": 5
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 6,
+          "w": 3,
+          "l": 3
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 4,
+          "w": 3,
+          "l": 1
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: 上海全球冠军赛",
+        "players": [
+          {
+            "name": "Rarga",
+            "rounds": 83
+          },
+          {
+            "name": "lysoar",
+            "rounds": 83
+          },
+          {
+            "name": "WsLeo",
+            "rounds": 83
+          },
+          {
+            "name": "happywei",
+            "rounds": 83
+          },
+          {
+            "name": "NoMan",
+            "rounds": 83
+          }
+        ]
+      },
+      "proposedFive": [
+        "Rarga",
+        "lysoar",
+        "WsLeo",
+        "happywei",
+        "NoMan"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Sharks"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "BLG",
+      "region": "CN",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/gdqnSUpLlx4iV6au",
+      "sourceListedPlayers": [
+        "FT",
+        "Rushia",
+        "Nephh",
+        "Knight",
+        "whzy",
+        "bud",
+        "yilai"
+      ],
+      "rankingScore": 58.18,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 6,
+          "w": 4,
+          "l": 2
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 6,
+          "w": 3,
+          "l": 3
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 6,
+          "w": 3,
+          "l": 3
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 6,
+          "w": 1,
+          "l": 5
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: CN联赛 S2",
+        "players": [
+          {
+            "name": "whzy",
+            "rounds": 591
+          },
+          {
+            "name": "Knight",
+            "rounds": 591
+          },
+          {
+            "name": "Nephh",
+            "rounds": 591
+          },
+          {
+            "name": "Rushia",
+            "rounds": 591
+          },
+          {
+            "name": "FT",
+            "rounds": 591
+          }
+        ]
+      },
+      "proposedFive": [
+        "whzy",
+        "Knight",
+        "Nephh",
+        "Rushia",
+        "FT"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "bud",
+        "yilai"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "DRG",
+      "region": "CN",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/JFwJZHzu4mpHkPGP",
+      "sourceListedPlayers": [
+        "Verse",
+        "Life",
+        "SpiritZ1",
+        "vo0kashu",
+        "Nicc",
+        "Flex1n"
+      ],
+      "rankingScore": 58.07,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 7,
+          "w": 3,
+          "l": 4
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 5,
+          "w": 1,
+          "l": 4
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: CN联赛 S2",
+        "players": [
+          {
+            "name": "vo0kashu",
+            "rounds": 561
+          },
+          {
+            "name": "Life",
+            "rounds": 561
+          },
+          {
+            "name": "SpiritZ1",
+            "rounds": 561
+          },
+          {
+            "name": "Nicc",
+            "rounds": 561
+          },
+          {
+            "name": "Verse",
+            "rounds": 561
+          }
+        ]
+      },
+      "proposedFive": [
+        "vo0kashu",
+        "Life",
+        "SpiritZ1",
+        "Nicc",
+        "Verse"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Flex1n"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "JDG",
+      "region": "CN",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/S594hqSJBYBGbfEE",
+      "sourceListedPlayers": [
+        "BerLIN",
+        "crownfisher",
+        "zhe",
+        "Yuicaw",
+        "jkuro",
+        "kklin"
+      ],
+      "rankingScore": 56.68,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 8,
+          "w": 3,
+          "l": 5
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 7,
+          "w": 3,
+          "l": 4
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 7,
+          "w": 2,
+          "l": 5
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 6,
+          "w": 5,
+          "l": 1
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 6,
+          "w": 2,
+          "l": 4
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: 上海全球冠军赛",
+        "players": [
+          {
+            "name": "zhe",
+            "rounds": 95
+          },
+          {
+            "name": "BerLIN",
+            "rounds": 95
+          },
+          {
+            "name": "jkuro",
+            "rounds": 95
+          },
+          {
+            "name": "crownfisher",
+            "rounds": 95
+          },
+          {
+            "name": "Yuicaw",
+            "rounds": 95
+          }
+        ]
+      },
+      "proposedFive": [
+        "zhe",
+        "BerLIN",
+        "jkuro",
+        "crownfisher",
+        "Yuicaw"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "kklin"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [
+        "kklin"
+      ],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "WOL",
+      "region": "CN",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/U8rAVCnW5tZrsNMs",
+      "sourceListedPlayers": [
+        "Deryeon",
+        "aluba",
+        "glacier",
+        "Yosemite",
+        "Spring",
+        "nothing"
+      ],
+      "rankingScore": 52.99,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 6,
+          "w": 3,
+          "l": 3
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 5,
+          "w": 1,
+          "l": 4
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: CN联赛 S2",
+        "players": [
+          {
+            "name": "glacier",
+            "rounds": 519
+          },
+          {
+            "name": "Spring",
+            "rounds": 519
+          },
+          {
+            "name": "Yosemite",
+            "rounds": 519
+          },
+          {
+            "name": "Deryeon",
+            "rounds": 519
+          },
+          {
+            "name": "aluba",
+            "rounds": 519
+          }
+        ]
+      },
+      "proposedFive": [
+        "glacier",
+        "Spring",
+        "Yosemite",
+        "Deryeon",
+        "aluba"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "nothing"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [
+        "nothing"
+      ],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "TEC",
+      "region": "CN",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/chUmTusw7Dvop1gn",
+      "sourceListedPlayers": [
+        "ra1ny",
+        "Spitfires",
+        "lucas",
+        "Coco",
+        "Dynamite",
+        "Haodong"
+      ],
+      "rankingScore": 52.86,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 9,
+          "w": 5,
+          "l": 4
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 8,
+          "w": 0,
+          "l": 8
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 5,
+          "w": 4,
+          "l": 1
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 5,
+          "w": 3,
+          "l": 2
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 5,
+          "w": 2,
+          "l": 3
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: CN联赛 S2",
+        "players": [
+          {
+            "name": "ra1ny",
+            "rounds": 433
+          },
+          {
+            "name": "Dynamite",
+            "rounds": 678
+          },
+          {
+            "name": "lucas",
+            "rounds": 678
+          },
+          {
+            "name": "Coco",
+            "rounds": 678
+          },
+          {
+            "name": "Spitfires",
+            "rounds": 245
+          },
+          {
+            "name": "Haodong",
+            "rounds": 678
+          }
+        ]
+      },
+      "proposedFive": [
+        "Dynamite",
+        "lucas",
+        "Coco",
+        "Haodong",
+        "ra1ny"
+      ],
+      "proposalBasis": "赛事轮换推定",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Spitfires"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "100T",
+      "region": "AMER",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/mgun17auDGE97UBs",
+      "sourceListedPlayers": [
+        "bang",
+        "Timotino",
+        "vora",
+        "Cryocells",
+        "Asuna"
+      ],
+      "rankingScore": 95.56,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 6,
+          "w": 4,
+          "l": 2
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 5,
+          "w": 5,
+          "l": 0
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 5,
+          "w": 4,
+          "l": 1
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 5,
+          "w": 3,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 4,
+          "w": 3,
+          "l": 1
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "fracture",
+          "map": "Fracture",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "bang",
+        "Timotino",
+        "vora",
+        "Cryocells",
+        "Asuna"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "NRG",
+      "region": "AMER",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/eYqPeoxSyeDFNw4D",
+      "sourceListedPlayers": [
+        "Keiko",
+        "skuba",
+        "brawk",
+        "mada",
+        "Ethan"
+      ],
+      "rankingScore": 91.61,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 8,
+          "w": 6,
+          "l": 2
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 7,
+          "w": 6,
+          "l": 1
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 6,
+          "w": 5,
+          "l": 1
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 5,
+          "w": 5,
+          "l": 0
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 5,
+          "w": 0,
+          "l": 5
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 3,
+          "w": 0,
+          "l": 3
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        },
+        {
+          "mapId": "fracture",
+          "map": "Fracture",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "Keiko",
+        "skuba",
+        "brawk",
+        "mada",
+        "Ethan"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "KC",
+      "region": "EMEA",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/jRB3gUcjCdqiSyU8",
+      "sourceListedPlayers": [
+        "N4RRATE",
+        "LêwN",
+        "dos9",
+        "SUYGETSU",
+        "avez",
+        "Sheydos"
+      ],
+      "rankingScore": 87.83,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 6,
+          "w": 4,
+          "l": 2
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 4,
+          "w": 4,
+          "l": 0
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 4,
+          "w": 4,
+          "l": 0
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 4,
+          "w": 3,
+          "l": 1
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "fracture",
+          "map": "Fracture",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: EMEA联赛 S2",
+        "players": [
+          {
+            "name": "LêwN",
+            "rounds": 456
+          },
+          {
+            "name": "N4RRATE",
+            "rounds": 456
+          },
+          {
+            "name": "avez",
+            "rounds": 456
+          },
+          {
+            "name": "dos9",
+            "rounds": 456
+          },
+          {
+            "name": "SUYGETSU",
+            "rounds": 456
+          }
+        ]
+      },
+      "proposedFive": [
+        "LêwN",
+        "N4RRATE",
+        "avez",
+        "dos9",
+        "SUYGETSU"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Sheydos"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "LEV",
+      "region": "AMER",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/1dcrEchr3gawICgu",
+      "sourceListedPlayers": [
+        "Neon",
+        "blowz",
+        "spike",
+        "Sato",
+        "kiNgg"
+      ],
+      "rankingScore": 86.62,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 5,
+          "w": 5,
+          "l": 0
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "Neon",
+        "blowz",
+        "spike",
+        "Sato",
+        "kiNgg"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "VIT",
+      "region": "EMEA",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/1cy7LHdvCn6CK4kC",
+      "sourceListedPlayers": [
+        "PROFEK",
+        "Jamppi",
+        "Chronicle",
+        "Sayonara",
+        "Derke"
+      ],
+      "rankingScore": 85.53,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 6,
+          "w": 3,
+          "l": 3
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 5,
+          "w": 3,
+          "l": 2
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 3,
+          "w": 3,
+          "l": 0
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "PROFEK",
+        "Jamppi",
+        "Chronicle",
+        "Sayonara",
+        "Derke"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "TL",
+      "region": "EMEA",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/TQIYiwOhBPzCqPCF",
+      "sourceListedPlayers": [
+        "GSR",
+        "Kicks",
+        "trexx",
+        "kamo",
+        "nAts",
+        "purp0",
+        "MiniBoo",
+        "wayne"
+      ],
+      "rankingScore": 85.07,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 9,
+          "w": 5,
+          "l": 4
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 5,
+          "w": 4,
+          "l": 1
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 5,
+          "w": 3,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 5,
+          "w": 2,
+          "l": 3
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 2,
+          "w": 2,
+          "l": 0
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: 上海全球冠军赛",
+        "players": [
+          {
+            "name": "kamo",
+            "rounds": 116
+          },
+          {
+            "name": "GSR",
+            "rounds": 116
+          },
+          {
+            "name": "nAts",
+            "rounds": 116
+          },
+          {
+            "name": "Kicks",
+            "rounds": 116
+          },
+          {
+            "name": "trexx",
+            "rounds": 116
+          }
+        ]
+      },
+      "proposedFive": [
+        "kamo",
+        "GSR",
+        "nAts",
+        "Kicks",
+        "trexx"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "purp0",
+        "MiniBoo",
+        "wayne"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [
+        "GSR"
+      ],
+      "sourceListedMissingCards": [
+        "GSR"
+      ],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "G2",
+      "region": "AMER",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/gsVaNnjL3nFbmGWt",
+      "sourceListedPlayers": [
+        "babybay",
+        "jawgemo",
+        "leaf",
+        "valyn",
+        "trent"
+      ],
+      "rankingScore": 84.32,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 9,
+          "w": 6,
+          "l": 3
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 7,
+          "w": 5,
+          "l": 2
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 7,
+          "w": 5,
+          "l": 2
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 6,
+          "w": 1,
+          "l": 5
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 4,
+          "w": 3,
+          "l": 1
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "babybay",
+        "jawgemo",
+        "leaf",
+        "valyn",
+        "trent"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "GE",
+      "region": "PAC",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/d1B21kolpxSqFSAJ",
+      "sourceListedPlayers": [
+        "PatMen",
+        "Autumn",
+        "xavi8k",
+        "Kr1stal",
+        "UdoTan"
+      ],
+      "rankingScore": 84.31,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 6,
+          "w": 5,
+          "l": 1
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 6,
+          "w": 2,
+          "l": 4
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 5,
+          "w": 3,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 5,
+          "w": 3,
+          "l": 2
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "PatMen",
+        "Autumn",
+        "xavi8k",
+        "Kr1stal",
+        "UdoTan"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "PRX",
+      "region": "PAC",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/SQPi3PWPKJV2bhQG",
+      "sourceListedPlayers": [
+        "invy",
+        "something",
+        "Jinggg",
+        "f0rsakeN",
+        "d4v41"
+      ],
+      "rankingScore": 83.73,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 5,
+          "w": 5,
+          "l": 0
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 3,
+          "w": 3,
+          "l": 0
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 3,
+          "w": 0,
+          "l": 3
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "invy",
+        "something",
+        "Jinggg",
+        "f0rsakeN",
+        "d4v41"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "LOUD",
+      "region": "AMER",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/HxkjQHJh4mC9GuS1",
+      "sourceListedPlayers": [
+        "DaviH",
+        "erde",
+        "Darker",
+        "lukxo",
+        "tkzin"
+      ],
+      "rankingScore": 83.17,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 8,
+          "w": 5,
+          "l": 3
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 7,
+          "w": 4,
+          "l": 3
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 6,
+          "w": 5,
+          "l": 1
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 5,
+          "w": 1,
+          "l": 4
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 3,
+          "w": 3,
+          "l": 0
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 3,
+          "w": 0,
+          "l": 3
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "DaviH",
+        "erde",
+        "Darker",
+        "lukxo",
+        "tkzin"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "NS",
+      "region": "PAC",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/8LCK7oKxHAqmdVF1",
+      "sourceListedPlayers": [
+        "Rb",
+        "xross",
+        "Ivy",
+        "Dambi",
+        "Francis",
+        "WoohyuN"
+      ],
+      "rankingScore": 82.72,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 9,
+          "w": 5,
+          "l": 4
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 8,
+          "w": 6,
+          "l": 2
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 7,
+          "w": 5,
+          "l": 2
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 7,
+          "w": 3,
+          "l": 4
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 6,
+          "w": 3,
+          "l": 3
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 5,
+          "w": 3,
+          "l": 2
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: 上海全球冠军赛",
+        "players": [
+          {
+            "name": "Francis",
+            "rounds": 89
+          },
+          {
+            "name": "xross",
+            "rounds": 89
+          },
+          {
+            "name": "Rb",
+            "rounds": 89
+          },
+          {
+            "name": "Ivy",
+            "rounds": 89
+          },
+          {
+            "name": "Dambi",
+            "rounds": 89
+          }
+        ]
+      },
+      "proposedFive": [
+        "Francis",
+        "xross",
+        "Rb",
+        "Ivy",
+        "Dambi"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "WoohyuN"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [
+        "WoohyuN"
+      ],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "T1",
+      "region": "PAC",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/ApibJApHhzchMkT3",
+      "sourceListedPlayers": [
+        "DH",
+        "Munchkin",
+        "BuZz",
+        "Meteor",
+        "stax",
+        "iZu"
+      ],
+      "rankingScore": 81.73,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 8,
+          "w": 5,
+          "l": 3
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 6,
+          "w": 6,
+          "l": 0
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 6,
+          "w": 2,
+          "l": 4
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: 上海全球冠军赛",
+        "players": [
+          {
+            "name": "BuZz",
+            "rounds": 101
+          },
+          {
+            "name": "Meteor",
+            "rounds": 101
+          },
+          {
+            "name": "Munchkin",
+            "rounds": 101
+          },
+          {
+            "name": "iZu",
+            "rounds": 101
+          },
+          {
+            "name": "stax",
+            "rounds": 101
+          }
+        ]
+      },
+      "proposedFive": [
+        "BuZz",
+        "Meteor",
+        "Munchkin",
+        "iZu",
+        "stax"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "DH"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "FUT",
+      "region": "EMEA",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/9uLt3sTpPSvG8Pwq",
+      "sourceListedPlayers": [
+        "sociablEE",
+        "s0pp",
+        "KROSTALY",
+        "xeus",
+        "yetujey"
+      ],
+      "rankingScore": 78.5,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 7,
+          "w": 3,
+          "l": 4
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 7,
+          "w": 1,
+          "l": 6
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 5,
+          "w": 3,
+          "l": 2
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 4,
+          "w": 3,
+          "l": 1
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 2,
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "sociablEE",
+        "s0pp",
+        "KROSTALY",
+        "xeus",
+        "yetujey"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "TH",
+      "region": "EMEA",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/mxmzVd964vNwyc7I",
+      "sourceListedPlayers": [
+        "Wo0t",
+        "RieNs",
+        "benjyfishy"
+      ],
+      "rankingScore": 76.38,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 3,
+          "w": 3,
+          "l": 0
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: EMEA联赛 S2",
+        "players": [
+          {
+            "name": "Wo0t",
+            "rounds": 371
+          },
+          {
+            "name": "RieNs",
+            "rounds": 371
+          },
+          {
+            "name": "Koshmaras",
+            "rounds": 371
+          },
+          {
+            "name": "benjyfishy",
+            "rounds": 371
+          },
+          {
+            "name": "Boo",
+            "rounds": 371
+          }
+        ]
+      },
+      "proposedFive": [
+        "Wo0t",
+        "RieNs",
+        "Koshmaras",
+        "benjyfishy",
+        "Boo"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [
+        "Koshmaras",
+        "Boo"
+      ],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "MIBR",
+      "region": "AMER",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/uy5u8FStJ12dhpiT",
+      "sourceListedPlayers": [
+        "zekken",
+        "Mazino",
+        "Verno",
+        "aspas",
+        "tex"
+      ],
+      "rankingScore": 75.42,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 6,
+          "w": 4,
+          "l": 2
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 6,
+          "w": 4,
+          "l": 2
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 4,
+          "w": 3,
+          "l": 1
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 4,
+          "w": 0,
+          "l": 4
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        },
+        {
+          "mapId": "fracture",
+          "map": "Fracture",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "zekken",
+        "Mazino",
+        "Verno",
+        "aspas",
+        "tex"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "GEN",
+      "region": "PAC",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/RwLLk3YUka34mcnV",
+      "sourceListedPlayers": [
+        "Efina",
+        "Raxcal",
+        "t3xture",
+        "Karon",
+        "Ash",
+        "Xiesta",
+        "ZynX"
+      ],
+      "rankingScore": 74.22,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 5,
+          "w": 3,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 3,
+          "w": 3,
+          "l": 0
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: 太平洋联赛 S2",
+        "players": [
+          {
+            "name": "t3xture",
+            "rounds": 421
+          },
+          {
+            "name": "Ash",
+            "rounds": 421
+          },
+          {
+            "name": "Raxcal",
+            "rounds": 421
+          },
+          {
+            "name": "Karon",
+            "rounds": 421
+          },
+          {
+            "name": "Efina",
+            "rounds": 421
+          }
+        ]
+      },
+      "proposedFive": [
+        "t3xture",
+        "Ash",
+        "Raxcal",
+        "Karon",
+        "Efina"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Xiesta",
+        "ZynX"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "DFM",
+      "region": "PAC",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/6nBMUiZh1m9oOu9N",
+      "sourceListedPlayers": [
+        "yatsuka",
+        "Caedye",
+        "Akame",
+        "Meiy",
+        "SSeeS"
+      ],
+      "rankingScore": 72.75,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 6,
+          "w": 2,
+          "l": 4
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 2,
+          "w": 2,
+          "l": 0
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 2,
+          "w": 0,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "yatsuka",
+        "Caedye",
+        "Akame",
+        "Meiy",
+        "SSeeS"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "BBL",
+      "region": "EMEA",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/he4glo5N8INfVcDY",
+      "sourceListedPlayers": [
+        "Loita",
+        "Lar0k",
+        "Rosé",
+        "Crewen",
+        "lovers rock"
+      ],
+      "rankingScore": 72.42,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 7,
+          "w": 3,
+          "l": 4
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 4,
+          "w": 4,
+          "l": 0
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 3,
+          "w": 3,
+          "l": 0
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "Loita",
+        "Lar0k",
+        "Rosé",
+        "Crewen",
+        "lovers rock"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "VL",
+      "region": "PAC",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/6YSdzykjASemkmZH",
+      "sourceListedPlayers": [
+        "Foxy9",
+        "C1ndeR",
+        "Klaus",
+        "oonzmlp",
+        "XuNa",
+        "Zexy"
+      ],
+      "rankingScore": 71.76,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 5,
+          "w": 3,
+          "l": 2
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 3,
+          "w": 3,
+          "l": 0
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 2,
+          "w": 0,
+          "l": 2
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: 太平洋联赛 S2",
+        "players": [
+          {
+            "name": "Foxy9",
+            "rounds": 446
+          },
+          {
+            "name": "XuNa",
+            "rounds": 446
+          },
+          {
+            "name": "Zexy",
+            "rounds": 446
+          },
+          {
+            "name": "oonzmlp",
+            "rounds": 446
+          },
+          {
+            "name": "Klaus",
+            "rounds": 199
+          },
+          {
+            "name": "C1ndeR",
+            "rounds": 247
+          }
+        ]
+      },
+      "proposedFive": [
+        "Foxy9",
+        "XuNa",
+        "Zexy",
+        "oonzmlp",
+        "C1ndeR"
+      ],
+      "proposalBasis": "赛事轮换推定",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Klaus"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "NAVI",
+      "region": "EMEA",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/zWWFVBP4trQPeZUE",
+      "sourceListedPlayers": [
+        "Ruxic",
+        "hiro",
+        "CyvOph",
+        "chloric",
+        "ExiT",
+        "Shao"
+      ],
+      "rankingScore": 70.6,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 2,
+          "w": 2,
+          "l": 0
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 2,
+          "w": 0,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: EMEA联赛 S2",
+        "players": [
+          {
+            "name": "hiro",
+            "rounds": 400
+          },
+          {
+            "name": "Ruxic",
+            "rounds": 400
+          },
+          {
+            "name": "ExiT",
+            "rounds": 400
+          },
+          {
+            "name": "Kolosha",
+            "rounds": 72
+          },
+          {
+            "name": "chloric",
+            "rounds": 400
+          },
+          {
+            "name": "CyvOph",
+            "rounds": 328
+          }
+        ]
+      },
+      "proposedFive": [
+        "hiro",
+        "Ruxic",
+        "ExiT",
+        "chloric",
+        "CyvOph"
+      ],
+      "proposalBasis": "赛事轮换推定",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Shao"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "FNC",
+      "region": "EMEA",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/YfvO6O1LfwI6D7Ic",
+      "sourceListedPlayers": [
+        "Cloud",
+        "crashies",
+        "kaajak",
+        "Alfajer",
+        "Veqaj",
+        "Boaster"
+      ],
+      "rankingScore": 69.47,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 2,
+          "w": 2,
+          "l": 0
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: EMEA联赛 S2",
+        "players": [
+          {
+            "name": "Alfajer",
+            "rounds": 398
+          },
+          {
+            "name": "kaajak",
+            "rounds": 398
+          },
+          {
+            "name": "Cloud",
+            "rounds": 398
+          },
+          {
+            "name": "crashies",
+            "rounds": 398
+          },
+          {
+            "name": "Boaster",
+            "rounds": 398
+          }
+        ]
+      },
+      "proposedFive": [
+        "Alfajer",
+        "kaajak",
+        "Cloud",
+        "crashies",
+        "Boaster"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Veqaj"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "KRX",
+      "region": "PAC",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/DZbWVHoWlBcAHyFb",
+      "sourceListedPlayers": [
+        "Flicker",
+        "BeYN",
+        "free1ng",
+        "HYUNMIN",
+        "MaKo",
+        "yong"
+      ],
+      "rankingScore": 69.44,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 6,
+          "w": 3,
+          "l": 3
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 5,
+          "w": 2,
+          "l": 3
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 2,
+          "w": 0,
+          "l": 2
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: 太平洋联赛 S2",
+        "players": [
+          {
+            "name": "HYUNMIN",
+            "rounds": 524
+          },
+          {
+            "name": "yong",
+            "rounds": 328
+          },
+          {
+            "name": "free1ng",
+            "rounds": 524
+          },
+          {
+            "name": "BeYN",
+            "rounds": 524
+          },
+          {
+            "name": "MaKo",
+            "rounds": 524
+          },
+          {
+            "name": "Flicker",
+            "rounds": 196
+          }
+        ]
+      },
+      "proposedFive": [
+        "HYUNMIN",
+        "free1ng",
+        "BeYN",
+        "MaKo",
+        "yong"
+      ],
+      "proposalBasis": "赛事轮换推定",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Flicker"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "EF",
+      "region": "EMEA",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/cqVrWKPKElHNGfSf",
+      "sourceListedPlayers": [
+        "Spear",
+        "echo",
+        "Favian",
+        "audaz",
+        "nekky"
+      ],
+      "rankingScore": 69.23,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 5,
+          "w": 1,
+          "l": 4
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 4,
+          "w": 3,
+          "l": 1
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "Spear",
+        "echo",
+        "Favian",
+        "audaz",
+        "nekky"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "KRÜ",
+      "region": "AMER",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/NdioJf4DsYOW3jJ4",
+      "sourceListedPlayers": [
+        "heat",
+        "Less",
+        "mwzera",
+        "Saadhak",
+        "Dantedeu5"
+      ],
+      "rankingScore": 68.68,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 6,
+          "w": 1,
+          "l": 5
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 5,
+          "w": 2,
+          "l": 3
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 4,
+          "w": 3,
+          "l": 1
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 2,
+          "w": 0,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 2,
+          "w": 0,
+          "l": 2
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "heat",
+        "Less",
+        "mwzera",
+        "Saadhak",
+        "Dantedeu5"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "C9",
+      "region": "AMER",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/lrAINQdQ8dHACZkE",
+      "sourceListedPlayers": [
+        "v1c",
+        "FireBallOps",
+        "Jackk",
+        "Zellsis",
+        "OXY"
+      ],
+      "rankingScore": 68.43,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 6,
+          "w": 4,
+          "l": 2
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 3,
+          "w": 3,
+          "l": 0
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 3,
+          "w": 0,
+          "l": 3
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 3,
+          "w": 0,
+          "l": 3
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 2,
+          "w": 0,
+          "l": 2
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "v1c",
+        "FireBallOps",
+        "Jackk",
+        "Zellsis",
+        "OXY"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "NV",
+      "region": "AMER",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/Z4adpFSuqGUHoFSn",
+      "sourceListedPlayers": [
+        "Eggsterr",
+        "nightz",
+        "GLYPH",
+        "Demon1",
+        "Rossy",
+        "keznit",
+        "P0PPIN",
+        "ion"
+      ],
+      "rankingScore": 68.28,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 6,
+          "w": 4,
+          "l": 2
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 4,
+          "w": 0,
+          "l": 4
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 2,
+          "w": 0,
+          "l": 2
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: 美洲联赛 S2",
+        "players": [
+          {
+            "name": "nightz",
+            "rounds": 429
+          },
+          {
+            "name": "keznit",
+            "rounds": 429
+          },
+          {
+            "name": "Demon1",
+            "rounds": 429
+          },
+          {
+            "name": "GLYPH",
+            "rounds": 429
+          },
+          {
+            "name": "Rossy",
+            "rounds": 429
+          }
+        ]
+      },
+      "proposedFive": [
+        "nightz",
+        "keznit",
+        "Demon1",
+        "GLYPH",
+        "Rossy"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Eggsterr",
+        "P0PPIN",
+        "ion"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [
+        "ion"
+      ],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "SEN",
+      "region": "AMER",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/Eht7Jvbf3vaG5ugi",
+      "sourceListedPlayers": [
+        "JonahP",
+        "Reduxx",
+        "cortezia",
+        "johnqt",
+        "Jerrwin"
+      ],
+      "rankingScore": 67.76,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 3,
+          "w": 0,
+          "l": 3
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "JonahP",
+        "Reduxx",
+        "cortezia",
+        "johnqt",
+        "Jerrwin"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "RRQ",
+      "region": "PAC",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/4nHQ9GnThOnSTAgS",
+      "sourceListedPlayers": [
+        "crazyguy",
+        "Kushy",
+        "Monyet",
+        "Jemkin",
+        "xffero",
+        "Xan"
+      ],
+      "rankingScore": 66.81,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 6,
+          "w": 2,
+          "l": 4
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: 太平洋联赛 S2",
+        "players": [
+          {
+            "name": "Monyet",
+            "rounds": 404
+          },
+          {
+            "name": "crazyguy",
+            "rounds": 404
+          },
+          {
+            "name": "Xan",
+            "rounds": 352
+          },
+          {
+            "name": "Jemkin",
+            "rounds": 342
+          },
+          {
+            "name": "xffero",
+            "rounds": 404
+          },
+          {
+            "name": "Kushy",
+            "rounds": 114
+          }
+        ]
+      },
+      "proposedFive": [
+        "Monyet",
+        "crazyguy",
+        "xffero",
+        "Xan",
+        "Jemkin"
+      ],
+      "proposalBasis": "赛事轮换推定",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Kushy"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "EG",
+      "region": "AMER",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/EDfFSxxkZc7vfmIj",
+      "sourceListedPlayers": [
+        "zerona",
+        "Paincakes",
+        "dgzin",
+        "bao",
+        "supamen"
+      ],
+      "rankingScore": 66.78,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 5,
+          "w": 3,
+          "l": 2
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 2,
+          "w": 2,
+          "l": 0
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "zerona",
+        "Paincakes",
+        "dgzin",
+        "bao",
+        "supamen"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "FS",
+      "region": "PAC",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/8jyk5nMSPMZNiHA9",
+      "sourceListedPlayers": [
+        "Seph1roth",
+        "Primmie",
+        "JitboyS",
+        "killua",
+        "Leviathan",
+        "thyy"
+      ],
+      "rankingScore": 66.02,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 5,
+          "w": 2,
+          "l": 3
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 4,
+          "w": 3,
+          "l": 1
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 3,
+          "w": 0,
+          "l": 3
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 2,
+          "w": 1,
+          "l": 1
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: 太平洋联赛 S2",
+        "players": [
+          {
+            "name": "Primmie",
+            "rounds": 494
+          },
+          {
+            "name": "JitboyS",
+            "rounds": 494
+          },
+          {
+            "name": "killua",
+            "rounds": 494
+          },
+          {
+            "name": "Seph1roth",
+            "rounds": 494
+          },
+          {
+            "name": "Crws",
+            "rounds": 494
+          }
+        ]
+      },
+      "proposedFive": [
+        "Primmie",
+        "JitboyS",
+        "killua",
+        "Seph1roth",
+        "Crws"
+      ],
+      "proposalBasis": "赛事五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Leviathan",
+        "thyy"
+      ],
+      "proposedNotCurrentlyListed": [
+        "Crws"
+      ],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "M8",
+      "region": "EMEA",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/GDMPEBAAxfQwWZPl",
+      "sourceListedPlayers": [
+        "Proxh",
+        "marteen",
+        "Minny",
+        "starxo",
+        "Click",
+        "bipo"
+      ],
+      "rankingScore": 64.61,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 5,
+          "w": 2,
+          "l": 3
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 4,
+          "w": 2,
+          "l": 2
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 3,
+          "w": 3,
+          "l": 0
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 3,
+          "w": 0,
+          "l": 3
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: EMEA联赛 S2",
+        "players": [
+          {
+            "name": "marteen",
+            "rounds": 367
+          },
+          {
+            "name": "Minny",
+            "rounds": 367
+          },
+          {
+            "name": "starxo",
+            "rounds": 367
+          },
+          {
+            "name": "Proxh",
+            "rounds": 367
+          },
+          {
+            "name": "H1ber",
+            "rounds": 87
+          },
+          {
+            "name": "bipo",
+            "rounds": 280
+          }
+        ]
+      },
+      "proposedFive": [
+        "marteen",
+        "Minny",
+        "starxo",
+        "Proxh",
+        "bipo"
+      ],
+      "proposalBasis": "赛事轮换推定",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Click"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [
+        "Click"
+      ],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "FUR",
+      "region": "AMER",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/uV9m6IEHU3Qx81Nl",
+      "sourceListedPlayers": [
+        "Shyy",
+        "artzin",
+        "basic",
+        "C0M",
+        "koalanoob",
+        "eeiu"
+      ],
+      "rankingScore": 64.55,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 7,
+          "w": 4,
+          "l": 3
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 5,
+          "w": 2,
+          "l": 3
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 3,
+          "w": 0,
+          "l": 3
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 2,
+          "w": 0,
+          "l": 2
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": {
+        "event": "VCT 2026: 美洲联赛 S2",
+        "players": [
+          {
+            "name": "eeiu",
+            "rounds": 56
+          },
+          {
+            "name": "basic",
+            "rounds": 563
+          },
+          {
+            "name": "Shyy",
+            "rounds": 563
+          },
+          {
+            "name": "koalanoob",
+            "rounds": 563
+          },
+          {
+            "name": "artzin",
+            "rounds": 563
+          },
+          {
+            "name": "C0M",
+            "rounds": 507
+          }
+        ]
+      },
+      "proposedFive": [
+        "basic",
+        "Shyy",
+        "koalanoob",
+        "artzin",
+        "C0M"
+      ],
+      "proposalBasis": "赛事轮换推定",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "eeiu"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "ZETA",
+      "region": "PAC",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/cfAviHGOJWxDtJsn",
+      "sourceListedPlayers": [
+        "SyouTa",
+        "Absol",
+        "eKo",
+        "SugarZ3ro",
+        "Xdll"
+      ],
+      "rankingScore": 62.24,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 5,
+          "w": 4,
+          "l": 1
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 3,
+          "w": 0,
+          "l": 3
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 2,
+          "w": 0,
+          "l": 2
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 2,
+          "w": 0,
+          "l": 2
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "SyouTa",
+        "Absol",
+        "eKo",
+        "SugarZ3ro",
+        "Xdll"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "GX",
+      "region": "EMEA",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/k2SQjdhaitSNJ1kG",
+      "sourceListedPlayers": [
+        "neT",
+        "ara",
+        "Flickless",
+        "westside",
+        "tomaszy"
+      ],
+      "rankingScore": 58.36,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 3,
+          "w": 0,
+          "l": 3
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 2,
+          "w": 0,
+          "l": 2
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "neT",
+        "ara",
+        "Flickless",
+        "westside",
+        "tomaszy"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [
+        "tomaszy"
+      ],
+      "sourceListedMissingCards": [
+        "tomaszy"
+      ],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "TS",
+      "region": "PAC",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/d6TYFl3P4ABen5oM",
+      "sourceListedPlayers": [
+        "naTz",
+        "Zeus",
+        "STYRON",
+        "Sylvan",
+        "kellyS"
+      ],
+      "rankingScore": 57.89,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 3,
+          "w": 0,
+          "l": 3
+        },
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 3,
+          "w": 0,
+          "l": 3
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 2,
+          "w": 0,
+          "l": 2
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "naTz",
+        "Zeus",
+        "STYRON",
+        "Sylvan",
+        "kellyS"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "PCF",
+      "region": "EMEA",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/RJ8FGnAL1oouf8VO",
+      "sourceListedPlayers": [
+        "seven",
+        "qpert",
+        "waddle",
+        "NINJA",
+        "al0rante"
+      ],
+      "rankingScore": 53.78,
+      "rankingStableRank": null,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 5,
+          "w": 1,
+          "l": 4
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 4,
+          "w": 1,
+          "l": 3
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 3,
+          "w": 0,
+          "l": 3
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "seven",
+        "qpert",
+        "waddle",
+        "NINJA",
+        "al0rante"
+      ],
+      "proposalBasis": "现役五人",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "KBG",
+      "region": "CN_ENTRY",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/2GfNaRB5CSz1v6kx",
+      "sourceListedPlayers": [
+        "Akeman",
+        "Tonk",
+        "Ying",
+        "Sibeastw0w",
+        "Krst1Ng",
+        "Beijy"
+      ],
+      "rankingScore": 52.26,
+      "rankingStableRank": false,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 5,
+          "w": 4,
+          "l": 1
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 5,
+          "w": 4,
+          "l": 1
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 4,
+          "w": 3,
+          "l": 1
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 4,
+          "w": 3,
+          "l": 1
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 3,
+          "w": 1,
+          "l": 2
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 1,
+          "w": 1,
+          "l": 0
+        },
+        {
+          "mapId": "abyss",
+          "map": "Abyss",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "Akeman",
+        "Tonk",
+        "Ying",
+        "Sibeastw0w",
+        "Krst1Ng"
+      ],
+      "proposalBasis": "卡库出场量推定",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Beijy"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [
+        "Beijy"
+      ],
+      "cardTeamDifferences": []
+    },
+    {
+      "code": "AT",
+      "region": "CN_ENTRY",
+      "sourceUrl": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/zpNf6TQIUZNspYSj",
+      "sourceListedPlayers": [
+        "Monk",
+        "Eren",
+        "Folykiki",
+        "Layla",
+        "dingwei",
+        "Pinklove",
+        "Chaos"
+      ],
+      "rankingScore": 50.9,
+      "rankingStableRank": false,
+      "mapWindowLabel": "近三月统计",
+      "mapWindowStart": null,
+      "mapWindowEnd": null,
+      "maps": [
+        {
+          "mapId": "ascent",
+          "map": "Ascent",
+          "n": 9,
+          "w": 5,
+          "l": 4
+        },
+        {
+          "mapId": "lotus",
+          "map": "Lotus",
+          "n": 9,
+          "w": 2,
+          "l": 7
+        },
+        {
+          "mapId": "sunset",
+          "map": "Sunset",
+          "n": 8,
+          "w": 7,
+          "l": 1
+        },
+        {
+          "mapId": "haven",
+          "map": "Haven",
+          "n": 7,
+          "w": 3,
+          "l": 4
+        },
+        {
+          "mapId": "summit",
+          "map": "Summit",
+          "n": 5,
+          "w": 2,
+          "l": 3
+        },
+        {
+          "mapId": "split",
+          "map": "Split",
+          "n": 3,
+          "w": 2,
+          "l": 1
+        },
+        {
+          "mapId": "breeze",
+          "map": "Breeze",
+          "n": 1,
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "rosterEvidence": null,
+      "proposedFive": [
+        "Monk",
+        "Eren",
+        "Folykiki",
+        "Layla",
+        "dingwei"
+      ],
+      "proposalBasis": "卡库出场量推定",
+      "proposalStatus": "用户已批准作为游戏阵容；来源证据等级保留",
+      "sourceListedButExcluded": [
+        "Pinklove",
+        "Chaos"
+      ],
+      "proposedNotCurrentlyListed": [],
+      "missingCards": [],
+      "sourceListedMissingCards": [
+        "Pinklove",
+        "Chaos"
+      ],
+      "cardTeamDifferences": []
+    }
+  ],
+  "reviewDecision": {
+    "date": "2026-10-03",
+    "decision": "用户通过本批阵容与地图建议；已批准作为实现基线，内容制作尚未完成",
+    "maps": [
+      "ascent",
+      "sunset",
+      "split",
+      "haven",
+      "lotus",
+      "breeze",
+      "summit",
+      "abyss",
+      "fracture"
+    ],
+    "historicalRosterExceptions": [
+      "FPX",
+      "TH",
+      "FS"
+    ],
+    "remainingContent": [
+      "GSR/tomaszy 卡牌",
+      "其他赛区挑战者入围队",
+      "明确赛事与阵容期地图统计",
+      "教练初始配置"
+    ]
+  }
+}

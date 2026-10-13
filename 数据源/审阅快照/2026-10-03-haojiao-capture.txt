@@ -1,0 +1,52 @@
+# 采集日 2026-10-03；只读审阅转录，不是运行配置。
+# 队伍|赛区|号角队伍ID|Ranking分|网页当前选手（逗号分隔）|近三月地图 胜/负（总数=胜+负）
+EDG|CN|5gjweC11brGhuRBR|57.16|stew,Jieni7,Smoggy,ZmjjKK,nobody,CHICHOO|Breeze=3/3 Sunset=3/3 Ascent=2/3 Lotus=1/4 Haven=3/1 Summit=0/3 Split=1/1
+NOVA|CN|lAvuB3JCl3CVSHmt|68.66|cb,swagzor,qiutiaN,Ezeir,GuanG,kodeth,Green|Lotus=3/3 Sunset=3/2 Breeze=4/0 Ascent=3/1 Summit=2/2 Split=2/2 Haven=1/0
+TYL|CN|UyZ5hCVrWnSbxZMJ|68.02|SiuFatBB,Erv,Splash,Scales,SLOWLY,xihe|Split=5/3 Sunset=6/1 Summit=5/2 Lotus=2/4 Breeze=2/3 Ascent=1/2 Haven=1/0 Abyss=1/0
+AG|CN|f9evIvOaEpLosAGm|62.21|Bai,f4ngeer,iamgrq,Shr1mp,K1ra|Split=4/4 Sunset=3/5 Lotus=4/2 Summit=3/3 Haven=2/3 Ascent=2/2
+TE|CN|oGJeZMVL7VeCbo5q|59.99|Toosy,Abo,DeLb,Fkey,LuoK1ng,Kai,FengF|Sunset=5/5 Ascent=2/4 Lotus=3/2 Split=2/2 Breeze=1/3 Summit=1/3
+FPX|CN|yhdMO1gwv1gppU9q|59.95|coconut,Xlele,Setrod,AAAAY|Sunset=4/4 Ascent=4/3 Split=3/3 Lotus=2/4 Breeze=3/0 Summit=3/0 Abyss=1/0
+XLG|CN|N9vFlF5iWKDVEnBn|59.20|WsLeo,lysoar,NoMan,happywei,Rarga,Sharks|Lotus=3/5 Summit=3/3 Split=3/1 Haven=2/2 Breeze=1/3 Sunset=1/2 Ascent=1/1 Abyss=0/1
+BLG|CN|gdqnSUpLlx4iV6au|58.18|FT,Rushia,Nephh,Knight,whzy,bud,yilai|Summit=4/2 Lotus=3/3 Haven=3/3 Split=1/5 Sunset=2/1 Ascent=1/2 Breeze=0/1
+DRG|CN|JFwJZHzu4mpHkPGP|58.07|Verse,Life,SpiritZ1,vo0kashu,Nicc,Flex1n|Haven=3/4 Lotus=1/4 Sunset=2/2 Ascent=2/1 Split=2/1 Summit=1/2 Breeze=1/1
+JDG|CN|S594hqSJBYBGbfEE|56.68|BerLIN,crownfisher,zhe,Yuicaw,jkuro,kklin|Split=3/5 Breeze=3/4 Summit=2/5 Lotus=5/1 Ascent=2/4 Haven=1/3 Sunset=1/3 Abyss=1/0
+WOL|CN|U8rAVCnW5tZrsNMs|52.99|Deryeon,aluba,glacier,Yosemite,Spring,nothing|Lotus=3/3 Haven=1/4 Ascent=2/2 Sunset=2/2 Summit=1/3 Split=1/2
+TEC|CN|chUmTusw7Dvop1gn|52.86|ra1ny,Spitfires,lucas,Coco,Dynamite,Haodong|Summit=5/4 Sunset=0/8 Split=4/1 Ascent=3/2 Haven=2/3 Breeze=1/2 Lotus=0/1 Abyss=0/1
+100T|AMER|mgun17auDGE97UBs|95.56|bang,Timotino,vora,Cryocells,Asuna|Sunset=4/2 Ascent=5/0 Haven=4/1 Breeze=3/2 Summit=3/1 Split=2/2 Lotus=2/1 Fracture=1/0 Abyss=1/0
+NRG|AMER|eYqPeoxSyeDFNw4D|91.61|Keiko,skuba,brawk,mada,Ethan|Haven=6/2 Breeze=6/1 Lotus=5/1 Summit=5/0 Sunset=0/5 Ascent=2/2 Abyss=0/3 Split=1/0 Fracture=0/1
+KC|EMEA|jRB3gUcjCdqiSyU8|87.83|N4RRATE,LêwN,dos9,SUYGETSU,avez,Sheydos|Haven=4/2 Sunset=4/0 Ascent=4/0 Lotus=3/1 Summit=1/3 Abyss=1/1 Fracture=1/0 Breeze=0/1 Split=0/1
+LEV|AMER|1dcrEchr3gawICgu|86.62|Neon,blowz,spike,Sato,kiNgg|Split=5/0 Summit=1/3 Sunset=2/1 Haven=2/1 Abyss=1/1 Lotus=0/1
+VIT|EMEA|1cy7LHdvCn6CK4kC|85.53|PROFEK,Jamppi,Chronicle,Sayonara,Derke|Split=3/3 Ascent=3/2 Haven=1/3 Summit=3/0 Abyss=2/1 Sunset=1/1 Lotus=1/1 Breeze=1/1
+TL|EMEA|TQIYiwOhBPzCqPCF|85.07|GSR,Kicks,trexx,kamo,nAts,purp0,MiniBoo,wayne|Lotus=5/4 Split=4/1 Ascent=3/2 Summit=2/3 Haven=2/2 Breeze=2/0 Abyss=1/0 Sunset=0/1
+G2|AMER|gsVaNnjL3nFbmGWt|84.32|babybay,jawgemo,leaf,valyn,trent|Breeze=6/3 Sunset=5/2 Lotus=5/2 Haven=1/5 Split=3/1 Abyss=2/1 Summit=1/1 Ascent=0/1
+GE|PAC|d1B21kolpxSqFSAJ|84.31|PatMen,Autumn,xavi8k,Kr1stal,UdoTan|Ascent=5/1 Sunset=2/4 Split=3/2 Summit=3/2 Abyss=2/2 Haven=2/1 Lotus=2/1 Breeze=2/1
+PRX|PAC|SQPi3PWPKJV2bhQG|83.73|invy,something,Jinggg,f0rsakeN,d4v41|Ascent=5/0 Split=1/3 Summit=3/0 Lotus=2/1 Sunset=0/3 Abyss=1/1 Haven=1/1 Breeze=1/0
+LOUD|AMER|HxkjQHJh4mC9GuS1|83.17|DaviH,erde,Darker,lukxo,tkzin|Summit=5/3 Lotus=4/3 Sunset=5/1 Haven=1/4 Abyss=3/0 Ascent=0/3 Breeze=1/0 Split=1/0
+NS|PAC|8LCK7oKxHAqmdVF1|82.72|Rb,xross,Ivy,Dambi,Francis,WoohyuN|Haven=5/4 Sunset=6/2 Breeze=5/2 Ascent=3/4 Split=3/3 Lotus=3/2 Abyss=2/1 Summit=2/1
+T1|PAC|ApibJApHhzchMkT3|81.73|DH,Munchkin,BuZz,Meteor,stax,iZu|Haven=5/3 Lotus=6/0 Ascent=2/4 Split=1/2 Sunset=1/1 Abyss=1/1 Breeze=1/0 Summit=0/1
+FUT|EMEA|9uLt3sTpPSvG8Pwq|78.50|sociablEE,s0pp,KROSTALY,xeus,yetujey|Split=3/4 Lotus=1/6 Ascent=3/2 Haven=3/1 Summit=2/1 Sunset=2/0
+TH|EMEA|mxmzVd964vNwyc7I|76.38|Wo0t,RieNs,benjyfishy|Lotus=2/2 Haven=2/2 Sunset=1/3 Summit=3/0 Ascent=1/1 Breeze=1/1
+MIBR|AMER|uy5u8FStJ12dhpiT|75.42|zekken,Mazino,Verno,aspas,tex|Haven=4/2 Sunset=4/2 Ascent=3/1 Lotus=0/4 Breeze=2/1 Split=2/1 Abyss=0/1 Summit=0/1 Fracture=0/1
+GEN|PAC|RwLLk3YUka34mcnV|74.22|Efina,Raxcal,t3xture,Karon,Ash,Xiesta,ZynX|Sunset=3/2 Summit=3/0 Split=2/1 Ascent=1/2 Lotus=1/1 Haven=1/1 Breeze=0/1
+DFM|PAC|6nBMUiZh1m9oOu9N|72.75|yatsuka,Caedye,Akame,Meiy,SSeeS|Ascent=2/4 Breeze=2/1 Sunset=2/1 Split=2/0 Lotus=1/1 Haven=0/2 Summit=0/1
+BBL|EMEA|he4glo5N8INfVcDY|72.42|Loita,Lar0k,Rosé,Crewen,lovers rock|Lotus=3/4 Sunset=4/0 Haven=2/2 Breeze=1/3 Ascent=3/0 Summit=1/1 Split=1/1 Abyss=0/1
+VL|PAC|6YSdzykjASemkmZH|71.76|Foxy9,C1ndeR,Klaus,oonzmlp,XuNa,Zexy|Split=3/2 Haven=2/2 Sunset=3/0 Lotus=1/2 Summit=0/2 Ascent=1/0
+NAVI|EMEA|zWWFVBP4trQPeZUE|70.60|Ruxic,hiro,CyvOph,chloric,ExiT,Shao|Ascent=2/2 Sunset=1/3 Split=2/1 Haven=2/0 Breeze=0/2 Summit=0/1
+FNC|EMEA|YfvO6O1LfwI6D7Ic|69.47|Cloud,crashies,kaajak,Alfajer,Veqaj,Boaster|Split=2/2 Summit=1/3 Sunset=2/0 Ascent=1/1 Lotus=1/1 Breeze=0/1
+KRX|PAC|DZbWVHoWlBcAHyFb|69.44|Flicker,BeYN,free1ng,HYUNMIN,MaKo,yong|Sunset=3/3 Lotus=2/3 Haven=1/2 Ascent=1/1 Summit=1/1 Abyss=0/2 Split=0/1 Breeze=0/1
+EF|EMEA|cqVrWKPKElHNGfSf|69.23|Spear,echo,Favian,audaz,nekky|Lotus=1/4 Split=3/1 Ascent=1/2 Summit=1/0 Sunset=0/1 Haven=0/1
+KRÜ|AMER|NdioJf4DsYOW3jJ4|68.68|heat,Less,mwzera,Saadhak,Dantedeu5|Breeze=1/5 Sunset=2/3 Lotus=3/1 Ascent=2/1 Split=0/2 Summit=0/2
+C9|AMER|lrAINQdQ8dHACZkE|68.43|v1c,FireBallOps,Jackk,Zellsis,OXY|Breeze=4/2 Split=3/0 Haven=2/1 Sunset=0/3 Lotus=0/3 Summit=0/2
+NV|AMER|Z4adpFSuqGUHoFSn|68.28|Eggsterr,nightz,GLYPH,Demon1,Rossy,keznit,P0PPIN,ion|Ascent=4/2 Haven=0/4 Sunset=2/1 Split=1/2 Summit=1/1 Breeze=0/2 Lotus=0/1
+SEN|AMER|Eht7Jvbf3vaG5ugi|67.76|JonahP,Reduxx,cortezia,johnqt,Jerrwin|Summit=2/1 Lotus=2/1 Breeze=1/2 Ascent=0/3 Haven=1/1 Sunset=1/1 Split=1/1
+RRQ|PAC|4nHQ9GnThOnSTAgS|66.81|crazyguy,Kushy,Monyet,Jemkin,xffero,Xan|Sunset=2/4 Haven=2/2 Summit=2/2 Breeze=1/1 Ascent=0/1 Lotus=0/1
+EG|AMER|EDfFSxxkZc7vfmIj|66.78|zerona,Paincakes,dgzin,bao,supamen|Sunset=3/2 Breeze=1/3 Haven=1/3 Lotus=1/2 Summit=2/0 Ascent=1/1 Split=0/1
+FS|PAC|8jyk5nMSPMZNiHA9|66.02|Seph1roth,Primmie,JitboyS,killua,Leviathan,thyy|Sunset=2/3 Split=3/1 Summit=1/2 Haven=0/3 Lotus=1/1 Ascent=1/1 Breeze=0/1
+M8|EMEA|GDMPEBAAxfQwWZPl|64.61|Proxh,marteen,Minny,starxo,Click,bipo|Ascent=2/3 Sunset=2/2 Lotus=1/3 Haven=3/0 Split=0/3 Summit=0/1
+FUR|AMER|uV9m6IEHU3Qx81Nl|64.55|Shyy,artzin,basic,C0M,koalanoob,eeiu|Haven=4/3 Sunset=2/3 Breeze=2/1 Split=1/2 Summit=0/3 Ascent=0/2 Abyss=0/1
+ZETA|PAC|cfAviHGOJWxDtJsn|62.24|SyouTa,Absol,eKo,SugarZ3ro,Xdll|Sunset=4/1 Haven=2/1 Split=0/3 Ascent=0/2 Breeze=0/2 Lotus=0/1
+GX|EMEA|k2SQjdhaitSNJ1kG|58.36|neT,ara,Flickless,westside,tomaszy|Ascent=1/3 Split=1/3 Sunset=0/3 Haven=0/2 Lotus=1/0 Summit=1/0 Breeze=0/1
+TS|PAC|d6TYFl3P4ABen5oM|57.89|naTz,Zeus,STYRON,Sylvan,kellyS|Haven=2/1 Summit=1/2 Split=0/3 Ascent=0/3 Breeze=0/2 Sunset=1/0
+PCF|EMEA|RJ8FGnAL1oouf8VO|53.78|seven,qpert,waddle,NINJA,al0rante|Ascent=1/4 Split=1/3 Lotus=2/1 Sunset=0/3 Summit=0/1 Haven=0/1
+KBG|CN_ENTRY|2GfNaRB5CSz1v6kx|52.26|Akeman,Tonk,Ying,Sibeastw0w,Krst1Ng,Beijy|Ascent=4/1 Haven=4/1 Split=3/1 Sunset=3/1 Breeze=2/1 Summit=1/2 Lotus=1/0 Abyss=0/1
+AT|CN_ENTRY|zpNf6TQIUZNspYSj|50.90|Monk,Eren,Folykiki,Layla,dingwei,Pinklove,Chaos|Ascent=5/4 Lotus=2/7 Sunset=7/1 Haven=3/4 Summit=2/3 Split=2/1 Breeze=0/1

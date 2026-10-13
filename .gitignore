@@ -8,9 +8,18 @@ Desktop.ini
 # Local release artifacts and isolated browser harnesses
 _site*/
 游戏/out/
-引擎/out/coach_plan_preview.html
-引擎/out/coaching-window-check.html
+引擎/out/
 __pycache__/
 *.pyc
 .env
 .env.*
+
+# Video production runtime, generated assets and rendered previews
+视频/制作工具/
+视频/制作项目/
+视频/预览成片/
+视频/历史版本/预览/
+视频/素材与参考/风格样帧/
+
+# Local builds, migration journals and unpublished diagnostics
+.artifacts/

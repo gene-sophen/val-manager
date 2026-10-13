@@ -239,7 +239,7 @@ function main() {
   lines.push('- 注：金卡 IGL 相对金卡非 IGL 有 AIM -4.7 的枪法折损（SYN/SEN 更高）；加长样本复测有 IGL 方约 51%——指挥加成覆盖枪法折损后略有盈余', '');
 
   fs.writeFileSync(path.join(__dirname, 'BALANCE_v3.md'), lines.join('\n'));
-  console.log(`\n耗时 ${((Date.now() - t0) / 1000).toFixed(1)}s，已写入 引擎/BALANCE_v3.md`);
+  console.log(`\n耗时 ${((Date.now() - t0) / 1000).toFixed(1)}s，已写入 引擎/docs/history/BALANCE_v3.md`);
 }
 
 if (require.main === module) main();

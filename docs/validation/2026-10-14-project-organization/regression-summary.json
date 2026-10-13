@@ -1,0 +1,25 @@
+{
+  "game": {
+    "tests": 244,
+    "pass": 244,
+    "fail": 0
+  },
+  "engine": {
+    "tests": 154,
+    "pass": 154,
+    "fail": 0
+  },
+  "frontend": {
+    "tests": 8,
+    "pass": 8,
+    "fail": 0
+  },
+  "sourceResources": {
+    "modules": 226,
+    "bootResources": 66,
+    "offlineResources": 176,
+    "compatibilityAliases": 14
+  },
+  "databasePolicy": "isolated val-manager-test-* only",
+  "privateLogs": ".artifacts/organization/"
+}

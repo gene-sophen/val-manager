@@ -1,0 +1,8 @@
+{
+  "operations": 1955,
+  "files": 30217,
+  "bytes": 4052910042,
+  "sha256Mismatches": [],
+  "oldReleaseDirectories": 17,
+  "privateJournal": ".artifacts/organization/move-manifest.json"
+}

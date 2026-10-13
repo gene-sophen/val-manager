@@ -1,0 +1,20 @@
+{
+ "observedAt":"2026-10-07",
+ "source":"https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/5gjweC11brGhuRBR",
+ "access":"browser-public-dom",
+ "teamId":"EDG",
+ "displayWindow":"近三月统计",
+ "status":"reference-only-mixed-rosters",
+ "series":{"played":12,"wins":5,"losses":7},
+ "maps":{"played":29,"wins":13,"losses":16},
+ "rows":[
+  {"mapId":"sunset","played":6,"wins":3,"losses":3},
+  {"mapId":"breeze","played":5,"wins":3,"losses":2},
+  {"mapId":"ascent","played":5,"wins":2,"losses":3},
+  {"mapId":"haven","played":4,"wins":3,"losses":1},
+  {"mapId":"lotus","played":4,"wins":1,"losses":3},
+  {"mapId":"summit","played":3,"wins":0,"losses":3},
+  {"mapId":"split","played":2,"wins":1,"losses":1}
+ ],
+ "notes":["本次浏览器成功读取；网页工具未成功读取。","原始用户截图为31图，本次公开页面为29图，不能直接当作同一统计窗口。","页面同时列出临时参赛且已离队选手，近三月统计不保证对应单一固定五人阵容。","仅作为真实队伍地图参考，不覆盖原作者选手三维，不强行替代本赛年冻结地图分。"]
+}

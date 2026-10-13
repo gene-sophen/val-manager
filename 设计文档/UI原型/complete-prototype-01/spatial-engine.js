@@ -1,4 +1,4 @@
-/* GENERATED: node 游戏/build-spatial.cjs */
+/* GENERATED: node 游戏/tools/build-spatial.cjs */
 (function(root){const modules={},cache={};
 modules["游戏/spatial-match.js"]=function(require,module,exports){
 // Serializable boundary adapter around the existing action engine.
