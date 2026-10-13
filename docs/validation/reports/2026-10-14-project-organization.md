@@ -32,3 +32,7 @@
 ## 验收边界
 
 真实手机从v0.7升级、系统强杀期间写盘、软键盘与屏幕阅读器尚需真机核对。目录整理不要求清档；手机可使用“设置→检查更新→保存并更新”。
+
+## 发布核对
+
+v0.8代码提交 `e6d4f93` 已推送，GitHub Actions [38438285533](https://github.com/gene-sophen/val-manager/actions/runs/38438285533)成功。线上37项核心、共享和旧URL资源与本地逐项一致，记录见 `../2026-10-14-project-organization/online-assets.json`。

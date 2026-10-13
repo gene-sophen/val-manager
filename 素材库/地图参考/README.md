@@ -13,4 +13,4 @@
 
 世界坐标和图片坐标的转换来自快照；文字显示位置另作少量排版偏移。小地图中的细线包含栏杆、门、平台、箱体和非物理标记，下一阶段必须审核具体含义，不能全当阻挡墙。高度连接、穿透与路径耗时尚未制作。
 
-用户确认 Ascent 后，新增 Haven、Split、Sunset、Breeze、Lotus、Fracture、Abyss、Summit 同类 PNG 与元数据。`数据源/trace_map_library.py` 等比提取轮廓并保留源哈希、变换和标注校准；Summit 出生点接口坐标有明确覆盖记录，轮廓外的普通标注不展示。包点徽标以实际包区为准。八图当前只用于展示，不冒充已验证战斗地图。详见 [九图制作与战斗样板](../../docs/validation/2026-10-06-map-library-and-combat.md)。
+用户确认 Ascent 后，新增 Haven、Split、Sunset、Breeze、Lotus、Fracture、Abyss、Summit 同类 PNG 与元数据。`数据源/trace_map_library.py` 等比提取轮廓并保留源哈希、变换和标注校准；Summit 出生点接口坐标有明确覆盖记录，轮廓外的普通标注不展示。包点徽标以实际包区为准。八图当前只用于展示，不冒充已验证战斗地图。详见 [九图制作与战斗样板](../../docs/validation/reports/2026-10-06-map-library-and-combat.md)。

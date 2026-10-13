@@ -1,0 +1,229 @@
+{
+  "releaseCommit": "e6d4f93",
+  "actionsRun": 38438285533,
+  "version": "v0.8",
+  "resources": [
+    {
+      "urlPath": "设计文档/UI原型/complete-prototype-01/index.html",
+      "source": "设计文档/UI原型/complete-prototype-01/index.html",
+      "same": true,
+      "sha256": "cf129111746b73689fb6c90147a9b290aa0c0341e9cfdb1af8a39c8280e76753"
+    },
+    {
+      "urlPath": "设计文档/UI原型/complete-prototype-01/app.js",
+      "source": "设计文档/UI原型/complete-prototype-01/app.js",
+      "same": true,
+      "sha256": "625989c135fa19fd2a169e3540ae40327d851de988cdff9e4ead83401d97139e"
+    },
+    {
+      "urlPath": "设计文档/UI原型/complete-prototype-01/journey-model.js",
+      "source": "设计文档/UI原型/complete-prototype-01/journey-model.js",
+      "same": true,
+      "sha256": "c76b33dd32b794846adfea6a537e61518aaaf0dd09e8a0f4b62dee02ef45472c"
+    },
+    {
+      "urlPath": "设计文档/UI原型/complete-prototype-01/journey-views.js",
+      "source": "设计文档/UI原型/complete-prototype-01/journey-views.js",
+      "same": true,
+      "sha256": "13e7fa096e22ae1e4a94a75dac0261bd1bdde5e8d37a6f4c8a51c8931f2519e6"
+    },
+    {
+      "urlPath": "设计文档/UI原型/complete-prototype-01/design-system.css",
+      "source": "设计文档/UI原型/complete-prototype-01/design-system.css",
+      "same": true,
+      "sha256": "e185356a1dfb4629d299b7097ab1545d7e84110d653aed76b12bbe272981c0ca"
+    },
+    {
+      "urlPath": "设计文档/UI原型/complete-prototype-01/sw.js",
+      "source": "设计文档/UI原型/complete-prototype-01/sw.js",
+      "same": true,
+      "sha256": "2aa8f668d17afcaa824e7ff43b0937f0deb206f54eb79b55f97fb720d7c44ef3"
+    },
+    {
+      "urlPath": "设计文档/UI原型/complete-prototype-01/round-worker.js",
+      "source": "设计文档/UI原型/complete-prototype-01/round-worker.js",
+      "same": true,
+      "sha256": "ca87236ddea5c022780df53b02c7d4d8e898ba2edd0450678341c2797d41f85b"
+    },
+    {
+      "urlPath": "游戏/career-store.js",
+      "source": "游戏/career-store.js",
+      "same": true,
+      "sha256": "60dcfdf6754b537af0ad1a7556e4e9af0b2c7931e9ca269d33c0727ead2b1f46"
+    },
+    {
+      "urlPath": "设计文档/UI原型/共享资源/compatibility.json",
+      "source": "设计文档/UI原型/共享资源/compatibility.json",
+      "same": true,
+      "sha256": "e3720733a0021419c403c584486ea36c0253f2ccf1a994e0c7fa3247a79df3ba"
+    },
+    {
+      "urlPath": "设计文档/UI原型/共享资源/art-direction-01/players.js",
+      "source": "设计文档/UI原型/共享资源/art-direction-01/players.js",
+      "same": true,
+      "sha256": "a294767c3a30eaddbdc8560380298cf1ad25df801792f96a5cfa57d82a41b827"
+    },
+    {
+      "urlPath": "设计文档/UI原型/共享资源/art-direction-03/cards.css",
+      "source": "设计文档/UI原型/共享资源/art-direction-03/cards.css",
+      "same": true,
+      "sha256": "6ae5da0d290248bb42fb7e05155ae4b2cafc2ef2a21c4a125e4f0d671d5d4d2c"
+    },
+    {
+      "urlPath": "设计文档/UI原型/共享资源/art-direction-03/card-renderer.js",
+      "source": "设计文档/UI原型/共享资源/art-direction-03/card-renderer.js",
+      "same": true,
+      "sha256": "fd0f5fa0765a93e976ef837652770bb1cea03881173b9c67aec153e532817db9"
+    },
+    {
+      "urlPath": "设计文档/UI原型/共享资源/art-direction-03/pack-samples.js",
+      "source": "设计文档/UI原型/共享资源/art-direction-03/pack-samples.js",
+      "same": true,
+      "sha256": "1df7a24a8b3e147ad730aad00c96f22054f610daeb7a99befa517d16d4178a67"
+    },
+    {
+      "urlPath": "设计文档/UI原型/共享资源/art-direction-03/collection-samples.js",
+      "source": "设计文档/UI原型/共享资源/art-direction-03/collection-samples.js",
+      "same": true,
+      "sha256": "03f827b5081d741944a612e632e60c8ea35cf30942b4cc240516b2adab594705"
+    },
+    {
+      "urlPath": "设计文档/UI原型/共享资源/art-direction-03/fonts/NotoSansSC-ui.woff",
+      "source": "设计文档/UI原型/共享资源/art-direction-03/fonts/NotoSansSC-ui.woff",
+      "same": true,
+      "sha256": "8ad9e4563567084a891ec90eb64c0efa3822ebb26390ed9ccb79c866c8cf00c4"
+    },
+    {
+      "urlPath": "设计文档/UI原型/共享资源/art-direction-03/fonts/Nunito-ui.woff",
+      "source": "设计文档/UI原型/共享资源/art-direction-03/fonts/Nunito-ui.woff",
+      "same": true,
+      "sha256": "49aa5ec01dbac53a0dbda990bd0b6ed4344480c55fe2346822d545877468c41f"
+    },
+    {
+      "urlPath": "设计文档/UI原型/共享资源/layout-rebuild-01/home-balance.css",
+      "source": "设计文档/UI原型/共享资源/layout-rebuild-01/home-balance.css",
+      "same": true,
+      "sha256": "7220d6134c21651576f4f8ec8baca3de9e7f64220febaf8bb9aaee50eea93872"
+    },
+    {
+      "urlPath": "设计文档/UI原型/共享资源/layout-rebuild-01/players-balance.css",
+      "source": "设计文档/UI原型/共享资源/layout-rebuild-01/players-balance.css",
+      "same": true,
+      "sha256": "a003506313c4dd2884f8b7b2e63fd0d3f776403cc433984ea69ab7f9e163c839"
+    },
+    {
+      "urlPath": "设计文档/UI原型/共享资源/layout-rebuild-01/fonts/NotoSansSC-layout.woff",
+      "source": "设计文档/UI原型/共享资源/layout-rebuild-01/fonts/NotoSansSC-layout.woff",
+      "same": true,
+      "sha256": "ca325cefb68ba9d592d85a79b195b1f948b48e6d687e557f3da1665a3dcd7c66"
+    },
+    {
+      "urlPath": "设计文档/UI原型/共享资源/navigation-rebuild-01/navigation.css",
+      "source": "设计文档/UI原型/共享资源/navigation-rebuild-01/navigation.css",
+      "same": true,
+      "sha256": "bad186d908ebf3322c11b8f5fbf3c0e155bcbf61b5255ad13fa2cb6aaaaf7e99"
+    },
+    {
+      "urlPath": "设计文档/UI原型/共享资源/navigation-rebuild-01/subpages.css",
+      "source": "设计文档/UI原型/共享资源/navigation-rebuild-01/subpages.css",
+      "same": true,
+      "sha256": "7b57141cb5d2ac36e688d53b1f41f57458133b8782e195b925457ab9334cfd32"
+    },
+    {
+      "urlPath": "设计文档/UI原型/共享资源/navigation-rebuild-01/profiles.css",
+      "source": "设计文档/UI原型/共享资源/navigation-rebuild-01/profiles.css",
+      "same": true,
+      "sha256": "7ca316bedc65d37d53efb1a5506cc6c56f76b8d8f2c3217a3bd862343eeb2d6b"
+    },
+    {
+      "urlPath": "设计文档/UI原型/共享资源/navigation-rebuild-01/fonts/NotoSansSC-nav.woff",
+      "source": "设计文档/UI原型/共享资源/navigation-rebuild-01/fonts/NotoSansSC-nav.woff",
+      "same": true,
+      "sha256": "512bd4b6d824bf18befb9dbf31f9e3a76dd90ed91bd33be3283cb3357af44fd2"
+    },
+    {
+      "urlPath": "设计文档/UI原型/art-direction-01/players.js",
+      "source": "设计文档/UI原型/共享资源/art-direction-01/players.js",
+      "same": true,
+      "sha256": "a294767c3a30eaddbdc8560380298cf1ad25df801792f96a5cfa57d82a41b827"
+    },
+    {
+      "urlPath": "设计文档/UI原型/art-direction-03/cards.css",
+      "source": "设计文档/UI原型/共享资源/art-direction-03/cards.css",
+      "same": true,
+      "sha256": "6ae5da0d290248bb42fb7e05155ae4b2cafc2ef2a21c4a125e4f0d671d5d4d2c"
+    },
+    {
+      "urlPath": "设计文档/UI原型/art-direction-03/card-renderer.js",
+      "source": "设计文档/UI原型/共享资源/art-direction-03/card-renderer.js",
+      "same": true,
+      "sha256": "fd0f5fa0765a93e976ef837652770bb1cea03881173b9c67aec153e532817db9"
+    },
+    {
+      "urlPath": "设计文档/UI原型/art-direction-03/pack-samples.js",
+      "source": "设计文档/UI原型/共享资源/art-direction-03/pack-samples.js",
+      "same": true,
+      "sha256": "1df7a24a8b3e147ad730aad00c96f22054f610daeb7a99befa517d16d4178a67"
+    },
+    {
+      "urlPath": "设计文档/UI原型/art-direction-03/collection-samples.js",
+      "source": "设计文档/UI原型/共享资源/art-direction-03/collection-samples.js",
+      "same": true,
+      "sha256": "03f827b5081d741944a612e632e60c8ea35cf30942b4cc240516b2adab594705"
+    },
+    {
+      "urlPath": "设计文档/UI原型/art-direction-03/fonts/NotoSansSC-ui.woff",
+      "source": "设计文档/UI原型/共享资源/art-direction-03/fonts/NotoSansSC-ui.woff",
+      "same": true,
+      "sha256": "8ad9e4563567084a891ec90eb64c0efa3822ebb26390ed9ccb79c866c8cf00c4"
+    },
+    {
+      "urlPath": "设计文档/UI原型/art-direction-03/fonts/Nunito-ui.woff",
+      "source": "设计文档/UI原型/共享资源/art-direction-03/fonts/Nunito-ui.woff",
+      "same": true,
+      "sha256": "49aa5ec01dbac53a0dbda990bd0b6ed4344480c55fe2346822d545877468c41f"
+    },
+    {
+      "urlPath": "设计文档/UI原型/layout-rebuild-01/home-balance.css",
+      "source": "设计文档/UI原型/共享资源/layout-rebuild-01/home-balance.css",
+      "same": true,
+      "sha256": "7220d6134c21651576f4f8ec8baca3de9e7f64220febaf8bb9aaee50eea93872"
+    },
+    {
+      "urlPath": "设计文档/UI原型/layout-rebuild-01/players-balance.css",
+      "source": "设计文档/UI原型/共享资源/layout-rebuild-01/players-balance.css",
+      "same": true,
+      "sha256": "a003506313c4dd2884f8b7b2e63fd0d3f776403cc433984ea69ab7f9e163c839"
+    },
+    {
+      "urlPath": "设计文档/UI原型/layout-rebuild-01/fonts/NotoSansSC-layout.woff",
+      "source": "设计文档/UI原型/共享资源/layout-rebuild-01/fonts/NotoSansSC-layout.woff",
+      "same": true,
+      "sha256": "ca325cefb68ba9d592d85a79b195b1f948b48e6d687e557f3da1665a3dcd7c66"
+    },
+    {
+      "urlPath": "设计文档/UI原型/navigation-rebuild-01/navigation.css",
+      "source": "设计文档/UI原型/共享资源/navigation-rebuild-01/navigation.css",
+      "same": true,
+      "sha256": "bad186d908ebf3322c11b8f5fbf3c0e155bcbf61b5255ad13fa2cb6aaaaf7e99"
+    },
+    {
+      "urlPath": "设计文档/UI原型/navigation-rebuild-01/subpages.css",
+      "source": "设计文档/UI原型/共享资源/navigation-rebuild-01/subpages.css",
+      "same": true,
+      "sha256": "7b57141cb5d2ac36e688d53b1f41f57458133b8782e195b925457ab9334cfd32"
+    },
+    {
+      "urlPath": "设计文档/UI原型/navigation-rebuild-01/profiles.css",
+      "source": "设计文档/UI原型/共享资源/navigation-rebuild-01/profiles.css",
+      "same": true,
+      "sha256": "7ca316bedc65d37d53efb1a5506cc6c56f76b8d8f2c3217a3bd862343eeb2d6b"
+    },
+    {
+      "urlPath": "设计文档/UI原型/navigation-rebuild-01/fonts/NotoSansSC-nav.woff",
+      "source": "设计文档/UI原型/共享资源/navigation-rebuild-01/fonts/NotoSansSC-nav.woff",
+      "same": true,
+      "sha256": "512bd4b6d824bf18befb9dbf31f9e3a76dd90ed91bd33be3283cb3357af44fd2"
+    }
+  ]
+}

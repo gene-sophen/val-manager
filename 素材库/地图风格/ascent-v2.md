@@ -2,7 +2,7 @@
 
 新版：`ascent-v2.svg`。旧 `ascent.svg` 保留，当前比赛仍使用原有资产及空间模型。
 
-布局来源为 `引擎/maps/layouts/ascent-v2.json`，渲染器为 `游戏/build-ascent-style.cjs`；生成数据见 `数据源/trace_ascent_layout.py`。独立渲染，不执行批量八图生成器。
+布局来源为 `引擎/maps/layouts/ascent-v2.json`，渲染器为 `游戏/tools/build-ascent-style.cjs`；生成数据见 `数据源/trace_ascent_layout.py`。独立渲染，不执行批量八图生成器。
 
 保留源小地图轮廓、内墙/结构标记、A/B 包区、主要掩体轮廓及 A 二楼；采用浅色地面、柔色边线、少量主题色、低密度地标，不用大面积文字代替地图形状。
 
