@@ -1,0 +1,26 @@
+/* Read-only presentation. Reuse workflow controls and show only current public facts. */
+(() => {
+ const D=DEMO,F=FLOW_UI,A=ARCHIVE_UI,R=PROTOTYPE_RULES,esc=F.esc;
+ const wrap=(obj,name,fn)=>{const prior=obj[name];obj[name]=(...args)=>fn(prior(...args),...args);};
+ const eyebrow=text=>'<span class="aurora-eyebrow">'+esc(text)+'</span>';
+ const face=p=>'<img src="'+F.asset(p.photo||'选手半身像/'+p.name+'.png','thumb')+'" alt="'+esc(p.name)+'" width="64" height="80">';
+ const stat=(label,value)=>'<div class="aurora-stat"><span>'+esc(label)+'</span><strong>'+esc(value)+'</strong></div>';
+ const meters=(values,label)=>'<div class="aurora-meters" aria-label="'+esc(label)+'">'+Object.entries(values||{}).map(([k,v])=>'<div><span>'+esc(k)+'</span><strong>'+Math.round(v)+'</strong><i aria-hidden="true"><b style="width:'+Math.max(0,Math.min(100,v))+'%"></b></i></div>').join('')+'</div>';
+ const crest=club=>'<img class="aurora-crest" src="'+F.asset('队伍logo/'+club+'.png')+'" alt="'+esc(club)+'" width="52" height="52">';
+ function removeBlock(html,tag,marker){const start=html.indexOf('<'+tag+' class="'+marker);if(start<0)return html;const re=new RegExp('<\\/?'+tag+'\\b[^>]*>','g');re.lastIndex=start;let depth=0,m;while((m=re.exec(html))){depth+=m[0].startsWith('</')?-1:1;if(!depth)return html.slice(0,start)+html.slice(re.lastIndex);}return html;}
+ const openingArt='<div class="opening-art" aria-hidden="true"><div class="opening-orbit orbit-one"></div><div class="opening-orbit orbit-two"></div><div class="opening-squad">'+Array.from({length:5},(_,i)=>'<div style="--slot:'+i+'"><svg viewBox="0 0 40 60"><circle cx="20" cy="15" r="9"/><path d="M5 57V43a15 15 0 0 1 30 0v14Z"/></svg><span>0'+(i+1)+'</span></div>').join('')+'</div><span class="opening-mark">VCT / CN</span></div>';
+ wrap(F,'home',(v,s)=>{
+  if(['none','finished'].includes(s.run)){const ended=s.run==='finished';v.body='<section class="opening-screen"><div class="opening-copy">'+eyebrow('VAL MANAGER · 2026')+'<h3>你的五人。<br>你的赛年。</h3><p>组建阵容，布置战术。<br>带着你的队伍，走向冠军赛。</p><button class="blue-button full" data-go="campaign/start">开始征战 →</button><div class="opening-facts">'+stat('选手池','CN')+stat('首发','5 人')+stat('完整赛年','8 阶段')+'</div></div>'+openingArt+'<div class="opening-path"><span><b>01</b> 选择主队</span><span><b>02</b> 三包选一</span><span><b>03</b> 五人出战</span></div>'+(ended?'<div class="opening-return">'+eyebrow('上一赛年已归档')+'<p>收藏、熟识与执教积累继续保留。</p><button class="quiet-button" data-go="archive/career">查看生涯记录 →</button></div>':'')+'</section>';return v;}
+  const ps=F.lineup(s),team=ps.length?'<div class="campaign-faces">'+ps.map(face).join('')+'</div>':'';
+  v.body='<section class="campaign-banner"><div>'+eyebrow('第 '+s.year+' 赛年 · '+D.phases[s.phase])+'<h3>'+esc(s.club)+'<span class="aurora-status">'+esc(s.run==='draft'?'阵容组建中':s.run==='reinforce'?'补强窗口':'当前征战')+'</span></h3><p>'+esc(s.run==='draft'?'从十张候选卡中，选定你的五人。':s.run==='reinforce'?'比较新人和原队员，确认下一赛段的首发。':'你的布置，队员的执行。每一场都留下记录。')+'</p></div>'+team+'</section>'+v.body;
+  if(ps.length===5){const extra='<section class="campaign-readiness">'+eyebrow('五人队伍状态')+meters(s.team,'当前队伍三维')+'<button class="text-action" data-go="team/overview">查看战队资料 →</button></section>';v.body=v.body.replace('</div><aside class="campaign-side">',extra+'</div><aside class="campaign-side">');if(!v.body.includes('campaign-readiness'))v.body+=extra;}
+  return v;
+ });
+ wrap(A,'team',(v,s)=>{if(!s.roster.length||s.run==='none')return v;const coverage=v.body.match(/<details><summary>选手三维与职责覆盖<\/summary>([\s\S]*?)<\/details>/)?.[1]||'';let body=removeBlock(v.body,'div','team-summary');body=removeBlock(body,'section','experience-panel');v.body='<div class="aurora-team-banner">'+crest(s.club)+'<div>'+eyebrow('第 '+s.year+' 赛年 · 五人首发')+'<h3>'+esc(s.club)+'</h3><small id="team-count">'+s.roster.length+' 名选手</small></div><button class="quiet-button" data-go="team/overview">战队资料 →</button></div>'+meters(s.team,'队伍三维')+body+(coverage?'<details class="plain-details team-coverage"><summary>选手三维与职责覆盖</summary>'+coverage+'</details>':'');return v;});
+ wrap(A,'album',(v,s)=>{v.body='<section class="collection-heading">'+eyebrow('选手收藏')+'<h3>每张卡，都是一种可能。</h3><div class="collection-total"><strong>'+new Set(s.unlocked||[]).size+'</strong><span>已解锁版本</span></div></section>'+v.body;return v;});
+ wrap(A,'career',(v,s)=>{v.body='<div class="archive-heading">'+eyebrow('执教生涯')+'<h3>记录你的每一个赛年。</h3><div class="archive-stats">'+stat('完成赛年',(s.seasons||[]).length)+stat('荣誉记录',(s.honorRecords||[]).length)+'</div></div>'+v.body;return v;});
+ wrap(F,'prepare',(v,s)=>{v.body='<section class="preparation-title">'+eyebrow('赛前备战 · '+D.phases[s.phase])+'<h3>先读对手，再布置比赛。</h3><p>地图禁选 · 特工搭配 · 攻防排序</p></section>'+v.body;return v;});
+ wrap(F,'match',(v,s)=>{v.body=v.body.replace('<div class="live-score">','<div class="live-score" aria-label="本图比分">').replace('<div class="match-context">','<div class="match-context" aria-label="地图与系列赛进度">');return v;});
+ for(const name of ['mapResult','series','stage'])wrap(F,name,v=>{v.body=v.body.replace('<section class="result-summary">','<section class="result-summary aurora-result">');return v;});
+ wrap(A,'settings',v=>{v.body=v.body.replace('<div class="page-pad settings-page">','<div class="page-pad settings-page"><div class="settings-heading">'+eyebrow('本机进度与应用偏好')+'<h3>安心继续下一场。</h3></div>');return v;});
+})();

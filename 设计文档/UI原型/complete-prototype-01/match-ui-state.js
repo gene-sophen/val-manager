@@ -13,10 +13,12 @@
   else if(c.error){state='compute-error';label='本分未完成 · 原比分保留';primaryAction={action:'retry-round',label:'重试本分'};}
   else if(s.coachWindow){state='coaching';label=s.coachWindow==='half'?'中场 · 等待教练确认':s.coachWindow==='opponent'?'对方暂停 · 等待教练确认':'战术暂停 · 等待教练确认';primaryAction={action:'resume-window',label:s.coachWindow==='half'?'保留战术，开始下半场':'保留战术，继续比赛'};}
   else if(s.preparingMap){state='preparing';label='准备第 '+(s.map+1)+' 图';nextRoute=(s.roster||[]).some(k=>!s.agents?.[s.map]?.[k])?'campaign/agents':'campaign/tactics';primaryAction={go:nextRoute,label:nextRoute.endsWith('agents')?'选择本图特工':'确认本图攻防方案'};}
+  else if(c.replayPending){state='replaying';label='第 '+s.round+' 分回放 · '+(s.playing?'随后自动推进':'可跳过查看比分');primaryAction={action:'next-round',label:'跳过回放 · 查看本分结果'};}
   else if(s.playing){state='automatic';label='自动推进 · 已完成 '+s.round+' 分';}
   const allowedActions=['save-exit','export-diagnostics','export-layout-diagnostics','export-save','export-draft','save-library','review-backup','return-library','export-library-backup','restore-save','close-dialog','speed','cancel-replay'];
   if(!c.storageError){if(!over&&!s.coachWindow)allowedActions.push('play-toggle','request-stop','timeout');if(!c.busy&&!over&&!s.coachWindow)allowedActions.push('next-round','retry-round','skip-map','watch-round');if(!c.busy&&s.coachWindow)allowedActions.push('adjust-window','resume-window','resume-from-home');if(over&&(!c.busy||c.work?.operation==='replay'))allowedActions.push('open-map-result','next-map');}
-  return {state,label,primaryAction,nextRoute,allowedActions,score,series,seriesOver,map:maps[s.map]||m?.mapId,nextMap:maps[s.map+1]||null,key:key(s),over};
+  const last=m?.rounds?.at(-1),displayScore=state==='replaying'&&last?[score[0]-(last.win?1:0),score[1]-(last.win?0:1)]:score;
+  return {state,label,displayScore,primaryAction,nextRoute,allowedActions,score,series,seriesOver,map:maps[s.map]||m?.mapId,nextMap:maps[s.map+1]||null,key:key(s),over};
  }
  return {derive,key,ended};
 });

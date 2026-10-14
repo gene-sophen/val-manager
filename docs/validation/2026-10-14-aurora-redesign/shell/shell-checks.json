@@ -1,0 +1,104 @@
+{
+  "database": "val-manager-test-mobile-shell-45e17acc-e532-45a6-9221-fe2b44ee989d",
+  "emulated": true,
+  "vivoVerified": false,
+  "checks": [
+    {
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "width": 320,
+      "height": 568,
+      "hidden": false,
+      "rect": {
+        "top": 495.8125,
+        "bottom": 568,
+        "left": 0,
+        "right": 320
+      },
+      "hit": true
+    },
+    {
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "width": 360,
+      "height": 640,
+      "hidden": false,
+      "rect": {
+        "top": 567.8125,
+        "bottom": 640,
+        "left": 0,
+        "right": 360
+      },
+      "hit": true
+    },
+    {
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "width": 390,
+      "height": 844,
+      "hidden": false,
+      "rect": {
+        "top": 771.8125,
+        "bottom": 844,
+        "left": 0,
+        "right": 390
+      },
+      "hit": true
+    },
+    {
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "width": 412,
+      "height": 915,
+      "hidden": false,
+      "rect": {
+        "top": 842.8125,
+        "bottom": 915,
+        "left": 0,
+        "right": 412
+      },
+      "hit": true
+    },
+    {
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "width": 844,
+      "height": 390,
+      "hidden": false,
+      "rect": {
+        "top": 317.8125,
+        "bottom": 390,
+        "left": 0,
+        "right": 844
+      },
+      "hit": true
+    },
+    {
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "width": 1280,
+      "height": 960,
+      "hidden": false,
+      "rect": {
+        "top": 862.8125,
+        "bottom": 935,
+        "left": 81,
+        "right": 1199
+      },
+      "hit": true
+    }
+  ],
+  "errors": []
+}

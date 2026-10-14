@@ -1,6 +1,6 @@
 # 正式征战前端
 
-当前版本 **v0.9**，移动端验收候选版。入口为[index.html](index.html)，与[手机PWA](https://gene-sophen.github.io/val-manager/)使用同一运行代码。
+当前版本 **v0.10**，Aurora Glass 全界面改版。入口为[index.html](index.html)，与[手机PWA](https://gene-sophen.github.io/val-manager/)使用同一运行代码。
 
 选择CN主队→三包逐张开卡→选一包选五人→地图BP/特工/攻防排序→比赛暂停与中场执教→阶段结算和两次补强→赛年收藏、熟识、荣誉与继承。
 
@@ -13,3 +13,5 @@
 本地启动方式见[根目录说明](../../../README.md)。发布命令为 `node 游戏/tools/build-pages.cjs`，只使用当前源码与必要资源；开发总览和地图复核页仍留在本目录，独立预览不会覆盖自己的征战。
 
 [最新验收](../../../docs/validation/README.md) · [早期制作记录](../../../归档/说明记录/完整前端-2026-10-05.md)。
+
+视觉规则集中于 design-system.css；component-layout.css 保存通用组件的几何布局；app-shell.css 管理视口与固定底栏。aurora-views.js 只组织真实当前数据，沿用原有动作、Worker 与事务存档。

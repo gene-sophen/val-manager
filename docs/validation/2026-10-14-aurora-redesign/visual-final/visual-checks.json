@@ -1,0 +1,390 @@
+{
+  "database": "val-manager-test-aurora-c36922e2-4500-4a1b-9cdf-95be978a5070",
+  "checks": [
+    {
+      "label": "opening",
+      "width": 390,
+      "height": 844,
+      "route": "#campaign",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 844
+    },
+    {
+      "label": "opening",
+      "width": 1280,
+      "height": 960,
+      "route": "#campaign",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 935
+    },
+    {
+      "label": "campaign",
+      "width": 390,
+      "height": 844,
+      "route": "#campaign",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 844
+    },
+    {
+      "label": "campaign",
+      "width": 1280,
+      "height": 960,
+      "route": "#campaign",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 935
+    },
+    {
+      "label": "team",
+      "width": 390,
+      "height": 844,
+      "route": "#team",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 844
+    },
+    {
+      "label": "team",
+      "width": 1280,
+      "height": 960,
+      "route": "#team",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 935
+    },
+    {
+      "label": "campaign-compare",
+      "width": 390,
+      "height": 844,
+      "route": "#campaign/compare",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 844
+    },
+    {
+      "label": "campaign-compare",
+      "width": 1280,
+      "height": 960,
+      "route": "#campaign/compare",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 935
+    },
+    {
+      "label": "campaign-pick",
+      "width": 390,
+      "height": 844,
+      "route": "#campaign/pick",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 844
+    },
+    {
+      "label": "campaign-pick",
+      "width": 1280,
+      "height": 960,
+      "route": "#campaign/pick",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 935
+    },
+    {
+      "label": "campaign-bp",
+      "width": 390,
+      "height": 844,
+      "route": "#campaign/bp",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 844
+    },
+    {
+      "label": "campaign-bp",
+      "width": 1280,
+      "height": 960,
+      "route": "#campaign/bp",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 935
+    },
+    {
+      "label": "campaign-agents",
+      "width": 390,
+      "height": 844,
+      "route": "#campaign/agents",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 844
+    },
+    {
+      "label": "campaign-agents",
+      "width": 1280,
+      "height": 960,
+      "route": "#campaign/agents",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 935
+    },
+    {
+      "label": "campaign-tactics",
+      "width": 390,
+      "height": 844,
+      "route": "#campaign/tactics",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 844
+    },
+    {
+      "label": "campaign-tactics",
+      "width": 1280,
+      "height": 960,
+      "route": "#campaign/tactics",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 935
+    },
+    {
+      "label": "campaign-map-result",
+      "width": 390,
+      "height": 844,
+      "route": "#campaign/map-result",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 844
+    },
+    {
+      "label": "campaign-map-result",
+      "width": 1280,
+      "height": 960,
+      "route": "#campaign/map-result",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 935
+    },
+    {
+      "label": "archive-album",
+      "width": 390,
+      "height": 844,
+      "route": "#archive/album",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 844
+    },
+    {
+      "label": "archive-album",
+      "width": 1280,
+      "height": 960,
+      "route": "#archive/album",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 935
+    },
+    {
+      "label": "archive-career",
+      "width": 390,
+      "height": 844,
+      "route": "#archive/career",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 844
+    },
+    {
+      "label": "archive-career",
+      "width": 1280,
+      "height": 960,
+      "route": "#archive/career",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 935
+    },
+    {
+      "label": "archive-settings",
+      "width": 390,
+      "height": 844,
+      "route": "#archive/settings",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 844
+    },
+    {
+      "label": "archive-settings",
+      "width": 1280,
+      "height": 960,
+      "route": "#archive/settings",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 935
+    },
+    {
+      "label": "archive-player-ZmjjKK-金",
+      "width": 390,
+      "height": 844,
+      "route": "#archive/player/ZmjjKK-%E9%87%91",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 844
+    },
+    {
+      "label": "archive-player-ZmjjKK-金",
+      "width": 1280,
+      "height": 960,
+      "route": "#archive/player/ZmjjKK-%E9%87%91",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 935
+    },
+    {
+      "label": "match-split",
+      "width": 390,
+      "height": 844,
+      "route": "#campaign/match",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 844
+    },
+    {
+      "label": "match-split",
+      "width": 1280,
+      "height": 960,
+      "route": "#campaign/match",
+      "overflow": false,
+      "navHidden": false,
+      "navBottom": 935
+    },
+    {
+      "label": "Fullscreen replay closes with Escape"
+    }
+  ],
+  "contrasts": [
+    {
+      "text": "开始征战 →",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "opening"
+    },
+    {
+      "text": "开始征战 →",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "opening"
+    },
+    {
+      "text": "进入备战 →",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "campaign"
+    },
+    {
+      "text": "进入备战 →",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "campaign"
+    },
+    {
+      "text": "选择卡包 1，组成五人 →",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "campaign-compare"
+    },
+    {
+      "text": "选择卡包 1，组成五人 →",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "campaign-compare"
+    },
+    {
+      "text": "确认特工 · 5/5 →",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "campaign-agents"
+    },
+    {
+      "text": "确认特工 · 5/5 →",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "campaign-agents"
+    },
+    {
+      "text": "确认方案，开始第 1 图",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "campaign-tactics"
+    },
+    {
+      "text": "确认方案，开始第 1 图",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "campaign-tactics"
+    },
+    {
+      "text": "准备第 2 图 · 裂变峡谷 →",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "campaign-map-result"
+    },
+    {
+      "text": "准备第 2 图 · 裂变峡谷",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "campaign-map-result"
+    },
+    {
+      "text": "准备第 2 图 · 裂变峡谷 →",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "campaign-map-result"
+    },
+    {
+      "text": "准备第 2 图 · 裂变峡谷",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "campaign-map-result"
+    },
+    {
+      "text": "导出备份",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "archive-settings"
+    },
+    {
+      "text": "导出备份",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "archive-settings"
+    },
+    {
+      "text": "跳过回放 · 查看本分结果",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "match-split"
+    },
+    {
+      "text": "跳过回放 · 查看本分结果",
+      "foreground": "rgb(255, 255, 255)",
+      "background": "rgb(43, 108, 176)",
+      "ratio": 5.419829074091685,
+      "label": "match-split"
+    }
+  ],
+  "errors": [],
+  "vivoVerified": false
+}
