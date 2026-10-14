@@ -1,15 +1,15 @@
 /* Player explanations use committed public data; never predict outcomes or award growth. */
-(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory(require('./experience-model'),require('../../../游戏/agent-selection'),require('./navigation'));else root.PLAYER_JOURNEY=factory(root.PLAYER_EXPERIENCE,root.AGENT_SELECTION,root.VM_NAV);})(typeof window==='object'?window:globalThis,(P,A,N)=>{
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory(require('./experience-model'),require('../../../游戏/agent-selection'),require('./navigation'),require('./match-ui-state'));else root.PLAYER_JOURNEY=factory(root.PLAYER_EXPERIENCE,root.AGENT_SELECTION,root.VM_NAV,root.MATCH_UI_STATE);})(typeof window==='object'?window:globalThis,(P,A,N,M)=>{
  const roles={duelist:'突破',controller:'烟位',initiator:'信息与协同',sentinel:'防线'};
  const ended=m=>!!m&&Math.max(m.home,m.away)>=13&&Math.abs(m.home-m.away)>=2;
- function task(s){const route=N.resume(s),m=s.liveMaps?.[s.map],stage=s.stageRecords?.find(r=>r.phase===s.phase);let label='进入备战',reason='确认地图、特工与攻防方案',go=route,action='';
+ function task(s){if(s.preparingMap){const route=N.resume(s);return {label:route.endsWith('agents')?'选择第 '+(s.map+1)+' 图特工':'确认第 '+(s.map+1)+' 图战术',reason:'每张地图先确认特工，再确认攻防方案',go:route,action:'',series:(s.liveMaps||[]).reduce((n,m)=>{if(ended(m))n[m.home>m.away?0:1]++;return n;},[0,0])};}const route=N.resume(s),m=s.liveMaps?.[s.map],stage=s.stageRecords?.find(r=>r.phase===s.phase);let label='进入备战',reason='确认地图、特工与攻防方案',go=route,action='';
   if(s.run==='none'){label='选择主队，开始征战';go='campaign/start';reason='先选赛事席位，再开三个初始包';}
   else if(s.run==='finished'){label='开始新的赛年';go='campaign/start';reason='保留已获得的收藏与生涯积累，重新组队';}
   else if(stage){label=s.phase===7?'查看赛年收获':'查看本阶段结算';go=s.phase===7?'campaign/year-result':'campaign/stage-result';reason='本阶段已结算，确认成绩与后续资格';}
   else if(s.run==='draft'){label=route.endsWith('confirm')?'确认五人阵容':route.endsWith('pick')?'继续选人 · '+s.lineup.length+'/5':route.endsWith('compare')?'比较三包，选择一个':'继续揭晓 · '+s.opened.reduce((a,b)=>a+b,0)+'/30';reason=route.endsWith('confirm')?'查看阵容取舍后，确认本赛年五人首发':'选一个整包，从十张中组成五人，无替补';}
   else if(s.run==='reinforce'){go=s.reinforce?.length===5&&s.reinforcementOpened===10?'campaign/reinforce-review':'campaign/reinforce';label=go.endsWith('review')?'查看换人前后对照':s.reinforcementOpened<10?'继续揭晓补强包':'选择补强队员';reason='确认后离队者不可换回，先比较能力与磨合';}
   else if(s.completedMatch){go='campaign/series-result';label='查看系列赛结果';reason='本场赛果已记录，接下来确认后续赛程';}
-  else if(s.run==='match'&&ended(m)){go='campaign/map-result';label='查看本图结果';reason='本图结束，确认系列比分与下一张地图';}
+  else if(s.run==='match'&&ended(m)){const state=M.derive(s);go='campaign/map-result';label=state.primaryAction.label;reason='本图结束，确认系列比分与下一张地图';}
   else if(s.adjusting){go='campaign/tactics';label='继续调整攻防方案';reason='当前仍是草案；应用后才用于后续比分';}
   else if(s.coachWindow){go='';action='resume-from-home';label=s.coachWindow==='half'?'保留战术，开始下半场':'保留战术，继续比赛';reason=s.coachWindow==='half'?'半场结束，下一分交换攻防':s.coachWindow==='opponent'?'对方请求战术暂停，双方均可调整':'我方战术暂停，双方均可调整';}
   else if(s.run==='match'){go='campaign/match';label='继续第 '+((s.round||0)+1)+' 分';reason='已完成 '+(s.round||0)+' 分，队员自行执行，执教窗口可调整';}

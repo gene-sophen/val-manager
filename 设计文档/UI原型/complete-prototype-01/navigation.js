@@ -13,7 +13,7 @@
   if(page==='map-result')return s.reviewMap!==null&&s.reviewMap!==undefined?'campaign/series-result':'campaign/match';
   if(page==='reinforce-review')return s.run==='reinforce'?'campaign/reinforce':'campaign';
   if(['prepare','bp','agents','tactics'].includes(page)){
-   if(s.completedMatch)return 'campaign';
+   if(s.completedMatch)return 'campaign/series-result';
    if(s.run==='match'&&s.round>0)return 'campaign/match';
    if(page==='agents'&&s.map>0)return 'campaign';
    return {bp:'campaign/prepare',agents:'campaign/bp',tactics:'campaign/agents'}[page]||'campaign';
@@ -34,18 +34,18 @@
  function resume(s={}){
   if(s.run==='reinforce')return 'campaign/reinforce';
   if(s.run==='draft')return s.chosenPack!==null&&s.chosenPack!==undefined?(s.lineup?.length===5?'campaign/confirm':'campaign/pick'):s.opened?.every(n=>n===10)?'campaign/compare':'campaign/packs';
-  if(s.completedMatch)return 'campaign';
+  if(s.completedMatch)return 'campaign/series-result';
   if((s.bp?.length||0)<7)return s.bp?.length?'campaign/bp':'campaign/prepare';
   if((s.sideChosen||[]).some(v=>!v))return 'campaign/bp';
   if((s.roster||[]).some(k=>!s.agents?.[s.map||0]?.[k]))return 'campaign/agents';
-  return s.run==='match'?'campaign/match':'campaign/tactics';
+  return s.preparingMap?'campaign/tactics':s.run==='match'?'campaign/match':'campaign/tactics';
  }
  function normalize(route,s={}){
   if(!route.startsWith('campaign/'))return route;
   const page=route.split('/')[1];
   if(draftPages.has(page)&&page!=='start'&&s.run!=='draft')return 'campaign';
   if(page?.startsWith('reinforce')&&s.run!=='reinforce')return 'campaign';
-  if(['prepare','bp','agents','tactics'].includes(page)&&(s.completedMatch||s.run==='match'&&!s.adjusting))return 'campaign';
+  if(['prepare','bp','agents','tactics'].includes(page)&&(s.completedMatch||s.run==='match'&&!s.adjusting&&!s.preparingMap))return 'campaign';
   return route;
  }
  return Object.freeze({parent,target,dockTone,resume,normalize});

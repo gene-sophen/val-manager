@@ -1,6 +1,6 @@
 # VAL MANAGER
 
-当前版本 **v0.8**。本版整理目录、共享运行资源与开发工具；玩法和引擎沿用v0.7，现有PWA地址与浏览器存档保持兼容。
+当前版本 **v0.9**，移动端验收候选版。本版统一页面外壳、常驻导航、地图结算与停止控制，存档状态置顶；现有PWA地址、比赛模型与浏览器存档保持兼容。浏览器模拟已验证，iQOO Neo10 / OriginOS 6 的 Chrome 桌面启动仍待真机验收。
 
 [手机试玩](https://gene-sophen.github.io/val-manager/) · [完整目录导航](docs/PROJECT_LAYOUT.md) · [当前玩法设计](设计文档/01_当前设计/征战模式重做定案与待确认事项.md)
 
@@ -38,8 +38,8 @@ $tests = @(rg --files 游戏/tests 引擎/tests -g '*.test.js')
 node --test @tests
 ```
 
-默认发布输出为 `.artifacts/releases/current/`。构建拒绝覆盖已有目录；需要再次构建时指定新的输出路径，例如 `node 游戏/tools/build-pages.cjs .artifacts/releases/v08-check`。GitHub Actions自动构建并部署main，只发布正式运行资源与兼容资源URL。
+默认发布输出为 `.artifacts/releases/current/`。构建拒绝覆盖已有目录；需要再次构建时指定新的输出路径，例如 `node 游戏/tools/build-pages.cjs .artifacts/releases/v09-check`。GitHub Actions自动构建并部署main，只发布正式运行资源与兼容资源URL。
 
 存档在当前设备和站点的浏览器内，不随GitHub同步。换设备可在设置导出/导入备份。手机仍显示旧版时使用“设置→检查更新→保存并更新”。
 
-本轮整理与验证见[目录整理验收](docs/validation/reports/2026-10-14-project-organization.md)。之前的[玩家旅程验收](docs/validation/reports/2026-10-14-player-journeys.md)保留作为v0.7依据。
+本轮改版见[移动端验收](docs/validation/reports/2026-10-14-mobile-flow.md)。目录整理与验证见[目录整理验收](docs/validation/reports/2026-10-14-project-organization.md)。之前的[玩家旅程验收](docs/validation/reports/2026-10-14-player-journeys.md)保留作为v0.7依据。

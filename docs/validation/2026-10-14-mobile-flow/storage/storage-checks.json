@@ -1,0 +1,67 @@
+{
+  "checks": [
+    "旧档原文完整备份且源未改动",
+    "并发旧版本被拒绝",
+    "恢复模式也不能绕过并发保护",
+    "并发未覆盖有效存档",
+    "保留上一个完整有效存档",
+    "导出可校验恢复",
+    "损坏导入不覆盖当前数据",
+    "显式恢复并保留被替换档",
+    "清空生涯并从空阵容、空图鉴开始",
+    "清空前原档保留，可恢复",
+    "启动校验损坏原档而非静默重开",
+    "损坏原文可导出",
+    "损坏恢复闭环",
+    "损坏旧档不自动覆盖或初始化",
+    "save 事务中止：磁盘、版本和成功检查点不前移，可立即恢复",
+    "restore 事务中止：磁盘、版本和成功检查点不前移，可立即恢复",
+    "restart 事务中止：磁盘、版本和成功检查点不前移，可立即恢复",
+    "缺少state或null的损坏记录不会卡住或当成空档，不伪报保存；原文可导出并显式恢复",
+    "空字符串旧档按损坏原文保留，不初始化覆盖"
+  ],
+  "aborts": [
+    {
+      "operation": "save",
+      "database": "val-manager-test-abort-af0f3595-73e8-4d48-8e81-ead243fdda30",
+      "error": "存档事务失败",
+      "flushRejected": true,
+      "unchanged": true,
+      "revisionStable": true,
+      "checkpointStable": true,
+      "restored": true
+    },
+    {
+      "operation": "restore",
+      "database": "val-manager-test-abort-0a904b5e-a175-4874-b493-db31c0532e20",
+      "error": "存档事务失败",
+      "flushRejected": false,
+      "unchanged": true,
+      "revisionStable": true,
+      "checkpointStable": true,
+      "restored": true
+    },
+    {
+      "operation": "restart",
+      "database": "val-manager-test-abort-1fd76af2-22e2-4252-b2c8-75d1b9a9e69d",
+      "error": "存档事务失败",
+      "flushRejected": false,
+      "unchanged": true,
+      "revisionStable": true,
+      "checkpointStable": true,
+      "restored": true
+    }
+  ],
+  "malformed": [
+    {
+      "rejected": true,
+      "noCheckpoint": true,
+      "recovered": true
+    },
+    {
+      "rejected": true,
+      "noCheckpoint": true,
+      "recovered": true
+    }
+  ]
+}

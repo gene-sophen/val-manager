@@ -4,18 +4,19 @@ const root=path.resolve(__dirname,'../../..'),runtime=process.env.VM_TEST_NODE_M
 const {chromium}=require(path.join(runtime,'playwright'));
 const out=process.env.VM_TEST_OUTPUT||path.join(root,'docs/validation/2026-10-12-player-experience');fs.mkdirSync(out,{recursive:true});fs.mkdirSync(out,{recursive:true});
 let browser;
+const app=path.join(root,'设计文档/UI原型/complete-prototype-01'),name='val-manager-test-layout-'+require('node:crypto').randomUUID();const html=fs.readFileSync(path.join(app,'index.html'),'utf8').replace('<head>','<head><meta name="career-test-database" content="'+name+'"><base href="/设计文档/UI原型/complete-prototype-01/">');fs.writeFileSync(path.join(root,'游戏/out/career-browser-check.html'),html);
 (async()=>{
  browser=await chromium.launch({headless:true,executablePath:process.env.VM_TEST_CHROME||'C:/Users/13670/AppData/Local/Google/Chrome/Application/chrome.exe'});
  const context=await browser.newContext({viewport:{width:1280,height:960},deviceScaleFactor:1}),page=await context.newPage(),errors=[];
  page.on('pageerror',e=>errors.push(e.message));page.setDefaultTimeout(12000);
  await page.goto('http://127.0.0.1:8765/游戏/out/career-browser-check.html?ux=matrix');
- const name=await page.locator('meta[name=career-test-database]').getAttribute('content');assert(/^val-manager-test-/.test(name));
+ assert.equal(await page.locator('meta[name=career-test-database]').getAttribute('content'),name);
  await page.getByRole('button',{name:'开始征战 →',exact:true}).waitFor();
  const matrix=[];
- const chapters=await page.locator('#page-list button').evaluateAll(es=>es.map(e=>({route:e.dataset.preview,text:e.textContent})));
+ const allChapters=await page.locator('#page-list button').evaluateAll(es=>es.map(e=>({route:e.dataset.preview,text:e.textContent})));const chapters=process.env.VM_TEST_ROUTES?allChapters.filter(p=>process.env.VM_TEST_ROUTES.split(',').includes(p.route)):allChapters;
  for(const largeText of [false,true]){if(largeText){await page.setViewportSize({width:1280,height:960});await page.locator('.header-menu[data-go="archive/settings"]').click();await page.getByLabel('放大文字',{exact:true}).check();}for(const item of chapters){
   await page.setViewportSize({width:1280,height:960});await page.evaluate(()=>document.body.classList.add('qa-workbench'));await page.locator('#page-list [data-preview="'+item.route+'"]').click();await page.evaluate(()=>document.body.classList.remove('qa-workbench'));
-  for(const size of [{width:320,height:640},{width:360,height:740},{width:390,height:844},{width:430,height:932},{width:844,height:390},{width:1280,height:960}]){
+  for(const size of [{width:320,height:568},{width:360,height:640},{width:390,height:844},{width:412,height:915},{width:844,height:390},{width:1280,height:960}]){
    await page.setViewportSize(size);await page.screenshot();
    const result=await page.evaluate(()=>{const app=document.querySelector('.app-phone'),body=document.getElementById('page-body'),ar=app.getBoundingClientRect();return {route:location.hash,width:window.innerWidth,overflow:body.scrollWidth>body.clientWidth+2,navigation:[...app.querySelectorAll('#main-nav:not([hidden]),#subpage-dock:not([hidden])')].filter(e=>{const r=e.getBoundingClientRect();return r.height&&(r.top<0||r.bottom>innerHeight+1);}).map(e=>e.id),small:[...app.querySelectorAll('button')].filter(e=>{const r=e.getBoundingClientRect();return r.height&&r.width&&!e.closest('details:not([open])')&&!e.closest('dialog:not([open])')&&(r.height<43||r.width<43);}).map(e=>e.textContent.trim()),outside:[...app.querySelectorAll('button')].filter(e=>{const r=e.getBoundingClientRect();return r.height&&!e.closest('details:not([open])')&&!e.closest('dialog:not([open])')&&(r.left<ar.left-2||r.right>ar.right+2);}).map(e=>e.textContent.trim())};});
    matrix.push({page:item.text,size,largeText,...result});
@@ -24,5 +25,5 @@ let browser;
  }}
  fs.writeFileSync(path.join(out,'layout-matrix.json'),JSON.stringify({database:name,errors,matrix},null,2));
  console.log(JSON.stringify({database:name,pages:chapters.length,checks:matrix.length,errors,layoutIssues:matrix.filter(m=>m.overflow||m.small.length||m.outside.length||m.navigation.length)}));
- await context.close();await browser.close();
+ assert.deepEqual(errors,[]);assert(!matrix.some(m=>m.overflow||m.small.length||m.outside.length||m.navigation.length),'Layout matrix has issues');await context.close();await browser.close();
 })().catch(async e=>{console.error(e);await browser?.close();process.exitCode=1;});

@@ -1,0 +1,69 @@
+{
+  "checks": [
+    {
+      "origin": "胜者组",
+      "configuredStrength": "正常随机五人",
+      "database": "val-manager-test-mobile-final-671af442-a394-4a9f-aaa8-1511347ae9b9",
+      "maps": 3,
+      "result": [
+        [
+          1,
+          13
+        ],
+        [
+          4,
+          13
+        ],
+        [
+          5,
+          13
+        ]
+      ],
+      "nextPhase": 4
+    },
+    {
+      "origin": "败者组",
+      "configuredStrength": "正常随机五人",
+      "database": "val-manager-test-mobile-final-6768d0ea-0d72-48ef-9868-40af82cb19db",
+      "maps": 3,
+      "result": [
+        [
+          3,
+          13
+        ],
+        [
+          1,
+          13
+        ],
+        [
+          2,
+          13
+        ]
+      ],
+      "nextPhase": 4
+    },
+    {
+      "origin": "胜者组",
+      "configuredStrength": "实际卡池高能力五人、队伍/教练/地图100测试输入",
+      "database": "val-manager-test-mobile-final-021d5823-66b0-4c8f-8784-f359f5766ae2",
+      "maps": 3,
+      "result": [
+        [
+          13,
+          2
+        ],
+        [
+          13,
+          6
+        ],
+        [
+          13,
+          2
+        ]
+      ],
+      "nextPhase": 4
+    }
+  ],
+  "errors": [],
+  "vivoVerified": false
+}

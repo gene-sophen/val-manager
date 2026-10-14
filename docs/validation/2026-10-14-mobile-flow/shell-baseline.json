@@ -1,0 +1,104 @@
+{
+  "database": "val-manager-test-mobile-shell-f1cea102-a92b-48f5-9460-e509b1eaf931",
+  "emulated": true,
+  "vivoVerified": false,
+  "checks": [
+    {
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "width": 320,
+      "height": 568,
+      "hidden": true,
+      "rect": {
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      },
+      "hit": false
+    },
+    {
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "width": 360,
+      "height": 640,
+      "hidden": true,
+      "rect": {
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      },
+      "hit": false
+    },
+    {
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "width": 390,
+      "height": 844,
+      "hidden": true,
+      "rect": {
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      },
+      "hit": false
+    },
+    {
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "width": 412,
+      "height": 915,
+      "hidden": true,
+      "rect": {
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      },
+      "hit": false
+    },
+    {
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "width": 844,
+      "height": 390,
+      "hidden": true,
+      "rect": {
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      },
+      "hit": false
+    },
+    {
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "width": 1280,
+      "height": 960,
+      "hidden": true,
+      "rect": {
+        "top": 0,
+        "bottom": 0,
+        "left": 0,
+        "right": 0
+      },
+      "hit": false
+    }
+  ],
+  "errors": []
+}

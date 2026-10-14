@@ -101,6 +101,7 @@
  };
  R.replayDuration=s=>{const info=ROUND_PRESENTATION.mode(s),m=s.liveMaps?.[s.map],r=m?.rounds.at(-1);if(!info.replay||s.reducedMotion||s.coachWindow||s.watchedReplay===info.token)return 0;return Math.max(0,r.ticks-(playback?.token===info.token?playback.tick:0))*1000/([.5,1,2,4].includes(s.speed)?s.speed:2)+300;};
  R.replayPending=s=>!s.fastForward&&s.watchedReplay!==ROUND_PRESENTATION.token(s)&&playback?.element?.isConnected&&playback.token===ROUND_PRESENTATION.token(s)&&playback.tick<playback.record.ticks;
+ R.setReplaySpeed=value=>{if(!playback)return;playback.speed=value;playback.clock?.setSpeed(value);syncFocus();};
  R.continueReplay=s=>{if(playback?.token!==ROUND_PRESENTATION.token(s))return;if(s.watchedReplay===playback.token||s.reducedMotion)playback.clock?.seek(playback.record.ticks);else playback.clock?.play();};
  R.playbackState=()=>playback?.element?.isConnected?{playing:playback.playing,tick:playback.tick,duration:playback.record.ticks,reviewing:playback.tick<playback.record.ticks}:null;
  R.skipReplay=s=>{stopVoice();if(playback?.token===ROUND_PRESENTATION.token(s)){playback.clock?.seek(playback.record.ticks);playback.markWatched();}};

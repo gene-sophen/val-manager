@@ -44,3 +44,4 @@ test('native Back cannot expose expired draft or restart preparations after a ma
  assert.equal(N.normalize('campaign/match',{run:'match',round:5}),'campaign/match');
  assert.equal(N.normalize('campaign/tactics',{run:'match',adjusting:'half'}),'campaign/tactics');
 });
+test('legacy cross-map preparation migrates once, confirmed second map stays started on repeated synchronization',()=>{const H=require('./helpers/live-ui.cjs'),x=H.load('cross-map-migration'),s=H.begin(x);H.veto(x,s);s.map=1;s.run='match';s.round=0;delete s.preparingMap;x.PROTOTYPE_RULES.init(s);assert.equal(s.run,'active');assert.equal(s.preparingMap,true);assert.equal(x.VM_NAV.resume(s),'campaign/agents');s.preparingMap=false;s.run='match';x.PROTOTYPE_RULES.startMap(s);x.DEMO.sync(s);x.DEMO.sync(s);assert.equal(s.run,'match');assert.equal(s.preparingMap,false);});

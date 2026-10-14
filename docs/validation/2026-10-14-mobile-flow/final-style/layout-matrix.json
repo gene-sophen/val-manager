@@ -1,0 +1,342 @@
+{
+  "database": "val-manager-test-layout-dfb4d934-4b72-4985-bee0-6a06101e04b4",
+  "errors": [],
+  "matrix": [
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/tactics",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/tactics",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/tactics",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/tactics",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/tactics",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/tactics",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/match",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/match",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/match",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/match",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/match",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/match",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/tactics",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/tactics",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/tactics",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/tactics",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/tactics",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/tactics",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/match",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/match",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/match",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/match",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/match",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/match",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    }
+  ]
+}
