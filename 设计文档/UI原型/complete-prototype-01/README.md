@@ -1,6 +1,6 @@
 # 正式征战前端
 
-当前版本 **v0.11**，触摸滚动、颜色状态与后台赛程改进。入口为[index.html](index.html)，与[手机PWA](https://gene-sophen.github.io/val-manager/)使用同一运行代码。
+当前版本 **v0.12**，原生页面滚动、比赛计算退出与可恢复重开。入口为[index.html](index.html)，与[手机PWA](https://gene-sophen.github.io/val-manager/)使用同一运行代码。
 
 选择CN主队→三包逐张开卡→选一包选五人→地图BP/特工/攻防排序→比赛暂停与中场执教→阶段结算和两次补强→赛年收藏、熟识、荣誉与继承。
 

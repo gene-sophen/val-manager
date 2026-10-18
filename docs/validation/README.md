@@ -4,6 +4,8 @@
 
 近期报告：
 
+- [v0.12原生滚动与比赛恢复](reports/2026-10-18-native-scroll-recovery.md)：原生页面滚动、即时停止、可恢复重开；真机待复验。
+
 - [v0.11滚动、全界面审查与后台赛程](reports/2026-10-18-scroll-simulation.md)：本地回归通过，真机门槛保留。
 
 - [v0.10 Aurora Glass 全界面重做](reports/2026-10-14-aurora-redesign.md)。

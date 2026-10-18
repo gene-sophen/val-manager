@@ -3,7 +3,7 @@ const root=path.resolve(__dirname,'../../..'),{chromium}=require(path.join(proce
 const out=process.env.VM_TEST_OUTPUT||path.join(root,'docs/validation/2026-10-12-player-experience');fs.mkdirSync(out,{recursive:true});
 let browser;
 (async()=>{browser=await chromium.launch({headless:true,executablePath:process.env.VM_TEST_CHROME||'C:/Users/13670/AppData/Local/Google/Chrome/Application/chrome.exe'});const context=await browser.newContext({viewport:{width:390,height:844}}),page=await context.newPage(),errors=[],checks=[];page.setDefaultTimeout(15000);page.on('pageerror',e=>errors.push(e.message));
- await page.goto('http://127.0.0.1:8765/游戏/out/career-browser-check.html?ux=interaction');const database=await page.locator('meta[name=career-test-database]').getAttribute('content');assert(/^val-manager-test-/.test(database));
+ await page.goto((process.env.VM_TEST_BASE_URL||'http://127.0.0.1:8765')+'/游戏/out/career-browser-check.html?ux=interaction');const database=await page.locator('meta[name=career-test-database]').getAttribute('content');assert(/^val-manager-test-/.test(database));
  await page.getByRole('button',{name:'开始征战 →',exact:true}).click();await page.locator('#subpage-dock [data-action=start-packs]').click();
  for(let i=0;i<3;i++){await page.locator('[data-pack="'+i+'"]').click();await page.locator('#subpage-dock [data-action=open-pack]').click();for(let n=1;n<10;n++)await page.locator('#subpage-dock [data-action=next-card]').click();await page.locator('#subpage-dock [data-action=next-card]').click();}
  await page.locator('#subpage-dock [data-action=compare-packs]').click();assert(await page.getByText('参考首发：',{exact:false}).count()===3);checks.push('三个包逐张揭晓，三个合法首发摘要显示');

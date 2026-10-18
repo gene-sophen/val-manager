@@ -9,7 +9,7 @@ const app=path.join(root,'设计文档/UI原型/complete-prototype-01'),name='va
  browser=await chromium.launch({headless:true,executablePath:process.env.VM_TEST_CHROME||'C:/Users/13670/AppData/Local/Google/Chrome/Application/chrome.exe'});
  const context=await browser.newContext({viewport:{width:1280,height:960},deviceScaleFactor:1}),page=await context.newPage(),errors=[];
  page.on('pageerror',e=>errors.push(e.message));page.setDefaultTimeout(12000);
- await page.goto('http://127.0.0.1:8765/游戏/out/career-browser-check.html?ux=matrix');
+ await page.goto((process.env.VM_TEST_BASE_URL||'http://127.0.0.1:8765')+'/游戏/out/career-browser-check.html?ux=matrix');
  assert.equal(await page.locator('meta[name=career-test-database]').getAttribute('content'),name);
  await page.getByRole('button',{name:'开始征战 →',exact:true}).waitFor();
  const matrix=[];

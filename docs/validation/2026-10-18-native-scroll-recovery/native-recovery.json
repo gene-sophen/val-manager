@@ -1,0 +1,394 @@
+{
+  "version": "v0.12",
+  "realDeviceVerified": false,
+  "databases": [
+    "val-manager-test-native-c332fd45-d318-41c6-8d5f-1fd5f5179435",
+    "val-manager-test-native-c6597903-a52c-44dc-adde-234d767251ff",
+    "val-manager-test-native-e8e7f6fa-4beb-4642-bb4c-904df2253088",
+    "val-manager-test-native-6e1862a1-bf55-48df-9903-9d71ed76ec42",
+    "val-manager-test-native-4609167e-bcb4-40a7-a44b-17fb6b61e798"
+  ],
+  "checks": [
+    {
+      "name": "legacy-html-transition-retains-scroll-and-controls",
+      "pass": true
+    },
+    {
+      "name": "agent-native-touch-up-down-at-6x-cpu",
+      "up": {
+        "before": 0,
+        "top": 84,
+        "bottom": 721.3125,
+        "x": 226.60000000000002,
+        "y": 568.3575000000001,
+        "after": 327
+      },
+      "down": {
+        "before": 327,
+        "top": 84,
+        "bottom": 721.3125,
+        "x": 226.60000000000002,
+        "y": 568.3575000000001,
+        "after": 0
+      }
+    },
+    {
+      "name": "expanded-fifth-agent-list",
+      "up": {
+        "before": 1300,
+        "top": 84,
+        "bottom": 721.3125,
+        "x": 226.60000000000002,
+        "y": 568.3575000000001,
+        "after": 1628
+      },
+      "down": {
+        "before": 1628,
+        "top": 84,
+        "bottom": 721.3125,
+        "x": 226.60000000000002,
+        "y": 568.3575000000001,
+        "after": 1383
+      }
+    },
+    {
+      "name": "search-keyboard-and-detail-return",
+      "pass": true
+    },
+    {
+      "name": "five-unique-agents-to-tactics",
+      "pass": true
+    },
+    {
+      "name": "native-layouts",
+      "states": 28,
+      "rows": [
+        {
+          "route": "#campaign/agents",
+          "width": 360,
+          "height": 640,
+          "horizontal": false,
+          "header": 0,
+          "nav": 640,
+          "dockBottom": 567.8125,
+          "navTop": 567.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/agents",
+          "width": 412,
+          "height": 915,
+          "horizontal": false,
+          "header": 0,
+          "nav": 915,
+          "dockBottom": 842.8125,
+          "navTop": 842.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/agents",
+          "width": 915,
+          "height": 412,
+          "horizontal": false,
+          "header": 0,
+          "nav": 412,
+          "dockBottom": 339.8125,
+          "navTop": 339.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/agents",
+          "width": 1280,
+          "height": 900,
+          "horizontal": false,
+          "header": 0,
+          "nav": 900,
+          "dockBottom": 827.8125,
+          "navTop": 827.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/bp",
+          "width": 360,
+          "height": 640,
+          "horizontal": false,
+          "header": 0,
+          "nav": 640,
+          "dockBottom": 567.8125,
+          "navTop": 567.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/bp",
+          "width": 412,
+          "height": 915,
+          "horizontal": false,
+          "header": 0,
+          "nav": 915,
+          "dockBottom": 842.8125,
+          "navTop": 842.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/bp",
+          "width": 915,
+          "height": 412,
+          "horizontal": false,
+          "header": 0,
+          "nav": 412,
+          "dockBottom": 339.8125,
+          "navTop": 339.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/bp",
+          "width": 1280,
+          "height": 900,
+          "horizontal": false,
+          "header": 0,
+          "nav": 900,
+          "dockBottom": 827.8125,
+          "navTop": 827.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/tactics",
+          "width": 360,
+          "height": 640,
+          "horizontal": false,
+          "header": 0,
+          "nav": 640,
+          "dockBottom": 567.8125,
+          "navTop": 567.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/tactics",
+          "width": 412,
+          "height": 915,
+          "horizontal": false,
+          "header": 0,
+          "nav": 915,
+          "dockBottom": 842.8125,
+          "navTop": 842.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/tactics",
+          "width": 915,
+          "height": 412,
+          "horizontal": false,
+          "header": 0,
+          "nav": 412,
+          "dockBottom": 339.8125,
+          "navTop": 339.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/tactics",
+          "width": 1280,
+          "height": 900,
+          "horizontal": false,
+          "header": 0,
+          "nav": 900,
+          "dockBottom": 827.8125,
+          "navTop": 827.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/match",
+          "width": 360,
+          "height": 640,
+          "horizontal": false,
+          "header": 0,
+          "nav": 640,
+          "dockBottom": null,
+          "navTop": 567.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/match",
+          "width": 412,
+          "height": 915,
+          "horizontal": false,
+          "header": 0,
+          "nav": 915,
+          "dockBottom": null,
+          "navTop": 842.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/match",
+          "width": 915,
+          "height": 412,
+          "horizontal": false,
+          "header": 0,
+          "nav": 412,
+          "dockBottom": null,
+          "navTop": 339.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/match",
+          "width": 1280,
+          "height": 900,
+          "horizontal": false,
+          "header": 0,
+          "nav": 900,
+          "dockBottom": null,
+          "navTop": 827.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#archive/settings",
+          "width": 360,
+          "height": 640,
+          "horizontal": false,
+          "header": 0,
+          "nav": 640,
+          "dockBottom": null,
+          "navTop": 567.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#archive/settings",
+          "width": 412,
+          "height": 915,
+          "horizontal": false,
+          "header": 0,
+          "nav": 915,
+          "dockBottom": null,
+          "navTop": 842.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#archive/settings",
+          "width": 915,
+          "height": 412,
+          "horizontal": false,
+          "header": 0,
+          "nav": 412,
+          "dockBottom": null,
+          "navTop": 339.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#archive/settings",
+          "width": 1280,
+          "height": 900,
+          "horizontal": false,
+          "header": 0,
+          "nav": 900,
+          "dockBottom": null,
+          "navTop": 827.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#archive/album",
+          "width": 360,
+          "height": 640,
+          "horizontal": false,
+          "header": 0,
+          "nav": 640,
+          "dockBottom": null,
+          "navTop": 567.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#archive/album",
+          "width": 412,
+          "height": 915,
+          "horizontal": false,
+          "header": 0,
+          "nav": 915,
+          "dockBottom": null,
+          "navTop": 842.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#archive/album",
+          "width": 915,
+          "height": 412,
+          "horizontal": false,
+          "header": 0,
+          "nav": 412,
+          "dockBottom": null,
+          "navTop": 339.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#archive/album",
+          "width": 1280,
+          "height": 900,
+          "horizontal": false,
+          "header": 0,
+          "nav": 900,
+          "dockBottom": null,
+          "navTop": 827.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/calendar",
+          "width": 360,
+          "height": 640,
+          "horizontal": false,
+          "header": 0,
+          "nav": 640,
+          "dockBottom": 567.8125,
+          "navTop": 567.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/calendar",
+          "width": 412,
+          "height": 915,
+          "horizontal": false,
+          "header": 0,
+          "nav": 915,
+          "dockBottom": 842.8125,
+          "navTop": 842.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/calendar",
+          "width": 915,
+          "height": 412,
+          "horizontal": false,
+          "header": 0,
+          "nav": 412,
+          "dockBottom": 339.8125,
+          "navTop": 339.8125,
+          "rootOverflow": "auto"
+        },
+        {
+          "route": "#campaign/calendar",
+          "width": 1280,
+          "height": 900,
+          "horizontal": false,
+          "header": 0,
+          "nav": 900,
+          "dockBottom": 827.8125,
+          "navTop": 827.8125,
+          "rootOverflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "cancel-real-worker-ignore-late-reply-retry-once",
+      "round": 13
+    },
+    {
+      "name": "cancel-cold-replay-does-not-requeue",
+      "pass": true
+    },
+    {
+      "name": "restart-during-worker-confirm-cancel-backup-reload-late-reply",
+      "backupChecksum": "d9e1133f"
+    },
+    {
+      "name": "restore-pre-restart-career",
+      "round": 12
+    }
+  ],
+  "errors": []
+}

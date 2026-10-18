@@ -175,7 +175,7 @@ body:not(.qa-workbench) .prototype-guide{display:none;}
 
 /* State rows must not displace navigation into implicit grid tracks. */
 
-@media(max-width:999px) and (max-height:500px){body:not(.qa-workbench){margin:0;overflow:hidden;}body:not(.qa-workbench) .prototype-guide{display:none;}}
+@media(max-width:999px) and (max-height:500px){body:not(.qa-workbench){margin:0;overflow:visible;}body:not(.qa-workbench) .prototype-guide{display:none;}}
 
 .home-calendar{list-style:none;padding:0;margin:0 0 16px;}.home-calendar li{display:flex;justify-content:space-between;gap:8px;padding:10px 0;font-size:14px;}.home-calendar small{font-size:12px;}
 
