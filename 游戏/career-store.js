@@ -20,6 +20,13 @@
   for(const p of [...snap.uiCards,...(snap.content.globalCards||[])])for(const k of ['AIM','SYN','SEN'])if(!Number.isFinite(p[k])||p[k]<0||p[k]>100)throw Error('存档卡牌数值无效');
   for(const p of snap.uiCards){for(const k of ['name','tier','team','region','cut','trait','moment','event','photo'])if(p[k]&&/[<>"'`\u0000-\u001f]/.test(p[k]))throw Error('备份卡牌含不允许的展示字符');for(const asset of [p.photo,...Object.values(p.agentAssets||{})].filter(Boolean))if(/(^[a-z]+:|^\/|\.\.|[<>"'`\u0000-\u001f])/i.test(asset))throw Error('备份卡牌资源路径无效');}
   if(s.seasonEngine&&!['2026-season-1','2026-season-2'].includes(s.seasonEngine.version))throw Error('此客户端不支持该赛制版本');
+  if(s.seasonEngine?.powerModelVersion&&s.seasonEngine.powerModelVersion!=='team-power-1')throw Error('此客户端不支持该赛年的战力模型');
+  if(s.seasonEngine?.powerInputFormat&&s.seasonEngine.powerInputFormat!==1)throw Error('不支持的战力账本格式');
+  for(const input of Object.values(s.seasonEngine?.powerInputs||{})){
+   if(!Array.isArray(input)||input.length!==6)throw Error('冻结比赛输入不完整');
+   for(const team of [input[1],input[2]]){const players=s.seasonEngine.powerRosters?.[team?.[1]];if(!Array.isArray(players)||players.length!==5||new Set(players.map(p=>p.playerId||p.name)).size!==5||players.some(p=>['AIM','SYN','SEN'].some(k=>!Number.isFinite(p[k])||p[k]<0||p[k]>100)))throw Error('战力账本缺少有效的冻结阵容');}
+  }
+  for(const stage of [...Object.values(s.seasonEngine?.stages||{}),{games:Object.values(s.stageSession?.committed||{}).map(x=>x.result)}])for(const g of stage.games||[]){if(g.audit?.modelVersion&&g.audit.modelVersion!=='team-power-1')throw Error('不支持的比赛战力账本版本');if(g.audit?.ref&&!s.seasonEngine?.powerInputs?.[g.audit.ref])throw Error('比赛缺少冻结输入');}
   const policy=s.spatialCampaignPolicy,ids=['ascent','haven','split','sunset','breeze','lotus','fracture','abyss','summit'];
   if(policy){
    if(typeof policy.releaseId!=='string'||!/^[-\w]{1,80}$/.test(policy.releaseId)||!policy.versions||Object.keys(policy.versions).length!==ids.length||ids.some(id=>!([id==='ascent'?'ascent-balance-3':id+'-balance-1',id==='ascent'?'ascent-balance-4':id+'-balance-2',id==='ascent'?'ascent-balance-5':id+'-balance-3'].includes(policy.versions[id]))))throw Error('此客户端不支持该赛年的空间引擎版本');
@@ -35,7 +42,7 @@
   }
   return s;
  }
- function pack(state,revision=0){const s=clone(validate(state));s.playing=false;const raw=JSON.stringify(s);return {format:FORMAT,clientVersion:'v0.10',revision,updatedAt:Date.now(),checksum:hash(raw),state:s};}
+ function pack(state,revision=0){const s=clone(validate(state));s.playing=false;const raw=JSON.stringify(s);return {format:FORMAT,clientVersion:'v0.11',revision,updatedAt:Date.now(),checksum:hash(raw),state:s};}
  function unpack(value){if(!value||value.format!==FORMAT||!Number.isInteger(value.revision)||value.revision<0)throw Error('不是可识别的征战备份');if(hash(JSON.stringify(value.state))!==value.checksum)throw Error('存档校验失败，原始数据已保留');return clone(validate(value.state));}
  function parse(raw){const p=JSON.parse(raw,(k,v)=>{if(['__proto__','constructor','prototype'].includes(k))throw Error('备份包含不允许的字段');return v;});unpack(p);return p;}
  function contentBridge(D,R,C){

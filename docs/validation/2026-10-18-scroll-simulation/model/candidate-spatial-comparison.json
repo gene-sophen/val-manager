@@ -1,0 +1,224 @@
+{
+  "source": "spatial-comparison.json",
+  "method": "Reuse the 96 unchanged physical maps; rerun independent numeric seeds with the candidate scale.",
+  "roundScale": 24,
+  "comparisons": [
+    {
+      "mapId": "ascent",
+      "dimension": "symmetric",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.25,
+      "spatialConfidence95": [
+        0.07147768885802763,
+        0.5907301208974108
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.48125,
+      "ms": 46145.1896,
+      "numericalConfidence95": [
+        0.4467984629921835,
+        0.5158807514202082
+      ],
+      "screeningPass": true
+    },
+    {
+      "mapId": "ascent",
+      "dimension": "AIM",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.375,
+      "spatialConfidence95": [
+        0.13684175946152105,
+        0.6942621454161981
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.66125,
+      "ms": 37255.4206,
+      "numericalConfidence95": [
+        0.6277518083902214,
+        0.6932069476632101
+      ],
+      "screeningPass": true
+    },
+    {
+      "mapId": "ascent",
+      "dimension": "SYN",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.625,
+      "spatialConfidence95": [
+        0.30573785458380187,
+        0.863158240538479
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.6475,
+      "ms": 51290.67670000001,
+      "numericalConfidence95": [
+        0.6137604805635365,
+        0.6798296993923155
+      ],
+      "screeningPass": true
+    },
+    {
+      "mapId": "ascent",
+      "dimension": "SEN",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.5,
+      "spatialConfidence95": [
+        0.21521252682444186,
+        0.7847874731755582
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.6225,
+      "ms": 38572.10889999999,
+      "numericalConfidence95": [
+        0.5883975579149241,
+        0.6554315745907837
+      ],
+      "screeningPass": true
+    },
+    {
+      "mapId": "split",
+      "dimension": "symmetric",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.375,
+      "spatialConfidence95": [
+        0.13684175946152105,
+        0.6942621454161981
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.50125,
+      "ms": 93712.71610000002,
+      "numericalConfidence95": [
+        0.4666787933981292,
+        0.5358092589743781
+      ],
+      "screeningPass": true
+    },
+    {
+      "mapId": "split",
+      "dimension": "AIM",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.875,
+      "spatialConfidence95": [
+        0.5291051942301386,
+        0.9775830911367038
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.66125,
+      "ms": 84528.66340000002,
+      "numericalConfidence95": [
+        0.6277518083902214,
+        0.6932069476632101
+      ],
+      "screeningPass": true
+    },
+    {
+      "mapId": "split",
+      "dimension": "SYN",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.625,
+      "spatialConfidence95": [
+        0.30573785458380187,
+        0.863158240538479
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.69375,
+      "ms": 153008.3087,
+      "numericalConfidence95": [
+        0.6609458684849072,
+        0.7247022492537118
+      ],
+      "screeningPass": true
+    },
+    {
+      "mapId": "split",
+      "dimension": "SEN",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.625,
+      "spatialConfidence95": [
+        0.30573785458380187,
+        0.863158240538479
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.6225,
+      "ms": 110095.90450000006,
+      "numericalConfidence95": [
+        0.5883975579149241,
+        0.6554315745907837
+      ],
+      "screeningPass": true
+    },
+    {
+      "mapId": "haven",
+      "dimension": "symmetric",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.75,
+      "spatialConfidence95": [
+        0.40926987910258916,
+        0.9285223111419724
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.48625,
+      "ms": 94934.70310000004,
+      "numericalConfidence95": [
+        0.45176338166786534,
+        0.5208680422345553
+      ],
+      "screeningPass": true
+    },
+    {
+      "mapId": "haven",
+      "dimension": "AIM",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.5,
+      "spatialConfidence95": [
+        0.21521252682444186,
+        0.7847874731755582
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.655,
+      "ms": 61285.06400000001,
+      "numericalConfidence95": [
+        0.6213883669134697,
+        0.6871301272774257
+      ],
+      "screeningPass": true
+    },
+    {
+      "mapId": "haven",
+      "dimension": "SYN",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.75,
+      "spatialConfidence95": [
+        0.40926987910258916,
+        0.9285223111419724
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.6425,
+      "ms": 70434.42130000005,
+      "numericalConfidence95": [
+        0.6086801571594739,
+        0.6749578133063491
+      ],
+      "screeningPass": true
+    },
+    {
+      "mapId": "haven",
+      "dimension": "SEN",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.625,
+      "spatialConfidence95": [
+        0.30573785458380187,
+        0.863158240538479
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.6125,
+      "ms": 65538.65840000007,
+      "numericalConfidence95": [
+        0.578279023416105,
+        0.6456456901095449
+      ],
+      "screeningPass": true
+    }
+  ],
+  "limitation": "Eight spatial maps per cell give wide intervals. Passing this screen does not prove equivalence or real-device performance."
+}

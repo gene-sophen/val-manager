@@ -1,0 +1,25 @@
+{
+  "version": "v0.11",
+  "fullUnitRegression": {
+    "tests": 419,
+    "passed": 419,
+    "failed": 0
+  },
+  "subsequentAffectedModelChecks": 8,
+  "subsequentAffectedUIChecks": 12,
+  "touchInputChecks": 11,
+  "layoutChecks": 420,
+  "additionalLayoutRefinementChecks": 24,
+  "colorStates": 70,
+  "measuredTextPairs": 2615,
+  "colorFailures": 0,
+  "numericalSeries": 8400,
+  "physicalMaps": 96,
+  "crossModelScreeningCells": 12,
+  "realDeviceVerified": false,
+  "publishBuild": {
+    "files": 1769,
+    "bytes": 228168277
+  },
+  "databasePolicy": "Unique val-manager-test-* databases only; default career database untouched."
+}

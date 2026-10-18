@@ -1,6 +1,6 @@
 # VAL MANAGER
 
-当前版本 **v0.10**，Aurora Glass 全界面改版。重做开局、征战、战队、图鉴与设置的构图，统一组队、BP、特工、战术、比赛和资料组件。现有PWA地址、玩法、比赛模型与存档兼容；iQOO Neo10 / OriginOS 6 真机验收仍待设备反馈。
+当前版本 **v0.11**：触摸滚动与阅读位置修复、全页面对比度审查、版本化战力预建模和后台赛程计算。旧赛年保持原规则；iQOO Neo10 / OriginOS 6 真机滑动与性能仍待复验。
 
 [手机试玩](https://gene-sophen.github.io/val-manager/) · [完整目录导航](docs/PROJECT_LAYOUT.md) · [当前玩法设计](设计文档/01_当前设计/征战模式重做定案与待确认事项.md)
 
@@ -38,7 +38,7 @@ $tests = @(rg --files 游戏/tests 引擎/tests -g '*.test.js')
 node --test @tests
 ```
 
-默认发布输出为 `.artifacts/releases/current/`。构建拒绝覆盖已有目录；需要再次构建时指定新的输出路径，例如 `node 游戏/tools/build-pages.cjs .artifacts/releases/v010-check`。GitHub Actions自动构建并部署main，只发布正式运行资源与兼容资源URL。
+默认发布输出为 `.artifacts/releases/current/`。构建拒绝覆盖已有目录；需要再次构建时指定新的输出路径，例如 `node 游戏/tools/build-pages.cjs .artifacts/releases/v011-check`。GitHub Actions自动构建并部署main，只发布正式运行资源与兼容资源URL。
 
 存档在当前设备和站点的浏览器内，不随GitHub同步。换设备可在设置导出/导入备份。手机仍显示旧版时使用“设置→检查更新→保存并更新”。
 

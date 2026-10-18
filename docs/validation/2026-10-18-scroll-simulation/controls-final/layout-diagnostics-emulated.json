@@ -1,0 +1,174 @@
+{
+  "kind": "layout-and-touch-diagnostics",
+  "gestures": [],
+  "scrollOwners": [
+    {
+      "id": "nav-scroll",
+      "open": false,
+      "overflow": "auto",
+      "touchAction": "manipulation",
+      "minHeight": "0px",
+      "height": 611,
+      "total": 1688
+    },
+    {
+      "id": "dialog-body",
+      "open": false,
+      "overflow": "auto",
+      "touchAction": "manipulation",
+      "minHeight": "0px",
+      "height": 0,
+      "total": 0
+    },
+    {
+      "id": "filter-fields",
+      "open": false,
+      "overflow": "auto",
+      "touchAction": "manipulation",
+      "minHeight": "0px",
+      "height": 0,
+      "total": 0
+    }
+  ],
+  "version": "v0.11",
+  "time": "2026-10-18T08:25:41.411Z",
+  "route": "#campaign/tactics",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+  "displayMode": "browser",
+  "orientation": "landscape-primary",
+  "viewport": {
+    "innerWidth": 390,
+    "innerHeight": 844,
+    "clientWidth": 390,
+    "clientHeight": 844,
+    "visual": {
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "offsetTop": 0,
+      "offsetLeft": 0
+    }
+  },
+  "safeArea": {
+    "top": 0,
+    "right": 0,
+    "bottom": 0,
+    "left": 0
+  },
+  "heightFallback": "none",
+  "rects": {
+    ".app-phone": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 844,
+      "bottom": 844,
+      "hidden": false,
+      "scrollHeight": 844,
+      "clientHeight": 844,
+      "scrollTop": 0
+    },
+    ".balance-top": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 56,
+      "bottom": 56,
+      "hidden": false,
+      "scrollHeight": 55,
+      "clientHeight": 55,
+      "scrollTop": 0
+    },
+    "#session-status": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0,
+      "bottom": 0,
+      "hidden": true,
+      "scrollHeight": 0,
+      "clientHeight": 0,
+      "scrollTop": 0
+    },
+    "#persistent-save": {
+      "x": 0,
+      "y": 56,
+      "width": 390,
+      "height": 28,
+      "bottom": 84,
+      "hidden": false,
+      "scrollHeight": 30,
+      "clientHeight": 27,
+      "scrollTop": 0
+    },
+    "#nav-scroll": {
+      "x": 0,
+      "y": 84,
+      "width": 390,
+      "height": 610.8125,
+      "bottom": 694.8125,
+      "hidden": false,
+      "scrollHeight": 1688,
+      "clientHeight": 611,
+      "scrollTop": 0
+    },
+    "#page-body": {
+      "x": 0,
+      "y": 84,
+      "width": 380,
+      "height": 1670.03125,
+      "bottom": 1754.03125,
+      "hidden": false,
+      "scrollHeight": 1670,
+      "clientHeight": 1670,
+      "scrollTop": 0
+    },
+    "#subpage-dock": {
+      "x": 0,
+      "y": 694.8125,
+      "width": 390,
+      "height": 77,
+      "bottom": 771.8125,
+      "hidden": false,
+      "scrollHeight": 76,
+      "clientHeight": 76,
+      "scrollTop": 0
+    },
+    "#main-nav": {
+      "x": 0,
+      "y": 771.8125,
+      "width": 390,
+      "height": 72.1875,
+      "bottom": 844,
+      "hidden": false,
+      "scrollHeight": 71,
+      "clientHeight": 71,
+      "scrollTop": 0
+    }
+  },
+  "styles": [
+    "/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/UI%E5%8E%9F%E5%9E%8B/%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90/art-direction-03/cards.css?v=20261018-v011",
+    "/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/UI%E5%8E%9F%E5%9E%8B/%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90/layout-rebuild-01/home-balance.css?v=20261018-v011",
+    "/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/UI%E5%8E%9F%E5%9E%8B/%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90/layout-rebuild-01/players-balance.css?v=20261018-v011",
+    "/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/UI%E5%8E%9F%E5%9E%8B/%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90/navigation-rebuild-01/navigation.css?v=20261018-v011",
+    "/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/UI%E5%8E%9F%E5%9E%8B/%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90/navigation-rebuild-01/subpages.css?v=20261018-v011",
+    "/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/UI%E5%8E%9F%E5%9E%8B/%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90/navigation-rebuild-01/profiles.css?v=20261018-v011",
+    "/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/UI%E5%8E%9F%E5%9E%8B/complete-prototype-01/ui.css?v=20261018-v011",
+    "/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/UI%E5%8E%9F%E5%9E%8B/complete-prototype-01/mobile.css?v=20261018-v011",
+    "/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/UI%E5%8E%9F%E5%9E%8B/complete-prototype-01/component-layout.css?v=20261018-v011",
+    "/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/UI%E5%8E%9F%E5%9E%8B/complete-prototype-01/design-system.css?v=20261018-v011",
+    "/%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/UI%E5%8E%9F%E5%9E%8B/complete-prototype-01/app-shell.css?v=20261018-v011"
+  ],
+  "events": [
+    {
+      "type": "initial",
+      "time": "2026-10-18T08:25:41.120Z",
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "visualHeight": 844,
+      "scale": 1,
+      "nativeHeight": 844,
+      "fallback": false
+    }
+  ]
+}

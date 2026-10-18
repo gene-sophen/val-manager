@@ -4,6 +4,8 @@
 
 近期报告：
 
+- [v0.11滚动、全界面审查与后台赛程](reports/2026-10-18-scroll-simulation.md)：本地回归通过，真机门槛保留。
+
 - [v0.10 Aurora Glass 全界面重做](reports/2026-10-14-aurora-redesign.md)。
 
 - [v0.9移动端布局与比赛流程（模拟通过，真机待验收）](reports/2026-10-14-mobile-flow.md)。

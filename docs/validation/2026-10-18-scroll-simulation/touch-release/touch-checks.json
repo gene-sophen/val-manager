@@ -1,0 +1,284 @@
+{
+  "database": "val-manager-test-touch-1d4a5ca0-d0b0-4869-96a2-2e00b6308d56",
+  "emulatedTouch": true,
+  "realDeviceVerified": false,
+  "checks": [
+    {
+      "label": "settings",
+      "container": "#nav-scroll",
+      "up": {
+        "before": 0,
+        "height": 657,
+        "total": 1309,
+        "x": 234,
+        "y": 587.905,
+        "top": 115,
+        "bottom": 771.8125,
+        "hit": "<label class=\"setting-toggle\"><span>减少动画</span><input id=\"reduced-motion\" type=\"checkbox\"></label>",
+        "after": 301,
+        "direction": "up",
+        "origin": "text"
+      },
+      "down": {
+        "before": 301,
+        "height": 657,
+        "total": 1309,
+        "x": 234,
+        "y": 587.905,
+        "top": 115,
+        "bottom": 771.8125,
+        "hit": "<button class=\"setting-row\" data-action=\"install\">安装到主屏幕</button>",
+        "after": 0,
+        "direction": "down",
+        "origin": "text"
+      },
+      "pass": true
+    },
+    {
+      "label": "last-item-visible-and-tappable",
+      "pass": true,
+      "bottom": {
+        "x": 18,
+        "y": 539.34375,
+        "width": 354,
+        "height": 208.390625
+      },
+      "nav": {
+        "x": 0,
+        "y": 771.8125,
+        "width": 390,
+        "height": 72.1875
+      }
+    },
+    {
+      "label": "card-image",
+      "container": "#nav-scroll",
+      "up": {
+        "before": 394,
+        "height": 629,
+        "total": 2346,
+        "x": 56.625,
+        "y": 457.390625,
+        "top": 143,
+        "bottom": 771.8125,
+        "hit": "<img src=\"../../../素材库/%E4%BC%98%E5%8C%96/130d02aeb7ed62f3e9b9-thumb.webp\" alt=\"WsLeo\" loading=\"lazy\" decoding=\"async\" width=\"240\" height=\"360\">",
+        "after": 693,
+        "direction": "up",
+        "origin": ".card-thumb img"
+      },
+      "down": {
+        "before": 693,
+        "height": 629,
+        "total": 2346,
+        "x": 234,
+        "y": 595.745,
+        "top": 143,
+        "bottom": 771.8125,
+        "hit": "<img src=\"../../../素材库/%E4%BC%98%E5%8C%96/8c74745b9030bbfb1774-thumb.webp\" alt=\"swagzor\" loading=\"lazy\" decoding=\"async\" width=\"240\" height=\"360\">",
+        "after": 393,
+        "direction": "down",
+        "origin": "text"
+      },
+      "pass": true
+    },
+    {
+      "label": "player-dialog",
+      "container": "#dialog-body",
+      "up": {
+        "before": 0,
+        "height": 455,
+        "total": 512,
+        "x": 231.4,
+        "y": 427.59999999999997,
+        "top": 100,
+        "bottom": 555,
+        "hit": "<span class=\"player-signature\"><span class=\"balance-agents\"><span class=\"signature-portrait\" title=\"招牌英雄：黑梦\"><img src=\"../../../素材库/%E4%BC%98%E5%8C%96/ea7011c59cb068d5ba2d-full.webp\" alt=\"黑梦\" title=\"黑",
+        "after": 57,
+        "direction": "up",
+        "origin": "text"
+      },
+      "down": {
+        "before": 57,
+        "height": 455,
+        "total": 512,
+        "x": 231.4,
+        "y": 427.59999999999997,
+        "top": 100,
+        "bottom": 555,
+        "hit": "<span class=\"\"><b>79</b><small>协同</small></span>",
+        "after": 0,
+        "direction": "down",
+        "origin": "text"
+      },
+      "pass": true
+    },
+    {
+      "label": "after-dialog-close",
+      "container": "#nav-scroll",
+      "up": {
+        "before": 447,
+        "height": 353,
+        "total": 2346,
+        "x": 234,
+        "y": 397.025,
+        "top": 143,
+        "bottom": 495.8125,
+        "hit": "<img src=\"../../../素材库/%E4%BC%98%E5%8C%96/cefff2c55e2f2778a212-thumb.webp\" alt=\"lysoar\" loading=\"lazy\" decoding=\"async\" width=\"240\" height=\"360\">",
+        "after": 591,
+        "direction": "up",
+        "origin": "text"
+      },
+      "down": {
+        "before": 591,
+        "height": 353,
+        "total": 2346,
+        "x": 234,
+        "y": 397.025,
+        "top": 143,
+        "bottom": 495.8125,
+        "hit": "<img src=\"../../../素材库/%E4%BC%98%E5%8C%96/4544b937da605dde8c51-thumb.webp\" alt=\"Smoggy\" loading=\"lazy\" decoding=\"async\" width=\"240\" height=\"360\">",
+        "after": 448,
+        "direction": "down",
+        "origin": "text"
+      },
+      "pass": true
+    },
+    {
+      "label": "filter-landscape",
+      "container": "#filter-fields",
+      "up": {
+        "before": 0,
+        "height": 126,
+        "total": 230,
+        "x": 371.8,
+        "y": 193.58499999999998,
+        "top": 103,
+        "bottom": 228.8125,
+        "hit": "<div class=\"filter-options\"><button data-filter-field=\"tier\" data-filter-value=\"all\" aria-pressed=\"true\">全部</button><button data-filter-field=\"tier\" data-filter-value=\"铜\" aria-pressed=\"false\">铜卡</butt",
+        "after": 36,
+        "direction": "up",
+        "origin": "text"
+      },
+      "down": {
+        "before": 36,
+        "height": 126,
+        "total": 230,
+        "x": 371.8,
+        "y": 193.58499999999998,
+        "top": 103,
+        "bottom": 228.8125,
+        "hit": "<fieldset data-field=\"sort\"><legend>排序</legend><div class=\"filter-options\"><button data-filter-field=\"sort\" data-filter-value=\"default\" aria-pressed=\"true\">默认</button><button data-filter-field=\"sort\" ",
+        "after": 0,
+        "direction": "down",
+        "origin": "text"
+      },
+      "pass": true
+    },
+    {
+      "label": "draft-cards",
+      "container": "#nav-scroll",
+      "up": {
+        "before": 343,
+        "height": 507,
+        "total": 1097,
+        "x": 50.59375,
+        "y": 396.859375,
+        "top": 143,
+        "bottom": 650.3125,
+        "hit": "<section class=\"experience-panel selected-lineup\"><h3>已选 0 / 5 人</h3><div class=\"club-lineup\"></div><p class=\"experience-note\">卡面三维</p><div class=\"ability-summary\"><span>枪法 <b>0.0</b></span><span>协同 <",
+        "after": 571,
+        "direction": "up",
+        "origin": ".card-thumb img"
+      },
+      "down": {
+        "before": 571,
+        "height": 507,
+        "total": 1097,
+        "x": 234,
+        "y": 508.265,
+        "top": 143,
+        "bottom": 650.3125,
+        "hit": "<button class=\"quiet-button full\" data-action=\"reselect-pack\">重新选择整包</button>",
+        "after": 346,
+        "direction": "down",
+        "origin": "text"
+      },
+      "pass": true
+    },
+    {
+      "label": "sandtable",
+      "container": "#nav-scroll",
+      "up": {
+        "before": 87,
+        "height": 524,
+        "total": 1792,
+        "x": 195,
+        "y": 550.125,
+        "top": 171,
+        "bottom": 694.8125,
+        "hit": "<image href=\"../../../素材库/%E5%9C%B0%E5%9B%BE%E9%A3%8E%E6%A0%BC/split-combat-v6.svg\" x=\"40\" y=\"40\" width=\"880\" height=\"880\"></image>",
+        "after": 325,
+        "direction": "up",
+        "origin": ".spatial-map"
+      },
+      "down": {
+        "before": 325,
+        "height": 524,
+        "total": 1792,
+        "x": 234,
+        "y": 548.145,
+        "top": 171,
+        "bottom": 694.8125,
+        "hit": "<div class=\"spatial-tools\" aria-label=\"观看控制\"><button data-spatial-play=\"\" aria-pressed=\"true\">Ⅱ 暂停回放</button><span class=\"spatial-time\">1 / 67.25 秒</span></div>",
+        "after": 87,
+        "direction": "down",
+        "origin": "text"
+      },
+      "pass": true
+    },
+    {
+      "label": "fullscreen-fits",
+      "pass": true,
+      "total": 542,
+      "height": 542
+    },
+    {
+      "label": "after-fullscreen-close",
+      "container": "#nav-scroll",
+      "up": {
+        "before": 371,
+        "height": 524,
+        "total": 1792,
+        "x": 234,
+        "y": 548.145,
+        "top": 171,
+        "bottom": 694.8125,
+        "hit": "<input type=\"range\" data-spatial-time=\"\" min=\"0\" max=\"67.25\" step=\".25\" value=\"0\" aria-label=\"回放时间轴\" style=\"\">",
+        "after": 608,
+        "direction": "up",
+        "origin": "text"
+      },
+      "down": {
+        "before": 608,
+        "height": 524,
+        "total": 1863,
+        "x": 234,
+        "y": 548.145,
+        "top": 171,
+        "bottom": 694.8125,
+        "hit": "<div class=\"spatial-replay\" data-behavior=\"split-balance-3\"><div class=\"spatial-header\"><b>手枪局 · 第 1 分</b><button data-action=\"speed\">2×</button><span hidden=\"\">2× · 倍速</span></div><div class=\"spatial",
+        "after": 370,
+        "direction": "down",
+        "origin": "text"
+      },
+      "pass": true
+    },
+    {
+      "label": "manual-round-preserves-reading-position",
+      "before": 555,
+      "after": 555,
+      "pass": true
+    }
+  ],
+  "errors": []
+}

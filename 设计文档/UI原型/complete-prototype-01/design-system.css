@@ -1,6 +1,9 @@
 /* Aurora Glass visual system; component-layout.css keeps geometry; app-shell.css owns viewport. */
 :root{
- --vm-ink:#0f172a;--vm-body:#334155;--vm-muted:#64748b;--vm-line:rgba(104,145,184,.22);
+ --vm-ink:#0f172a;--vm-body:#334155;--vm-muted:#596b82;--vm-line:rgba(104,145,184,.22);
+ --vm-focus:#2b6cb0;--vm-success:#176349;--vm-success-bg:#e7f7ef;--vm-warning:#795b28;--vm-warning-bg:#fbf5e9;--vm-error:#9c4339;--vm-error-bg:#fff1ee;
+ --vm-disabled-ink:#53677c;--vm-disabled-bg:#dbe5ef;--vm-team-home:#2b6cb0;--vm-team-away:#a63d4f;
+ --vm-space-1:4px;--vm-space-2:8px;--vm-space-3:12px;--vm-space-4:16px;--vm-space-5:24px;--vm-space-6:32px;
  --vm-paper:#fff;--vm-soft:#f8fbff;--vm-selected:#eaf5ff;--vm-sky:#7ab9f0;--vm-cyan:#5ad7f2;--vm-mint:#70f4bf;
  --vm-blue:#2b6cb0;--vm-blue-dark:#235990;--vm-blue-ink:#245b92;
  --vm-control-radius:14px;--vm-surface-radius:20px;--vm-dialog-radius:24px;
@@ -13,6 +16,24 @@
 :is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) :is(button,input,select,textarea){font-family:inherit}
 :is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button{min-width:44px;min-height:44px;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;line-height:1.45;letter-spacing:0;font-weight:600;transition:background-color var(--vm-hover) var(--vm-ease),border-color var(--vm-hover) var(--vm-ease),box-shadow var(--vm-hover) var(--vm-ease)}
 :is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) :is(button,a,input,select,textarea,summary):focus-visible{outline:2px solid var(--vm-blue);outline-offset:3px}
+:is(.app-phone,.balance-dialog,.filter-dialog) :is(.round-error,.field-error,[aria-invalid=true]){color:var(--vm-error);border-color:var(--vm-error)}
+.app-phone .round-error{background:var(--vm-error-bg)}
+.app-phone #connection{color:var(--vm-warning);background:var(--vm-warning-bg)}
+.app-phone .season-work{display:flex;align-items:center;justify-content:space-between;gap:var(--vm-space-2);padding:var(--vm-space-2) var(--vm-space-3);background:var(--vm-selected);border-bottom:1px solid var(--vm-line);color:var(--vm-blue-ink);font-size:13px;min-width:0}
+.app-phone .season-work span{min-width:0;overflow-wrap:anywhere}.app-phone .season-work button{font-size:12px;flex-shrink:0;padding:8px}
+.app-phone .season-resume{margin:var(--vm-space-3);background:var(--vm-selected);border-radius:var(--vm-control-radius)}
+.app-phone .schedule-games{padding:0;list-style:none}.app-phone .schedule-games li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 0;border-top:1px solid var(--vm-line);align-items:baseline}.app-phone .schedule-games strong{font-size:14px}.app-phone .schedule-games b{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}.app-phone .schedule-games small{grid-column:1/-1;color:var(--vm-muted);font-size:12px}
+.app-phone .schedule-details{margin-top:24px}.app-phone .schedule-details summary{min-height:44px;cursor:pointer;color:var(--vm-blue-ink);font-weight:600}.app-phone .model-note{color:var(--vm-muted);font-size:13px;max-width:35em;text-align:left;line-height:1.8}
+.app-phone :is(.rule-note,.experience-note,.journey-note,.dialog-copy){max-width:40em;text-align:left}.app-phone .result-summary>p{max-width:35em;margin-inline:auto}
+/* The inherited prototype palette is intentionally resolved at this boundary. */
+.app-phone :is(.flow-kicker>b,.club-grid button>span,.paper-pack-demo>span,.mini-player>b,.versus>span,.roster-disclosure small,.disclosure-chevron,.profile-records summary,.profile-records summary>span,.season-record>b,.career-run>span,.career-link>span,.sealed-card,.empty-emblem){color:var(--vm-muted)}
+.app-phone .selection-counter>b{color:var(--vm-blue-ink)}
+.app-phone .paper-seal{color:var(--vm-blue-ink);font-size:10px}
+.app-phone .paper-pack-demo>small{background:var(--vm-blue);color:#fff}
+.app-phone .profile-feature>span{color:var(--vm-warning)}
+.app-phone .profile-feature.moment>span{color:var(--vm-blue-ink)}
+.app-phone .preview-banner{color:var(--vm-warning);background:var(--vm-warning-bg)}
+.app-phone :is(.prep-current small,.prep-later>span,.prep-later strong,.prep-later small,.live-score i,.result-hero i,.watch-caption,.comparison-head>span,.comparison-heading>span,.swap-row>span){color:var(--vm-muted)}
 ::selection{background:rgba(90,215,242,.28)}
 :is(.app-phone,.balance-dialog,.filter-dialog) .blue-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 18px;border:1px solid var(--vm-blue);border-radius:var(--vm-control-radius);background:var(--vm-blue);color:#fff;font-size:16px;font-weight:700;box-shadow:var(--vm-edge);text-decoration:none}
 :is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) :is(.quiet-button,.match-controls button,.match-actions button,.playback-controls button,.home-shortcuts button,.pack-section-heading button,.spatial-header button,.spatial-tools button,.spatial-map-note button,.commentary-header button,.spatial-focus footer button,.tactic-list button,.tactic-moves button,.players-empty button,#filter-reset,[data-action=timeout]){min-height:44px;padding:10px 14px;border:1px solid var(--vm-line);border-radius:var(--vm-control-radius);background:#fff;color:var(--vm-blue-ink);font-size:14px;font-weight:600;box-shadow:none}
@@ -69,7 +90,7 @@
 .app-phone .tactic-cards>li{padding:16px;box-shadow:none}.app-phone .tactic-cards strong{font-size:16px}.app-phone .priority-number{width:30px;height:30px;border-radius:10px;background:var(--vm-selected);color:var(--vm-blue-ink);font-size:14px}.app-phone .tactic-proficiency{font-size:12px}.app-phone .tactic-explanation summary{font-size:13px;min-height:44px;color:var(--vm-blue-ink);padding:10px 0}.app-phone .tactic-moves{gap:8px}.app-phone .tactic-cards .tactic-moves button{font-size:13px;padding:8px 5px;white-space:nowrap}
 .app-phone .order-preview h4{font-size:14px;color:var(--vm-ink)}.app-phone .order-preview p{font-size:13px}.app-phone .order-preview p span{color:var(--vm-muted);font-size:12px}.app-phone .order-preview>div{padding:12px;background:var(--vm-soft);border-radius:12px}
 .app-phone .match-stage{padding:14px 16px 20px}.app-phone .match-context{gap:8px;color:var(--vm-muted);font-size:12px}.app-phone .match-context>span{background:var(--vm-selected);border-radius:999px;padding:3px 8px;color:var(--vm-blue-ink)}.app-phone .match-context>strong{margin-left:auto;color:var(--vm-ink);font-size:14px}
-.app-phone .live-score{border:0;background:transparent;margin:0;padding:16px 2px;gap:12px}.app-phone .live-score>b{font-size:44px;color:var(--vm-ink);font-weight:700;letter-spacing:-.045em;font-variant-numeric:tabular-nums}.app-phone .live-score>span{font-size:14px;font-weight:700;overflow-wrap:anywhere}.app-phone .live-score i{font-weight:400;color:#94a3b8;margin:0 10px}
+.app-phone .live-score{border:0;background:transparent;margin:0;padding:16px 2px;gap:12px}.app-phone .live-score>b{font-size:44px;color:var(--vm-ink);font-weight:700;letter-spacing:-.045em;font-variant-numeric:tabular-nums}.app-phone .live-score>span{font-size:14px;font-weight:700;overflow-wrap:anywhere}.app-phone .live-score i{font-weight:400;color:var(--vm-muted);margin:0 10px}
 .app-phone .round-report{background:#fff;box-shadow:none;border:1px solid var(--vm-line);border-left:3px solid var(--vm-blue);border-radius:16px;padding:16px;margin-top:14px}.app-phone .round-report.round-loss{border-left-color:#9b6d39}.app-phone .round-report>span{font-size:12px}.app-phone .round-report h3{font-size:18px;margin:8px 0}.app-phone .round-report p{font-size:14px}.app-phone .round-report small{font-size:12px}
 .app-phone .match-team-state{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0;background:transparent;padding:0}.app-phone .match-team-state>span{background:var(--vm-selected);color:var(--vm-blue-ink);padding:6px 10px;border-radius:999px;font-size:12px}.app-phone .match-team-state b{margin-left:6px;font-variant-numeric:tabular-nums}
 .app-phone .spatial-replay{background:#fff;border:1px solid var(--vm-line);border-radius:20px;box-shadow:var(--vm-edge);overflow:hidden}.app-phone .spatial-header{padding:12px 14px}.app-phone .spatial-header b{font-size:13px}.app-phone .spatial-legend{font-size:12px;color:var(--vm-muted);padding-inline:14px}.app-phone .spatial-map{background:#f1f5f7}.app-phone .spatial-tools{padding:10px 14px}.app-phone .spatial-time{font-size:12px;color:var(--vm-muted)}.app-phone .spatial-caption{font-size:14px;color:var(--vm-body);margin:10px 14px}.app-phone .spatial-replay input[type=range]{height:44px;accent-color:var(--vm-blue)}
@@ -165,3 +186,6 @@
 .app-phone.large-text :is(.experience-note,.rule-note,.journey-note,p){font-size:16px}.app-phone.large-text :is(.quiet-button,.setting-row,.tactic-moves button){font-size:16px}.app-phone.large-text .aurora-meters strong{font-size:24px}.app-phone.large-text .aurora-eyebrow{font-size:12px}.app-phone.large-text .thumb-name{font-size:13px}.app-phone.large-text .roster-info>small{font-size:13px}
 @media(prefers-reduced-motion:reduce){:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) *{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 .app-phone.reduce-motion *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+
+.app-phone #page-body>:is(.experience-note,.rule-note,.journey-note){margin-inline:18px}
+.app-phone .pack-reference{margin:8px 12px;border:0;background:transparent}.app-phone .pack-reference>summary{min-height:44px;padding:10px 0;color:var(--vm-body);font-size:13px;cursor:pointer}.app-phone .pack-reference .experience-panel{margin-inline:0;box-shadow:none}

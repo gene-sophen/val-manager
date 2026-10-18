@@ -1,0 +1,161 @@
+{
+  "comparisons": [
+    {
+      "mapId": "ascent",
+      "dimension": "symmetric",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.25,
+      "spatialConfidence95": [
+        0.07147768885802763,
+        0.5907301208974108
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.485,
+      "ms": 46145.1896
+    },
+    {
+      "mapId": "ascent",
+      "dimension": "AIM",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.375,
+      "spatialConfidence95": [
+        0.13684175946152105,
+        0.6942621454161981
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.81875,
+      "ms": 37255.4206
+    },
+    {
+      "mapId": "ascent",
+      "dimension": "SYN",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.625,
+      "spatialConfidence95": [
+        0.30573785458380187,
+        0.863158240538479
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.76625,
+      "ms": 51290.67670000001
+    },
+    {
+      "mapId": "ascent",
+      "dimension": "SEN",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.5,
+      "spatialConfidence95": [
+        0.21521252682444186,
+        0.7847874731755582
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.75,
+      "ms": 38572.10889999999
+    },
+    {
+      "mapId": "split",
+      "dimension": "symmetric",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.375,
+      "spatialConfidence95": [
+        0.13684175946152105,
+        0.6942621454161981
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.4975,
+      "ms": 93712.71610000002
+    },
+    {
+      "mapId": "split",
+      "dimension": "AIM",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.875,
+      "spatialConfidence95": [
+        0.5291051942301386,
+        0.9775830911367038
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.81625,
+      "ms": 84528.66340000002
+    },
+    {
+      "mapId": "split",
+      "dimension": "SYN",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.625,
+      "spatialConfidence95": [
+        0.30573785458380187,
+        0.863158240538479
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.7825,
+      "ms": 153008.3087
+    },
+    {
+      "mapId": "split",
+      "dimension": "SEN",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.625,
+      "spatialConfidence95": [
+        0.30573785458380187,
+        0.863158240538479
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.7425,
+      "ms": 110095.90450000006
+    },
+    {
+      "mapId": "haven",
+      "dimension": "symmetric",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.75,
+      "spatialConfidence95": [
+        0.40926987910258916,
+        0.9285223111419724
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.48875,
+      "ms": 94934.70310000004
+    },
+    {
+      "mapId": "haven",
+      "dimension": "AIM",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.5,
+      "spatialConfidence95": [
+        0.21521252682444186,
+        0.7847874731755582
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.80625,
+      "ms": 61285.06400000001
+    },
+    {
+      "mapId": "haven",
+      "dimension": "SYN",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.75,
+      "spatialConfidence95": [
+        0.40926987910258916,
+        0.9285223111419724
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.7375,
+      "ms": 70434.42130000005
+    },
+    {
+      "mapId": "haven",
+      "dimension": "SEN",
+      "spatialMaps": 8,
+      "spatialMapWinRate": 0.625,
+      "spatialConfidence95": [
+        0.30573785458380187,
+        0.863158240538479
+      ],
+      "numericalMaps": 800,
+      "numericalMapWinRate": 0.7325,
+      "ms": 65538.65840000007
+    }
+  ],
+  "limitation": "Eight independent spatial maps per cell: wide confidence intervals; directional screening, not proof of calibrated parity."
+}

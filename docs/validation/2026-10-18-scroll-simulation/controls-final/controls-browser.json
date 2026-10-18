@@ -1,0 +1,21 @@
+{
+  "checks": [
+    "延迟真实Worker：计算中停止、返回设置、保存当前唯一一分，设置输入节点保持，后续分不启动",
+    "计算中登记战术暂停：回包后按真实边界接受或拒绝，只扣被接受的一次，停止后续推进",
+    "真实数值模型自动推进20分（执教窗口逐次确认）：状态、正文起点、动作区漂移均不超过1px",
+    "本图结束正文/底栏可推进；刷新和连点只进入一张下一图，成长账本不重复；第二图特工后仍必须确认战术"
+  ],
+  "databases": [
+    "val-manager-test-mobile-controls-14501e11-654e-4140-b67a-393e3d3f66d4",
+    "val-manager-test-mobile-controls-6ee90632-7f44-4f18-938f-ce0125a12af0",
+    "val-manager-test-mobile-controls-c14c6f7a-2a74-4f4a-a7cf-db41d3669878"
+  ],
+  "errors": [],
+  "drift": {
+    "status": 0,
+    "body": 0,
+    "dock": 0
+  },
+  "samples": 45,
+  "vivoVerified": false
+}

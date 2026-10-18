@@ -1,0 +1,12 @@
+{
+  "database": "val-manager-test-season-worker-d6686b0d-1ead-4572-a3fd-d9e5c5528cc8",
+  "checks": [
+    "Stopping discards all private worker results",
+    "Background completion preserves route and controls",
+    "Native Worker and synchronous schedule are identical after cancel/reload/retry",
+    "Actual calendar exposes committed results and player dependency"
+  ],
+  "errors": [],
+  "emulated": true,
+  "realDeviceVerified": false
+}

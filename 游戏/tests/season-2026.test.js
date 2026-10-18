@@ -5,7 +5,7 @@ const catalog=require('../catalog').cards,rosters=require('../content/rosters/20
 const pool=['ascent','sunset','split','haven','lotus','breeze','summit'];
 const winA=n=>({scoreA:(n.bestOf+1)/2,scoreB:0,winner:n.a,loser:n.b,bestOf:n.bestOf,maps:[]});
 test('overseas regional matches use numeric scores while CN and world keep round facts',()=>{
- const ctx=S.create('regional-policy',rosters,catalog,'EDG'),pool=['ascent','sunset','split','haven','lotus','breeze','summit'];
+ const ctx=S.create('regional-policy',rosters,catalog,'EDG',{powerModel:false}),pool=['ascent','sunset','split','haven','lotus','breeze','summit'];
  for(const [id,a,b,numeric]of [['0:AMER:U1','G2','NRG',true],['0:CN:U1','EDG','TYL',false],['1:world:PO:U1','G2','NRG',false]]){
   const r=S.simulate(ctx,{id,a,b,bestOf:3},pool);T.validate(r,a,b,3);assert.equal(r.simulationMode,numeric?'regional-numeric':'round-model');assert(r.maps.every(m=>numeric?m.rounds===undefined:Array.isArray(m.rounds)));assert(r.maps.every(m=>O.ended(m.home,m.away)));
  }

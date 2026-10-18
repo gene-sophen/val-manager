@@ -1,0 +1,342 @@
+{
+  "database": "val-manager-test-layout-5022a3b9-f998-44d3-bf0a-d7b46141c3c9",
+  "errors": [],
+  "matrix": [
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/reveal",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/reveal",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/reveal",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/reveal",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/reveal",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/reveal",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/compare",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/compare",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/compare",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/compare",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/compare",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/compare",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/reveal",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/reveal",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/reveal",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/reveal",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/reveal",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/reveal",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/compare",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/compare",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/compare",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/compare",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/compare",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/compare",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    }
+  ]
+}

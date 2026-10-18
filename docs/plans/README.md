@@ -1,5 +1,7 @@
 # 工程计划
 
+- [全界面审查、触摸滚动与赛程战力建模开发清单](2026-10-18-ui-scroll-simulation-backlog.md)：v0.11已实施本地回归；真机滚动/性能与完整跨精度标定待验收。实现包括手势滚动、Aurora审查、全队预建模及后台赛程。
+- [战力预建模与后台赛程实施决策](2026-10-18-team-power-implementation.md)。
 - [Aurora Glass 全界面重做](2026-10-14-aurora-interface-redesign.md)：v0.10 的页面、组件及响应式重做，实际结果见验收报告。
 
 - [移动端布局、比赛推进与视觉改版方案](2026-10-14-mobile-layout-match-flow-design.md)：针对 vivo 桌面启动 v0.8 的四项反馈，v0.9 已实施，真机门槛待设备反馈；附静态视觉设计板。

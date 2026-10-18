@@ -1,0 +1,4402 @@
+{
+  "modelVersion": "team-power-1",
+  "teams": [
+    {
+      "id": "EDG",
+      "region": "CN",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/5gjweC11brGhuRBR",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "zmjjkk",
+          "cardId": "normal:zmjjkk",
+          "name": "ZmjjKK",
+          "cardTeam": "EDG",
+          "AIM": 90,
+          "SYN": 82,
+          "SEN": 84,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "nobody",
+          "cardId": "normal:nobody",
+          "name": "nobody",
+          "cardTeam": "EDG",
+          "AIM": 85,
+          "SYN": 87,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "smoggy",
+          "cardId": "normal:smoggy",
+          "name": "Smoggy",
+          "cardTeam": "EDG",
+          "AIM": 73,
+          "SYN": 76,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "stew",
+          "cardId": "normal:stew",
+          "name": "stew",
+          "cardTeam": "JDG",
+          "AIM": 73,
+          "SYN": 74,
+          "SEN": 71,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "chichoo",
+          "cardId": "normal:chichoo",
+          "name": "CHICHOO",
+          "cardTeam": "EDG",
+          "AIM": 89,
+          "SYN": 87,
+          "SEN": 84,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "NOVA",
+      "region": "CN",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/lAvuB3JCl3CVSHmt",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "swagzor",
+          "cardId": "normal:swagzor",
+          "name": "swagzor",
+          "cardTeam": "NOVA",
+          "AIM": 90,
+          "SYN": 82,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "guang",
+          "cardId": "normal:guang",
+          "name": "GuanG",
+          "cardTeam": "NOVA",
+          "AIM": 71,
+          "SYN": 66,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "cb",
+          "cardId": "normal:cb",
+          "name": "cb",
+          "cardTeam": "NOVA",
+          "AIM": 74,
+          "SYN": 72,
+          "SEN": 77,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "ezeir",
+          "cardId": "normal:ezeir",
+          "name": "Ezeir",
+          "cardTeam": "NOVA",
+          "AIM": 71,
+          "SYN": 78,
+          "SEN": 70,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "qiutian",
+          "cardId": "normal:qiutian",
+          "name": "qiutiaN",
+          "cardTeam": "NOVA",
+          "AIM": 38,
+          "SYN": 49,
+          "SEN": 41,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "TYL",
+      "region": "CN",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/UyZ5hCVrWnSbxZMJ",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "slowly",
+          "cardId": "normal:slowly",
+          "name": "SLOWLY",
+          "cardTeam": "TYL",
+          "AIM": 90,
+          "SYN": 85,
+          "SEN": 87,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "splash",
+          "cardId": "normal:splash",
+          "name": "Splash",
+          "cardTeam": "TYL",
+          "AIM": 90,
+          "SYN": 84,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "scales",
+          "cardId": "normal:scales",
+          "name": "Scales",
+          "cardTeam": "TYL",
+          "AIM": 72,
+          "SYN": 72,
+          "SEN": 71,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "erv",
+          "cardId": "normal:erv",
+          "name": "Erv",
+          "cardTeam": "TYL",
+          "AIM": 70,
+          "SYN": 78,
+          "SEN": 72,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "siufatbb",
+          "cardId": "normal:siufatbb",
+          "name": "SiuFatBB",
+          "cardTeam": "TYL",
+          "AIM": 80,
+          "SYN": 88,
+          "SEN": 88,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "AG",
+      "region": "CN",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/f9evIvOaEpLosAGm",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "bai",
+          "cardId": "normal:bai",
+          "name": "Bai",
+          "cardTeam": "AG",
+          "AIM": 41,
+          "SYN": 40,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "f4ngeer",
+          "cardId": "normal:f4ngeer",
+          "name": "f4ngeer",
+          "cardTeam": "AG",
+          "AIM": 78,
+          "SYN": 64,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "iamgrq",
+          "cardId": "normal:iamgrq",
+          "name": "iamgrq",
+          "cardTeam": "AG",
+          "AIM": 69,
+          "SYN": 77,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "shr1mp",
+          "cardId": "normal:shr1mp",
+          "name": "Shr1mp",
+          "cardTeam": "AG",
+          "AIM": 67,
+          "SYN": 76,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "k1ra",
+          "cardId": "normal:k1ra",
+          "name": "K1ra",
+          "cardTeam": "AG",
+          "AIM": 88,
+          "SYN": 86,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "TE",
+      "region": "CN",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/oGJeZMVL7VeCbo5q",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "kai",
+          "cardId": "normal:kai",
+          "name": "Kai",
+          "cardTeam": "TE",
+          "AIM": 76,
+          "SYN": 63,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "delb",
+          "cardId": "normal:delb",
+          "name": "DeLb",
+          "cardTeam": "TE",
+          "AIM": 77,
+          "SYN": 71,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "fengf",
+          "cardId": "normal:fengf",
+          "name": "FengF",
+          "cardTeam": "TE",
+          "AIM": 75,
+          "SYN": 71,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "fkey",
+          "cardId": "normal:fkey",
+          "name": "Fkey",
+          "cardTeam": "TE",
+          "AIM": 38,
+          "SYN": 46,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "luok1ng",
+          "cardId": "normal:luok1ng",
+          "name": "LuoK1ng",
+          "cardTeam": "TE",
+          "AIM": 62,
+          "SYN": 75,
+          "SEN": 72,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "FPX",
+      "region": "CN",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/yhdMO1gwv1gppU9q",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "setrod",
+          "cardId": "normal:setrod",
+          "name": "Setrod",
+          "cardTeam": "FPX",
+          "AIM": 72,
+          "SYN": 65,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "aaaay",
+          "cardId": "normal:aaaay",
+          "name": "AAAAY",
+          "cardTeam": "FPX",
+          "AIM": 77,
+          "SYN": 70,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "kovaq",
+          "cardId": "normal:kovaq",
+          "name": "kovaQ",
+          "cardTeam": "FPX",
+          "AIM": 69,
+          "SYN": 73,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "xlele",
+          "cardId": "normal:xlele",
+          "name": "Xlele",
+          "cardTeam": "FPX",
+          "AIM": 47,
+          "SYN": 35,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "coconut",
+          "cardId": "normal:coconut",
+          "name": "coconut",
+          "cardTeam": "FPX",
+          "AIM": 43,
+          "SYN": 50,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "XLG",
+      "region": "CN",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/N9vFlF5iWKDVEnBn",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "rarga",
+          "cardId": "normal:rarga",
+          "name": "Rarga",
+          "cardTeam": "XLG",
+          "AIM": 89,
+          "SYN": 82,
+          "SEN": 84,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "lysoar",
+          "cardId": "normal:lysoar",
+          "name": "lysoar",
+          "cardTeam": "XLG",
+          "AIM": 87,
+          "SYN": 89,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "wsleo",
+          "cardId": "normal:wsleo",
+          "name": "WsLeo",
+          "cardTeam": "XLG",
+          "AIM": 74,
+          "SYN": 79,
+          "SEN": 71,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "happywei",
+          "cardId": "normal:happywei",
+          "name": "happywei",
+          "cardTeam": "XLG",
+          "AIM": 89,
+          "SYN": 87,
+          "SEN": 88,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "noman",
+          "cardId": "normal:noman",
+          "name": "NoMan",
+          "cardTeam": "XLG",
+          "AIM": 42,
+          "SYN": 35,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "BLG",
+      "region": "CN",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/gdqnSUpLlx4iV6au",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "whzy",
+          "cardId": "normal:whzy",
+          "name": "whzy",
+          "cardTeam": "BLG",
+          "AIM": 90,
+          "SYN": 83,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "knight",
+          "cardId": "normal:knight",
+          "name": "Knight",
+          "cardTeam": "BLG",
+          "AIM": 75,
+          "SYN": 76,
+          "SEN": 72,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "nephh",
+          "cardId": "normal:nephh",
+          "name": "Nephh",
+          "cardTeam": "BLG",
+          "AIM": 70,
+          "SYN": 78,
+          "SEN": 71,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "rushia",
+          "cardId": "normal:rushia",
+          "name": "Rushia",
+          "cardTeam": "BLG",
+          "AIM": 74,
+          "SYN": 69,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "ft",
+          "cardId": "normal:ft",
+          "name": "FT",
+          "cardTeam": "BLG",
+          "AIM": 34,
+          "SYN": 40,
+          "SEN": 39,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "DRG",
+      "region": "CN",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/JFwJZHzu4mpHkPGP",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "vo0kashu",
+          "cardId": "normal:vo0kashu",
+          "name": "vo0kashu",
+          "cardTeam": "DRG",
+          "AIM": 90,
+          "SYN": 87,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "life",
+          "cardId": "normal:life",
+          "name": "Life",
+          "cardTeam": "DRG",
+          "AIM": 53,
+          "SYN": 33,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "spiritz1",
+          "cardId": "normal:spiritz1",
+          "name": "SpiritZ1",
+          "cardTeam": "DRG",
+          "AIM": 77,
+          "SYN": 63,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "nicc",
+          "cardId": "normal:nicc",
+          "name": "Nicc",
+          "cardTeam": "DRG",
+          "AIM": 67,
+          "SYN": 79,
+          "SEN": 73,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "verse",
+          "cardId": "normal:verse",
+          "name": "Verse",
+          "cardTeam": "DRG",
+          "AIM": 63,
+          "SYN": 78,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "JDG",
+      "region": "CN",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/S594hqSJBYBGbfEE",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "zhe",
+          "cardId": "normal:zhe",
+          "name": "zhe",
+          "cardTeam": "JDG",
+          "AIM": 89,
+          "SYN": 83,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "berlin",
+          "cardId": "normal:berlin",
+          "name": "BerLIN",
+          "cardTeam": "JDG",
+          "AIM": 64,
+          "SYN": 73,
+          "SEN": 75,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "jkuro",
+          "cardId": "normal:jkuro",
+          "name": "jkuro",
+          "cardTeam": "JDG",
+          "AIM": 41,
+          "SYN": 44,
+          "SEN": 42,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "crownfisher",
+          "cardId": "normal:crownfisher",
+          "name": "crownfisher",
+          "cardTeam": "JDG",
+          "AIM": 67,
+          "SYN": 75,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "yuicaw",
+          "cardId": "normal:yuicaw",
+          "name": "Yuicaw",
+          "cardTeam": "JDG",
+          "AIM": 73,
+          "SYN": 69,
+          "SEN": 70,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "WOL",
+      "region": "CN",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/U8rAVCnW5tZrsNMs",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "glacier",
+          "cardId": "normal:glacier",
+          "name": "glacier",
+          "cardTeam": "WOL",
+          "AIM": 54,
+          "SYN": 34,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "spring",
+          "cardId": "normal:spring",
+          "name": "Spring",
+          "cardTeam": "WOL",
+          "AIM": 89,
+          "SYN": 87,
+          "SEN": 84,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "yosemite",
+          "cardId": "normal:yosemite",
+          "name": "Yosemite",
+          "cardTeam": "WOL",
+          "AIM": 76,
+          "SYN": 67,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "deryeon",
+          "cardId": "normal:deryeon",
+          "name": "Deryeon",
+          "cardTeam": "WOL",
+          "AIM": 68,
+          "SYN": 76,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "aluba",
+          "cardId": "normal:aluba",
+          "name": "aluba",
+          "cardTeam": "WOL",
+          "AIM": 38,
+          "SYN": 48,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "TEC",
+      "region": "CN",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/chUmTusw7Dvop1gn",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "dynamite",
+          "cardId": "normal:dynamite",
+          "name": "Dynamite",
+          "cardTeam": "TEC",
+          "AIM": 76,
+          "SYN": 68,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "lucas",
+          "cardId": "normal:lucas",
+          "name": "lucas",
+          "cardTeam": "TEC",
+          "AIM": 74,
+          "SYN": 74,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "coco",
+          "cardId": "normal:coco",
+          "name": "Coco",
+          "cardTeam": "TEC",
+          "AIM": 73,
+          "SYN": 78,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "haodong",
+          "cardId": "normal:haodong",
+          "name": "Haodong",
+          "cardTeam": "TEC",
+          "AIM": 33,
+          "SYN": 45,
+          "SEN": 46,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "ra1ny",
+          "cardId": "normal:ra1ny",
+          "name": "ra1ny",
+          "cardTeam": "TEC",
+          "AIM": 55,
+          "SYN": 33,
+          "SEN": 39,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "100T",
+      "region": "AMER",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/mgun17auDGE97UBs",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "bang",
+          "cardId": "normal:bang",
+          "name": "bang",
+          "cardTeam": "100T",
+          "AIM": 84,
+          "SYN": 90,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "timotino",
+          "cardId": "normal:timotino",
+          "name": "Timotino",
+          "cardTeam": "100T",
+          "AIM": 79,
+          "SYN": 68,
+          "SEN": 72,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "vora",
+          "cardId": "normal:vora",
+          "name": "vora",
+          "cardTeam": "100T",
+          "AIM": 69,
+          "SYN": 76,
+          "SEN": 71,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "cryocells",
+          "cardId": "normal:cryocells",
+          "name": "Cryocells",
+          "cardTeam": "100T",
+          "AIM": 73,
+          "SYN": 69,
+          "SEN": 71,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "asuna",
+          "cardId": "normal:asuna",
+          "name": "Asuna",
+          "cardTeam": "100T",
+          "AIM": 90,
+          "SYN": 88,
+          "SEN": 87,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "NRG",
+      "region": "AMER",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/eYqPeoxSyeDFNw4D",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "keiko",
+          "cardId": "normal:keiko",
+          "name": "Keiko",
+          "cardTeam": "NRG",
+          "AIM": 88,
+          "SYN": 85,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "skuba",
+          "cardId": "normal:skuba",
+          "name": "skuba",
+          "cardTeam": "NRG",
+          "AIM": 68,
+          "SYN": 76,
+          "SEN": 70,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "brawk",
+          "cardId": "normal:brawk",
+          "name": "brawk",
+          "cardTeam": "NRG",
+          "AIM": 89,
+          "SYN": 89,
+          "SEN": 87,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "mada",
+          "cardId": "normal:mada",
+          "name": "mada",
+          "cardTeam": "NRG",
+          "AIM": 75,
+          "SYN": 68,
+          "SEN": 71,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "ethan",
+          "cardId": "normal:ethan",
+          "name": "Ethan",
+          "cardTeam": "NRG",
+          "AIM": 85,
+          "SYN": 89,
+          "SEN": 89,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "KC",
+      "region": "EMEA",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/jRB3gUcjCdqiSyU8",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "lêwn",
+          "cardId": "normal:lêwn",
+          "name": "LêwN",
+          "cardTeam": "KC",
+          "AIM": 89,
+          "SYN": 82,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "n4rrate",
+          "cardId": "normal:n4rrate",
+          "name": "N4RRATE",
+          "cardTeam": "KC",
+          "AIM": 89,
+          "SYN": 85,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "avez",
+          "cardId": "normal:avez",
+          "name": "avez",
+          "cardTeam": "KC",
+          "AIM": 70,
+          "SYN": 73,
+          "SEN": 71,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "dos9",
+          "cardId": "normal:dos9",
+          "name": "dos9",
+          "cardTeam": "KC",
+          "AIM": 84,
+          "SYN": 89,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "suygetsu",
+          "cardId": "normal:suygetsu",
+          "name": "SUYGETSU",
+          "cardTeam": "KC",
+          "AIM": 37,
+          "SYN": 43,
+          "SEN": 43,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "LEV",
+      "region": "AMER",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/1dcrEchr3gawICgu",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "neon",
+          "cardId": "normal:neon",
+          "name": "Neon",
+          "cardTeam": "LEV",
+          "AIM": 75,
+          "SYN": 70,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "blowz",
+          "cardId": "normal:blowz",
+          "name": "blowz",
+          "cardTeam": "LEV",
+          "AIM": 66,
+          "SYN": 77,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "spike",
+          "cardId": "normal:spike",
+          "name": "spike",
+          "cardTeam": "LEV",
+          "AIM": 77,
+          "SYN": 67,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "sato",
+          "cardId": "normal:sato",
+          "name": "Sato",
+          "cardTeam": "LEV",
+          "AIM": 79,
+          "SYN": 74,
+          "SEN": 70,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "kingg",
+          "cardId": "normal:kingg",
+          "name": "kiNgg",
+          "cardTeam": "LEV",
+          "AIM": 83,
+          "SYN": 88,
+          "SEN": 87,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "VIT",
+      "region": "EMEA",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/1cy7LHdvCn6CK4kC",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "profek",
+          "cardId": "normal:profek",
+          "name": "PROFEK",
+          "cardTeam": "VIT",
+          "AIM": 64,
+          "SYN": 77,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "jamppi",
+          "cardId": "normal:jamppi",
+          "name": "Jamppi",
+          "cardTeam": "VIT",
+          "AIM": 75,
+          "SYN": 73,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "chronicle",
+          "cardId": "normal:chronicle",
+          "name": "Chronicle",
+          "cardTeam": "VIT",
+          "AIM": 89,
+          "SYN": 86,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "sayonara",
+          "cardId": "normal:sayonara",
+          "name": "Sayonara",
+          "cardTeam": "VIT",
+          "AIM": 88,
+          "SYN": 87,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "derke",
+          "cardId": "normal:derke",
+          "name": "Derke",
+          "cardTeam": "VIT",
+          "AIM": 89,
+          "SYN": 83,
+          "SEN": 84,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "TL",
+      "region": "EMEA",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/TQIYiwOhBPzCqPCF",
+      "evidence": {
+        "roster": "contains-game-proxy",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "kamo",
+          "cardId": "normal:kamo",
+          "name": "kamo",
+          "cardTeam": "TL",
+          "AIM": 90,
+          "SYN": 85,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "nats",
+          "cardId": "normal:nats",
+          "name": "nAts",
+          "cardTeam": "TL",
+          "AIM": 89,
+          "SYN": 85,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "kicks",
+          "cardId": "normal:kicks",
+          "name": "Kicks",
+          "cardTeam": "TL",
+          "AIM": 33,
+          "SYN": 55,
+          "SEN": 44,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "trexx",
+          "cardId": "normal:trexx",
+          "name": "trexx",
+          "cardTeam": "TL",
+          "AIM": 88,
+          "SYN": 90,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "game-proxy:TL:0",
+          "cardId": "game-proxy:TL:0",
+          "name": "GSR",
+          "cardTeam": "TL",
+          "AIM": 75,
+          "SYN": 78.75,
+          "SEN": 75.5,
+          "proxy": true,
+          "reason": "缺卡，仅用现有队友均值代理"
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "proxy-prior"
+    },
+    {
+      "id": "G2",
+      "region": "AMER",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/gsVaNnjL3nFbmGWt",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "babybay",
+          "cardId": "normal:babybay",
+          "name": "babybay",
+          "cardTeam": "G2",
+          "AIM": 74,
+          "SYN": 68,
+          "SEN": 70,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "jawgemo",
+          "cardId": "normal:jawgemo",
+          "name": "jawgemo",
+          "cardTeam": "G2",
+          "AIM": 50,
+          "SYN": 40,
+          "SEN": 43,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "leaf",
+          "cardId": "normal:leaf",
+          "name": "leaf",
+          "cardTeam": "G2",
+          "AIM": 75,
+          "SYN": 73,
+          "SEN": 71,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "valyn",
+          "cardId": "normal:valyn",
+          "name": "valyn",
+          "cardTeam": "G2",
+          "AIM": 85,
+          "SYN": 89,
+          "SEN": 89,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "trent",
+          "cardId": "normal:trent",
+          "name": "trent",
+          "cardTeam": "G2",
+          "AIM": 88,
+          "SYN": 89,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "GE",
+      "region": "PAC",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/d1B21kolpxSqFSAJ",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "patmen",
+          "cardId": "normal:patmen",
+          "name": "PatMen",
+          "cardTeam": "GE",
+          "AIM": 89,
+          "SYN": 86,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "autumn",
+          "cardId": "normal:autumn",
+          "name": "Autumn",
+          "cardTeam": "GE",
+          "AIM": 46,
+          "SYN": 36,
+          "SEN": 42,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "xavi8k",
+          "cardId": "normal:xavi8k",
+          "name": "xavi8k",
+          "cardTeam": "GE",
+          "AIM": 70,
+          "SYN": 77,
+          "SEN": 71,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "kr1stal",
+          "cardId": "normal:kr1stal",
+          "name": "Kr1stal",
+          "cardTeam": "GE",
+          "AIM": 35,
+          "SYN": 47,
+          "SEN": 42,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "udotan",
+          "cardId": "normal:udotan",
+          "name": "UdoTan",
+          "cardTeam": "GE",
+          "AIM": 76,
+          "SYN": 64,
+          "SEN": 70,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "PRX",
+      "region": "PAC",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/SQPi3PWPKJV2bhQG",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "invy",
+          "cardId": "normal:invy",
+          "name": "invy",
+          "cardTeam": "PRX",
+          "AIM": 71,
+          "SYN": 77,
+          "SEN": 70,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "something",
+          "cardId": "normal:something",
+          "name": "something",
+          "cardTeam": "PRX",
+          "AIM": 89,
+          "SYN": 83,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "jinggg",
+          "cardId": "normal:jinggg",
+          "name": "Jinggg",
+          "cardTeam": "PRX",
+          "AIM": 89,
+          "SYN": 85,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "f0rsaken",
+          "cardId": "normal:f0rsaken",
+          "name": "f0rsakeN",
+          "cardTeam": "PRX",
+          "AIM": 88,
+          "SYN": 88,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "d4v41",
+          "cardId": "normal:d4v41",
+          "name": "d4v41",
+          "cardTeam": "PRX",
+          "AIM": 87,
+          "SYN": 85,
+          "SEN": 88,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "LOUD",
+      "region": "AMER",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/HxkjQHJh4mC9GuS1",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "davih",
+          "cardId": "normal:davih",
+          "name": "DaviH",
+          "cardTeam": "LOUD",
+          "AIM": 34,
+          "SYN": 54,
+          "SEN": 42,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "erde",
+          "cardId": "normal:erde",
+          "name": "erde",
+          "cardTeam": "LOUD",
+          "AIM": 71,
+          "SYN": 75,
+          "SEN": 70,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "darker",
+          "cardId": "normal:darker",
+          "name": "Darker",
+          "cardTeam": "LOUD",
+          "AIM": 72,
+          "SYN": 77,
+          "SEN": 70,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "lukxo",
+          "cardId": "normal:lukxo",
+          "name": "lukxo",
+          "cardTeam": "LOUD",
+          "AIM": 90,
+          "SYN": 83,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "tkzin",
+          "cardId": "normal:tkzin",
+          "name": "tkzin",
+          "cardTeam": "LOUD",
+          "AIM": 90,
+          "SYN": 82,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "NS",
+      "region": "PAC",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/8LCK7oKxHAqmdVF1",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "francis",
+          "cardId": "normal:francis",
+          "name": "Francis",
+          "cardTeam": "NS",
+          "AIM": 89,
+          "SYN": 85,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "xross",
+          "cardId": "normal:xross",
+          "name": "xross",
+          "cardTeam": "NS",
+          "AIM": 75,
+          "SYN": 76,
+          "SEN": 72,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "rb",
+          "cardId": "normal:rb",
+          "name": "Rb",
+          "cardTeam": "NS",
+          "AIM": 82,
+          "SYN": 89,
+          "SEN": 88,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "ivy",
+          "cardId": "normal:ivy",
+          "name": "Ivy",
+          "cardTeam": "NS",
+          "AIM": 72,
+          "SYN": 67,
+          "SEN": 70,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "dambi",
+          "cardId": "normal:dambi",
+          "name": "Dambi",
+          "cardTeam": "NS",
+          "AIM": 77,
+          "SYN": 69,
+          "SEN": 71,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "T1",
+      "region": "PAC",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/ApibJApHhzchMkT3",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "buzz",
+          "cardId": "normal:buzz",
+          "name": "BuZz",
+          "cardTeam": "T1",
+          "AIM": 89,
+          "SYN": 85,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "meteor",
+          "cardId": "normal:meteor",
+          "name": "Meteor",
+          "cardTeam": "T1",
+          "AIM": 88,
+          "SYN": 83,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "munchkin",
+          "cardId": "normal:munchkin",
+          "name": "Munchkin",
+          "cardTeam": "T1",
+          "AIM": 65,
+          "SYN": 76,
+          "SEN": 76,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "izu",
+          "cardId": "normal:izu",
+          "name": "iZu",
+          "cardTeam": "T1",
+          "AIM": 88,
+          "SYN": 85,
+          "SEN": 86,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "stax",
+          "cardId": "normal:stax",
+          "name": "stax",
+          "cardTeam": "T1",
+          "AIM": 81,
+          "SYN": 90,
+          "SEN": 88,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "FUT",
+      "region": "EMEA",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/9uLt3sTpPSvG8Pwq",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "sociablee",
+          "cardId": "normal:sociablee",
+          "name": "sociablEE",
+          "cardTeam": "FUT",
+          "AIM": 67,
+          "SYN": 76,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "s0pp",
+          "cardId": "normal:s0pp",
+          "name": "s0pp",
+          "cardTeam": "FUT",
+          "AIM": 89,
+          "SYN": 83,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "krostaly",
+          "cardId": "normal:krostaly",
+          "name": "KROSTALY",
+          "cardTeam": "FUT",
+          "AIM": 38,
+          "SYN": 50,
+          "SEN": 43,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "xeus",
+          "cardId": "normal:xeus",
+          "name": "xeus",
+          "cardTeam": "FUT",
+          "AIM": 49,
+          "SYN": 33,
+          "SEN": 42,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "yetujey",
+          "cardId": "normal:yetujey",
+          "name": "yetujey",
+          "cardTeam": "FUT",
+          "AIM": 71,
+          "SYN": 70,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "TH",
+      "region": "EMEA",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/mxmzVd964vNwyc7I",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "wo0t",
+          "cardId": "normal:wo0t",
+          "name": "Wo0t",
+          "cardTeam": "TH",
+          "AIM": 89,
+          "SYN": 83,
+          "SEN": 84,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "riens",
+          "cardId": "normal:riens",
+          "name": "RieNs",
+          "cardTeam": "TH",
+          "AIM": 89,
+          "SYN": 88,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "koshmaras",
+          "cardId": "normal:koshmaras",
+          "name": "Koshmaras",
+          "cardTeam": "TH",
+          "AIM": 73,
+          "SYN": 69,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "benjyfishy",
+          "cardId": "normal:benjyfishy",
+          "name": "benjyfishy",
+          "cardTeam": "TH",
+          "AIM": 69,
+          "SYN": 70,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "boo",
+          "cardId": "normal:boo",
+          "name": "Boo",
+          "cardTeam": "TH",
+          "AIM": 65,
+          "SYN": 78,
+          "SEN": 73,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "MIBR",
+      "region": "AMER",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/uy5u8FStJ12dhpiT",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "zekken",
+          "cardId": "normal:zekken",
+          "name": "zekken",
+          "cardTeam": "MIBR",
+          "AIM": 88,
+          "SYN": 85,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "mazino",
+          "cardId": "normal:mazino",
+          "name": "Mazino",
+          "cardTeam": "MIBR",
+          "AIM": 69,
+          "SYN": 76,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "verno",
+          "cardId": "normal:verno",
+          "name": "Verno",
+          "cardTeam": "MIBR",
+          "AIM": 88,
+          "SYN": 88,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "aspas",
+          "cardId": "normal:aspas",
+          "name": "aspas",
+          "cardTeam": "MIBR",
+          "AIM": 89,
+          "SYN": 83,
+          "SEN": 84,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "tex",
+          "cardId": "normal:tex",
+          "name": "tex",
+          "cardTeam": "MIBR",
+          "AIM": 35,
+          "SYN": 37,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "GEN",
+      "region": "PAC",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/RwLLk3YUka34mcnV",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "t3xture",
+          "cardId": "normal:t3xture",
+          "name": "t3xture",
+          "cardTeam": "GEN",
+          "AIM": 90,
+          "SYN": 82,
+          "SEN": 84,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "ash",
+          "cardId": "normal:ash",
+          "name": "Ash",
+          "cardTeam": "GEN",
+          "AIM": 73,
+          "SYN": 66,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "raxcal",
+          "cardId": "normal:raxcal",
+          "name": "Raxcal",
+          "cardTeam": "GEN",
+          "AIM": 70,
+          "SYN": 73,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "karon",
+          "cardId": "normal:karon",
+          "name": "Karon",
+          "cardTeam": "GEN",
+          "AIM": 70,
+          "SYN": 77,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "efina",
+          "cardId": "normal:efina",
+          "name": "Efina",
+          "cardTeam": "GEN",
+          "AIM": 31,
+          "SYN": 46,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "DFM",
+      "region": "PAC",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/6nBMUiZh1m9oOu9N",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "yatsuka",
+          "cardId": "normal:yatsuka",
+          "name": "yatsuka",
+          "cardTeam": "DFM",
+          "AIM": 39,
+          "SYN": 43,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "caedye",
+          "cardId": "normal:caedye",
+          "name": "Caedye",
+          "cardTeam": "DFM",
+          "AIM": 43,
+          "SYN": 44,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "akame",
+          "cardId": "normal:akame",
+          "name": "Akame",
+          "cardTeam": "DFM",
+          "AIM": 77,
+          "SYN": 72,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "meiy",
+          "cardId": "normal:meiy",
+          "name": "Meiy",
+          "cardTeam": "DFM",
+          "AIM": 90,
+          "SYN": 82,
+          "SEN": 84,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "ssees",
+          "cardId": "normal:ssees",
+          "name": "SSeeS",
+          "cardTeam": "DFM",
+          "AIM": 30,
+          "SYN": 56,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "BBL",
+      "region": "EMEA",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/he4glo5N8INfVcDY",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "loita",
+          "cardId": "normal:loita",
+          "name": "Loita",
+          "cardTeam": "BBL",
+          "AIM": 68,
+          "SYN": 78,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "lar0k",
+          "cardId": "normal:lar0k",
+          "name": "Lar0k",
+          "cardTeam": "BBL",
+          "AIM": 74,
+          "SYN": 69,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "rosé",
+          "cardId": "normal:rosé",
+          "name": "Rosé",
+          "cardTeam": "BBL",
+          "AIM": 33,
+          "SYN": 44,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "crewen",
+          "cardId": "normal:crewen",
+          "name": "Crewen",
+          "cardTeam": "BBL",
+          "AIM": 45,
+          "SYN": 40,
+          "SEN": 40,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "lovers rock",
+          "cardId": "normal:lovers rock",
+          "name": "lovers rock",
+          "cardTeam": "BBL",
+          "AIM": 77,
+          "SYN": 65,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "VL",
+      "region": "PAC",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/6YSdzykjASemkmZH",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "foxy9",
+          "cardId": "normal:foxy9",
+          "name": "Foxy9",
+          "cardTeam": "VL",
+          "AIM": 70,
+          "SYN": 69,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "xuna",
+          "cardId": "normal:xuna",
+          "name": "XuNa",
+          "cardTeam": "VL",
+          "AIM": 76,
+          "SYN": 73,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "zexy",
+          "cardId": "normal:zexy",
+          "name": "Zexy",
+          "cardTeam": "VL",
+          "AIM": 44,
+          "SYN": 32,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "oonzmlp",
+          "cardId": "normal:oonzmlp",
+          "name": "oonzmlp",
+          "cardTeam": "VL",
+          "AIM": 72,
+          "SYN": 73,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "c1nder",
+          "cardId": "normal:c1nder",
+          "name": "C1ndeR",
+          "cardTeam": "VL",
+          "AIM": 30,
+          "SYN": 50,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "NAVI",
+      "region": "EMEA",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/zWWFVBP4trQPeZUE",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "hiro",
+          "cardId": "normal:hiro",
+          "name": "hiro",
+          "cardTeam": "NAVI",
+          "AIM": 78,
+          "SYN": 68,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "ruxic",
+          "cardId": "normal:ruxic",
+          "name": "Ruxic",
+          "cardTeam": "NAVI",
+          "AIM": 88,
+          "SYN": 88,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "exit",
+          "cardId": "normal:exit",
+          "name": "ExiT",
+          "cardTeam": "NAVI",
+          "AIM": 51,
+          "SYN": 36,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "chloric",
+          "cardId": "normal:chloric",
+          "name": "chloric",
+          "cardTeam": "NAVI",
+          "AIM": 40,
+          "SYN": 48,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "cyvoph",
+          "cardId": "normal:cyvoph",
+          "name": "CyvOph",
+          "cardTeam": "NAVI",
+          "AIM": 41,
+          "SYN": 52,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "FNC",
+      "region": "EMEA",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/YfvO6O1LfwI6D7Ic",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "alfajer",
+          "cardId": "normal:alfajer",
+          "name": "Alfajer",
+          "cardTeam": "FNC",
+          "AIM": 90,
+          "SYN": 82,
+          "SEN": 84,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "kaajak",
+          "cardId": "normal:kaajak",
+          "name": "kaajak",
+          "cardTeam": "FNC",
+          "AIM": 54,
+          "SYN": 33,
+          "SEN": 39,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "cloud",
+          "cardId": "normal:cloud",
+          "name": "Cloud",
+          "cardTeam": "FNC",
+          "AIM": 70,
+          "SYN": 73,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "crashies",
+          "cardId": "normal:crashies",
+          "name": "crashies",
+          "cardTeam": "FNC",
+          "AIM": 68,
+          "SYN": 74,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "boaster",
+          "cardId": "normal:boaster",
+          "name": "Boaster",
+          "cardTeam": "FNC",
+          "AIM": 30,
+          "SYN": 51,
+          "SEN": 46,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "KRX",
+      "region": "PAC",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/DZbWVHoWlBcAHyFb",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "hyunmin",
+          "cardId": "normal:hyunmin",
+          "name": "HYUNMIN",
+          "cardTeam": "KRX",
+          "AIM": 79,
+          "SYN": 67,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "free1ng",
+          "cardId": "normal:free1ng",
+          "name": "free1ng",
+          "cardTeam": "KRX",
+          "AIM": 43,
+          "SYN": 33,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "beyn",
+          "cardId": "normal:beyn",
+          "name": "BeYN",
+          "cardTeam": "KRX",
+          "AIM": 67,
+          "SYN": 74,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "mako",
+          "cardId": "normal:mako",
+          "name": "MaKo",
+          "cardTeam": "KRX",
+          "AIM": 69,
+          "SYN": 77,
+          "SEN": 74,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "yong",
+          "cardId": "normal:yong",
+          "name": "yong",
+          "cardTeam": "KRX",
+          "AIM": 75,
+          "SYN": 68,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "EF",
+      "region": "EMEA",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/cqVrWKPKElHNGfSf",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "spear",
+          "cardId": "normal:spear",
+          "name": "Spear",
+          "cardTeam": "EF",
+          "AIM": 48,
+          "SYN": 40,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "echo",
+          "cardId": "normal:echo",
+          "name": "echo",
+          "cardTeam": "EF",
+          "AIM": 51,
+          "SYN": 37,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "favian",
+          "cardId": "normal:favian",
+          "name": "Favian",
+          "cardTeam": "EF",
+          "AIM": 78,
+          "SYN": 66,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "audaz",
+          "cardId": "normal:audaz",
+          "name": "audaz",
+          "cardTeam": "EF",
+          "AIM": 31,
+          "SYN": 54,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "nekky",
+          "cardId": "normal:nekky",
+          "name": "nekky",
+          "cardTeam": "EF",
+          "AIM": 44,
+          "SYN": 46,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "KRÜ",
+      "region": "AMER",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/NdioJf4DsYOW3jJ4",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "heat",
+          "cardId": "normal:heat",
+          "name": "heat",
+          "cardTeam": "KRÜ",
+          "AIM": 47,
+          "SYN": 37,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "less",
+          "cardId": "normal:less",
+          "name": "Less",
+          "cardTeam": "KRÜ",
+          "AIM": 88,
+          "SYN": 87,
+          "SEN": 84,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "mwzera",
+          "cardId": "normal:mwzera",
+          "name": "mwzera",
+          "cardTeam": "KRÜ",
+          "AIM": 74,
+          "SYN": 75,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "saadhak",
+          "cardId": "normal:saadhak",
+          "name": "Saadhak",
+          "cardTeam": "KRÜ",
+          "AIM": 65,
+          "SYN": 75,
+          "SEN": 72,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "dantedeu5",
+          "cardId": "normal:dantedeu5",
+          "name": "Dantedeu5",
+          "cardTeam": "KRÜ",
+          "AIM": 38,
+          "SYN": 36,
+          "SEN": 34,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "C9",
+      "region": "AMER",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/lrAINQdQ8dHACZkE",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "v1c",
+          "cardId": "normal:v1c",
+          "name": "v1c",
+          "cardTeam": "C9",
+          "AIM": 65,
+          "SYN": 77,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "fireballops",
+          "cardId": "normal:fireballops",
+          "name": "FireBallOps",
+          "cardTeam": "C9",
+          "AIM": 46,
+          "SYN": 38,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "jackk",
+          "cardId": "normal:jackk",
+          "name": "Jackk",
+          "cardTeam": "C9",
+          "AIM": 37,
+          "SYN": 54,
+          "SEN": 39,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "zellsis",
+          "cardId": "normal:zellsis",
+          "name": "Zellsis",
+          "cardTeam": "C9",
+          "AIM": 31,
+          "SYN": 48,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "oxy",
+          "cardId": "normal:oxy",
+          "name": "OXY",
+          "cardTeam": "C9",
+          "AIM": 90,
+          "SYN": 82,
+          "SEN": 84,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "NV",
+      "region": "AMER",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/Z4adpFSuqGUHoFSn",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "nightz",
+          "cardId": "normal:nightz",
+          "name": "nightz",
+          "cardTeam": "NV",
+          "AIM": 76,
+          "SYN": 74,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "keznit",
+          "cardId": "normal:keznit",
+          "name": "keznit",
+          "cardTeam": "NV",
+          "AIM": 50,
+          "SYN": 35,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "demon1",
+          "cardId": "normal:demon1",
+          "name": "Demon1",
+          "cardTeam": "NV",
+          "AIM": 47,
+          "SYN": 35,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "glyph",
+          "cardId": "normal:glyph",
+          "name": "GLYPH",
+          "cardTeam": "NV",
+          "AIM": 34,
+          "SYN": 54,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "rossy",
+          "cardId": "normal:rossy",
+          "name": "Rossy",
+          "cardTeam": "NV",
+          "AIM": 68,
+          "SYN": 75,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "SEN",
+      "region": "AMER",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/Eht7Jvbf3vaG5ugi",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "jonahp",
+          "cardId": "normal:jonahp",
+          "name": "JonahP",
+          "cardTeam": "SEN",
+          "AIM": 41,
+          "SYN": 45,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "reduxx",
+          "cardId": "normal:reduxx",
+          "name": "Reduxx",
+          "cardTeam": "SEN",
+          "AIM": 74,
+          "SYN": 71,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "cortezia",
+          "cardId": "normal:cortezia",
+          "name": "cortezia",
+          "cardTeam": "SEN",
+          "AIM": 75,
+          "SYN": 68,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "johnqt",
+          "cardId": "normal:johnqt",
+          "name": "johnqt",
+          "cardTeam": "SEN",
+          "AIM": 70,
+          "SYN": 77,
+          "SEN": 75,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "jerrwin",
+          "cardId": "normal:jerrwin",
+          "name": "Jerrwin",
+          "cardTeam": "SEN",
+          "AIM": 45,
+          "SYN": 35,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "RRQ",
+      "region": "PAC",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/4nHQ9GnThOnSTAgS",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "monyet",
+          "cardId": "normal:monyet",
+          "name": "Monyet",
+          "cardTeam": "RRQ",
+          "AIM": 87,
+          "SYN": 88,
+          "SEN": 84,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "crazyguy",
+          "cardId": "normal:crazyguy",
+          "name": "crazyguy",
+          "cardTeam": "RRQ",
+          "AIM": 72,
+          "SYN": 75,
+          "SEN": 73,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "xffero",
+          "cardId": "normal:xffero",
+          "name": "xffero",
+          "cardTeam": "RRQ",
+          "AIM": 74,
+          "SYN": 72,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "xan",
+          "cardId": "normal:xan",
+          "name": "Xan",
+          "cardTeam": "RRQ",
+          "AIM": 46,
+          "SYN": 34,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "jemkin",
+          "cardId": "normal:jemkin",
+          "name": "Jemkin",
+          "cardTeam": "RRQ",
+          "AIM": 73,
+          "SYN": 64,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "EG",
+      "region": "AMER",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/EDfFSxxkZc7vfmIj",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "zerona",
+          "cardId": "normal:zerona",
+          "name": "zerona",
+          "cardTeam": "EG",
+          "AIM": 76,
+          "SYN": 70,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "paincakes",
+          "cardId": "normal:paincakes",
+          "name": "Paincakes",
+          "cardTeam": "EG",
+          "AIM": 35,
+          "SYN": 51,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "dgzin",
+          "cardId": "normal:dgzin",
+          "name": "dgzin",
+          "cardTeam": "EG",
+          "AIM": 79,
+          "SYN": 63,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "bao",
+          "cardId": "normal:bao",
+          "name": "bao",
+          "cardTeam": "EG",
+          "AIM": 39,
+          "SYN": 43,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "supamen",
+          "cardId": "normal:supamen",
+          "name": "supamen",
+          "cardTeam": "EG",
+          "AIM": 40,
+          "SYN": 47,
+          "SEN": 39,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "FS",
+      "region": "PAC",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/8jyk5nMSPMZNiHA9",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "primmie",
+          "cardId": "normal:primmie",
+          "name": "Primmie",
+          "cardTeam": "FS",
+          "AIM": 90,
+          "SYN": 84,
+          "SEN": 84,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "jitboys",
+          "cardId": "normal:jitboys",
+          "name": "JitboyS",
+          "cardTeam": "FS",
+          "AIM": 74,
+          "SYN": 64,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "killua",
+          "cardId": "normal:killua",
+          "name": "killua",
+          "cardTeam": "FS",
+          "AIM": 72,
+          "SYN": 78,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "seph1roth",
+          "cardId": "normal:seph1roth",
+          "name": "Seph1roth",
+          "cardTeam": "FS",
+          "AIM": 33,
+          "SYN": 36,
+          "SEN": 35,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "crws",
+          "cardId": "normal:crws",
+          "name": "Crws",
+          "cardTeam": "FS",
+          "AIM": 31,
+          "SYN": 51,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "M8",
+      "region": "EMEA",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/GDMPEBAAxfQwWZPl",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "marteen",
+          "cardId": "normal:marteen",
+          "name": "marteen",
+          "cardTeam": "M8",
+          "AIM": 90,
+          "SYN": 86,
+          "SEN": 85,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "minny",
+          "cardId": "normal:minny",
+          "name": "Minny",
+          "cardTeam": "M8",
+          "AIM": 49,
+          "SYN": 37,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "starxo",
+          "cardId": "normal:starxo",
+          "name": "starxo",
+          "cardTeam": "M8",
+          "AIM": 37,
+          "SYN": 42,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "proxh",
+          "cardId": "normal:proxh",
+          "name": "Proxh",
+          "cardTeam": "M8",
+          "AIM": 35,
+          "SYN": 52,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "bipo",
+          "cardId": "normal:bipo",
+          "name": "bipo",
+          "cardTeam": "M8",
+          "AIM": 33,
+          "SYN": 35,
+          "SEN": 34,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "FUR",
+      "region": "AMER",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/uV9m6IEHU3Qx81Nl",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "basic",
+          "cardId": "normal:basic",
+          "name": "basic",
+          "cardTeam": "FUR",
+          "AIM": 77,
+          "SYN": 76,
+          "SEN": 69,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "shyy",
+          "cardId": "normal:shyy",
+          "name": "Shyy",
+          "cardTeam": "FUR",
+          "AIM": 74,
+          "SYN": 71,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "koalanoob",
+          "cardId": "normal:koalanoob",
+          "name": "koalanoob",
+          "cardTeam": "FUR",
+          "AIM": 45,
+          "SYN": 33,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "artzin",
+          "cardId": "normal:artzin",
+          "name": "artzin",
+          "cardTeam": "FUR",
+          "AIM": 71,
+          "SYN": 75,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "c0m",
+          "cardId": "normal:c0m",
+          "name": "C0M",
+          "cardTeam": "FUR",
+          "AIM": 32,
+          "SYN": 46,
+          "SEN": 34,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "ZETA",
+      "region": "PAC",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/cfAviHGOJWxDtJsn",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "syouta",
+          "cardId": "normal:syouta",
+          "name": "SyouTa",
+          "cardTeam": "ZETA",
+          "AIM": 47,
+          "SYN": 38,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "absol",
+          "cardId": "normal:absol",
+          "name": "Absol",
+          "cardTeam": "ZETA",
+          "AIM": 53,
+          "SYN": 36,
+          "SEN": 39,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "eko",
+          "cardId": "normal:eko",
+          "name": "eKo",
+          "cardTeam": "ZETA",
+          "AIM": 73,
+          "SYN": 70,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "sugarz3ro",
+          "cardId": "normal:sugarz3ro",
+          "name": "SugarZ3ro",
+          "cardTeam": "ZETA",
+          "AIM": 34,
+          "SYN": 51,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "xdll",
+          "cardId": "normal:xdll",
+          "name": "Xdll",
+          "cardTeam": "ZETA",
+          "AIM": 33,
+          "SYN": 42,
+          "SEN": 35,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "GX",
+      "region": "EMEA",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/k2SQjdhaitSNJ1kG",
+      "evidence": {
+        "roster": "contains-game-proxy",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "net",
+          "cardId": "normal:net",
+          "name": "neT",
+          "cardTeam": "GX",
+          "AIM": 72,
+          "SYN": 72,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "ara",
+          "cardId": "normal:ara",
+          "name": "ara",
+          "cardTeam": "GX",
+          "AIM": 53,
+          "SYN": 33,
+          "SEN": 39,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "flickless",
+          "cardId": "normal:flickless",
+          "name": "Flickless",
+          "cardTeam": "GX",
+          "AIM": 40,
+          "SYN": 47,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "westside",
+          "cardId": "normal:westside",
+          "name": "westside",
+          "cardTeam": "GX",
+          "AIM": 48,
+          "SYN": 38,
+          "SEN": 38,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "game-proxy:GX:0",
+          "cardId": "game-proxy:GX:0",
+          "name": "tomaszy",
+          "cardTeam": "GX",
+          "AIM": 53.25,
+          "SYN": 47.5,
+          "SEN": 45,
+          "proxy": true,
+          "reason": "缺卡，仅用现有队友均值代理"
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "proxy-prior"
+    },
+    {
+      "id": "TS",
+      "region": "PAC",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/d6TYFl3P4ABen5oM",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "natz",
+          "cardId": "normal:natz",
+          "name": "naTz",
+          "cardTeam": "TS",
+          "AIM": 40,
+          "SYN": 38,
+          "SEN": 35,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "zeus",
+          "cardId": "normal:zeus",
+          "name": "Zeus",
+          "cardTeam": "TS",
+          "AIM": 78,
+          "SYN": 66,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "styron",
+          "cardId": "normal:styron",
+          "name": "STYRON",
+          "cardTeam": "TS",
+          "AIM": 69,
+          "SYN": 72,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "sylvan",
+          "cardId": "normal:sylvan",
+          "name": "Sylvan",
+          "cardTeam": "TS",
+          "AIM": 71,
+          "SYN": 75,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "kellys",
+          "cardId": "normal:kellys",
+          "name": "kellyS",
+          "cardTeam": "TS",
+          "AIM": 75,
+          "SYN": 72,
+          "SEN": 67,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "PCF",
+      "region": "EMEA",
+      "entryOnly": false,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/RJ8FGnAL1oouf8VO",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "seven",
+          "cardId": "normal:seven",
+          "name": "seven",
+          "cardTeam": "PCF",
+          "AIM": 48,
+          "SYN": 37,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "qpert",
+          "cardId": "normal:qpert",
+          "name": "qpert",
+          "cardTeam": "PCF",
+          "AIM": 31,
+          "SYN": 50,
+          "SEN": 35,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "waddle",
+          "cardId": "normal:waddle",
+          "name": "waddle",
+          "cardTeam": "PCF",
+          "AIM": 73,
+          "SYN": 72,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "ninja",
+          "cardId": "normal:ninja",
+          "name": "NINJA",
+          "cardTeam": "PCF",
+          "AIM": 43,
+          "SYN": 36,
+          "SEN": 35,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "al0rante",
+          "cardId": "normal:al0rante",
+          "name": "al0rante",
+          "cardTeam": "PCF",
+          "AIM": 48,
+          "SYN": 37,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "KBG",
+      "region": "CN",
+      "entryOnly": true,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/2GfNaRB5CSz1v6kx",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "akeman",
+          "cardId": "normal:akeman",
+          "name": "Akeman",
+          "cardTeam": "KBG",
+          "AIM": 42,
+          "SYN": 33,
+          "SEN": 33,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "tonk",
+          "cardId": "normal:tonk",
+          "name": "Tonk",
+          "cardTeam": "KBG",
+          "AIM": 46,
+          "SYN": 40,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "ying",
+          "cardId": "normal:ying",
+          "name": "Ying",
+          "cardTeam": "KBG",
+          "AIM": 44,
+          "SYN": 43,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "sibeastw0w",
+          "cardId": "normal:sibeastw0w",
+          "name": "Sibeastw0w",
+          "cardTeam": "KBG",
+          "AIM": 35,
+          "SYN": 48,
+          "SEN": 35,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "krst1ng",
+          "cardId": "normal:krst1ng",
+          "name": "Krst1Ng",
+          "cardTeam": "KBG",
+          "AIM": 31,
+          "SYN": 41,
+          "SEN": 33,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "AT",
+      "region": "CN",
+      "entryOnly": true,
+      "source": "https://web.haojiao.cc/wiki/team/t2Ud5pOQlscKLbRC/zpNf6TQIUZNspYSj",
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "monk",
+          "cardId": "normal:monk",
+          "name": "Monk",
+          "cardTeam": "AT",
+          "AIM": 37,
+          "SYN": 51,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "eren",
+          "cardId": "normal:eren",
+          "name": "Eren",
+          "cardTeam": "AT",
+          "AIM": 47,
+          "SYN": 39,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "folykiki",
+          "cardId": "normal:folykiki",
+          "name": "Folykiki",
+          "cardTeam": "AT",
+          "AIM": 40,
+          "SYN": 37,
+          "SEN": 34,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "layla",
+          "cardId": "normal:layla",
+          "name": "Layla",
+          "cardTeam": "AT",
+          "AIM": 45,
+          "SYN": 39,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "dingwei",
+          "cardId": "normal:dingwei",
+          "name": "dingwei",
+          "cardTeam": "AT",
+          "AIM": 30,
+          "SYN": 41,
+          "SEN": 32,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "FX",
+      "region": "AMER",
+      "entryOnly": true,
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "palla",
+          "cardId": "normal:palla",
+          "name": "palla",
+          "cardTeam": "FXW",
+          "AIM": 48,
+          "SYN": 36,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "zanatsu",
+          "cardId": "normal:zanatsu",
+          "name": "Zanatsu",
+          "cardTeam": "FXW",
+          "AIM": 45,
+          "SYN": 37,
+          "SEN": 35,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "tuyz",
+          "cardId": "normal:tuyz",
+          "name": "tuyz",
+          "cardTeam": "FXW",
+          "AIM": 36,
+          "SYN": 44,
+          "SEN": 34,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "jzz",
+          "cardId": "normal:jzz",
+          "name": "jzz",
+          "cardTeam": "FXW",
+          "AIM": 30,
+          "SYN": 39,
+          "SEN": 32,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "mazin",
+          "cardId": "normal:mazin",
+          "name": "Mazin",
+          "cardTeam": "FXW",
+          "AIM": 30,
+          "SYN": 38,
+          "SEN": 31,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "BST",
+      "region": "AMER",
+      "entryOnly": true,
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "tacolilla",
+          "cardId": "normal:tacolilla",
+          "name": "Tacolilla",
+          "cardTeam": "BST",
+          "AIM": 44,
+          "SYN": 37,
+          "SEN": 35,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "loss",
+          "cardId": "normal:loss",
+          "name": "Loss",
+          "cardTeam": "BST",
+          "AIM": 38,
+          "SYN": 39,
+          "SEN": 35,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "david",
+          "cardId": "normal:david",
+          "name": "david",
+          "cardTeam": "BST",
+          "AIM": 42,
+          "SYN": 39,
+          "SEN": 35,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "melser",
+          "cardId": "normal:melser",
+          "name": "Melser",
+          "cardTeam": "BST",
+          "AIM": 34,
+          "SYN": 42,
+          "SEN": 33,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "chubizin",
+          "cardId": "normal:chubizin",
+          "name": "chubizin",
+          "cardTeam": "BST",
+          "AIM": 30,
+          "SYN": 45,
+          "SEN": 33,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "M80",
+      "region": "AMER",
+      "entryOnly": true,
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "boni",
+          "cardId": "normal:boni",
+          "name": "Boni",
+          "cardTeam": "M80",
+          "AIM": 51,
+          "SYN": 36,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "nismo",
+          "cardId": "normal:nismo",
+          "name": "NiSMO",
+          "cardTeam": "M80",
+          "AIM": 44,
+          "SYN": 42,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "spaz",
+          "cardId": "normal:spaz",
+          "name": "spaz",
+          "cardTeam": "M80",
+          "AIM": 33,
+          "SYN": 45,
+          "SEN": 34,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "alvinboy",
+          "cardId": "normal:alvinboy",
+          "name": "alvinboy",
+          "cardTeam": "M80",
+          "AIM": 39,
+          "SYN": 39,
+          "SEN": 33,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "kyu",
+          "cardId": "normal:kyu",
+          "name": "Kyu",
+          "cardTeam": "M80",
+          "AIM": 31,
+          "SYN": 39,
+          "SEN": 32,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "2G",
+      "region": "AMER",
+      "entryOnly": true,
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "xenom",
+          "cardId": "normal:xenom",
+          "name": "xenom",
+          "cardTeam": "2G",
+          "AIM": 71,
+          "SYN": 72,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "gobera",
+          "cardId": "normal:gobera",
+          "name": "Gobera",
+          "cardTeam": "2G",
+          "AIM": 39,
+          "SYN": 39,
+          "SEN": 35,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "qck",
+          "cardId": "normal:qck",
+          "name": "qck",
+          "cardTeam": "2G",
+          "AIM": 38,
+          "SYN": 37,
+          "SEN": 33,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "frz",
+          "cardId": "normal:frz",
+          "name": "frz",
+          "cardTeam": "2G",
+          "AIM": 31,
+          "SYN": 42,
+          "SEN": 33,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "brinks",
+          "cardId": "normal:brinks",
+          "name": "Brinks",
+          "cardTeam": "2G",
+          "AIM": 34,
+          "SYN": 37,
+          "SEN": 32,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "EP",
+      "region": "EMEA",
+      "entryOnly": true,
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "kozzy",
+          "cardId": "normal:kozzy",
+          "name": "kozzy",
+          "cardTeam": "EP",
+          "AIM": 75,
+          "SYN": 64,
+          "SEN": 68,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "magnum",
+          "cardId": "normal:magnum",
+          "name": "Magnum",
+          "cardTeam": "EP",
+          "AIM": 44,
+          "SYN": 44,
+          "SEN": 41,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "patitek",
+          "cardId": "normal:patitek",
+          "name": "paTiTek",
+          "cardTeam": "EP",
+          "AIM": 32,
+          "SYN": 48,
+          "SEN": 39,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "lime",
+          "cardId": "normal:lime",
+          "name": "Lime",
+          "cardTeam": "EP",
+          "AIM": 38,
+          "SYN": 40,
+          "SEN": 39,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "iluri",
+          "cardId": "normal:iluri",
+          "name": "iluri",
+          "cardTeam": "EP",
+          "AIM": 32,
+          "SYN": 40,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "FF",
+      "region": "EMEA",
+      "entryOnly": true,
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "kachoww",
+          "cardId": "normal:kachoww",
+          "name": "Kachoww",
+          "cardTeam": "FF",
+          "AIM": 75,
+          "SYN": 67,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "batujnax",
+          "cardId": "normal:batujnax",
+          "name": "batujnax",
+          "cardTeam": "FF",
+          "AIM": 69,
+          "SYN": 73,
+          "SEN": 65,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "hezacoil",
+          "cardId": "normal:hezacoil",
+          "name": "hezacoil",
+          "cardTeam": "FF",
+          "AIM": 40,
+          "SYN": 50,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "reazy",
+          "cardId": "normal:reazy",
+          "name": "reazy",
+          "cardTeam": "FF",
+          "AIM": 35,
+          "SYN": 47,
+          "SEN": 35,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "deadink",
+          "cardId": "normal:deadink",
+          "name": "DeadInk",
+          "cardTeam": "FF",
+          "AIM": 36,
+          "SYN": 38,
+          "SEN": 35,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "JL",
+      "region": "EMEA",
+      "entryOnly": true,
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "runner",
+          "cardId": "normal:runner",
+          "name": "runneR",
+          "cardTeam": "JL",
+          "AIM": 74,
+          "SYN": 69,
+          "SEN": 65,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "pa1ze",
+          "cardId": "normal:pa1ze",
+          "name": "Pa1ze",
+          "cardTeam": "JL",
+          "AIM": 51,
+          "SYN": 37,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "kamyk",
+          "cardId": "normal:kamyk",
+          "name": "kamyk",
+          "cardTeam": "JL",
+          "AIM": 42,
+          "SYN": 47,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "doma",
+          "cardId": "normal:doma",
+          "name": "Doma",
+          "cardTeam": "JL",
+          "AIM": 32,
+          "SYN": 44,
+          "SEN": 34,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "unfake",
+          "cardId": "normal:unfake",
+          "name": "UNFAKE",
+          "cardTeam": "JL",
+          "AIM": 31,
+          "SYN": 43,
+          "SEN": 33,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "SGE",
+      "region": "EMEA",
+      "entryOnly": true,
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "azury",
+          "cardId": "normal:azury",
+          "name": "azury",
+          "cardTeam": "SGE",
+          "AIM": 70,
+          "SYN": 75,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "monsteerr",
+          "cardId": "normal:monsteerr",
+          "name": "MONSTEERR",
+          "cardTeam": "SGE",
+          "AIM": 50,
+          "SYN": 44,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "jamelinho213",
+          "cardId": "normal:jamelinho213",
+          "name": "Jamelinho213",
+          "cardTeam": "SGE",
+          "AIM": 50,
+          "SYN": 36,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "musashi",
+          "cardId": "normal:musashi",
+          "name": "musashi",
+          "cardTeam": "SGE",
+          "AIM": 34,
+          "SYN": 45,
+          "SEN": 44,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "fizzy",
+          "cardId": "normal:fizzy",
+          "name": "Fizzy",
+          "cardTeam": "SGE",
+          "AIM": 33,
+          "SYN": 50,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "SP",
+      "region": "PAC",
+      "entryOnly": true,
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "niz",
+          "cardId": "normal:niz",
+          "name": "NIZ",
+          "cardTeam": "SPE",
+          "AIM": 41,
+          "SYN": 49,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "apinya",
+          "cardId": "normal:apinya",
+          "name": "Apinya",
+          "cardTeam": "SPE",
+          "AIM": 45,
+          "SYN": 43,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "ptc",
+          "cardId": "normal:ptc",
+          "name": "PTC",
+          "cardTeam": "SPE",
+          "AIM": 40,
+          "SYN": 49,
+          "SEN": 37,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "kadoom",
+          "cardId": "normal:kadoom",
+          "name": "Kadoom",
+          "cardTeam": "SPE",
+          "AIM": 46,
+          "SYN": 37,
+          "SEN": 35,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "laz",
+          "cardId": "normal:laz",
+          "name": "Laz",
+          "cardTeam": "SPE",
+          "AIM": 39,
+          "SYN": 39,
+          "SEN": 34,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "XIP",
+      "region": "PAC",
+      "entryOnly": true,
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "endoist",
+          "cardId": "normal:endoist",
+          "name": "Endoist",
+          "cardTeam": "XIP",
+          "AIM": 74,
+          "SYN": 66,
+          "SEN": 65,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "alert",
+          "cardId": "normal:alert",
+          "name": "aLerT",
+          "cardTeam": "XIP",
+          "AIM": 37,
+          "SYN": 50,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "doffy",
+          "cardId": "normal:doffy",
+          "name": "doffy",
+          "cardTeam": "XIP",
+          "AIM": 44,
+          "SYN": 35,
+          "SEN": 35,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "canady",
+          "cardId": "normal:canady",
+          "name": "canady",
+          "cardTeam": "XIP",
+          "AIM": 35,
+          "SYN": 40,
+          "SEN": 34,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "surf",
+          "cardId": "normal:surf",
+          "name": "Surf",
+          "cardTeam": "XIP",
+          "AIM": 33,
+          "SYN": 36,
+          "SEN": 32,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "ONG",
+      "region": "PAC",
+      "entryOnly": true,
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "ray",
+          "cardId": "normal:ray",
+          "name": "Ray",
+          "cardTeam": "ONG",
+          "AIM": 73,
+          "SYN": 71,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "xiesta",
+          "cardId": "normal:xiesta",
+          "name": "Xiesta",
+          "cardTeam": "ONG",
+          "AIM": 74,
+          "SYN": 69,
+          "SEN": 66,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "wolverine",
+          "cardId": "normal:wolverine",
+          "name": "Wolverine",
+          "cardTeam": "ONG",
+          "AIM": 40,
+          "SYN": 41,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "hermes",
+          "cardId": "normal:hermes",
+          "name": "Hermes",
+          "cardTeam": "ONG",
+          "AIM": 32,
+          "SYN": 44,
+          "SEN": 33,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "cloudy",
+          "cardId": "normal:cloudy",
+          "name": "Cloudy",
+          "cardTeam": "ONG",
+          "AIM": 30,
+          "SYN": 40,
+          "SEN": 32,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    },
+    {
+      "id": "QTD",
+      "region": "PAC",
+      "entryOnly": true,
+      "evidence": {
+        "roster": "imported-card-roster",
+        "mapScores": "seeded-game-default",
+        "coach": "neutral-game-default",
+        "ranking": "reference-only"
+      },
+      "roster": [
+        {
+          "id": "margaret",
+          "cardId": "normal:margaret",
+          "name": "margaret",
+          "cardTeam": "QTD",
+          "AIM": 45,
+          "SYN": 38,
+          "SEN": 36,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "kippei",
+          "cardId": "normal:kippei",
+          "name": "kippei",
+          "cardTeam": "QTD",
+          "AIM": 32,
+          "SYN": 44,
+          "SEN": 34,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "pkm",
+          "cardId": "normal:pkm",
+          "name": "Pkm",
+          "cardTeam": "QTD",
+          "AIM": 40,
+          "SYN": 34,
+          "SEN": 34,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "misaya",
+          "cardId": "normal:misaya",
+          "name": "misaya",
+          "cardTeam": "QTD",
+          "AIM": 31,
+          "SYN": 42,
+          "SEN": 33,
+          "proxy": false,
+          "reason": null
+        },
+        {
+          "id": "yuran",
+          "cardId": "normal:yuran",
+          "name": "Yuran",
+          "cardTeam": "QTD",
+          "AIM": 34,
+          "SYN": 35,
+          "SEN": 31,
+          "proxy": false,
+          "reason": null
+        }
+      ],
+      "mapSource": "game-seeded",
+      "confidence": "authored-values"
+    }
+  ],
+  "issues": [],
+  "proxyTeams": [
+    "TL",
+    "GX"
+  ],
+  "realMapStatsImported": false,
+  "externalRankingApplied": false
+}

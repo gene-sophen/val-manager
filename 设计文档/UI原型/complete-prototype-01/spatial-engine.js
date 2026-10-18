@@ -215095,13 +215095,14 @@ module.exports={prepare};
 modules["游戏/round-outcome.js"]=function(require,module,exports){
 /* Coarse round simulation for season play. No invented spatial replay: geometry
    remains the separate tactical engine's responsibility. Shared by live/quick. */
-(function(root,factory){const api=factory(typeof module==='object'?require('./team-style'):root.TEAM_STYLE,typeof module==='object'?require('./map-baseline'):root.MAP_BASELINE,typeof module==='object'?require('./stage-feedback'):root.STAGE_FEEDBACK);if(typeof module==='object')module.exports=api;else root.ROUND_OUTCOME=api;})(typeof window==='object'?window:this,function(H,M,J){
+(function(root,factory){const api=factory(typeof module==='object'?require('./team-style'):root.TEAM_STYLE,typeof module==='object'?require('./map-baseline'):root.MAP_BASELINE,typeof module==='object'?require('./stage-feedback'):root.STAGE_FEEDBACK,typeof module==='object'?require('./team-power'):root.TEAM_POWER);if(typeof module==='object')module.exports=api;else root.ROUND_OUTCOME=api;})(typeof window==='object'?window:this,function(H,M,J,P){
  'use strict';
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
  function random(seed){let h=2166136261;for(const c of String(seed)){h^=c.charCodeAt(0);h=Math.imul(h,16777619);}let n=h>>>0;return ()=>{n+=0x6D2B79F5;let t=n;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296;};}
  const ended=(a,b)=>Math.max(a,b)>=13&&Math.abs(a-b)>=2;
- function strength(t){const ps=t.players||[];const base=ps.length?ps.reduce((n,p)=>n+.42*p.AIM+.3*p.SYN+.28*p.SEN,0)/ps.length:(t.neutralPrior??65);return base+(J?.strength(t)||0)+.025*((t.team?.羁绊??40)-40)+.02*((t.team?.熟练??50)-50)+.025*((t.coach?.战术??50)-50);}
- function expected(home,away,mapId,agentFit=0){const advantage=strength(home)-strength(away)+agentFit+.03*((home.mapKnowledge?.[mapId]??50)-(away.mapKnowledge?.[mapId]??50))+.03*((home.team?.状态??50)-(away.team?.状态??50));return clamp(1/(1+Math.exp(-advantage/12)),.08,.92);}
+ function strength(t){if(t.powerModelVersion&&t.powerModelVersion!=='team-power-1')throw Error('未知战力模型版本');const ps=t.players||[],profile=t.powerModelVersion?t.powerProfile:null;const base=profile?.components.players??(ps.length?ps.reduce((n,p)=>n+.42*p.AIM+.3*p.SYN+.28*p.SEN,0)/ps.length:(t.neutralPrior??65));return base+(J?.strength(t)||0)+(t.powerModelVersion?t.performanceOffset||0:0)+.025*((t.team?.羁绊??40)-40)+.02*((t.team?.熟练??50)-50)+.025*((t.coach?.战术??50)-50);}
+ const roundScale=(a,b)=>(a.powerModelVersion||b.powerModelVersion)?P.parameters.roundScale:12;
+ function expected(home,away,mapId,agentFit=0){const advantage=strength(home)-strength(away)+agentFit+.03*((home.mapKnowledge?.[mapId]??50)-(away.mapKnowledge?.[mapId]??50))+.03*((home.team?.状态??50)-(away.team?.状态??50));return clamp(1/(1+Math.exp(-advantage/roundScale(home,away))),.08,.92);}
  function create(seed,mapId,side='attack',options={}){return {seed:String(seed),mapId,initialSide:side,home:0,away:0,rounds:[],economy:[800,800],losses:[0,0],opponentPriorities:{attack:[1,0,4,2,3],defense:[1,4,2,0,3]},...(options.model?{model:options.model}:{})};}
  function attack(m){const n=m.rounds.length;return n<12?m.initialSide==='attack':n<24?m.initialSide!=='attack':(n-24)%2===0?m.initialSide==='attack':m.initialSide!=='attack';}
  const names={attack:['爆弹强攻','默认控图','佯攻转点','分路渗透','接触反打'],defense:['前压争夺','分区控图','诱敌设伏','侧翼绕后','稳守反清']};
@@ -215110,7 +215111,7 @@ modules["游戏/round-outcome.js"]=function(require,module,exports){
  const reasons=atk?(win?['突破交火获胜，后续补枪守住优势','控图取得信息，转点完成下包','下包后残局处理成功，守住时间优势']:['进点遭到反清，人数劣势无法追回','转点时被截击，关键交火失利','下包后守包失利，对方完成拆包']):(win?['防守交火占优，协同守住点位','前压获取信息，及时转防堵住进点','回防交火获胜，在时限内完成拆包']:['防线被突破，后续补枪未能挽回','未能及时转防，关键区域失守','回防交火失利，拆包时间不足']);const reason=reasons[Math.floor(rng()*reasons.length)];win?m.home++:m.away++;for(let i=0;i<2;i++){const won=i===0?win:!win;m.losses[i]=won?0:Math.min(4,m.losses[i]+1);const spend=m.economy[i]>=3900?3900:m.economy[i]>=2400?2400:m.economy[i]>1000?1000:0;m.economy[i]=clamp(m.economy[i]-spend+(won?3000:[0,1900,2400,2900,2900][m.losses[i]]),0,9000);}const round={number:n+1,win,home:m.home,away:m.away,side,ownTactic:names[side][own],opponentTactic:names[other][opp],reason,economy:money,probability};m.rounds.push(round);return round;}
  function legacyAdapt(m){const seen=m.rounds.slice(-5);if(!seen.length)return;const side=seen.at(-1).side==='attack'?'defense':'attack',counts=[0,0,0,0,0];for(const r of seen){const i=names[r.side].indexOf(r.ownTactic);if(i>=0)counts[i]++;}const most=counts.indexOf(Math.max(...counts)),counter=(most+1)%5;m.opponentPriorities[side]=[counter,...m.opponentPriorities[side].filter(i=>i!==counter)];}
  function legacySimulate(seed,home,away,mapId,priorities={attack:[0,1,2,3,4],defense:[0,1,2,3,4]}){const m=create(seed,mapId);while(!ended(m.home,m.away)){if(m.rounds.length===12||m.rounds.length===8)adapt(m);step(m,home,away,priorities);}return m;}
- function series(seed,home,away,bestOf,maps){const target=(bestOf+1)/2,results=[];let a=0,b=0;for(let i=0;i<bestOf&&a<target&&b<target;i++){const predictions={expected:expected(home,away,maps[i]),standards:{home:expected({...home,mapKnowledge:{}},away,maps[i]),away:expected(home,{...away,mapKnowledge:{}},maps[i])}},coachSnapshots={home:home.coach?.声望??50,away:away.coach?.声望??50},m=simulate(seed+':map:'+i,home,away,maps[i]);const win=m.home>m.away;win?a++:b++;results.push({mapId:maps[i],home:m.home,away:m.away,win,rounds:m.rounds,predictions,coachSnapshots,...(m.model?{tacticUsage:{home:H.usage(m.rounds,true),away:H.usage(m.rounds,false)}}:{})});}return {scoreA:a,scoreB:b,maps:results,winner:a>b?home.id:away.id,loser:a>b?away.id:home.id,bestOf};}
+ function series(seed,home,away,bestOf,maps,options={}){if(home.powerModelVersion||away.powerModelVersion){const rng=random(seed+':performance');home={...home,performanceOffset:(rng()-.5)*3};away={...away,performanceOffset:(rng()-.5)*3};}const target=(bestOf+1)/2,results=[];let a=0,b=0;for(let i=0;i<bestOf&&a<target&&b<target;i++){const predictions={expected:expected(home,away,maps[i]),standards:{home:expected({...home,mapKnowledge:{}},away,maps[i]),away:expected(home,{...away,mapKnowledge:{}},maps[i])}},coachSnapshots={home:home.coach?.声望??50,away:away.coach?.声望??50},m=simulate(seed+':map:'+i,home,away,maps[i],undefined,{initialSide:options.initialSides?.[i]});const win=m.home>m.away;win?a++:b++;results.push({mapId:maps[i],...(home.powerModelVersion?{initialSide:m.initialSide}:{}),home:m.home,away:m.away,win,rounds:m.rounds,predictions,coachSnapshots,...(m.model?{tacticUsage:{home:H.usage(m.rounds,true),away:H.usage(m.rounds,false)}}:{})});}return {scoreA:a,scoreB:b,maps:results,winner:a>b?home.id:away.id,loser:a>b?away.id:home.id,bestOf};}
  function freezeInputs(m,home,away){
   if(m.model!==H.version)throw Error('未知比赛输入版本');
   if(m.styleInputs){for(const t of [m.styleInputs.home,m.styleInputs.away])H.validate(t.tacticalProfile);return m.styleInputs;}
@@ -215127,8 +215128,8 @@ modules["游戏/round-outcome.js"]=function(require,module,exports){
   if(n===12||n>=24){m.economy=n===12?[800,800]:[5000,5000];m.losses=[0,0];}
   const side=atk?'attack':'defense',other=atk?'defense':'attack',own=tactic(priorities[side],rng,m.economy[0]),opp=tactic(m.opponentPriorities[other],rng,m.economy[1]);
   const match=H.matchup(side,own,opp)*clamp(1+.006*((a.coach?.临场??50)-(b.coach?.临场??50)),.65,1.35),skill=H.proficiency(a.tacticalProfile,side,own)-H.proficiency(b.tacticalProfile,other,opp);
-  const money=(m.economy[0]>=3900?2:m.economy[0]>=2400?0:-2)-(m.economy[1]>=3900?2:m.economy[1]>=2400?0:-2),mapBonus=.03*((a.mapKnowledge?.[m.mapId]??50)-(b.mapKnowledge?.[m.mapId]??50)),stateBonus=.03*((a.team?.状态??50)-(b.team?.状态??50)),intercept=12*Math.log(input.attackRate/(1-input.attackRate))*(atk?1:-1);
-  const probability=clamp(1/(1+Math.exp(-(strength(a)-strength(b)+match+skill+money+mapBonus+stateBonus+agentFit+intercept)/12)),.08,.92),win=rng()<probability;
+  const money=(m.economy[0]>=3900?2:m.economy[0]>=2400?0:-2)-(m.economy[1]>=3900?2:m.economy[1]>=2400?0:-2),mapBonus=.03*((a.mapKnowledge?.[m.mapId]??50)-(b.mapKnowledge?.[m.mapId]??50)),stateBonus=.03*((a.team?.状态??50)-(b.team?.状态??50)),scale=roundScale(a,b),intercept=scale*Math.log(input.attackRate/(1-input.attackRate))*(atk?1:-1);
+  const probability=clamp(1/(1+Math.exp(-(strength(a)-strength(b)+match+skill+money+mapBonus+stateBonus+agentFit+intercept)/scale)),.08,.92),win=rng()<probability;
   const reasons=atk?(win?['突破交火获胜，后续补枪守住优势','控图取得信息，转点完成下包','下包后残局处理成功，守住时间优势']:['进点遭到反清，人数劣势无法追回','转点时被截击，关键交火失利','下包后守包失利，对方完成拆包']):(win?['防守交火占优，协同守住点位','前压获取信息，及时转防堵住进点','回防交火获胜，在时限内完成拆包']:['防线被突破，后续补枪未能挽回','未能及时转防，关键区域失守','回防交火失利，拆包时间不足']);
   const reason=reasons[Math.floor(rng()*reasons.length)];win?m.home++:m.away++;
   for(let i=0;i<2;i++){const won=i===0?win:!win;m.losses[i]=won?0:Math.min(4,m.losses[i]+1);const spend=m.economy[i]>=3900?3900:m.economy[i]>=2400?2400:m.economy[i]>1000?1000:0;m.economy[i]=clamp(m.economy[i]-spend+(won?3000:[0,1900,2400,2900,2900][m.losses[i]]),0,9000);}
@@ -215139,9 +215140,9 @@ modules["游戏/round-outcome.js"]=function(require,module,exports){
   const p=m.styleInputs.away.tacticalProfile,quality=.5+(m.styleInputs.away.coach?.战术??50)*.005;
   for(const side of ['attack','defense'])m.opponentPriorities[side]=H.order(p,side,H.observations(m.rounds,side),quality);
  }
- function simulate(seed,home,away,mapId,priorities){
+ function simulate(seed,home,away,mapId,priorities,options={}){
   if(!home.tacticalProfile&&!away.tacticalProfile)return legacySimulate(seed,home,away,mapId,priorities);
-  let priority=priorities||home.tacticPriorities||H.priorities(home.tacticalProfile);const m=create(seed,mapId,'attack',{model:H.version});
+  let priority=priorities||home.tacticPriorities||H.priorities(home.tacticalProfile);const m=create(seed,mapId,options.initialSide||(home.powerModelVersion?(random(seed+':side')()<.5?'attack':'defense'):'attack'),{model:H.version});
   while(!ended(m.home,m.away)){
    if(m.rounds.length===12||m.rounds.length===8){adapt(m);const mirrored=m.rounds.map(r=>({...r,side:r.side==='attack'?'defense':'attack',ownTactic:r.opponentTactic}));priority=Object.fromEntries(['attack','defense'].map(side=>[side,H.order(m.styleInputs.home.tacticalProfile,side,H.observations(mirrored,side),.5+(home.coach?.战术??50)*.005)]));}
    step(m,home,away,priority);
@@ -215203,6 +215204,30 @@ modules["游戏/stage-feedback.js"]=function(require,module,exports){
  function team(ctx,t){if(t.id!==ctx.club||ctx.stageFeedbackVersion!==version||!ctx.stageFeedback?.adjustment)return t;return {...t,stageAdjustment:{version,value:ctx.stageFeedback.adjustment}};}
  function strength(t){return t.stageAdjustment?.version===version?clamp(t.stageAdjustment.value||0,-.75,.75):0;}
  return {version,create,reset,settle,team,strength};
+});
+
+};
+modules["游戏/team-power.js"]=function(require,module,exports){
+// Versioned, pure ability profiles. Cached data is disposable, never match history.
+(function(root,factory){const api=typeof module==='object'?factory(require('./map-baseline')):factory(root.MAP_BASELINE);if(typeof module==='object')module.exports=api;else root.TEAM_POWER=api;})(typeof window==='object'?window:globalThis,function(M){
+ 'use strict';const version='team-power-1',weights=Object.freeze({AIM:.42,SYN:.30,SEN:.28}),parameters=Object.freeze({roundScale:24,seriesFormRange:3});
+ const clamp=(n,a=0,b=100)=>Math.max(a,Math.min(b,n)),clone=v=>JSON.parse(JSON.stringify(v));
+ function canonical(v){if(Array.isArray(v))return '['+v.map(canonical).join(',')+']';if(v&&typeof v==='object')return '{'+Object.keys(v).filter(k=>v[k]!==undefined).sort().map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}';return JSON.stringify(v);}
+ function fingerprint(v){const raw=canonical(v);let h=2166136261;for(let i=0;i<raw.length;i++){h^=raw.charCodeAt(i);h=Math.imul(h,16777619);}return (h>>>0).toString(16).padStart(8,'0');}
+ function value(n,fallback){if(n==null)return fallback;if(!Number.isFinite(n)||n<0||n>100)throw Error('战力输入必须为0–100数值');return n;}
+ function roster(t){const ps=t.players||[];if(ps.length!==5)throw Error('预建模需要五名队员：'+t.id);const seen=new Set();return ps.map(p=>{const id=p.playerId||p.name;if(!id||seen.has(id))throw Error('队伍存在重复选手：'+t.id);seen.add(id);for(const k of Object.keys(weights))value(p[k]);if(Object.keys(weights).some(k=>p[k]==null))throw Error('选手三维缺失：'+id);return {id,cardId:p.cardId||id,name:p.name,AIM:p.AIM,SYN:p.SYN,SEN:p.SEN,tier:p.tier,trait:p.trait,cardEffect:p.cardEffect,proxy:!!p.proxy,source:p.source||t.source||'authored-card-data'};});}
+ function basis(t,maps,contentVersion){return {modelVersion:version,contentVersion:contentVersion||'authored-rosters-2',id:t.id,region:t.region,players:roster(t),team:{羁绊:value(t.team?.羁绊,40),熟练:value(t.team?.熟练,50)},coach:{战术:value(t.coach?.战术,50)},maps:Object.fromEntries([...new Set(maps)].sort().map(id=>[id,value(t.mapKnowledge?.[id],50)])),attackRates:Object.fromEntries([...new Set(maps)].sort().map(id=>[id,M.attackRate(id)])),baselineVersion:M.data?.version||'neutral'};}
+ function build(t,maps,contentVersion){const input=basis(t,maps,contentVersion),players=input.players,average=k=>players.reduce((s,p)=>s+p[k],0)/5;
+  const components={players:Object.keys(weights).reduce((s,k)=>s+weights[k]*average(k),0),bond:.025*(input.team.羁绊-40),mastery:.02*(input.team.熟练-50),coach:.025*(input.coach.战术-50)};
+  const base=Object.values(components).reduce((a,b)=>a+b,0),mapProfiles=Object.fromEntries(Object.entries(input.maps).map(([id,score])=>{const map=.03*(score-50),rate=input.attackRates[id],side=parameters.roundScale*Math.log(rate/(1-rate))/2;return [id,{knowledge:score,mapContribution:map,attack:base+map+side,defense:base+map-side,attackRate:rate}];}));
+  return {modelVersion:version,contentVersion:input.contentVersion,rosterRevision:fingerprint(players),teamRevision:fingerprint({team:input.team,coach:input.coach}),mapRevision:fingerprint({maps:input.maps,baselineVersion:input.baselineVersion}),fingerprint:fingerprint(input),id:t.id,players,distribution:Object.fromEntries(Object.keys(weights).map(k=>[k,{mean:average(k),min:Math.min(...players.map(p=>p[k])),max:Math.max(...players.map(p=>p[k]))}])),components,base,display:clamp(base),mapProfiles,source:clone(t.contentEvidence||{}),confidence:players.some(p=>p.proxy)?'proxy-prior':'authored-values'};
+ }
+ function createCache({limit=256}={}){const entries=new Map(),stats={hits:0,misses:0};return {get(t,maps,contentVersion){const input=basis(t,maps,contentVersion),key=canonical(input);if(entries.has(key)){stats.hits++;return entries.get(key);}stats.misses++;const p=build(t,maps,contentVersion);entries.set(key,p);if(entries.size>limit)entries.delete(entries.keys().next().value);return p;},clear(){entries.clear();},stats:()=>({...stats,size:entries.size})};}
+ // Status, adaptive tactics, prestige and temporary stage feedback are NOT in
+ // the stable cache. Their snapshots belong to each legal match boundary.
+ function snapshot(t,maps,cache,contentVersion){value(t.team?.状态,50);value(t.coach?.临场,50);value(t.coach?.声望,50);const profile=cache?cache.get(t,maps,contentVersion):build(t,maps,contentVersion);return {...clone(t),powerModelVersion:version,powerProfile:clone(profile)};}
+ function audit(ctx,maps){const issues=[],teams=ctx.teams.map(t=>{let p;try{p=build(t,maps,ctx.contentPolicy);}catch(e){issues.push({team:t.id,error:e.message});}return {id:t.id,region:t.region,entryOnly:!!t.entryOnly,source:t.source,evidence:t.contentEvidence,roster:(t.players||[]).map(p=>({id:p.playerId||p.name,cardId:p.cardId,name:p.name,cardTeam:p.team,AIM:p.AIM,SYN:p.SYN,SEN:p.SEN,proxy:!!p.proxy,reason:p.reason||null})),mapSource:t.mapKnowledgeOrigin||'unavailable',confidence:p?.confidence};});return {modelVersion:version,teams,issues,proxyTeams:teams.filter(t=>t.roster.some(p=>p.proxy)).map(t=>t.id),realMapStatsImported:false,externalRankingApplied:false};}
+ return {version,weights,parameters,canonical,fingerprint,build,createCache,snapshot,audit};
 });
 
 };

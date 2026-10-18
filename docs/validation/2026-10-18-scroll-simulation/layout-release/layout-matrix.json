@@ -1,0 +1,5886 @@
+{
+  "database": "val-manager-test-layout-a42da5e0-1f36-4998-813f-d422690cb376",
+  "errors": [],
+  "matrix": [
+    {
+      "page": "征战首页",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "征战首页",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "征战首页",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "征战首页",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "征战首页",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "征战首页",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择主队",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/start",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择主队",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/start",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择主队",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/start",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择主队",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/start",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择主队",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/start",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择主队",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/start",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "开启卡包",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/packs",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "开启卡包",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/packs",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "开启卡包",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/packs",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "开启卡包",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/packs",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "开启卡包",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/packs",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "开启卡包",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/packs",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/reveal",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/reveal",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/reveal",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/reveal",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/reveal",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/reveal",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/compare",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/compare",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/compare",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/compare",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/compare",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/compare",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择五人",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/pick",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择五人",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/pick",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择五人",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/pick",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择五人",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/pick",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择五人",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/pick",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择五人",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/pick",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阵容确认",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/confirm",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阵容确认",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/confirm",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阵容确认",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/confirm",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阵容确认",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/confirm",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阵容确认",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/confirm",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阵容确认",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/confirm",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛历",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/calendar",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛历",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/calendar",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛历",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/calendar",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛历",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/calendar",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛历",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/calendar",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛历",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/calendar",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段成绩",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/standings",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段成绩",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/standings",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段成绩",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/standings",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段成绩",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/standings",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段成绩",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/standings",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段成绩",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/standings",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛前备战",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/prepare",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛前备战",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/prepare",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛前备战",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/prepare",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛前备战",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/prepare",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛前备战",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/prepare",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛前备战",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/prepare",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图 BP",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/bp",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图 BP",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/bp",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图 BP",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/bp",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图 BP",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/bp",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图 BP",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/bp",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图 BP",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/bp",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "特工选择",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/agents",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "特工选择",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/agents",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "特工选择",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/agents",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "特工选择",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/agents",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "特工选择",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/agents",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "特工选择",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/agents",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/tactics",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/tactics",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/tactics",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/tactics",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/tactics",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/tactics",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/match",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/match",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/match",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/match",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/match",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/match",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "单图结算",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/map-result",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "单图结算",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/map-result",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "单图结算",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/map-result",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "单图结算",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/map-result",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "单图结算",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/map-result",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "单图结算",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/map-result",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "系列赛结算",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/series-result",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "系列赛结算",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/series-result",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "系列赛结算",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/series-result",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "系列赛结算",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/series-result",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "系列赛结算",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/series-result",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "系列赛结算",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/series-result",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段结算",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/stage-result",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段结算",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/stage-result",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段结算",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/stage-result",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段结算",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/stage-result",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段结算",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/stage-result",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段结算",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/stage-result",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强阵容",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/reinforce",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强阵容",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/reinforce",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强阵容",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/reinforce",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强阵容",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/reinforce",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强阵容",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/reinforce",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强阵容",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/reinforce",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强比较",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/reinforce-review",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强比较",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/reinforce-review",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强比较",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/reinforce-review",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强比较",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/reinforce-review",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强比较",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/reinforce-review",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强比较",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/reinforce-review",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛年收获",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#campaign/year-result",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛年收获",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#campaign/year-result",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛年收获",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#campaign/year-result",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛年收获",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#campaign/year-result",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛年收获",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#campaign/year-result",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛年收获",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#campaign/year-result",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战队名单",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#team",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战队名单",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#team",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战队名单",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#team",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战队名单",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#team",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战队名单",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#team",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战队名单",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#team",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "队伍资料",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#team/overview",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "队伍资料",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#team/overview",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "队伍资料",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#team/overview",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "队伍资料",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#team/overview",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "队伍资料",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#team/overview",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "队伍资料",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#team/overview",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图资料",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#team/maps",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图资料",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#team/maps",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图资料",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#team/maps",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图资料",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#team/maps",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图资料",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#team/maps",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图资料",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#team/maps",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "图鉴",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#archive/album",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "图鉴",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#archive/album",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "图鉴",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#archive/album",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "图鉴",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#archive/album",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "图鉴",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#archive/album",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "图鉴",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#archive/album",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手资料",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#archive/player/ZmjjKK-%E9%87%91",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手资料",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#archive/player/ZmjjKK-%E9%87%91",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手资料",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#archive/player/ZmjjKK-%E9%87%91",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手资料",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#archive/player/ZmjjKK-%E9%87%91",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手资料",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#archive/player/ZmjjKK-%E9%87%91",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手资料",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#archive/player/ZmjjKK-%E9%87%91",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "钻卡资料",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#archive/player/ZmjjKK-%E9%92%BB-23%E4%B8%9C%E4%BA%AC",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "钻卡资料",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#archive/player/ZmjjKK-%E9%92%BB-23%E4%B8%9C%E4%BA%AC",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "钻卡资料",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#archive/player/ZmjjKK-%E9%92%BB-23%E4%B8%9C%E4%BA%AC",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "钻卡资料",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#archive/player/ZmjjKK-%E9%92%BB-23%E4%B8%9C%E4%BA%AC",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "钻卡资料",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#archive/player/ZmjjKK-%E9%92%BB-23%E4%B8%9C%E4%BA%AC",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "钻卡资料",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#archive/player/ZmjjKK-%E9%92%BB-23%E4%B8%9C%E4%BA%AC",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "生涯",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#archive/career",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "生涯",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#archive/career",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "生涯",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#archive/career",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "生涯",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#archive/career",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "生涯",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#archive/career",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "生涯",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#archive/career",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "教练资料",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#archive/coach",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "教练资料",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#archive/coach",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "教练资料",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#archive/coach",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "教练资料",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#archive/coach",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "教练资料",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#archive/coach",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "教练资料",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#archive/coach",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "历年回顾",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#archive/season/1",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "历年回顾",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#archive/season/1",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "历年回顾",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#archive/season/1",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "历年回顾",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#archive/season/1",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "历年回顾",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#archive/season/1",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "历年回顾",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#archive/season/1",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手关系",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#archive/relationships",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手关系",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#archive/relationships",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手关系",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#archive/relationships",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手关系",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#archive/relationships",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手关系",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#archive/relationships",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手关系",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#archive/relationships",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "荣誉记录",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#archive/honors",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "荣誉记录",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#archive/honors",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "荣誉记录",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#archive/honors",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "荣誉记录",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#archive/honors",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "荣誉记录",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#archive/honors",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "荣誉记录",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#archive/honors",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "设置",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#archive/settings",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "设置",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#archive/settings",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "设置",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#archive/settings",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "设置",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#archive/settings",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "设置",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#archive/settings",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "设置",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#archive/settings",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "加载状态",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#archive/loading",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "加载状态",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#archive/loading",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "加载状态",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#archive/loading",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "加载状态",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#archive/loading",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "加载状态",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#archive/loading",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "加载状态",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#archive/loading",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "错误恢复",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#archive/error",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "错误恢复",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#archive/error",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "错误恢复",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#archive/error",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "错误恢复",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#archive/error",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "错误恢复",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#archive/error",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "错误恢复",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#archive/error",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "离线状态",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": false,
+      "route": "#archive/offline",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "离线状态",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": false,
+      "route": "#archive/offline",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "离线状态",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": false,
+      "route": "#archive/offline",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "离线状态",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": false,
+      "route": "#archive/offline",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "离线状态",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": false,
+      "route": "#archive/offline",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "离线状态",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": false,
+      "route": "#archive/offline",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "征战首页",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "征战首页",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "征战首页",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "征战首页",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "征战首页",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "征战首页",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择主队",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/start",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择主队",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/start",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择主队",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/start",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择主队",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/start",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择主队",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/start",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择主队",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/start",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "开启卡包",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/packs",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "开启卡包",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/packs",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "开启卡包",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/packs",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "开启卡包",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/packs",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "开启卡包",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/packs",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "开启卡包",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/packs",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/reveal",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/reveal",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/reveal",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/reveal",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/reveal",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "逐张揭晓",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/reveal",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/compare",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/compare",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/compare",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/compare",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/compare",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "比较三个包",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/compare",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择五人",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/pick",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择五人",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/pick",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择五人",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/pick",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择五人",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/pick",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择五人",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/pick",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选择五人",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/pick",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阵容确认",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/confirm",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阵容确认",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/confirm",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阵容确认",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/confirm",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阵容确认",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/confirm",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阵容确认",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/confirm",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阵容确认",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/confirm",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛历",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/calendar",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛历",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/calendar",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛历",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/calendar",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛历",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/calendar",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛历",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/calendar",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛历",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/calendar",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段成绩",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/standings",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段成绩",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/standings",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段成绩",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/standings",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段成绩",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/standings",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段成绩",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/standings",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段成绩",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/standings",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛前备战",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/prepare",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛前备战",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/prepare",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛前备战",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/prepare",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛前备战",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/prepare",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛前备战",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/prepare",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛前备战",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/prepare",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图 BP",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/bp",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图 BP",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/bp",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图 BP",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/bp",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图 BP",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/bp",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图 BP",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/bp",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图 BP",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/bp",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "特工选择",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/agents",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "特工选择",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/agents",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "特工选择",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/agents",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "特工选择",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/agents",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "特工选择",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/agents",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "特工选择",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/agents",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/tactics",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/tactics",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/tactics",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/tactics",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/tactics",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战术排序",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/tactics",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/match",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/match",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/match",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/match",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/match",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战报 / 观赛",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/match",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "单图结算",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/map-result",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "单图结算",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/map-result",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "单图结算",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/map-result",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "单图结算",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/map-result",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "单图结算",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/map-result",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "单图结算",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/map-result",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "系列赛结算",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/series-result",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "系列赛结算",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/series-result",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "系列赛结算",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/series-result",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "系列赛结算",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/series-result",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "系列赛结算",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/series-result",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "系列赛结算",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/series-result",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段结算",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/stage-result",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段结算",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/stage-result",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段结算",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/stage-result",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段结算",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/stage-result",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段结算",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/stage-result",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "阶段结算",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/stage-result",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强阵容",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/reinforce",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强阵容",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/reinforce",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强阵容",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/reinforce",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强阵容",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/reinforce",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强阵容",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/reinforce",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强阵容",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/reinforce",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强比较",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/reinforce-review",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强比较",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/reinforce-review",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强比较",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/reinforce-review",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强比较",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/reinforce-review",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强比较",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/reinforce-review",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "补强比较",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/reinforce-review",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛年收获",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#campaign/year-result",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛年收获",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#campaign/year-result",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛年收获",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#campaign/year-result",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛年收获",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#campaign/year-result",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛年收获",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#campaign/year-result",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "赛年收获",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#campaign/year-result",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战队名单",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#team",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战队名单",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#team",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战队名单",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#team",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战队名单",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#team",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战队名单",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#team",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "战队名单",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#team",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "队伍资料",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#team/overview",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "队伍资料",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#team/overview",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "队伍资料",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#team/overview",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "队伍资料",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#team/overview",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "队伍资料",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#team/overview",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "队伍资料",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#team/overview",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图资料",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#team/maps",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图资料",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#team/maps",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图资料",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#team/maps",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图资料",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#team/maps",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图资料",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#team/maps",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "地图资料",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#team/maps",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "图鉴",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#archive/album",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "图鉴",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#archive/album",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "图鉴",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#archive/album",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "图鉴",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#archive/album",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "图鉴",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#archive/album",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "图鉴",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#archive/album",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手资料",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#archive/player/ZmjjKK-%E9%87%91",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手资料",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#archive/player/ZmjjKK-%E9%87%91",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手资料",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#archive/player/ZmjjKK-%E9%87%91",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手资料",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#archive/player/ZmjjKK-%E9%87%91",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手资料",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#archive/player/ZmjjKK-%E9%87%91",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手资料",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#archive/player/ZmjjKK-%E9%87%91",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "钻卡资料",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#archive/player/ZmjjKK-%E9%92%BB-23%E4%B8%9C%E4%BA%AC",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "钻卡资料",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#archive/player/ZmjjKK-%E9%92%BB-23%E4%B8%9C%E4%BA%AC",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "钻卡资料",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#archive/player/ZmjjKK-%E9%92%BB-23%E4%B8%9C%E4%BA%AC",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "钻卡资料",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#archive/player/ZmjjKK-%E9%92%BB-23%E4%B8%9C%E4%BA%AC",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "钻卡资料",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#archive/player/ZmjjKK-%E9%92%BB-23%E4%B8%9C%E4%BA%AC",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "钻卡资料",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#archive/player/ZmjjKK-%E9%92%BB-23%E4%B8%9C%E4%BA%AC",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "生涯",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#archive/career",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "生涯",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#archive/career",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "生涯",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#archive/career",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "生涯",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#archive/career",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "生涯",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#archive/career",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "生涯",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#archive/career",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "教练资料",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#archive/coach",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "教练资料",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#archive/coach",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "教练资料",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#archive/coach",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "教练资料",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#archive/coach",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "教练资料",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#archive/coach",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "教练资料",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#archive/coach",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "历年回顾",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#archive/season/1",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "历年回顾",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#archive/season/1",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "历年回顾",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#archive/season/1",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "历年回顾",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#archive/season/1",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "历年回顾",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#archive/season/1",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "历年回顾",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#archive/season/1",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手关系",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#archive/relationships",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手关系",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#archive/relationships",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手关系",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#archive/relationships",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手关系",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#archive/relationships",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手关系",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#archive/relationships",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "选手关系",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#archive/relationships",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "荣誉记录",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#archive/honors",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "荣誉记录",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#archive/honors",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "荣誉记录",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#archive/honors",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "荣誉记录",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#archive/honors",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "荣誉记录",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#archive/honors",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "荣誉记录",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#archive/honors",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "设置",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#archive/settings",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "设置",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#archive/settings",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "设置",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#archive/settings",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "设置",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#archive/settings",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "设置",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#archive/settings",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "设置",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#archive/settings",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "加载状态",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#archive/loading",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "加载状态",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#archive/loading",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "加载状态",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#archive/loading",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "加载状态",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#archive/loading",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "加载状态",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#archive/loading",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "加载状态",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#archive/loading",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "错误恢复",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#archive/error",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "错误恢复",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#archive/error",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "错误恢复",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#archive/error",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "错误恢复",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#archive/error",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "错误恢复",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#archive/error",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "错误恢复",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#archive/error",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "离线状态",
+      "size": {
+        "width": 320,
+        "height": 568
+      },
+      "largeText": true,
+      "route": "#archive/offline",
+      "width": 320,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "离线状态",
+      "size": {
+        "width": 360,
+        "height": 640
+      },
+      "largeText": true,
+      "route": "#archive/offline",
+      "width": 360,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "离线状态",
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "largeText": true,
+      "route": "#archive/offline",
+      "width": 390,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "离线状态",
+      "size": {
+        "width": 412,
+        "height": 915
+      },
+      "largeText": true,
+      "route": "#archive/offline",
+      "width": 412,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "离线状态",
+      "size": {
+        "width": 844,
+        "height": 390
+      },
+      "largeText": true,
+      "route": "#archive/offline",
+      "width": 844,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    },
+    {
+      "page": "离线状态",
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "largeText": true,
+      "route": "#archive/offline",
+      "width": 1280,
+      "overflow": false,
+      "navigation": [],
+      "small": [],
+      "outside": []
+    }
+  ]
+}

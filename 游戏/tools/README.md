@@ -8,6 +8,7 @@
 | 图片与卡牌资源 | `build-image-assets.cjs`、`build-card-effects.cjs` |
 | 地图展示与复核 | `build-ascent-style.cjs`、`build-map-style.cjs`、`build-map-library.cjs` |
 | 当前引擎/赛年审计 | `audit-current-system.cjs`、`audit-spatial-campaign.cjs`、`audit-spatial-final.cjs`、`audit-progression.cjs` |
+| 战力校准与数据覆盖 | `calibrate-team-power.cjs`，可追加 `--spatial` 或 `--reanalyze-spatial`；无数据库访问 |
 | 平衡与行为审计 | `audit-*.cjs`、`aggregate-*.cjs`、`summarize-*.cjs` |
 | 故障复现与探查 | `diagnose-*.cjs`、`inspect-*.cjs`、`probe-*.cjs`、`trace-map-balance.cjs`、`debug-parity.cjs` |
 | 早期业务验证 | `build_web.js`，输出独立试玩页，非正式UI |
