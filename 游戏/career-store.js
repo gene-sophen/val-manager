@@ -42,7 +42,7 @@
   }
   return s;
  }
- function pack(state,revision=0){const s=clone(validate(state));s.playing=false;const raw=JSON.stringify(s);return {format:FORMAT,clientVersion:'v0.12',revision,updatedAt:Date.now(),checksum:hash(raw),state:s};}
+ function pack(state,revision=0){const s=clone(validate(state));s.playing=false;const raw=JSON.stringify(s);return {format:FORMAT,clientVersion:'v0.16',revision,updatedAt:Date.now(),checksum:hash(raw),state:s};}
  function unpack(value){if(!value||value.format!==FORMAT||!Number.isInteger(value.revision)||value.revision<0)throw Error('不是可识别的征战备份');if(hash(JSON.stringify(value.state))!==value.checksum)throw Error('存档校验失败，原始数据已保留');return clone(validate(value.state));}
  function parse(raw){const p=JSON.parse(raw,(k,v)=>{if(['__proto__','constructor','prototype'].includes(k))throw Error('备份包含不允许的字段');return v;});unpack(p);return p;}
  function contentBridge(D,R,C){

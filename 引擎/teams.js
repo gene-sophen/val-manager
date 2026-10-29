@@ -1,7 +1,5 @@
 // 队伍配置解析：从 cards_full.json 解析选手，支持文件与档位简写
 const fs = require('fs');
-const path = require('path');
-
 function loadCards() {
   return require('../游戏/catalog').cards;
 }

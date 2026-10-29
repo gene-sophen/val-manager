@@ -1,5 +1,5 @@
 (() => {
- const D=DEMO,R=PROTOTYPE_RULES,F=FLOW_UI,A=ARCHIVE_UI,S=SEASON_2026,V=MAP_VETO,O=ROUND_OUTCOME;
+ const D=DEMO,R=PROTOTYPE_RULES,F=FLOW_UI,S=SEASON_2026,V=MAP_VETO;
  const note=t=>`<p class="rule-note">${t}</p>`,section=(t,b)=>`<section class="page-pad"><h3 class="page-heading">${t}</h3>${b}</section>`,metrics=o=>`<div class="team-state-metrics">${Object.entries(o).map(([k,v])=>`<div><b>${Math.round(v)}</b><span>${k}</span></div>`).join('')}</div>`;
  const use=(name,fn)=>{const prior=F[name];F[name]=s=>s.simulation==='live'?fn(s):prior(s);};
  const esc=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

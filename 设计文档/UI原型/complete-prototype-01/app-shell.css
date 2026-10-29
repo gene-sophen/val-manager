@@ -25,6 +25,8 @@ html,#nav-scroll,#dialog-body,#filter-fields,.spatial-focus{touch-action:auto;-w
 #match-status-main{font-weight:700}#match-status-detail{font-size:12px;color:var(--vm-muted);font-variant-numeric:tabular-nums}
 .app-phone .persistent-save{height:28px;padding:5px 12px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:12px;color:var(--vm-muted);background:white;border-bottom:1px solid var(--vm-line)}
 .sr-only,.busy-sentinel{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;overflow:hidden!important;clip-path:inset(50%);white-space:nowrap;pointer-events:none}
+.app-phone #page-title:focus{outline:none}
+.app-phone .selected-lineup{position:relative;top:auto}
 .app-phone #toast{bottom:calc(140px + env(safe-area-inset-bottom));background:var(--vm-soft);color:var(--vm-body);box-shadow:var(--vm-edge)}
 .app-phone [hidden],dialog [hidden]{display:none!important}
 :is(.balance-dialog,.filter-dialog){box-sizing:border-box;width:calc(100vw - 24px);max-width:520px;max-height:calc(var(--vm-visible-height,100dvh) - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px);padding:0;overflow:hidden;background:white;box-shadow:0 12px 32px rgba(15,23,42,.16)}
@@ -60,5 +62,6 @@ body.qa-workbench .app-phone :is(.main-nav,#subpage-dock){position:relative;left
 .round-work{margin:12px;padding:14px;border:1px solid var(--vm-line);background:var(--vm-selected);border-radius:16px}
 .round-work p{margin:0 0 10px;font-size:14px;color:var(--vm-body)}
 .round-work button{width:100%}
-.restart-card{margin-bottom:18px;padding:16px;border:1px solid var(--vm-line);border-radius:16px;background:var(--vm-selected)}
-.restart-card h3{margin:0 0 8px;font-size:18px}.restart-card p{margin:0 0 12px;font-size:14px;color:var(--vm-body)}
+.restart-card{margin-bottom:18px;padding:16px;border:1px solid rgba(121,91,40,.22);border-radius:16px;background:var(--vm-warning-bg)}
+.restart-card h3{margin:0 0 8px;font-size:18px;color:var(--vm-warning)}.restart-card p{margin:0 0 12px;font-size:14px;color:var(--vm-body)}
+:is(.app-phone,.balance-dialog) .danger-button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border:1px solid var(--vm-error);border-radius:var(--vm-control-radius);background:var(--vm-error);color:#fff;font-size:16px;font-weight:700}

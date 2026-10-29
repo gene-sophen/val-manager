@@ -9,9 +9,9 @@
  let previewMode=false; let s=D.seed(),path='',view=null,filterDraft=null,timer=null,toastTimer=null,installPrompt=null,registration=null,cacheReady=false,focusNext='',returnFocus='',disclosures={},storageError=null,pendingImport=null;
  let preserveSeasonRoute=false;
  let roundBusy=false,roundError='',roundJob=0,careerBusy=false,seasonBusy=false,seasonJob=0,seasonProgress=null;
- const seasonWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('season-worker.js?v=20261018-v012',document.baseURI)),timeout:120000});
- let modalOpener=null,lastSavedAt=0,cacheState='preparing',saving=0,work=null,replayFailedToken='',renderFault=null,backupLibrary=[],backupOrigin=null;
- const roundWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('round-worker.js?v=20261018-v012',document.baseURI))});
+ const seasonWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('season-worker.js?v=20261029-v016',document.baseURI)),timeout:120000});
+ let modalOpener=null,cacheState='preparing',saving=0,work=null,replayFailedToken='',renderFault=null,backupLibrary=[],backupOrigin=null,persistTimer=null;
+ const roundWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('round-worker.js?v=20261029-v016',document.baseURI))});
  const testInitial=testDatabase?document.getElementById('career-test-initial')?.textContent:null;
  const bridge=CAREER_STORE.contentBridge(D,R,CN_CONTENT),durable=CAREER_STORE.create({indexedDB:window.indexedDB,...(testDatabase?{databaseName:testDatabase,test:true}:{}),legacyStorage:{getItem:key=>window.localStorage.getItem(key)},legacyKey:STORE,freeze:bridge.freeze,initial:()=>testInitial?JSON.parse(testInitial):D.seed()});
  const previewDurable=CAREER_STORE.create({indexedDB:window.indexedDB,databaseName:(testDatabase||'val-manager-complete-career-v1')+'-preview',test:!!testDatabase,legacyStorage:{getItem:key=>window.localStorage.getItem(key)},legacyKey:PREVIEW_STORE,freeze:bridge.freeze,initial:()=>D.seed()});let previewReady;const loadPreview=()=>previewReady||(previewReady=previewDurable.load());
@@ -21,7 +21,7 @@
  const activeStore=()=>previewMode?previewDurable:durable;
  const controls=MATCH_CONTROLS.create({state:()=>s,busy:()=>roundBusy&&work?.operation!=='replay',stopTimer,update:()=>{updateStatus();setControlPermissions();},receipt:operation,rules:R});
  controls.restore();
- const uiState=()=>MATCH_UI_STATE.derive(s,R,{route:path,busy:roundBusy,work,error:roundError,storageError,stopRequested:controls.stopping(),replayPending:R.replayPending?.(s),mapName:id=>D.allMaps.find(m=>m.id===id)?.name||id});
+ const uiState=()=>MATCH_UI_STATE.derive(s,R,{route:path,busy:roundBusy,work,error:roundError,storageError,stopRequested:controls.stopping(),replayPending:R.replayPending?.(s),replayPlaying:R.playbackState?.()?.playing,mapName:id=>D.allMaps.find(m=>m.id===id)?.name||id});
  let announcedState='';
  function stopForNavigation(){if(s.playing||roundBusy)controls.stop();else{s.playing=false;s.fastForward=false;stopTimer();}}
  function discardDraft(next){if(path==='campaign/tactics'&&s.adjusting&&next!==path){operation('已撤销未应用的调整，保留原方案');if(s.adjustBackup){s.attack=[...s.adjustBackup.attack];s.defense=[...s.adjustBackup.defense];}s.adjusting='';s.adjustBackup=null;}}
@@ -48,7 +48,7 @@
  function cancelSeason(quiet=false){++seasonJob;seasonWorker.cancel('已停止赛程计算，原赛果保留');seasonBusy=false;seasonProgress=null;paintSeasonWork();if(!quiet){save();if(path.startsWith('campaign/'))go('campaign',true);else refresh();}}
  function paintSeasonWork(){
   let bar=$('season-work');if(!seasonBusy){bar?.remove();return;}
-  if(!bar){bar=document.createElement('aside');bar.id='season-work';bar.className='season-work';bar.setAttribute('aria-label','赛程计算进度');bar.innerHTML='<span role="status"></span><button class="quiet-button" data-action="cancel-season">停止计算</button>';document.querySelector('.balance-top').insertAdjacentElement('afterend',bar);}
+  if(!bar){bar=document.createElement('aside');bar.id='season-work';bar.className='season-work';bar.setAttribute('aria-label','赛程计算进度');bar.innerHTML='<span role="status"></span><button class="quiet-button" data-action="cancel-season">停止计算</button>';document.querySelector('.app-phone').append(bar);}
   bar.querySelector('span').textContent='正在计算'+D.phases[s.phase]+' · 已完成 '+(seasonProgress?.completed||0)+' 场';
  }
  function savedText(){const c=activeStore().checkpoint();if(!c)return '尚未确认成功保存的进度';return '已保存：'+(c.mapId?D.allMaps.find(m=>m.id===c.mapId)?.name||c.mapId:D.phases[c.phase])+(c.home!==null?' · '+c.home+':'+c.away:'')+' · 已完成 '+c.round+' 分 · '+new Date(c.updatedAt).toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});}
@@ -66,7 +66,8 @@
   paintOperations();
  }
  function setControlPermissions(){if(path!=='campaign/match')return;const model=uiState();for(const b of document.querySelectorAll('#page-body [data-action],#subpage-dock [data-action]')){const action=b.dataset.action;if(!['play-toggle','timeout','next-round','retry-round','skip-map','open-map-result','next-map','adjust-window','resume-window','watch-round'].includes(action))continue;if(b.dataset.originalDisabled===undefined)b.dataset.originalDisabled=String(b.disabled);b.disabled=action==='timeout'&&roundBusy?!model.allowedActions.includes(action)||R.timeoutLeft(s)<=0:b.dataset.originalDisabled==='true'||!model.allowedActions.includes(action);if(b.disabled)b.setAttribute('aria-describedby','session-status');else b.removeAttribute('aria-describedby');}}
- const save=()=>{if(storageError||careerBusy){updateStatus();return;}R.compact?.(s);s.lastRoute=path;bridge.freeze(s);const store=activeStore(),copy=structuredClone(s);saving++;updateStatus();(previewMode?loadPreview().then(()=>store.save(copy)):store.save(copy)).then(()=>{lastSavedAt=store.checkpoint()?.updatedAt||0;}).catch(error=>{if(store===activeStore())failStorage(error);}).finally(()=>{saving--;updateStatus();});};
+ const save=()=>{clearTimeout(persistTimer);persistTimer=null;if(storageError||careerBusy){updateStatus();return;}R.compact?.(s);s.lastRoute=path;bridge.freeze(s);const store=activeStore(),copy=structuredClone(s);saving++;updateStatus();(previewMode?loadPreview().then(()=>store.save(copy)):store.save(copy)).catch(error=>{if(store===activeStore())failStorage(error);}).finally(()=>{saving--;updateStatus();});};
+ const saveSoon=()=>{clearTimeout(persistTimer);persistTimer=setTimeout(save,250);};
  function failStorage(error){if(storageError)return;storageError=error;s.playing=false;stopTimer();showStorageError();}
  function showStorageError(){updateStatus();const conflict=/其他窗口/.test(storageError.message);dialog(conflict?'其他窗口已保存新的进度':'这次保存未完成',`<p class="dialog-copy">${conflict?'为避免覆盖另一窗口的进度，当前操作已暂停。':'这次写入没有提交，原始存档保留。'}${esc(savedText())}。</p><p class="dialog-copy">先导出当前未提交进度，再重新载入或恢复备份。</p><button class="blue-button full" data-action="export-draft">导出未提交进度</button><button class="quiet-button full" data-action="reload-save">重新载入已保存进度</button><button class="quiet-button full" data-action="import-save">从备份恢复</button><details class="plain-details"><summary>其他恢复方式与技术详情</summary><p>${esc(storageError.message)}</p><div class="dialog-actions"><button data-action="export-save" class="quiet-button">导出原始存档</button><button data-action="recover-save" class="quiet-button">查看上个有效存档</button><button data-action="export-diagnostics" class="quiet-button">导出诊断包</button><button data-action="export-legacy" class="quiet-button">导出原始旧档</button><button data-action="clear-career" class="quiet-button">清空存档并重开</button>${previewMode?'<button class="quiet-button" data-action="leave-preview">返回我的征战</button>':''}</div></details>`);}
 
@@ -158,7 +159,7 @@
   if(parts[0]==='campaign'&&parts[1]==='player')$('page-body').insertAdjacentHTML('beforeend','<div class="page-pad"><button class="quiet-button full" data-action="return-reading">返回本场任务</button></div>');if($('album-results'))updateAlbum();if($('team-results'))updateTeam();
   [...$('page-body').querySelectorAll('details')].forEach((e,i)=>{if(path==='campaign/agents'&&(s.agentQuery||s.agentRoleFilter&&s.agentRoleFilter!=='all')&&e.classList.contains('all-agent-picker'))e.open=true;else if(disclosures[path]?.[i]!==undefined)e.open=disclosures[path][i];});scrollView.top=Number(s.positions[path])||0;
   if(focusNext||returnFocus){document.querySelector(focusNext||returnFocus)?.focus({preventScroll:true});focusNext='';returnFocus='';}else if(!top)$('page-title').focus({preventScroll:true});
-  if($('offline-setting'))$('offline-setting').textContent=testDatabase?'隔离验收页':cacheReady?'已可离线浏览':'正在准备资源';updateConnection();save();
+  if($('offline-setting'))$('offline-setting').textContent=testDatabase?'隔离验收页':cacheReady?'已可离线浏览':'正在准备资源';updateConnection();if(!persistTimer)save();
   if($('offline-setting')&&!testDatabase)$('offline-setting').textContent=cacheState==='ready'?'已就绪':cacheState==='failed'?'准备失败，可重试':'准备中';
    updateStatus();
   $('page-back').setAttribute('aria-label',path==='campaign/tactics'&&s.adjusting?'撤销草案并返回比赛':path==='campaign/match'?'保存并返回征战':path==='campaign/player'? '返回本场任务':'返回上一页');
@@ -179,7 +180,7 @@
  function cancelRound(quiet=false){const replay=work?.operation==='replay';++roundJob;roundWorker.cancel('已停止本分推演');roundBusy=false;work=null;s.playing=false;s.fastForward=false;s.pendingTimeout=null;stopTimer();clearInterval(roundWatch);roundWatch=null;if(!quiet){operation(replay?'已停止回放，比分与战报保留':'已停止本分计算，已完成比分保留');if(replay){s.skippedReplay=ROUND_PRESENTATION.token(s);R.skipReplay?.(s);}roundError=replay?'':'本分计算已停止，可以重试。';refresh();}else setRoundBusy();}
  function paintRoundWork(){if(path==='campaign/match'){const buttons=[...$('subpage-dock').querySelectorAll('button')];for(const b of buttons){if(b.dataset.computeAction){b.dataset.action=b.dataset.computeAction;delete b.dataset.computeAction;}if(roundBusy&&['next-round','retry-round','watch-round'].includes(b.dataset.action)){b.dataset.computeAction=b.dataset.action;b.dataset.action='cancel-round';b.disabled=false;b.textContent=work?.operation==='replay'?'停止回放，看战报':'停止本分计算';}}}let bar=$('round-work');if(!roundBusy||path!=='campaign/match'){bar?.remove();return;}if(!bar){bar=document.createElement('section');bar.id='round-work';bar.className='round-work';bar.innerHTML='<p role="status"></p><button class="quiet-button" data-action="cancel-round">停止本分计算，保留比分</button>';$('page-body').prepend(bar);}bar.querySelector('button').textContent=work?.operation==='replay'?'停止回放，查看战报':'停止本分计算，保留比分';const elapsed=Math.floor((Date.now()-roundStarted)/1000),phase=work?.phase==='recover'?'核对已完成比分 '+(work.completed||0)+'/'+(work.total||0):work?.operation==='replay'?'准备本分回放':'推演下一分';bar.querySelector('p').textContent=phase+' · '+elapsed+'秒'+(elapsed>=8?'，耗时较长，可停止后重试或返回征战。':'');}
  function setRoundBusy(){if(roundBusy&&!roundWatch){roundStarted=Date.now();roundWatch=setInterval(paintRoundWork,1000);}if(!roundBusy&&roundWatch){clearInterval(roundWatch);roundWatch=null;}paintRoundWork();updateStatus();if($('round-busy'))$('round-busy').hidden=!roundBusy;setControlPermissions();}
- async function loadReplay(token){if(roundBusy||storageError||replayFailedToken===token||path!=='campaign/match'||ROUND_PRESENTATION.token(s)!==token)return;const state=s,job=++roundJob,m=s.liveMaps[s.map];roundBusy=true;work={operation:'replay'};setRoundBusy();try{const result=await roundWorker.run(s.year+':'+s.matchToken+':'+s.map,{m},{operation:'replay',onProgress:p=>{if(job===roundJob){work={...p,operation:'replay'};setRoundBusy();}}});if(job!==roundJob||state!==s)return;m.replay=result.replay;roundError='';}catch(error){if(job===roundJob&&state===s){roundError=error.message;replayFailedToken=token;s.playing=false;}}finally{if(job===roundJob){roundBusy=false;work=null;if(path==='campaign/match')refresh();else{save();updateStatus();}}}}
+ async function loadReplay(token){if(roundBusy||storageError||replayFailedToken===token||path!=='campaign/match'||ROUND_PRESENTATION.token(s)!==token)return;const state=s,job=++roundJob,m=s.liveMaps[s.map];roundBusy=true;work={operation:'replay'};setRoundBusy();try{const result=await roundWorker.run(s.year+':'+s.matchToken+':'+s.map,{m},{operation:'replay',onProgress:p=>{if(job===roundJob){work={...p,operation:'replay'};setRoundBusy();}}});if(job!==roundJob||state!==s)return;m.replay=result.replay;roundError='';}catch(error){if(job===roundJob&&state===s){roundError=error.message;replayFailedToken=token;s.playing=false;}}finally{if(job===roundJob){roundBusy=false;work=null;setRoundBusy();if(path==='campaign/match')refresh();else{save();updateStatus();}}}}
  R.replayRecoveryStatus=()=>({failed:replayFailedToken===ROUND_PRESENTATION.token(s)});document.addEventListener('vm-replay-needed',e=>loadReplay(e.detail.token));
  document.addEventListener('vm-ui-fatal',e=>{s.playing=false;stopTimer();++roundJob;roundWorker.cancel('界面恢复中，后台操作已停止');cancelSeason(true);clearInterval(roundWatch);roundWatch=null;roundBusy=false;work=null;renderFault=Error(e.detail.message);});
  async function advanceRound(manual=false){if(roundBusy||storageError||s.coachWindow||s.adjusting)return;if(R.mapOver(s)){s.playing=false;refresh();return;}
@@ -189,7 +190,7 @@
  else if(!R.spatialMap?.(s)&&!R.mapOver(s)&&!s.coachWindow&&R.timeoutLeft(s,'opponent')>0&&(s.simulation==='live'?R.shouldOpponentTimeout(s):s.round===8&&!s.aiPaused)){s.aiPaused=true;R.chargeTimeout(s,'opponent');}
  if(s.liveMaps?.[s.map]?.rounds.at(-1)?.number===13)operation('已完成换边 · 第13分结果已记录');if(s.coachWindow&&s.coachWindow!==previousWindow)operation(s.coachWindow==='half'?'半场结束，等待教练确认':s.coachWindow==='opponent'?'对方请求战术暂停，双方可调整':'战术暂停已开放');if(R.mapOver(s)){s.playing=false;s.fastForward=false;}if(s.coachWindow||manual)s.playing=false;controls.committed();
  }catch(error){if(job===roundJob&&state===s){s.playing=false;s.fastForward=false;roundError=error.message;if(s.pendingTimeout){s.pendingTimeout=null;operation('本分未完成，暂停申请未消耗次数，可重试后申请');}}}
- finally{if(job===roundJob){roundBusy=false;work=null;if(path==='campaign/match'){refresh();}else{save();updateStatus();}}}
+ finally{if(job===roundJob){roundBusy=false;work=null;setRoundBusy();if(path==='campaign/match'){refresh();}else{save();updateStatus();}}}
  }
  
  function beginAdjust(kind){if(!s.coachWindow)return;stopTimer();s.playing=false;s.adjustBackup={attack:[...s.attack],defense:[...s.defense]};s.adjusting=kind;$('app-dialog').close();go('campaign/tactics');}
@@ -200,7 +201,7 @@
  if(r==='campaign/stage-result'){s.completedMatch=true;R.settleStage(s,D.cards);}
  if(r==='archive/player/ZmjjKK-钻'){s.unlocked=[...new Set([...s.unlocked,D.key(D.cards.find(p=>p.name==='ZmjjKK'&&p.tier==='钻'))])];}if(r==='archive/player/ZmjjKK-钻')r='archive/player/'+D.key(D.cards.find(p=>p.name==='ZmjjKK'&&p.tier==='钻'));
  go(r);}
- function recommendAgents(){const members=F.lineup(s),selection=AGENT_SELECTION.recommend(members,CN_CONTENT.agents,F.matchMap(s).id);return Object.fromEntries(members.map((p,i)=>[D.key(p),selection.agents[i]]));}
+ function recommendAgents(strategy='balanced'){const members=F.lineup(s),selection=AGENT_SELECTION.recommend(members,CN_CONTENT.agents,F.matchMap(s).id,strategy);return Object.fromEntries(members.map((p,i)=>[D.key(p),selection.agents[i]]));}
  
  function chooseBP(id){if(s.bp.includes(id)||!s.activeMaps.includes(id)||s.bp.length>=7||R.bpActor(s)!=='player')return;if(s.simulation==='live')R.bpMove(s,id);else{s.bp.push(id);R.fillOpponentBP(s);}s.pendingMap='';refresh();promptSide();}
  function revealOne(reinforcement=false){const before=new Set(s.unlocked),k=R.reveal(s,reinforcement);s.lastRevealKey=k;s.lastRevealNew=!!k&&!before.has(k);if(s.lastRevealNew)s.recentUnlocked=[...(s.recentUnlocked||[]).filter(v=>v!==k),k].slice(-8);return k;}
@@ -252,7 +253,8 @@
    case 'reload-save':location.reload();break;
    case 'leave-preview':leavePreview();break;
    case 'reselect-pack':s.chosenPack=null;s.lineup=[];go('campaign/packs');break;
-   case 'auto-agents':s.agentRecommendation={before:{...(s.agents[s.map]||{})},map:s.map};s.agents[s.map]=recommendAgents();s.agentsRecommended=true;refresh('[data-action="auto-agents"]');break;
+   case 'auto-agents':case 'auto-agents-personal':s.agentRecommendation={before:{...(s.agents[s.map]||{})},map:s.map,strategy:b.dataset.agentStrategy||'balanced'};s.agents[s.map]=recommendAgents(b.dataset.agentStrategy);s.agentsRecommended=true;refresh('[data-action="auto-agents"]');break;
+   case 'inherit-agents':if(s.map>0&&s.agents[s.map-1]){s.agentRecommendation={before:{...(s.agents[s.map]||{})},map:s.map,strategy:'inherit'};s.agents[s.map]={...s.agents[s.map-1]};s.agentsRecommended=true;refresh('[data-action="inherit-agents"]');}break;
    case 'settle-stage':seasonWork(()=>go(R.settleStage(s,D.cards)===false?'campaign':'campaign/stage-result'));break;case 'resume-season':seasonWork(()=>{if(s.stageSession.pending){R.resetMatch(s);go('campaign',true);}else go(R.settleStage(s,D.cards)===false?'campaign':'campaign/stage-result');});break;
    case 'settle-skipped':if(!R.eligible(s)||(s.simulation==='live'&&!s.stageSession?.pending)){seasonWork(()=>go(R.settleStage(s,D.cards)===false?'campaign':'campaign/stage-result'));}break;
    case 'adjust-window':beginAdjust(s.coachWindow);break;
@@ -260,8 +262,11 @@
    case 'start-packs':if(s.run!=='none'&&s.run!=='finished'&&s.run!=='draft'){dialog('开始新的征战？','<p class="dialog-copy">当前征战将结束，图鉴与已获得的生涯记录保留。</p><div class="dialog-actions"><button class="quiet-button" data-action="close-dialog">保留当前</button><button class="blue-button" data-action="new-run">开始新的征战</button></div>');}else startPacks();break;
    case 'new-run':startPacks();break;
    case 'open-pack':if(s.opened[s.pack]===10)go('campaign/packs');else{revealOne();go('campaign/reveal');}break;
+   case 'reveal-pack':if(s.run==='draft'){while(s.opened[s.pack]<10)revealOne();toast('本包 10 张已全部揭晓，可继续逐张查看。');go('campaign/packs');}break;
+   case 'reveal-all':if(s.run==='draft'){for(let pack=0;pack<3;pack++){s.pack=pack;while(s.opened[pack]<10)revealOne();}s.pack=0;go('campaign/compare');}break;
    case 'next-pack':s.pack=s.opened.findIndex(n=>n<10);if(s.pack<0)s.pack=0;go('campaign/packs');break;
    case 'reveal-reinforcement':{if(s.run!=='reinforce'||s.reinforcementOpened>=10)break;const k=revealOne(true);$('app-dialog').close();refresh();showCard(k,true);break;}
+   case 'reveal-reinforcement-pack':if(s.run==='reinforce'){while(s.reinforcementOpened<10)revealOne(true);toast('补强包已全部揭晓，现在比较阵容取舍。');refresh();}break;
    case 'next-card':if(s.opened[s.pack]>=10)go('campaign/packs');else{revealOne();refresh();}break;
    case 'compare-packs':go('campaign/compare');break;
    case 'choose-pack':if(s.run!=='draft'||!s.packs.length||!s.opened.every(n=>n===10))break;s.chosenPack=s.pack;s.lineup=[];go('campaign/pick');break;
@@ -271,7 +276,8 @@
  case 'bp-help':dialog('BO3 · 禁选顺序','<ol class="bp-order">'+['我方禁用','对方禁用','我方选图一 · 对方选边','对方选图二 · 我方选边','我方禁用','对方禁用','剩余图三 · 我方选边'].map((t,i)=>`<li><span>${i+1}</span><strong>${t}</strong></li>`).join('')+'</ol>');break;
    case 'bp-complete':if(s.bp.length!==7)break;if(R.pendingSide(s)!==undefined){promptSide();break;}s.map=0;s.reviewMap=null;go('campaign/agents');break;
    case 'agents-confirm':if(s.roster.every(k=>s.agents[s.map]?.[k]))go('campaign/tactics');break;
-   case 'tactics-confirm':if(s.adjusting){coachChange('adjust');operation(PLAYER_JOURNEY.changes(s.adjustBackup,s).some(c=>c.changed)?'已应用新的攻防优先级':'已保留原攻防优先级');s.adjusting='';s.adjustBackup=null;s.coachWindow='';go('campaign/match',true);s.playing=true;refresh();toast('攻防优先级已调整，将影响后续回合。');}else{if(s.run==='match'&&s.round>0){toast('当前不是战术调整窗口。');break;}s.run='match';s.preparingMap=false;R.resetMap(s);R.startMap?.(s);s.playing=true;s.completedMatch=false;go('campaign/match');s.playing=true;refresh();}break;
+   case 'quick-start':startConfirmedMap();break;
+   case 'tactics-confirm':if(s.adjusting){coachChange('adjust');operation(PLAYER_JOURNEY.changes(s.adjustBackup,s).some(c=>c.changed)?'已应用新的攻防优先级':'已保留原攻防优先级');s.adjusting='';s.adjustBackup=null;s.coachWindow='';go('campaign/match',true);s.playing=true;refresh();toast('攻防优先级已调整，将影响后续回合。');}else startConfirmedMap();break;
    
  case 'cancel-adjust':cancelAdjustment();break;
     case 'play-toggle':if(roundBusy||s.playing)controls.stop();else{if(s.coachWindow||R.mapOver(s))break;controls.restore();s.playing=true;R.continueReplay?.(s);operation('已开始自动推进 · '+(s.autoTempo==='fast'?'快速':'常规')+'节奏');startTimer();}save();setRoundBusy();break;
@@ -308,11 +314,11 @@
    case 'abandon-run':dialog('结束当前征战？','<p class="dialog-copy">当前阵容与未完成的进度会结束。已解锁卡片和已收录的生涯记录保留。</p><div class="dialog-actions"><button class="quiet-button" data-action="close-dialog">继续执教</button><button class="blue-button" data-action="confirm-abandon">结束征战</button></div>');break;
    case 'confirm-abandon':s.run='none';s.roster=[];s.lineup=[];s.reinforce=[];s.bp=[];s.playing=false;go('campaign',true);break;
    case 'restore-cleared':if(previewMode)toast('请先返回我的征战。');else durable.clearedBackup().then(e=>reviewImport(JSON.stringify(e))).catch(e=>toast(e.message));break;
-   case 'clear-career':dialog('清空存档并重新开始？','<p class="dialog-copy">当前赛年、图鉴、选手熟识、教练成长和荣誉记录都会清空，从新的生涯开始。清空前会在本机保留原存档备份，可通过“恢复清空前存档”取回。</p><div class="dialog-actions"><button class="quiet-button" data-action="close-dialog">取消</button><button class="blue-button" data-action="confirm-clear-career">清空并重开</button></div>');break;
+   case 'clear-career':dialog('清空存档并重新开始？','<p class="dialog-copy">当前赛年、图鉴、选手熟识、教练成长和荣誉记录都会清空，从新的生涯开始。清空前会在本机保留原存档备份，可通过“恢复清空前存档”取回。</p><div class="dialog-actions"><button class="quiet-button" data-action="close-dialog">取消</button><button class="danger-button" data-action="confirm-clear-career">清空并重开</button></div>');break;
    case 'confirm-clear-career':{if(previewMode){dialog('请返回我的征战','<p class="dialog-copy">清空存档只在自己的征战中执行。</p><button class="blue-button full" data-action="leave-preview">返回我的征战 →</button>');break;}cancelSeason(true);cancelRound(true);careerBusy=true;stopTimer();s.playing=false;$('app-dialog').close();durable.restart(D.seed()).then(fresh=>{careerBusy=false;s=fresh;bridge.bind(s);R.init(s);D.sync(s);roundError='';replayFailedToken='';storageError=null;disclosures={};pendingImport=null;backupOrigin=null;focusNext='';returnFocus='';controls.restore();path='';go('campaign',true);toast('已清空存档，可以开始新的生涯。');}).catch(error=>{careerBusy=false;failStorage(error);});break;}
    case 'install':if(installPrompt){installPrompt.prompt();installPrompt=null;}else dialog('安装到主屏幕','<p class="dialog-copy">在支持安装的浏览器菜单中选择“安装应用”或“添加到主屏幕”。离线资源准备完成后，可以离线浏览。</p>');break;
    case 'check-update':if(registration)PWA_UPDATE.check(registration,()=>toast('正在准备更新…')).then(status=>{if(status==='ready')dialog('发现更新','<p class="dialog-copy">更新会保留征战存档。</p><button class="blue-button full" data-action="apply-update">保存并更新</button>');else toast('已是当前版本。');}).catch(e=>toast(e.message));else toast('当前浏览器尚未启用离线服务。');break;
-   case 'apply-update':remember(true);PWA_UPDATE.activate(registration,async()=>{await durable.flush();if(storageError)throw storageError;}).catch(e=>toast(e.message));break;
+   case 'apply-update':remember(true);PWA_UPDATE.activate(registration,async()=>{await activeStore().flush();if(storageError)throw storageError;}).catch(e=>toast(e.message));break;
    case 'retry-offline':setupOffline();toast('重新准备离线资源…');break;
    case 'return-reading':back();break;
    case 'recover':go('archive/career',true);break;
@@ -320,13 +326,14 @@
   }
  });
  function resetMatch(){s.preparingMap=false;s.pendingTimeout=null;controls.restore();if(s.simulation==='live')R.prepareStage(s);R.resetMatch(s);if(s.simulation!=='live'){s.sides=['defense','attack','attack'];s.side2Chosen=false;s.side3Chosen=false;}}
+ function startConfirmedMap(){if(!s.roster.every(k=>s.agents[s.map]?.[k])||s.run==='match'&&s.round>0)return false;s.run='match';s.preparingMap=false;R.resetMap(s);R.startMap?.(s);s.playing=true;s.completedMatch=false;go('campaign/match');s.playing=true;refresh();return true;}
  function cancelAdjustment(){operation('已撤销未应用的调整，保留原方案');if(s.adjustBackup){s.attack=[...s.adjustBackup.attack];s.defense=[...s.adjustBackup.defense];}s.adjusting='';s.adjustBackup=null;go('campaign/match',true);}
  function startPacks(){if(s.run==='draft'&&s.packs.length){s.club=s.nextClub||s.club;s.nextClub=null;D.sync(s);go(s.chosenPack!==null?'campaign/pick':'campaign/packs');return;}s.preparingMap=false;s.pendingTimeout=null;controls.restore();s.club=s.nextClub||s.club;s.nextClub=null;R.newRun(s,CN_CONTENT,CN_DRAW,Math.random);D.sync(s);s.sides=['defense','attack','attack'];s.side2Chosen=false;s.side3Chosen=false;s.attack=[...D.tactics.attack];s.defense=[...D.tactics.defense];s.positions={};go('campaign/packs');}
  
- document.addEventListener('toggle',e=>{const key=e.target.dataset?.guideKey;if(key&&!e.target.open&&e.target.isConnected){s.guidesSeen={...(s.guidesSeen||{}),[key]:true};save();}},true);document.addEventListener('input',e=>{if(e.target.id==='album-query'){s.query=e.target.value;updateAlbum();save();}if(e.target.id==='team-query'){s.teamQuery=e.target.value;updateTeam();save();}});
- document.addEventListener('input',e=>{if(e.target.id==='agent-query'){const value=e.target.value,position=e.target.selectionStart;s.agentQuery=value;refresh('#agent-query');$('agent-query')?.setSelectionRange(position,position);} });
+ document.addEventListener('toggle',e=>{const key=e.target.dataset?.guideKey;if(key&&!e.target.open&&e.target.isConnected){s.guidesSeen={...(s.guidesSeen||{}),[key]:true};save();}},true);document.addEventListener('input',e=>{if(e.target.id==='album-query'){s.query=e.target.value;updateAlbum();saveSoon();}if(e.target.id==='team-query'){s.teamQuery=e.target.value;updateTeam();saveSoon();}});
+ document.addEventListener('input',e=>{if(e.target.id==='agent-query'){const value=e.target.value,position=e.target.selectionStart;s.agentQuery=value;saveSoon();refresh('#agent-query');$('agent-query')?.setSelectionRange(position,position);} });
  document.addEventListener('vm-replay-state',updateStatus);
- document.addEventListener('vm-replay-pause',()=>{s.playing=false;stopTimer();const b=document.querySelector('[data-action="play-toggle"]');if(b){b.textContent='自动推进';b.setAttribute('aria-pressed','false');}updateStatus();});
+ document.addEventListener('vm-replay-pause',()=>{const b=document.querySelector('[data-action="play-toggle"]');if(b){b.textContent=s.playing?'停止自动推进':'自动推进';b.setAttribute('aria-pressed',String(!!s.playing));}updateStatus();});
  document.addEventListener('input',e=>{if(e.target.matches('[data-spatial-time]'))updateStatus();});
  document.addEventListener('click',e=>{if(e.target.closest('[data-spatial-play]'))updateStatus();});
  document.addEventListener('change',e=>{if(e.target.id==='auto-tempo'){s.autoTempo=e.target.value==='fast'?'fast':'normal';save();}if(e.target.id==='album-order'){s.albumOrder=e.target.value;updateAlbum();save();}if(e.target.id==='team-sort'){s.teamSort=e.target.value;updateTeam();save();}if(e.target.id==='reduced-motion'){s.reducedMotion=e.target.checked;refresh('#reduced-motion');}if(e.target.id==='large-text'){s.largeText=e.target.checked;refresh('#large-text');}});
@@ -339,7 +346,19 @@
  window.addEventListener('hashchange',()=>{stopForNavigation();remember();if(path==='campaign/tactics'&&s.adjusting&&parsed().join('/')!==path){operation('已撤销未应用的调整，保留原方案');if(s.adjustBackup){s.attack=[...s.adjustBackup.attack];s.defense=[...s.adjustBackup.defense];}s.adjusting='';s.adjustBackup=null;}$('app-dialog').close();$('filter-dialog').close();const requested=parsed().join('/'),safe=VM_NAV.normalize(requested,s);if(safe!==requested)history.replaceState({uiDemo:true,from:'',canBack:false},'',routeURL(safe));render();});window.addEventListener('pagehide',()=>{s.playing=false;s.fastForward=false;remember(true);stopTimer();});document.addEventListener('visibilitychange',()=>{if(document.hidden){s.playing=false;s.fastForward=false;stopTimer();save();}});
  function updateConnection(){$('connection').hidden=navigator.onLine||previewMode;$('preview-banner').firstChild.textContent='独立章节预览'+(!navigator.onLine?' · 离线':'');}
  window.addEventListener('online',updateConnection);window.addEventListener('offline',updateConnection);window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;});
- async function setupOffline(){cacheState='preparing';if(testDatabase){$('cache-status').textContent='隔离验收页 · 离线安装请使用正式入口';return;}if(!('serviceWorker' in navigator)){ $('cache-status').textContent='当前浏览器不支持离线缓存';return;}try{registration=await navigator.serviceWorker.register('sw.js?v=20261018-v012',{updateViaCache:'none'});await navigator.serviceWorker.ready;const urls=[...new Set(D.cards.flatMap(p=>[F.photo(p),F.asset(p.photo||'选手半身像/'+p.name+'.png','thumb'),F.asset('队伍logo/'+p.team+'.png'),...p.agents.map(a=>F.asset(p.agentAssets?.[a]||'英雄头像/'+(a==='K/O'?'KO.png':['幻棱','壹决'].includes(a)?a+'.jpg':a+'.png')))]).concat(D.clubs.map(c=>F.asset('队伍logo/'+c+'.png')),Object.keys(window.VM_IMAGE_MANIFEST?.assets||{}).filter(k=>k.startsWith('英雄头像/')).map(k=>F.asset(k)),D.allMaps.flatMap(m=>[F.asset('地图官方/'+m.id+'.webp'),F.asset('地图官方/'+m.id+'-poster.webp'),F.asset('地图官方/'+m.id+'-poster.webp','thumb'),F.asset('地图官方/'+m.id+'-plan.webp')])))].map(u=>new URL(u,location.href).href);const worker=registration.active||navigator.serviceWorker.controller;worker?.postMessage({type:'CACHE_ASSETS',urls});registration.addEventListener('updatefound',()=>{const w=registration.installing;w?.addEventListener('statechange',()=>{if(w.state==='installed'&&navigator.serviceWorker.controller)toast('发现更新，可在设置中安装。');});});}catch{cacheState='failed';$('cache-status').textContent='离线资源准备失败，可在设置中重试';if($('offline-setting'))$('offline-setting').textContent='准备失败，可重试';}}
+ async function setupOffline(){
+  cacheState='preparing';
+  if(testDatabase){$('cache-status').textContent='隔离验收页 · 离线安装请使用正式入口';return;}
+  if(!('serviceWorker' in navigator)){$('cache-status').textContent='当前浏览器不支持离线缓存';return;}
+  try{
+   registration=await navigator.serviceWorker.register('sw.js?v=20261029-v016',{updateViaCache:'none'});
+   registration.addEventListener('updatefound',()=>{const w=registration.installing;w?.addEventListener('statechange',()=>{if(w.state==='installed'&&navigator.serviceWorker.controller)toast('发现更新，可在设置中安装。');});});
+   await navigator.serviceWorker.ready;
+   await new Promise(resolve=>{if('requestIdleCallback' in window)requestIdleCallback(resolve,{timeout:1800});else setTimeout(resolve,300);});
+   const urls=[...new Set(D.cards.flatMap(p=>[F.photo(p),F.asset(p.photo||'选手半身像/'+p.name+'.png','thumb'),F.asset('队伍logo/'+p.team+'.png'),...p.agents.map(a=>F.asset(p.agentAssets?.[a]||'英雄头像/'+(a==='K/O'?'KO.png':['幻棱','壹决'].includes(a)?a+'.jpg':a+'.png')))]).concat(D.clubs.map(c=>F.asset('队伍logo/'+c+'.png')),Object.keys(window.VM_IMAGE_MANIFEST?.assets||{}).filter(k=>k.startsWith('英雄头像/')).map(k=>F.asset(k)),D.allMaps.flatMap(m=>[F.asset('地图官方/'+m.id+'.webp'),F.asset('地图官方/'+m.id+'-poster.webp'),F.asset('地图官方/'+m.id+'-poster.webp','thumb'),F.asset('地图官方/'+m.id+'-plan.webp')])))].map(u=>new URL(u,location.href).href);
+   const worker=registration.active||navigator.serviceWorker.controller;worker?.postMessage({type:'CACHE_ASSETS',urls});
+  }catch{cacheState='failed';$('cache-status').textContent='离线资源准备失败，可在设置中重试';if($('offline-setting'))$('offline-setting').textContent='准备失败，可重试';}
+ }
  navigator.serviceWorker?.addEventListener('message',e=>{if(e.data?.type==='CACHE_READY'){cacheReady=true;cacheState='ready';$('cache-status').textContent='离线资源已准备好 · '+e.data.count+' 项';if($('offline-setting'))$('offline-setting').textContent='已可离线浏览';}if(e.data?.type==='CACHE_ERROR'){cacheState='failed';$('cache-status').textContent='部分资源未缓存，联网后可重试';if($('offline-setting'))$('offline-setting').textContent='准备失败，可重试';}});
  let controlled=!!navigator.serviceWorker?.controller;navigator.serviceWorker?.addEventListener('controllerchange',()=>{if(controlled)location.reload();controlled=true;});
  const requested=new URLSearchParams(location.search),requestedScene=requested.get('scene'),requestedPage=requested.get('preview');

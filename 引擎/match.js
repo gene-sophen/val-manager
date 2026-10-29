@@ -190,7 +190,6 @@ function* matchGen({ teamA, teamB, map, rng, logger, matchCfg, coachScores, play
     }
     const startingCredits = { A: unitsA.map(u => u.wallet.money), B: unitsB.map(u => u.wallet.money) };
     const buyCtxFor = (teamKey, units) => {
-      const myScore = teamKey === 'A' ? scoreA : scoreB;
       const oppScore = teamKey === 'A' ? scoreB : scoreA;
       const halfKey = secondHalf ? 'second' : 'first';
       return {

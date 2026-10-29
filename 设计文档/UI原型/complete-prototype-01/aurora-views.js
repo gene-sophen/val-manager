@@ -1,6 +1,6 @@
 /* Read-only presentation. Reuse workflow controls and show only current public facts. */
 (() => {
- const D=DEMO,F=FLOW_UI,A=ARCHIVE_UI,R=PROTOTYPE_RULES,esc=F.esc;
+ const D=DEMO,F=FLOW_UI,A=ARCHIVE_UI,esc=F.esc;
  const wrap=(obj,name,fn)=>{const prior=obj[name];obj[name]=(...args)=>fn(prior(...args),...args);};
  const eyebrow=text=>'<span class="aurora-eyebrow">'+esc(text)+'</span>';
  const face=p=>'<img src="'+F.asset(p.photo||'选手半身像/'+p.name+'.png','thumb')+'" alt="'+esc(p.name)+'" width="64" height="80">';

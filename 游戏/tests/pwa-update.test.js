@@ -13,3 +13,14 @@ test('installed navigation and mandatory scripts stay on one cached release unti
  assert.equal(await request('index.html?scene=old','navigate'),'installed-page');assert.equal(await request('app.js?v='+context.version,'cors'),'installed-script');assert.equal(network,0);assert.equal(writes,0);
  assert.equal(await request('optional-image.webp','cors'),'future-network-version');assert.equal(network,1);
 });
+test('an old page can still load its own scripts while the new worker waits for reload',async()=>{
+ const source=fs.readFileSync(path.resolve(__dirname,'../../设计文档/UI原型/complete-prototype-01/sw.js'),'utf8'),listeners={},base='https://example.test/val-manager/设计文档/UI原型/complete-prototype-01/';let network=0;
+ const empty={match:async()=>null,put:async()=>{}},self={location:{href:base+'sw.js',origin:'https://example.test'},addEventListener:(name,fn)=>listeners[name]=fn};
+ const context={self,URL,Response,caches:{open:async()=>empty,match:async request=>new URL(request.url||request,base).search.includes('old')?new Response('previous-release-script'):null},fetch:async()=>{network++;return new Response('mixed-network-version');}};vm.createContext(context);vm.runInContext(source,context);
+ let response;listeners.fetch({request:{method:'GET',url:new URL('app.js?v=old',base).href,mode:'cors'},respondWith:value=>response=value});assert.equal(await(await response).text(),'previous-release-script');assert.equal(network,0);
+});
+test('activation retains one previous release and removes only older caches',async()=>{
+ const source=fs.readFileSync(path.resolve(__dirname,'../../设计文档/UI原型/complete-prototype-01/sw.js'),'utf8'),listeners={},removed=[];let activation;
+ const self={location:{href:'https://example.test/sw.js',origin:'https://example.test'},clients:{claim:async()=>{}},addEventListener:(name,fn)=>listeners[name]=fn};const context={self,URL,Response,caches:{keys:async()=>['vm-ui-complete-v011','vm-ui-complete-v013','vm-ui-complete-v012'],delete:async key=>removed.push(key)},fetch:async()=>{throw Error('unused');}};vm.createContext(context);vm.runInContext(source,context);
+ listeners.activate({waitUntil:value=>activation=value});await activation;assert.deepEqual(removed,['vm-ui-complete-v011','vm-ui-complete-v013']);
+});

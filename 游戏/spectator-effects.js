@@ -18,5 +18,19 @@
    }
   }return out;
  }
- return {shots,abilities};
+ function objective(events,tick,map={}){
+  const past=events.filter(e=>e.t>=0&&e.t<=tick),plant=past.find(e=>e.type==='plant'),end=past.find(e=>e.type==='round_end'),defused=past.find(e=>e.type==='defuse'),position=plant&&(finite(plant)?{x:plant.x,y:plant.y}:map.nodes?.[plant.node]);
+  if(defused||end?.reason==='defuse')return {state:'defused',label:'拆包完成',site:plant?.site,position,progress:1,remaining:0};
+  if(end?.reason==='explosion')return {state:'exploded',label:'爆能器引爆',site:plant?.site,position,progress:1,remaining:0};
+  if(end?.reason==='timeout')return {state:'timeout',label:'进攻超时',site:plant?.site,position,progress:0,remaining:0};
+  if(end)return {state:'ended',label:'回合结束',site:plant?.site,position,progress:0,remaining:0};
+  if(plant){
+   const full=map.roundRules?.defuseTicks||7,remaining=Math.max(0,plant.t+(plant.spikeTicks||45)-tick),start=past.filter(e=>e.type==='defuse_start').at(-1),abort=past.filter(e=>e.type==='defuse_abort').at(-1),checkpoint=past.filter(e=>e.type==='defuse_checkpoint').at(-1);
+   if(start&&(!abort||start.t>abort.t)){const base=Math.max(0,full-(start.seconds||full)),elapsed=Math.max(0,Math.min(start.seconds||full,tick-start.t));return {state:'defusing',label:'拆包中',site:plant.site,position,progress:clamp((base+elapsed)/full),remaining};}
+   return {state:'planted',label:'已下包',site:plant.site,position,progress:checkpoint?clamp((checkpoint.seconds||0)/full):0,remaining};
+  }
+  const start=past.filter(e=>e.type==='plant_start').at(-1);if(start)return {state:'planting',label:'下包中',site:null,position:null,progress:clamp((tick-start.t)/(map.roundRules?.plantTicks||4)),remaining:0};
+  return {state:'idle',label:'未下包',site:null,position:null,progress:0,remaining:0};
+ }
+ return {shots,abilities,objective};
 });

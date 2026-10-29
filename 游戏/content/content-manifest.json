@@ -20,12 +20,12 @@
     "tomaszy-card"
   ],
   "hashes": {
-    "游戏/content/rosters/2026-production-v1.json": "b964b58db5c2bb19282b7f6bf459a12a656a25d918b579b9ef83dff0a6472300",
-    "游戏/content/maps.json": "680d8facd86f5ecb790d248d5dca2237866ec38929d821a327251584f7f84931",
-    "游戏/content/coaches.json": "18f32bb01c732311b354ae67383d95c8d02926db6ac5cc529f0a4f1db7df71fa",
-    "游戏/content/rules.json": "4a04e3d5fcbc3539b94a0e1396a9c1d8e3f5ab6f97d9206f333a9cfcefc6b9e0",
-    "游戏/content/packs.json": "2167f3ee8c760b32459b8a28c64abb428b6a661d3d3d7e729d65ecd59668ca97",
-    "数据源/cards_full.json": "42d594d24d28a142c3175c6cc3abbafe5dd31cb02a3e426bfce64a0a515d903f",
-    "数据源/diamond_cards.json": "26885c6c8569cb09688315df0659a90cfcef3be3671c8cd47f9e568f99a569fe"
+    "游戏/content/rosters/2026-production-v1.json": "73d5a3ad79925593c8394b838a120d6b48e51dbaca749de93313f78519e9ebef",
+    "游戏/content/maps.json": "2dbd563925dd2b66fd3f6c9f836e16c75d1fc9568190f44c74cfdc4ccf3c8ba6",
+    "游戏/content/coaches.json": "0cc071cb27f4a3beafc3ca52ec9cd4aa626841cbc3db108176807005a4a4eb53",
+    "游戏/content/rules.json": "fd083a4d4b6340f4f543149227c32e0912fd0429c630ebc8e1ec667daccbeff5",
+    "游戏/content/packs.json": "ad6cd699d09b7bf6466a0df21f7455ed1d5986fc7132181f7538ed51ad44cfda",
+    "数据源/cards_full.json": "f5c6b00e7aa9c0c8b38d77bb927411cdc7e56482cddbee23449c4a8df7f135ca",
+    "数据源/diamond_cards.json": "954eed6b1b55d560f5b0628ade5802137d2b0c6ebac9a1089ad1f6b73ccda36b"
   }
 }

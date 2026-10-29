@@ -1,6 +1,4 @@
 // 英雄分配：每队 5 人从各自英雄池内分配互不重复的特工；分配不了则用池外（低熟练度）
-const path = require('path');
-
 let AGENT_NAMES = null;
 function allAgents() {
   if (!AGENT_NAMES) {

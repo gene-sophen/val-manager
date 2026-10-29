@@ -123,7 +123,7 @@ function defCandidates(u){
   }
   return null;
  }
- const site=this.map.siteNode(this.plantSite),goal=this.spike.position;
+ const goal=this.spike.position;
  if(this.defuser?.alive&&this.defuser.defusing>0&&this.defuser!==u){
   if(distance(u.position,goal)>110&&!this.visibleEnemiesAt(u).length)return [{action:'approachSpike',prior:100,objective:true}];
   return [{action:'hold',prior:100,objective:true,guardSpike:true}];

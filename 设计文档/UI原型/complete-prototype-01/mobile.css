@@ -84,7 +84,6 @@
 .spatial-replay .plain-details{margin:0 10px 10px}
 .spatial-roster{padding:8px;font-size:11px}
 .watch-round{margin:0 0 10px}
-.balance-dialog{;}
 .balance-dialog>header{position:sticky;top:0;z-index:5;background:#fff}
 .balance-dialog>header>strong{min-width:0;overflow-wrap:anywhere}
 .balance-dialog #dialog-body{padding:14px;min-width:0}
