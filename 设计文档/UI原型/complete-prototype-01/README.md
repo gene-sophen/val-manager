@@ -1,6 +1,6 @@
 # 正式征战前端
 
-当前版本 **v0.17**，一键结算、多钻阵容、统一随机种子与移动端交互优化。入口为[index.html](index.html)，与[手机PWA](https://gene-sophen.github.io/val-manager/)使用同一运行代码。
+当前版本 **v0.18**，一键结算、多钻阵容、统一随机种子与移动端交互优化。入口为[index.html](index.html)，与[手机PWA](https://gene-sophen.github.io/val-manager/)使用同一运行代码。
 
 选择CN主队→三包逐张或快速开卡→选一包选五人→地图BP/特工/攻防排序→比赛暂停与中场执教→阶段结算和两次补强→赛年收藏、熟识、荣誉与继承。
 
