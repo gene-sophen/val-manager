@@ -16,7 +16,6 @@ function registerFive(run, selection, candidates) {
   const cards = instances.map(i => resolveRunCard(run, i.cardId));
   if (new Set(cards.map(c => c.playerId)).size !== 5) throw new Error('同名选手不能同时上场');
   if (cards.some(c => c.region !== 'CN')) throw new Error('征战阵容只使用 CN 卡库');
-  if (cards.filter(c => c.tier === '钻').length > 1) throw new Error('每队最多一张钻卡');
   const igl = cards.findIndex(c => c.igl);
   return {
     name: typeof selection.name === 'string' ? selection.name.trim().slice(0, 30) || '我的战队' : run.registeredLineup?.name || '我的战队',

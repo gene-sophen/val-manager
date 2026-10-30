@@ -41,13 +41,13 @@ test('lineup blocks missing cards, duplicate players and duplicate agents', () =
   assert.throws(() => buildLineup(run, { ...selection, tactics: { atk: { rush: -1 }, def: { hold: 1 } } }), /无效/);
 });
 
-test('two diamond versions cannot be registered together', () => {
+test('multiple different diamond players can register together', () => {
   const { run, selection } = fixture();
   const diamonds = catalog.cards.filter(card => card.tier === '钻').slice(0, 2);
   diamonds.forEach((card, index) => {
     run.ownedCards[index] = { instanceId: `i-${index}`, cardId: card.cardId, playerId: card.playerId };
   });
-  assert.throws(() => buildLineup(run, selection), /最多一张钻卡/);
+  assert.doesNotThrow(() => buildLineup(run, selection));
 });
 
 test('manual coach setup keeps confirmed tactics and IGL', () => {

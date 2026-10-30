@@ -1,6 +1,6 @@
 # VAL MANAGER
 
-当前版本 **v0.16**：全项目静态审计、死代码清理、观赛生命周期与目标边界修正。旧赛年保持原规则；iQOO Neo10 / OriginOS 6 真机滑动与性能仍待复验。
+当前版本 **v0.17**：一键结算、多钻阵容、统一随机种子、卡面信息与移动端交互/性能优化。旧赛年保持原规则；iQOO Neo10 / OriginOS 6 真机滑动与性能仍待复验。
 
 [手机试玩](https://gene-sophen.github.io/val-manager/) · [完整目录导航](docs/PROJECT_LAYOUT.md) · [当前玩法设计](设计文档/01_当前设计/征战模式重做定案与待确认事项.md)
 

@@ -29,7 +29,7 @@ function buildLineup(run, selection) {
   });
   const cards = instances.map(item => catalog.getCard(item.cardId));
   if (new Set(cards.map(card => card.playerId)).size !== rules.run.lineupSize) throw new Error('同名选手不能同时上场');
-  if (cards.filter(card => card.tier === '钻').length > rules.run.maxDiamondInLineup) throw new Error('每队最多一张钻卡');
+  if (cards.filter(card => card.tier === '钻').length > rules.run.maxDiamondInLineup) throw new Error('钻卡数量超出阵容上限');
   if (!selection.iglInstanceId || !selection.instanceIds.includes(selection.iglInstanceId)) throw new Error('IGL 必须是上场选手');
   const agents = selection.agentAssignments || {};
   const validAgents = new Set(allAgents());

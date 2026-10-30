@@ -8,7 +8,7 @@
     "startingPacks": [{ "tier": "starter", "count": 1, "cardsPerPack": 10 }],
     "emergencyPackLimit": 1,
     "lineupSize": 5,
-    "maxDiamondInLineup": 1,
+    "maxDiamondInLineup": 5,
     "duplicateInstancesRaiseStats": false,
     "smallGrowthAfterFixtures": [1, 2, 3],
     "stageGrowthAfterFixtures": [2],

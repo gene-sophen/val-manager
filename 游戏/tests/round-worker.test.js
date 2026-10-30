@@ -26,3 +26,8 @@ test('progress messages do not resolve jobs and cancelled replay messages are ig
 test('skipping the unfinished current replay preserves its score, growth and pause window',()=>{
  const s={year:1,matchToken:'one',map:0,round:1,coachWindow:'opponent',playing:true,liveMaps:[{spatial:{},rounds:[{number:1,home:1,away:0}]}]};let skipped=0;const R={skipReplay:()=>skipped++};assert(P.skipCurrent(s,R));assert.equal(s.round,1);assert.equal(s.coachWindow,'opponent');assert.equal(P.mode(s).replay,false);assert.equal(P.skipCurrent(s,R),false);assert.equal(skipped,1);
 });
+test('fast settlement continues from the current state without reconstructing prior rounds',async()=>{
+ const x=H.load('worker-settle',{spatial:true}),R=x.PROTOTYPE_RULES,a=H.begin(x);H.veto(x,a);a.run='match';a.agents[0]=Object.fromEntries(a.roster.map((k,i)=>[k,x.AGENT_SELECTION.recommend(x.FLOW_UI.lineup(a),x.CN_CONTENT.agents,R.mapsFor(a)[0]).agents[i]]));R.startMap(a);for(let i=0;i<4;i++)R.stepRound(a);const b=JSON.parse(JSON.stringify(a)),before=a.round,client=Client.create({spawn}),progress=[];
+ try{let input;while(!R.mapOver(a)){input=R.roundInput(a);const result=await client.run('settle-current',input,{operation:'settle',onProgress:p=>progress.push(p)});Object.assign(input.m,result.map);R.commitRound(a,result.round,true);}while(!R.mapOver(b))R.stepRound(b);assert.equal(JSON.stringify(a.liveMaps),JSON.stringify(b.liveMaps));assert.equal(a.round,before+input.m.rounds.length-before);assert(R.mapOver(a));assert(!progress.some(p=>p.phase==='recover'));}
+ finally{client.cancel();}
+});

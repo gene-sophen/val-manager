@@ -69,9 +69,8 @@
 .balance-dialog :is(.scene-list,.page-list){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
 .balance-dialog :is(.scene-list,.page-list)>button{min-width:0;min-height:44px;overflow-wrap:anywhere;}
 .app-phone .card-thumb{display:grid;grid-template-rows:auto auto;aspect-ratio:auto;text-align:center;}
-.app-phone .card-thumb img{aspect-ratio:2/3;width:100%;height:auto;}
-.app-phone .card-thumb b{top:4px;right:4px;bottom:auto;font-size:11px;padding:3px 4px;}
-.app-phone .thumb-name{display:block;width:100%;min-width:0;padding:5px 3px;min-height:24px;font-size:10px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.app-phone .thumb-visual{display:block;position:relative;overflow:hidden;border-radius:10px;background:var(--vm-soft)}.app-phone .thumb-visual>img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:50% 15%}.app-phone .thumb-visual>b{position:absolute;top:4px;right:4px;bottom:auto;font-size:11px;padding:3px 4px;}
+.app-phone .thumb-info{display:grid;gap:4px;padding:6px 4px}.app-phone .thumb-name{display:block;width:100%;min-width:0;padding:0;min-height:18px;font-size:11px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}.app-phone .thumb-agents{display:flex;justify-content:flex-start;gap:4px;min-height:20px}.app-phone .thumb-agents img{width:20px;height:20px;border-radius:5px}.app-phone .thumb-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;font-size:10px;color:var(--vm-muted)}.app-phone .thumb-stats>span{white-space:nowrap;text-align:center}.app-phone .thumb-stats b{position:static;min-width:0;padding:0;border:0;border-radius:0;background:transparent;color:var(--vm-ink);font-size:inherit;line-height:inherit;font-variant-numeric:tabular-nums}
 .app-phone .thumb-pick{padding:8px 2px;white-space:normal;font-size:10px;}
 .app-phone .thumb-select{min-width:0;padding:2px;}
 .app-phone .thumb-select.selected{outline:2px solid #79bddf;outline-offset:1px;}

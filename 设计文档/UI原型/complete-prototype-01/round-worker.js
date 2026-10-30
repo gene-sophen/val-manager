@@ -7,8 +7,9 @@ self.onmessage=({data})=>{
  try{
   if(!active||active.key!==key||active.map.rounds.length!==input.m.rounds.length)active={key,map:input.m};
   else Object.assign(active.map,input.m);
-  if(active.map.rounds.length){progress({phase:'recover',completed:0,total:active.map.rounds.length});active.map.replay=SPATIAL_MATCH.recover(active.map,p=>progress({phase:'recover',...p}));}
+  if(active.map.rounds.length&&operation!=='settle'){progress({phase:'recover',completed:0,total:active.map.rounds.length});active.map.replay=SPATIAL_MATCH.recover(active.map,p=>progress({phase:'recover',...p}));}
   if(operation==='replay'){self.postMessage({id,map:active.map,replay:active.map.replay});return;}
+  if(operation==='settle'){progress({phase:'settle',completed:active.map.rounds.length});const round=SPATIAL_MATCH.step(active.map,input.home,input.rival,input.priorities,input.agents);self.postMessage({id,map:active.map,round});return;}
   progress({phase:'compute',number:active.map.rounds.length+1});
   const round=SPATIAL_MATCH.step(active.map,input.home,input.rival,input.priorities,input.agents);
   self.postMessage({id,map:active.map,round});

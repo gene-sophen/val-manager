@@ -4,7 +4,7 @@
   "run": {
     "scope": "eight-stage-season",
     "lineupSize": 5,
-    "maxDiamondInLineup": 1,
+    "maxDiamondInLineup": 5,
     "startingPacks": [
       {
         "tier": "starter",
