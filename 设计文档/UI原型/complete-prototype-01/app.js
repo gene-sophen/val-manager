@@ -9,9 +9,9 @@
  let previewMode=false; let s=D.seed(),path='',view=null,filterDraft=null,timer=null,toastTimer=null,installPrompt=null,registration=null,cacheReady=false,focusNext='',returnFocus='',disclosures={},storageError=null,pendingImport=null;
  let preserveSeasonRoute=false;
  let roundBusy=false,roundError='',roundJob=0,careerBusy=false,seasonBusy=false,seasonJob=0,seasonProgress=null,seriesSettling=false,updateBusy=false,updateText='';
- const seasonWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('season-worker.js?v=20261030-v018',document.baseURI)),timeout:120000});
+ const seasonWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('season-worker.js?v=20261030-v020',document.baseURI)),timeout:120000});
  let modalOpener=null,cacheState='preparing',saving=0,work=null,replayFailedToken='',renderFault=null,backupLibrary=[],backupOrigin=null,persistTimer=null;
- const roundWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('round-worker.js?v=20261030-v018',document.baseURI))});
+ const roundWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('round-worker.js?v=20261030-v020',document.baseURI))});
  const testInitial=testDatabase?document.getElementById('career-test-initial')?.textContent:null;
  const bridge=CAREER_STORE.contentBridge(D,R,CN_CONTENT),durable=CAREER_STORE.create({indexedDB:window.indexedDB,...(testDatabase?{databaseName:testDatabase,test:true}:{}),legacyStorage:{getItem:key=>window.localStorage.getItem(key)},legacyKey:STORE,freeze:bridge.freeze,initial:()=>testInitial?JSON.parse(testInitial):D.seed()});
  const previewDurable=CAREER_STORE.create({indexedDB:window.indexedDB,databaseName:(testDatabase||'val-manager-complete-career-v1')+'-preview',test:!!testDatabase,legacyStorage:{getItem:key=>window.localStorage.getItem(key)},legacyKey:PREVIEW_STORE,freeze:bridge.freeze,initial:()=>D.seed()});let previewReady;const loadPreview=()=>previewReady||(previewReady=previewDurable.load());
@@ -59,7 +59,7 @@
    const progress=s.pendingTimeout?'暂停申请待本分完成后判定':roundBusy&&work?.phase==='recover'?'历史核对 '+(work.completed||0)+'/'+(work.total||0)+' 分':saving?'正在保存本分进度':model.state==='replaying'?'已保存到第 '+s.round+' 分 · 回放 '+s.speed+'×':savedText();if(detail&&detail.textContent!==progress)detail.textContent=progress;
    if(path==='campaign/match'&&announcedState!==model.state){announcedState=model.state;if($('match-announcement'))$('match-announcement').textContent=model.label;}
   }
-  const saved=$('persistent-save');if(saved){saved.hidden=path==='campaign/match'||path==='archive/settings'||s.run==='none'&&!storageError;const text=(storageError?'保存失败 · ':saving?'正在保存 · ':'')+savedText();if(saved.textContent!==text)saved.textContent=text;}
+  const saved=$('persistent-save');if(saved){saved.hidden=!storageError;const text=(storageError?'保存失败 · ':saving?'正在保存 · ':'')+savedText();if(saved.textContent!==text)saved.textContent=text;}
   if($('save-state')){const c=activeStore().checkpoint(),text=c?'第 '+c.year+' 赛年 · '+(D.phases[c.phase]||'征战')+'\n'+savedText():'尚未确认成功保存；原始记录不会被替换';if($('save-state').textContent!==text)$('save-state').textContent=text;if($('save-badge'))$('save-badge').textContent=storageError?'△ 保存失败':saving?'保存中':c?'✓ 已保存':'尚未确认';if($('settings-save-error'))$('settings-save-error').hidden=!storageError;}
   for(const b of document.querySelectorAll('[data-action="play-toggle"]')){b.textContent=s.playing?'停止自动推进':roundBusy?'停止本分后的推进':'自动推进';b.setAttribute('aria-pressed',String(s.playing));}
   if(model.primaryAction.action==='next-round')for(const b of document.querySelectorAll('#subpage-dock [data-action=next-round]'))b.textContent=model.primaryAction.label;
@@ -378,7 +378,7 @@
   if(testDatabase){$('cache-status').textContent='隔离验收页 · 离线安装请使用正式入口';return;}
   if(!('serviceWorker' in navigator)){$('cache-status').textContent='当前浏览器不支持离线缓存';return;}
   try{
-   registration=await navigator.serviceWorker.register('sw.js?v=20261030-v018',{updateViaCache:'none'});
+   registration=await navigator.serviceWorker.register('sw.js?v=20261030-v020',{updateViaCache:'none'});
    registration.addEventListener('updatefound',()=>{const w=registration.installing;w?.addEventListener('statechange',()=>{if(w.state==='installed'&&navigator.serviceWorker.controller)toast('发现更新，可在设置中安装。');});});
    await navigator.serviceWorker.ready;
    await new Promise(resolve=>{if('requestIdleCallback' in window)requestIdleCallback(resolve,{timeout:1800});else setTimeout(resolve,300);});
