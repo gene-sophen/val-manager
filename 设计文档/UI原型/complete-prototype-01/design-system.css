@@ -347,3 +347,311 @@
  .app-phone .current-task>.blue-button:hover{border-color:#eaf0ff;background:#eaf0ff;color:#2448b8}
  .app-phone .current-task>.quiet-button:hover{background:rgba(255,255,255,.08)}
 }
+
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb){
+ --tint:#f4ead5;--tone:#7d5b20;--rim:#d7bd80;--wall:#b89a5c;--pattern:rgba(125,91,32,.09);
+ container-type:inline-size;position:relative;display:grid;grid-template-rows:55% 14% 12% 19%;gap:0;width:100%;min-width:0;min-height:0;aspect-ratio:4/5;padding:1.5cqw;overflow:hidden;border:1px solid var(--rim);border-radius:clamp(7px,4cqw,14px);background:#fff;color:var(--vm-ink);box-shadow:0 1px 0 var(--wall),0 8px 20px rgba(24,38,60,.08);text-align:center
+}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb)[data-tier=银]{--tint:#e9eef3;--tone:#4e6376;--rim:#b9c6d1;--wall:#93a6b5;--pattern:rgba(78,99,118,.09)}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb)[data-tier=铜]{--tint:#f0e4da;--tone:#7f5941;--rim:#ceb09a;--wall:#a98469;--pattern:rgba(127,89,65,.09)}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb)[data-tier=钻]{--tint:#e5f3f5;--tone:#236579;--rim:#83ccd7;--wall:#5da4b6;--pattern:rgba(35,101,121,.1)}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .portrait-space{position:relative;display:block;width:100%;height:100%;aspect-ratio:auto;overflow:hidden;border-radius:clamp(5px,3cqw,10px);background:radial-gradient(ellipse at 50% 30%,rgba(255,255,255,.8),transparent 64%),var(--tint)}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .portrait-space::before{content:none}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .card-team-word{position:absolute;right:0;bottom:4%;left:0;overflow:hidden;color:var(--pattern);font-family:var(--vm-display);font-size:22cqw;font-weight:900;letter-spacing:-.08em;line-height:.8;text-align:center;white-space:nowrap}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .balance-portrait{position:absolute;bottom:0;left:12%;z-index:1;width:76%;height:88%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 4px 5px rgba(24,38,60,.08))}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb)[data-tier=钻] .balance-portrait{left:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;filter:none}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .balance-rating{position:absolute;top:6%;left:6%;z-index:2;display:flex;flex-direction:column;align-items:flex-start;color:var(--tone);font-family:var(--vm-display);line-height:.9}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .balance-rating b{font-size:clamp(13px,10cqw,30px);font-weight:850;letter-spacing:-.06em}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .balance-rating small{margin-top:1.2cqw;font-size:clamp(6px,2.6cqw,9px);font-weight:700}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .balance-team{position:absolute;top:6%;right:6%;z-index:2;width:clamp(15px,12cqw,36px);height:clamp(15px,12cqw,36px);padding:1.2cqw;border:1px solid rgba(255,255,255,.8);border-radius:50%;background:rgba(255,255,255,.86);box-shadow:0 2px 6px rgba(24,38,60,.08);object-fit:contain}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .player-event{position:absolute;right:0;bottom:0;left:0;z-index:2;padding:1.2cqw;background:rgba(21,36,59,.72);color:#fff;font-size:clamp(6px,2.8cqw,10px);font-weight:600;line-height:1.3;text-align:center}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .balance-identity{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;overflow:hidden}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .balance-name{display:block;max-width:100%;margin:0;padding:0 1cqw;overflow:hidden;color:var(--vm-ink);font-family:var(--vm-display);font-size:clamp(10px,7.5cqw,24px);font-weight:800;letter-spacing:-.025em;line-height:1.15;text-overflow:ellipsis;white-space:nowrap}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .balance-club{display:block;max-width:96%;margin-top:.6cqw;overflow:hidden;color:var(--vm-muted);font-size:clamp(6px,2.9cqw,10px);line-height:1.2;text-overflow:ellipsis;white-space:nowrap}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .player-signature{display:flex;align-items:center;justify-content:center;gap:1.6cqw;min-width:0;padding:0 1cqw;overflow:hidden}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .balance-agents{display:flex;flex:none;align-items:center;justify-content:center;gap:1.2cqw;width:auto;margin:0}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .signature-portrait{display:flex;border-radius:26%}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .balance-agents img{width:clamp(11px,8cqw,30px);height:clamp(11px,8cqw,30px);border:1px solid var(--rim);border-radius:26%;background:#f1f4f8;object-fit:cover}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) :is(.player-trait,.player-moment){display:flex;align-items:center;justify-content:center;min-width:0;max-width:46%;margin:0;padding:1cqw 1.6cqw;border:1px solid color-mix(in srgb,var(--rim) 58%,#fff);border-radius:1.8cqw;background:color-mix(in srgb,var(--tint) 60%,#fff);color:var(--tone);font-size:clamp(7px,3.2cqw,12px);line-height:1.2}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) :is(.player-trait,.player-moment) strong{overflow:hidden;font-weight:700;text-overflow:ellipsis;white-space:nowrap}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) :is(.player-trait,.player-moment)>svg,:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .player-moment small{display:none}
+:is(.app-phone,.balance-dialog) .card-thumb :is(.player-trait,.player-moment,.player-event){display:none}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .players-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-self:stretch;align-items:center;width:100%;height:auto;margin:0;padding:0;overflow:hidden;border:1px solid color-mix(in srgb,var(--rim) 55%,#fff);border-radius:clamp(4px,2.4cqw,9px);background:color-mix(in srgb,var(--tint) 40%,#fff)}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .players-metrics>span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7cqw;min-width:0;height:100%;border-right:1px solid color-mix(in srgb,var(--rim) 45%,#fff)}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .players-metrics>span:last-child{border-right:0}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .players-metrics b{color:var(--vm-ink);font-family:var(--vm-display);font-size:clamp(9px,6.2cqw,24px);font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .players-metrics small{color:var(--vm-muted);font-size:clamp(6px,2.8cqw,10px);line-height:1.1}
+:is(.app-phone,.balance-dialog) .detail-card-wrap.players-grid{display:block;max-width:280px;margin:auto;padding:0}
+:is(.app-phone,.balance-dialog) .quality-reveal .detail-card-wrap.players-grid{width:100%;max-width:224px}
+.app-phone .paper-pack-demo{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:184px;height:232px;margin:24px auto 20px;padding:18px;overflow:hidden;border:1px solid #476185;border-radius:16px;background:#182b49;color:#fff;box-shadow:0 16px 32px rgba(21,36,59,.18);transform:none;text-align:center}
+.app-phone .paper-pack-demo::before{content:'';position:absolute;inset:-40% -70%;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.09) 50%,transparent 58%);transform:translateX(-20%);pointer-events:none}
+.app-phone .pack-edition{position:absolute;top:14px;left:16px;color:#b7c8df;font-family:var(--vm-display);font-size:9px;letter-spacing:.08em}
+.app-phone .pack-emblem{position:relative;display:grid;place-items:center;width:66px;height:66px;margin-bottom:18px;border:1px solid #83a5e8;transform:rotate(45deg)}
+.app-phone .pack-emblem i{position:absolute;inset:7px;border:1px solid rgba(131,165,232,.35)}
+.app-phone .pack-emblem b{color:#fff;font-family:var(--vm-display);font-size:22px;transform:rotate(-45deg)}
+.app-phone .paper-pack-demo>strong{position:relative;font-size:20px;font-weight:700}
+.app-phone .paper-pack-demo>small{position:static;margin-top:8px;padding:0;background:transparent;color:#b7c8df;font-size:10px}
+.app-phone .batch-actions{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.app-phone .batch-actions .text-action{font-size:12px}
+:is(.app-phone,.balance-dialog) .quality-reveal{--glow:#b8c3d2;--wash:#243147;--lead:.16s;--turn:.42s;--intro:.58s;position:relative;isolation:isolate;min-height:340px;margin:10px 0 4px;padding:22px 12px 26px;overflow:hidden;border:1px solid #2d405e;border-radius:20px 20px 7px 20px;background:#111e33;perspective:900px}
+:is(.app-phone,.balance-dialog) .quality-reveal.tier-silver{--glow:#b7cfdf;--wash:#243c52;--lead:.2s;--turn:.48s;--intro:.68s}
+:is(.app-phone,.balance-dialog) .quality-reveal.tier-gold{--glow:#f0c86c;--wash:#4a3a1c;--lead:.24s;--turn:.58s;--intro:.82s}
+:is(.app-phone,.balance-dialog) .quality-reveal.tier-diamond{--glow:#7de4ee;--wash:#282c59;--lead:.3s;--turn:.7s;--intro:1s}
+:is(.app-phone,.balance-dialog) .quality-reveal .reveal-card{position:relative;z-index:2;width:224px;max-width:calc(100% - 16px);margin:auto;animation:none;opacity:0;transform:translateY(12px) scale(.96);transform-origin:50% 70%}
+:is(.app-phone,.balance-dialog) .quality-reveal.reveal-ready .reveal-card{animation:mobile-reveal-card var(--turn) var(--lead) cubic-bezier(.2,.7,.3,1) both}
+:is(.app-phone,.balance-dialog) .quality-reveal .reveal-prelude{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;color:#fff;pointer-events:auto}
+:is(.app-phone,.balance-dialog) .reveal-pack-back{position:relative;display:flex;align-items:center;justify-content:center;width:152px;height:196px;border:1px solid #4c668e;border-radius:14px;background:#1b304f;box-shadow:0 18px 38px rgba(0,0,0,.22);color:#fff}
+:is(.app-phone,.balance-dialog) .reveal-pack-back::before{content:'';position:absolute;inset:9px;border:1px solid rgba(143,179,255,.18);border-radius:9px}
+:is(.app-phone,.balance-dialog) .reveal-pack-back i{color:#8fb3ff;font-family:var(--vm-display);font-size:32px;font-style:normal;font-weight:800}
+:is(.app-phone,.balance-dialog) .reveal-pack-back b{position:absolute;bottom:20px;font-family:var(--vm-display);font-size:18px}
+:is(.app-phone,.balance-dialog) .reveal-pack-back small{position:absolute;top:16px;color:#aebed6;font-size:8px;letter-spacing:.12em}
+:is(.app-phone,.balance-dialog) .reveal-invoke{min-width:132px;min-height:44px;padding:10px 18px;border:1px solid #7691c4;border-radius:999px;background:#fff;color:#1c3c78;font-size:13px;font-weight:700;box-shadow:none}
+:is(.app-phone,.balance-dialog) .quality-reveal.reveal-ready .reveal-prelude{animation:mobile-reveal-prelude var(--intro) ease both;pointer-events:none}
+:is(.app-phone,.balance-dialog) .quality-reveal.reveal-ready .reveal-pack-back{animation:reveal-pack-open var(--intro) ease both}
+:is(.app-phone,.balance-dialog) .quality-reveal .reveal-aura{position:absolute;inset:0;z-index:1;overflow:hidden;opacity:0;pointer-events:none}
+:is(.app-phone,.balance-dialog) .quality-reveal.reveal-ready .reveal-aura{opacity:1}
+:is(.app-phone,.balance-dialog) .quality-reveal .reveal-ring{position:absolute;top:50%;left:50%;width:180px;height:180px;margin:-90px;border:1px solid var(--glow);border-radius:50%;opacity:0}
+:is(.app-phone,.balance-dialog) .quality-reveal.reveal-ready .reveal-ring{animation:reveal-ring-focus var(--intro) ease-out both}
+:is(.app-phone,.balance-dialog) .quality-reveal .reveal-ring.second{display:none}
+:is(.app-phone,.balance-dialog) .quality-reveal:is(.tier-silver,.tier-gold,.tier-diamond) .reveal-ring.second{display:block;animation-delay:.08s}
+:is(.app-phone,.balance-dialog) .quality-reveal.tier-diamond .reveal-ring{border-radius:24%}
+:is(.app-phone,.balance-dialog) .quality-reveal .reveal-beam{position:absolute;top:-30%;left:50%;width:70px;height:160%;background:linear-gradient(90deg,transparent,var(--glow),transparent);filter:blur(4px);opacity:0;transform:rotate(24deg) translateX(-180px)}
+:is(.app-phone,.balance-dialog) .quality-reveal:is(.tier-gold,.tier-diamond).reveal-ready .reveal-beam{animation:reveal-light-cut var(--intro) ease-out both}
+:is(.app-phone,.balance-dialog) .quality-reveal .reveal-spark{position:absolute;top:50%;left:50%;width:4px;height:4px;border-radius:50%;background:var(--glow);opacity:0}
+:is(.app-phone,.balance-dialog) .quality-reveal.reveal-ready .reveal-spark{animation:reveal-spark-flight var(--intro) ease-out both}
+:is(.app-phone,.balance-dialog) .quality-reveal:is(.tier-gold,.tier-diamond) .reveal-spark:nth-child(odd){width:10px;height:10px;clip-path:polygon(50% 0,65% 35%,100% 50%,65% 65%,50% 100%,35% 65%,0 50%,35% 35%)}
+:is(.app-phone,.balance-dialog) .quality-reveal .reveal-skip{position:absolute;right:8px;bottom:4px;z-index:4;min-height:44px;padding:8px;border:0;background:transparent;color:#b7c5d8;font-size:11px;opacity:0;pointer-events:none}
+:is(.app-phone,.balance-dialog) .quality-reveal.reveal-ready .reveal-skip{opacity:1;pointer-events:auto}
+:is(.app-phone,.balance-dialog) .quality-reveal.reveal-complete .reveal-card{animation:none;opacity:1;transform:none}
+:is(.app-phone,.balance-dialog) .quality-reveal.reveal-complete :is(.reveal-prelude,.reveal-aura,.reveal-skip){display:none}
+.app-phone .reveal-page.page-pad,.app-phone .batch-reveal.page-pad{padding-top:14px}
+.app-phone .reveal-progress{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;color:var(--vm-muted);font-size:12px}
+.app-phone .reveal-progress strong{font-family:var(--vm-display);font-size:14px;font-variant-numeric:tabular-nums}
+.app-phone .reveal-caption{margin:10px 0 0;color:var(--vm-muted);font-size:12px;text-align:center}
+.app-phone .reveal-page:has(.quality-reveal:not(.reveal-complete)) .reveal-caption{visibility:hidden}
+.app-phone #page-body:has(.quality-reveal:not(.reveal-complete)) .recent-reveals{display:none}
+.app-phone .recent-reveals{margin:14px 16px 0}
+.app-phone .recent-reveals h4{display:flex;align-items:center;justify-content:space-between;margin:0 0 8px;color:var(--vm-muted);font-size:12px;font-weight:600}
+.app-phone .recent-reveals h4 span{font-family:var(--vm-display)}
+.app-phone .recent-reveal-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.app-phone .batch-spotlight{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;align-items:center;margin-top:8px;padding:16px;overflow:hidden;border:1px solid #304664;border-radius:20px 20px 7px 20px;background:#14243d;color:#fff}
+.app-phone .batch-spotlight[data-tier=金]{border-color:#8c7646}
+.app-phone .batch-spotlight[data-tier=钻]{border-color:#65cbd8;background:linear-gradient(135deg,#14243d,#26355b)}
+.app-phone .batch-spotlight-card.players-grid{max-width:none;margin:0;padding:0}
+.app-phone .batch-result>span{color:#a9bad2;font-size:11px}
+.app-phone .batch-result h3{margin:6px 0 4px;color:#fff;font-family:var(--vm-display);font-size:24px;line-height:1.2}
+.app-phone .batch-result p{margin:0;color:#c2cfdf;font-size:12px}
+.app-phone .batch-counts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:16px}
+.app-phone .batch-counts>span{display:flex;align-items:baseline;gap:5px;padding:6px 8px;border:1px solid #3c506e;border-radius:8px}
+.app-phone .batch-counts b{font-family:var(--vm-display);font-size:18px}
+.app-phone .batch-counts small{color:#b3c2d6;font-size:10px}
+.app-phone .batch-gallery-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:20px 0 10px}
+.app-phone .batch-gallery-heading h3{margin:0;font-size:16px}
+.app-phone .batch-gallery-heading>span{color:var(--vm-muted);font-size:11px}
+.app-phone .batch-gallery>div{min-width:0;animation:batch-card-in .36s calc(var(--i)*35ms) both}
+.app-phone .batch-spotlight-card .balance-card{animation:batch-spotlight-in .55s cubic-bezier(.2,.7,.3,1) both}
+@keyframes mobile-reveal-card{from{opacity:0;transform:translateY(12px) rotateY(-18deg) scale(.96)}to{opacity:1;transform:none}}
+@keyframes mobile-reveal-prelude{0%,32%{opacity:1}75%,100%{opacity:0;transform:scale(1.03)}}
+@keyframes reveal-pack-open{0%,30%{opacity:1;transform:rotateY(0)}70%,100%{opacity:0;transform:rotateY(-24deg) scale(.96)}}
+@keyframes reveal-ring-focus{0%{opacity:0;transform:scale(.45) rotate(-12deg)}35%{opacity:.65}100%{opacity:0;transform:scale(1.45) rotate(12deg)}}
+@keyframes reveal-light-cut{0%,20%{opacity:0;transform:rotate(24deg) translateX(-180px)}45%{opacity:.32}100%{opacity:0;transform:rotate(24deg) translateX(180px)}}
+@keyframes reveal-spark-flight{0%,18%{opacity:0;transform:rotate(var(--angle)) translateX(22px) scale(.5)}42%{opacity:.85}100%{opacity:0;transform:rotate(var(--angle)) translateX(var(--distance)) scale(.7)}}
+@keyframes batch-card-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes batch-spotlight-in{from{opacity:0;transform:translateY(10px) rotateY(-12deg)}to{opacity:1;transform:none}}
+@media(max-width:359px){
+ :is(.app-phone,.balance-dialog) .quality-reveal{min-height:320px;padding-inline:8px}
+ :is(.app-phone,.balance-dialog) .quality-reveal .detail-card-wrap.players-grid{max-width:208px}
+ .app-phone .batch-spotlight{grid-template-columns:126px minmax(0,1fr);gap:12px;padding:12px}
+ .app-phone .batch-result h3{font-size:20px}
+ .app-phone .batch-counts{gap:5px;margin-top:12px}
+ .app-phone .batch-counts>span{padding:5px}
+}
+@media(min-width:1000px){
+ body:not(.qa-workbench) .app-phone :is(.reveal-page,.batch-reveal){max-width:760px;margin:auto}
+ body:not(.qa-workbench) .app-phone .quality-reveal{max-width:480px;margin-inline:auto}
+ body:not(.qa-workbench) .app-phone .recent-reveals{max-width:480px;margin:16px auto 0}
+ body:not(.qa-workbench) .app-phone .batch-spotlight{grid-template-columns:200px minmax(0,1fr);max-width:700px;padding:24px}
+ body:not(.qa-workbench) .app-phone .batch-gallery{max-width:700px}
+ body:not(.qa-workbench) .app-phone .batch-gallery-heading{max-width:700px;margin-inline:auto}
+ body:not(.qa-workbench) .app-phone .pack-section .pack-thumb-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+.app-phone.reduce-motion .quality-reveal .reveal-card{animation:none!important;opacity:1;transform:none}
+.app-phone.reduce-motion .quality-reveal :is(.reveal-prelude,.reveal-aura,.reveal-skip){display:none}
+.app-phone.reduce-motion :is(.batch-gallery>div,.batch-spotlight-card .balance-card){animation:none}
+@media(prefers-reduced-motion:reduce){
+ :is(.app-phone,.balance-dialog) .quality-reveal .reveal-card{animation:none!important;opacity:1;transform:none}
+ :is(.app-phone,.balance-dialog) .quality-reveal :is(.reveal-prelude,.reveal-aura,.reveal-skip){display:none}
+ :is(.app-phone,.balance-dialog) :is(.batch-gallery>div,.batch-spotlight-card .balance-card){animation:none}
+}
+
+:is(.app-phone,.balance-dialog) .card-thumb .players-metrics small{display:none}
+:is(.app-phone,.balance-dialog) .card-thumb .players-metrics b{font-size:clamp(10px,7cqw,14px)}
+:is(.app-phone,.balance-dialog) .card-thumb .portrait-space{background:linear-gradient(to bottom,var(--tint) 0%,var(--tint) 58%,#fff 100%)}
+:is(.app-phone,.balance-dialog) .card-thumb .portrait-space::after{content:'';position:absolute;right:0;bottom:0;left:0;z-index:2;height:30%;background:linear-gradient(transparent,#fff);pointer-events:none}
+:is(.app-phone,.balance-dialog) .card-thumb :is(.balance-rating,.balance-team){z-index:3}
+.app-phone .thumb-select{min-width:0;padding:2px;border:1px solid transparent;border-radius:12px;transition:border-color 140ms,box-shadow 140ms,background-color 140ms,transform 100ms}
+.app-phone .thumb-select.selected{border-color:var(--vm-blue);outline:none;background:#f5f7ff;box-shadow:0 0 0 2px rgba(49,93,230,.14),0 9px 20px rgba(49,93,230,.13)}
+.app-phone .thumb-select:active{transform:translateY(1px)}
+.app-phone :is(.club-grid,.map-grid) button[aria-pressed=true]::after{content:none}
+.app-phone :is(.club-grid,.map-grid) button[aria-pressed=true]{border-color:var(--vm-blue);outline:none;box-shadow:0 0 0 2px rgba(49,93,230,.14),0 8px 18px rgba(21,36,59,.08)}
+.app-phone :is(.agent-options,.segmented,.filter-options,.side-choice,.pack-tabs,.archive-switch,.profile-version-tabs) button[aria-pressed=true]{border-color:var(--vm-blue);outline:none;box-shadow:0 2px 6px rgba(49,93,230,.12)}
+.app-phone .selection-mark{display:none}
+:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button:not(:disabled){transform-origin:center;transition:background-color var(--vm-hover),border-color var(--vm-hover),color var(--vm-hover),box-shadow 100ms,transform 100ms}
+:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) button:not(:disabled):active{transform:translateY(2px)}
+:is(.app-phone,.balance-dialog,.filter-dialog) .blue-button:not(:disabled){box-shadow:0 3px 0 var(--vm-blue-dark),0 8px 16px rgba(36,72,184,.18)}
+:is(.app-phone,.balance-dialog,.filter-dialog) .blue-button:not(:disabled):active{box-shadow:0 1px 0 var(--vm-blue-dark),0 3px 8px rgba(36,72,184,.14);transform:translateY(2px)}
+:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) :is(.quiet-button,.match-controls button,.match-actions button,.playback-controls button,.pack-section-heading button,.spatial-header button,.spatial-tools button,.tactic-moves button,.players-empty button,#filter-reset,[data-action=timeout]):not(:disabled){box-shadow:0 2px 0 rgba(190,202,218,.8)}
+:is(.app-phone,.balance-dialog,.filter-dialog,.spatial-focus) :is(.quiet-button,.match-controls button,.match-actions button,.playback-controls button,.pack-section-heading button,.spatial-header button,.spatial-tools button,.tactic-moves button,.players-empty button,#filter-reset,[data-action=timeout]):not(:disabled):active{box-shadow:0 0 0 rgba(190,202,218,0);transform:translateY(2px)}
+.app-phone .setting-toggle input[type=checkbox]{position:relative;flex:0 0 46px;width:46px;height:28px;margin:8px 0;appearance:none;-webkit-appearance:none;border:1px solid #b8c3d4;border-radius:999px;background:#d9e0ea;cursor:pointer;transition:background-color 160ms,border-color 160ms,box-shadow 120ms}
+.app-phone .setting-toggle input[type=checkbox]::before{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(21,36,59,.24);transition:transform 160ms cubic-bezier(.2,.7,.3,1)}
+.app-phone .setting-toggle input[type=checkbox]:checked{border-color:var(--vm-blue);background:var(--vm-blue)}
+.app-phone .setting-toggle input[type=checkbox]:checked::before{transform:translateX(18px)}
+.app-phone .setting-toggle input[type=checkbox]:active{box-shadow:0 0 0 3px rgba(49,93,230,.12)}
+.app-phone .setting-toggle input[type=checkbox]:focus-visible{outline:2px solid var(--vm-focus);outline-offset:3px}
+.app-phone .setting-toggle:focus-within{outline:none}
+
+.app-phone :is(.rule-note,.experience-note,.journey-note){margin:10px 0;color:var(--vm-body);font-size:14px;line-height:1.7}
+.app-phone :is(.collection-heading,.archive-heading,.preparation-title){padding:22px 18px 16px}
+.app-phone :is(.collection-heading,.archive-heading,.preparation-title) h3{margin:0 0 10px;font-size:26px;font-weight:750;line-height:1.35;letter-spacing:-.035em}
+.app-phone .result-summary h3{font-size:28px;line-height:1.35}
+.app-phone #page-body>.experience-panel,.app-phone :is(.choice-preview,.recommendation-reasons,.coach-feedback,.card-comparison,.recent-operation-details,.result-detail){margin-inline:18px}
+.app-phone button.thumb-pick{display:flex;align-items:center;justify-content:center;width:100%;min-height:44px;margin:6px 0 0;padding:8px 4px;border:1px solid var(--vm-line);border-radius:999px;background:var(--vm-paper);color:var(--vm-blue-ink);font-size:11px;font-weight:650;box-shadow:0 1px 0 #ccd6e4}
+.app-phone button.thumb-pick[aria-pressed=true]{border-color:var(--vm-blue);background:var(--vm-selected);color:var(--vm-blue-ink)}
+.app-phone button.thumb-pick:not(:disabled):active{box-shadow:none;transform:translateY(2px)}
+.app-phone .agent-player-card .assignment-person>.agent-detail-link{min-width:0;max-width:42%;margin-right:54px;padding:6px 4px;border-radius:6px;background:transparent;color:var(--vm-blue-ink);font-size:11px;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:359px){
+ .app-phone #page-body>.experience-panel,.app-phone :is(.choice-preview,.recommendation-reasons,.coach-feedback,.card-comparison,.recent-operation-details,.result-detail){margin-inline:14px}
+}
+
+.app-phone .team-board{margin:16px 18px 0;padding:14px 10px 12px;border:1px solid #d3def1;border-radius:18px 18px 6px 18px;background:#e7eef9}
+.app-phone .team-board-head{display:flex;align-items:center;justify-content:space-between;padding:0 4px 10px;color:var(--vm-body);font-size:11px;font-weight:600}
+.app-phone .team-board-head b{font-family:var(--vm-display);font-variant-numeric:tabular-nums}
+.app-phone .team-board-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.app-phone .team-board-player{min-width:0;text-align:center}
+.app-phone .team-board-photo{position:relative;height:86px;overflow:hidden;border-radius:10px 10px 3px 10px;background:#d7e2f2}
+.app-phone .team-board-photo>img{width:100%;height:100%;object-fit:cover;object-position:center top;background:transparent}
+.app-phone .team-board-photo>strong{position:absolute;bottom:5px;left:5px;min-width:24px;padding:2px 4px;border-radius:5px;background:#182b49;color:#fff;font-family:var(--vm-display);font-size:12px;line-height:1.2}
+.app-phone .team-board-player>span{display:block;margin-top:6px;overflow:hidden;color:var(--vm-ink);font-family:var(--vm-display);font-size:10px;font-weight:700;text-overflow:ellipsis;white-space:nowrap}
+.app-phone .team-board+.aurora-meters{margin:14px 18px 22px;padding:0 0 16px;border-bottom:1px solid var(--vm-line)}
+.app-phone section.prep-match{position:relative;margin:0 0 16px;padding:20px 14px;overflow:hidden;border:0;border-radius:18px 18px 6px 18px;background:#182b49;box-shadow:none}
+.app-phone .prep-match .versus{position:relative;z-index:1}
+.app-phone .prep-match .versus img{width:56px;height:56px;border:0;background:#fff;box-shadow:none}
+.app-phone .prep-match .versus strong{color:#fff;font-family:var(--vm-display);font-weight:750}
+.app-phone .prep-match .versus>span{color:#8fb3ff;font-family:var(--vm-display);font-size:11px;letter-spacing:0}
+.app-phone .agent-player-card{transition:border-color 160ms,background-color 160ms}
+.app-phone .agent-player-card[data-has-agent=true]{border-color:#bfd0ee;background:linear-gradient(90deg,#f5f7ff,#fff 42%)}
+.app-phone .agent-player-card .assignment-person>strong{flex:1;min-width:0}
+.app-phone .assignment-person>.assigned-agent{flex:0 0 24px;width:24px;height:24px;margin-left:0;border:1px solid var(--vm-line);border-radius:7px;background:#edf2f8;object-fit:cover}
+.app-phone .tactic-cards{position:relative;gap:10px}
+.app-phone .tactic-cards::before{content:'';position:absolute;top:26px;bottom:26px;left:28px;z-index:1;width:1px;background:#c5d2ed;pointer-events:none}
+.app-phone .tactic-cards>li{position:relative;padding:14px 14px 14px 46px;border-color:#dce3ee;box-shadow:none}
+.app-phone .tactic-cards .priority-number{position:absolute;top:14px;left:12px;z-index:2;width:28px;height:28px;border-radius:7px;background:#182b49;color:#fff;font-family:var(--vm-display)}
+.app-phone .match-stage>.live-score{border:0;border-radius:18px 18px 6px 18px;background:#182b49;box-shadow:0 10px 22px rgba(21,36,59,.12)}
+.app-phone .match-stage>.live-score>span,.app-phone .match-stage>.live-score>b{color:#fff}
+.app-phone .match-stage>.live-score i{color:#9fb0c9}
+.app-phone .result-summary{padding:24px 18px 20px}
+.app-phone .result-summary>h3{margin:12px 0 18px;padding:18px;border-radius:16px 16px 5px 16px;background:#182b49;color:#fff;font-size:26px;line-height:1.35;letter-spacing:-.035em}
+.app-phone .career .coach-entry{padding:18px 0;border-top:1px solid var(--vm-line);border-bottom:1px solid var(--vm-line)}
+.app-phone .career .coach-symbol{flex:0 0 58px;width:58px;height:58px;border:0;border-radius:6px 14px 6px 14px;background:#182b49;color:#fff;box-shadow:none}
+.app-phone .career .coach-symbol span{font-family:var(--vm-display);font-weight:800}
+.app-phone .career-run{border-radius:6px 14px 6px 14px}
+.app-phone .career .season-record{min-height:76px;margin:0;padding:16px 4px;border:0;border-bottom:1px solid var(--vm-line);border-radius:0;background:transparent;box-shadow:none}
+.app-phone .career .season-record>span{min-width:46px;color:var(--vm-blue);font-size:34px;font-weight:750}
+.app-phone .career .season-record>b{color:var(--vm-blue)}
+.app-phone .collection-tiers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:16px;border-top:1px solid var(--vm-line);border-bottom:1px solid var(--vm-line)}
+.app-phone .collection-tiers>span{display:flex;align-items:baseline;justify-content:center;gap:5px;padding:10px 0;border-right:1px solid var(--vm-line)}
+.app-phone .collection-tiers>span:last-child{border-right:0}
+.app-phone .collection-tiers b{font-family:var(--vm-display);font-size:17px;font-variant-numeric:tabular-nums}
+.app-phone .collection-tiers small{color:var(--vm-muted);font-size:10px}
+.app-phone .collection-tiers>[data-tier=钻] b{color:#236579}
+.app-phone .collection-tiers>[data-tier=金] b{color:#7d5b20}
+.app-phone .collection-tiers>[data-tier=银] b{color:#4e6376}
+.app-phone .collection-tiers>[data-tier=铜] b{color:#7f5941}
+@media(max-width:359px){
+ .app-phone .team-board{margin-inline:14px}
+ .app-phone .team-board-photo{height:76px}
+ .app-phone .result-summary>h3{padding:16px;font-size:24px}
+ .app-phone .tactic-cards>li{padding-left:42px}
+ .app-phone .tactic-cards .priority-number{left:10px}
+}
+@media(min-width:1000px){
+ body:not(.qa-workbench) .app-phone .team-board{max-width:960px;margin:20px auto 0}
+ body:not(.qa-workbench) .app-phone .team-board-photo{height:120px}
+ body:not(.qa-workbench) .app-phone .team-board+.aurora-meters{max-width:960px;margin-inline:auto}
+}
+
+:is(.app-phone,.balance-dialog) .card-thumb :is(.players-metrics b,.balance-rating b){position:static;display:block;min-width:0;padding:0;border:0;background:transparent;color:var(--vm-ink);line-height:1;text-align:center}
+.app-phone .agent-focus-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:12px 0 14px}
+.app-phone .agent-focus-tabs>button{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;min-height:88px;padding:8px 2px;border:1px solid var(--vm-line);border-radius:10px;background:var(--vm-paper);color:var(--vm-body);box-shadow:none;text-align:center}
+.app-phone .agent-focus-tabs>button>img{width:36px;height:42px;border-radius:8px;background:#e9eef6;object-fit:cover;object-position:center top}
+.app-phone .agent-focus-tabs>button>span{display:block;max-width:100%;margin-top:4px;overflow:hidden;font-family:var(--vm-display);font-size:10px;font-weight:700;text-overflow:ellipsis;white-space:nowrap}
+.app-phone .agent-focus-tabs>button>small{display:block;max-width:100%;overflow:hidden;color:var(--vm-muted);font-size:8px;line-height:1.35;text-overflow:ellipsis;white-space:nowrap}
+.app-phone .agent-player-card{position:relative;display:block;margin:0;padding:14px;border:1px solid var(--vm-line);border-radius:16px 16px 6px 16px;background:#fff;box-shadow:none}
+.app-phone .agent-player-card .assignment-person{min-height:56px;margin-bottom:12px;gap:10px}
+.app-phone .agent-player-card .assignment-person>img:first-child{width:40px;height:46px;border-radius:9px}
+.app-phone .agent-player-card .assignment-person>strong{font-size:14px}
+.app-phone .agent-player-card .assignment-person>span{max-width:42%;margin-left:auto;margin-right:0;text-align:right}
+.app-phone .agent-player-card .assignment-person>.assigned-agent{width:30px;height:30px;flex-basis:30px;border-radius:8px}
+.app-phone .agent-player-card .assignment-person>.agent-detail-link{max-width:42%;margin-right:0;padding:6px 4px;text-align:right}
+.app-phone .agent-player-card>.agent-editor>.experience-note{display:block;margin:0 0 10px;font-size:12px}
+.app-phone .agent-editor>.agent-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.app-phone .agent-editor>.agent-options>button{flex-direction:column;min-height:84px;padding:10px 4px;border:1px solid var(--vm-line);border-radius:10px;background:#f8faff;text-align:center}
+.app-phone .agent-editor>.agent-options>button>img{width:34px;height:34px;border-radius:8px}
+.app-phone .agent-editor>.agent-options>button>span{font-size:12px;line-height:1.35;text-align:center;white-space:nowrap}
+.app-phone .agent-editor>.agent-options>button>small{font-size:9px;line-height:1.35;text-align:center}
+.app-phone .agent-player-card .all-agent-picker{margin-top:12px}
+.app-phone .tactic-cards{gap:0;overflow:hidden;border:1px solid var(--vm-line);border-radius:16px 16px 6px 16px;background:#fff}
+.app-phone .tactic-cards::before{content:none}
+.app-phone .tactic-cards>li{display:block;min-width:0;padding:10px 12px;border:0;border-bottom:1px solid var(--vm-line);border-radius:0;background:#fff;box-shadow:none}
+.app-phone .tactic-cards>li:last-child{border-bottom:0}
+.app-phone .tactic-cards .tactic-row{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:8px;align-items:center;min-height:48px}
+.app-phone .tactic-title{display:flex;flex-direction:column;gap:3px;min-width:0}
+.app-phone .tactic-title>strong{overflow:hidden;font-size:13px;line-height:1.3;text-overflow:ellipsis;white-space:nowrap}
+.app-phone .tactic-title>.tactic-proficiency{margin:0;color:var(--vm-muted);font-size:10px;line-height:1.2}
+.app-phone .tactic-cards .priority-number{position:static;left:auto;display:grid;place-items:center;width:28px;height:28px;border-radius:7px;background:#182b49;color:#fff;font-size:13px}
+.app-phone .tactic-cards .tactic-moves{display:grid;grid-template-columns:repeat(3,44px);gap:4px}
+.app-phone .tactic-cards .tactic-moves>button{display:grid;place-items:center;width:44px;min-width:44px;height:44px;min-height:44px;padding:0!important;border:1px solid var(--vm-line);border-radius:9px;background:#fff;color:var(--vm-blue-ink);font-size:12px;white-space:nowrap}
+.app-phone .tactic-explanation{margin-top:6px}
+.app-phone .tactic-explanation>summary{min-height:44px;padding:6px 0;font-size:11px}
+@media(min-width:1000px){
+ body:not(.qa-workbench) .app-phone .agent-assignment{display:block}
+ body:not(.qa-workbench) .app-phone :is(.agent-focus-tabs,.agent-player-card){max-width:680px}
+}
+
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb){--tint:#f3f5f7;--tone:#7a5b22;--rim:#c7a761;--wall:#a88a50;--pattern:rgba(21,36,59,.06);aspect-ratio:1/1.618;background:var(--tint)}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb)[data-tier=银]{--tint:#f3f5f7;--tone:#52657a;--rim:#a8b4c0;--wall:#8495a6}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb)[data-tier=铜]{--tint:#f3f5f7;--tone:#7b5840;--rim:#b18b6d;--wall:#947158}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb)[data-tier=钻]{--tint:#f3f5f7;--tone:#236579;--rim:#79cdd7;--wall:#579cae}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb)[data-tier=钻]{box-shadow:0 0 0 1px var(--rim),0 10px 24px rgba(35,101,121,.12)}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .portrait-space{background:linear-gradient(to bottom,#f7f8fa,var(--tint))}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb)[data-tier=钻] .balance-portrait{left:12%;width:76%;height:88%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 4px 5px rgba(24,38,60,.08))}
+:is(.app-phone,.balance-dialog) .card-thumb{grid-template-rows:62% 14% 24%}
+:is(.app-phone,.balance-dialog) .card-thumb .players-metrics,:is(.app-phone,.balance-dialog) .card-thumb .balance-rating small{display:none}
+:is(.app-phone,.balance-dialog) .card-thumb .portrait-space{background:linear-gradient(to bottom,#f7f8fa 0%,var(--tint) 72%,var(--tint) 100%)}
+:is(.app-phone,.balance-dialog) .card-thumb .portrait-space::after{background:linear-gradient(transparent,var(--tint))}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .signature-portrait{border:1px solid var(--rim);border-radius:26%;box-shadow:0 0 0 1px var(--rim)}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .signature-portrait::after{content:none}
+:is(.app-phone,.balance-dialog) :is(.balance-card,.card-thumb) .signature-portrait img{outline:none}
+.app-phone .thumb-select::before,.app-phone .thumb-select::after{content:none}
+.app-phone .preparation-steps li.done b{border-radius:6px;background:var(--vm-blue);color:#fff}
+.app-phone .settings-page .save-card{border:0;border-radius:18px 18px 6px 18px;background:#182b49;color:#fff;box-shadow:0 12px 28px rgba(21,36,59,.14)}
+.app-phone .settings-page .save-card-heading h3{color:#fff}
+.app-phone .settings-page .save-card-heading span{background:rgba(255,255,255,.1);color:#d4e1f3}
+.app-phone .settings-page #save-state{color:#cbd8e9}
+.app-phone .settings-page .save-card-actions .blue-button{border-color:#fff;background:#fff;color:#2448b8;box-shadow:0 3px 0 #b8c6dd}
+.app-phone .settings-page .save-card-actions .quiet-button{border-color:#6f809b;background:transparent;color:#fff;box-shadow:0 2px 0 #3d4f6a}
+.app-phone .settings-page #settings-save-error p{color:#ffd9d9}
+.app-phone .settings-page .save-card-actions button:active{transform:translateY(2px)}
+.app-phone .settings-page .setting-group{border-top:2px solid #e2e9f3}
+
+.card-stepper{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.app-phone .reveal-detail{display:inline-flex;margin:6px auto 0}
+.app-phone .reveal-page:has(.quality-reveal:not(.reveal-complete)) .reveal-detail{display:none}
+.app-phone .bp-assist{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0}
+.app-phone .bp-assist>span{color:var(--vm-muted);font-size:11px;text-align:right}
+.coach-tools{display:grid;gap:10px}
+.coach-tools>button{width:100%}
+@media(max-width:640px){
+ .app-phone .match-stage>.match-context{position:sticky;top:var(--vm-top-height);z-index:8;min-height:34px;padding:6px 2px;background:var(--vm-shell-bg)}
+ .app-phone .match-stage>.live-score{position:sticky;top:calc(var(--vm-top-height) + 34px);z-index:7}
+}

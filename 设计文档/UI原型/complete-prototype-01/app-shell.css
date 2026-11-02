@@ -18,7 +18,8 @@ html,#nav-scroll,#dialog-body,#filter-fields,.spatial-focus{touch-action:auto;-w
 .app-phone .main-nav{display:grid;width:100%;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));margin:0;border-top:1px solid var(--vm-line);background:var(--vm-nav-bg);position:fixed;bottom:0;left:50%;transform:translateX(-50%);height:auto;z-index:12}
 .app-phone .main-nav button{min-width:44px;min-height:48px;margin:0;padding:6px;font-size:14px;line-height:1.3}
 .app-phone #subpage-dock{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;min-width:0;padding:10px 12px;margin:0;background:var(--vm-nav-bg);border-top:1px solid var(--vm-line);position:fixed;bottom:var(--vm-nav-height,74px);left:50%;transform:translateX(-50%);width:100%;height:auto;z-index:11}
-.app-phone #subpage-dock.coach-action-dock{grid-template-columns:minmax(100px,.8fr) minmax(0,1.4fr)}
+.app-phone #subpage-dock.coach-action-dock{grid-template-columns:minmax(88px,1fr) minmax(58px,.65fr) minmax(0,1.65fr)}
+.app-phone #subpage-dock.coach-action-dock>button{padding:8px 6px;font-size:13px}
 .app-phone #subpage-dock button{width:100%;margin:0;padding:6px 8px;font-size:16px;min-height:56px;height:56px;line-height:1.25;white-space:normal}
 .app-phone .session-status{height:56px;min-height:56px;display:flex;flex-direction:column;justify-content:center;gap:3px;padding:5px 12px;background:var(--vm-soft);border-bottom:1px solid var(--vm-line);line-height:1.4;font-size:14px;color:var(--vm-ink)}
 #match-status-main,#match-status-detail{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

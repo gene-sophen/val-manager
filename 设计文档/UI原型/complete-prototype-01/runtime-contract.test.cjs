@@ -8,7 +8,18 @@ test('live templates and compact pack/album templates render with no invented fu
  assert.equal(s.spatialEnabled,false,'legacy numerical UI fixture preserves its model');
  for(const name of ['home','prepare','bp','calendar','standings']){const v=F[name](s);assert(!v.body.includes('undefined'),name);}
  assert(F.home({...s,run:'draft'}).body);assert(F.packs(s).body.includes('pack-thumb-grid'));assert(!F.packs(s).body.includes('finish-pack'));assert(!F.reveal(s).body.includes('finish-pack'));assert(A.album(s).body.includes('class="thumb-grid album-thumb-grid" id="album-results"'));
- bp(x,s);s.agents={0:Object.fromEntries(s.roster.map((k,i)=>[k,x.AGENT_SELECTION.recommend(F.lineup(s),x.CN_CONTENT.agents,F.matchMap(s).id).agents[i]]))};R.startMap(s);assert.equal(R.results(s).length,0);assert(F.match(s).body.includes('准备开赛'));assert(F.agents(s).body.includes('★ 招牌'));assert(F.match(s).body.includes('data-map-plan'));assert.equal(F.match(s).action,'next-round');
+ bp(x,s);s.agents={0:Object.fromEntries(s.roster.map((k,i)=>[k,x.AGENT_SELECTION.recommend(F.lineup(s),x.CN_CONTENT.agents,F.matchMap(s).id).agents[i]]))};R.startMap(s);assert.equal(R.results(s).length,0);assert(F.match(s).body.includes('准备开赛'));assert(F.agents(s).body.includes('招牌'));assert(!F.agents(s).body.includes('★'));assert(F.match(s).body.includes('data-map-plan'));assert.equal(F.match(s).action,'next-round');
+});
+test('large and compact cards retain core facts while batch reveal keeps all ten actual results',()=>{
+ const x=load(),D=x.DEMO,F=x.FLOW_UI,s=begin(x),players=[D.cards[0],D.cards.find(p=>p.tier==='钻')];
+ for(const p of players){const full=x.renderNavCard(p,'test'),thumb=x.renderNavThumb(p,'test');for(const html of [full,thumb]){assert(html.includes('portrait-space'));assert(html.includes('balance-rating'));assert(html.includes(p.team));}assert(full.includes('players-metrics'));assert(!thumb.includes('players-metrics'));for(const key of ['AIM','SYN','SEN'])assert(full.includes('<b>'+p[key]+'</b>'));for(const label of ['枪法','协同','意识'])assert(thumb.includes(label+' '+p[label==='枪法'?'AIM':label==='协同'?'SYN':'SEN']));}
+ assert(F.reveal(s).body.includes('data-reveal-interactive'));assert(!F.reveal(s).body.includes('初遇'));
+ s.run='draft';s.opened=[10,0,0];s.pack=0;const batch=F.batch(s);assert(batch.body.includes('batch-spotlight'));assert.equal((batch.body.match(/class="card-thumb"/g)||[]).length,10);assert.equal(batch.action,'next-pack');s.opened=[10,10,10];assert.equal(F.batch(s).action,'compare-packs');
+});
+test('agent and tactic editors stay compact, complete and read-only',()=>{
+ const x=load();for(const name of ['experience-model.js','journey-model.js','experience-views.js','journey-views.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,name),'utf8'),x,{filename:name});const F=x.FLOW_UI,s=begin(x),before=JSON.stringify(s),agents=F.agents(s),tactics=F.tactics(s);
+ assert.equal((agents.body.match(/data-agent-focus=/g)||[]).length,5);assert.equal((agents.body.match(/class="agent-player-card"/g)||[]).length,1);assert(agents.body.includes('agent-search-panel'));
+ assert.equal((tactics.body.match(/class="tactic-row"/g)||[]).length,5);assert.equal((tactics.body.match(/data-tactic-top=/g)||[]).length,5);assert.equal((tactics.body.match(/data-tactic-move=/g)||[]).length,10);assert.equal(JSON.stringify(s),before);
 });
 test('entire live campaign persists actual map/participation facts and stays idempotent across refresh and GF',()=>{
  const x=load(),{DEMO:D,PROTOTYPE_RULES:R,FLOW_UI:F}=x;let s=begin(x);let formal=0;
