@@ -19,7 +19,7 @@ test('large and compact cards retain core facts while batch reveal keeps all ten
 test('agent and tactic editors stay compact, complete and read-only',()=>{
  const x=load();for(const name of ['experience-model.js','journey-model.js','experience-views.js','journey-views.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,name),'utf8'),x,{filename:name});const F=x.FLOW_UI,s=begin(x),before=JSON.stringify(s),agents=F.agents(s),tactics=F.tactics(s);
  assert.equal((agents.body.match(/data-agent-focus=/g)||[]).length,5);assert.equal((agents.body.match(/class="agent-player-card"/g)||[]).length,1);assert(agents.body.includes('agent-search-panel'));
- assert.equal((tactics.body.match(/class="tactic-row"/g)||[]).length,5);assert.equal((tactics.body.match(/data-tactic-top=/g)||[]).length,5);assert.equal((tactics.body.match(/data-tactic-move=/g)||[]).length,10);assert.equal(JSON.stringify(s),before);
+ assert.equal((tactics.body.match(/class="tactic-row"/g)||[]).length,5);assert(!tactics.body.includes('data-tactic-top='));assert(tactics.body.includes('data-action="tactics-recommend"'));assert(tactics.body.includes('data-action="tactics-inherit"'));assert.equal((tactics.body.match(/data-tactic-move=/g)||[]).length,10);assert.equal(JSON.stringify(s),before);
 });
 test('entire live campaign persists actual map/participation facts and stays idempotent across refresh and GF',()=>{
  const x=load(),{DEMO:D,PROTOTYPE_RULES:R,FLOW_UI:F}=x;let s=begin(x);let formal=0;

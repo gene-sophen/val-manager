@@ -71,11 +71,12 @@
 .spatial-header b{font-size:12px}
 .spatial-header button{border:1px solid #dce7ef;background:#fff;color:#56768b;min-height:36px;min-width:48px;border-radius:9px}
 .spatial-legend{padding:0 10px 8px;font-size:11px}
-.spatial-tools{padding:7px 10px;gap:8px}
-.spatial-tools button,.commentary-header button,.spatial-map-note button{min-height:40px}
+.spatial-tools{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;padding:7px 10px;gap:8px}
+.spatial-tools button,.commentary-header button,.spatial-map-note button{min-height:44px}
 .spatial-tools button{font-size:12px}
-.spatial-time{font-size:11px}
-.spatial-map-note{justify-content:flex-end;padding:0 8px;font-size:11px}
+.spatial-time{font-size:11px;white-space:nowrap}
+.spatial-map-note{display:flex;justify-content:flex-end;gap:8px;padding:0 8px;font-size:11px}
+.spatial-playback{position:fixed;left:50%;transform:translateX(-50%);width:min(calc(100vw - 36px),680px);bottom:calc(var(--vm-bottom-height,140px) + 8px);z-index:6;padding:6px 8px 8px;border-top:1px solid var(--vm-line);border-radius:12px 12px 0 0;background:rgba(255,255,255,.97);box-shadow:0 -8px 20px rgba(21,36,59,.08)}
 .spatial-caption{font-size:12px;margin:5px 12px;line-height:1.5}
 .commentary-header{padding:8px 12px 2px}
 .commentary-feed{font-size:12px;padding:0 12px 10px}
