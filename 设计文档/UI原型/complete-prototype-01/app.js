@@ -9,9 +9,9 @@
  let previewMode=false; let s=D.seed(),path='',view=null,filterDraft=null,timer=null,toastTimer=null,installPrompt=null,registration=null,cacheReady=false,focusNext='',returnFocus='',disclosures={},storageError=null,pendingImport=null;
  let preserveSeasonRoute=false;
  let roundBusy=false,roundError='',roundJob=0,careerBusy=false,seasonBusy=false,seasonJob=0,seasonProgress=null,seriesSettling=false,updateBusy=false,updateText='';
- const seasonWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('season-worker.js?v=20261103-v023',document.baseURI)),timeout:120000});
+ const seasonWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('season-worker.js?v=20261104-v024',document.baseURI)),timeout:120000});
  let modalOpener=null,cacheState='preparing',saving=0,work=null,replayFailedToken='',renderFault=null,backupLibrary=[],backupOrigin=null,persistTimer=null;
- const roundWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('round-worker.js?v=20261103-v023',document.baseURI))});
+ const roundWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('round-worker.js?v=20261104-v024',document.baseURI))});
  const testInitial=testDatabase?document.getElementById('career-test-initial')?.textContent:null;
  const bridge=CAREER_STORE.contentBridge(D,R,CN_CONTENT),durable=CAREER_STORE.create({indexedDB:window.indexedDB,...(testDatabase?{databaseName:testDatabase,test:true}:{}),legacyStorage:{getItem:key=>window.localStorage.getItem(key)},legacyKey:STORE,freeze:bridge.freeze,initial:()=>testInitial?JSON.parse(testInitial):D.seed()});
  const previewDurable=CAREER_STORE.create({indexedDB:window.indexedDB,databaseName:(testDatabase||'val-manager-complete-career-v1')+'-preview',test:!!testDatabase,legacyStorage:{getItem:key=>window.localStorage.getItem(key)},legacyKey:PREVIEW_STORE,freeze:bridge.freeze,initial:()=>D.seed()});let previewReady;const loadPreview=()=>previewReady||(previewReady=previewDurable.load());
@@ -61,7 +61,8 @@
   }
   const saved=$('persistent-save');if(saved){saved.hidden=!storageError;const text=(storageError?'保存失败 · ':saving?'正在保存 · ':'')+savedText();if(saved.textContent!==text)saved.textContent=text;}
   if($('save-state')){const c=activeStore().checkpoint(),text=c?'第 '+c.year+' 赛年 · '+(D.phases[c.phase]||'征战')+'\n'+savedText():'尚未确认成功保存；原始记录不会被替换';if($('save-state').textContent!==text)$('save-state').textContent=text;if($('save-badge'))$('save-badge').textContent=storageError?'△ 保存失败':saving?'保存中':c?'已保存':'尚未确认';if($('settings-save-error'))$('settings-save-error').hidden=!storageError;}
-  for(const b of document.querySelectorAll('[data-action="play-toggle"]')){b.textContent=s.playing?'停止自动推进':s.watchPreference==='manual'?'连续推进':roundBusy?'停止本分后的推进':'自动推进';b.setAttribute('aria-pressed',String(s.playing));}
+  for(const b of document.querySelectorAll('[data-action="play-toggle"]')){b.textContent=s.playing?'连续推进中':s.watchPreference==='manual'?'连续推进':roundBusy?'停止本分后的推进':'自动推进';b.title=s.playing?'点击暂停连续推进':'点击开始连续推进';b.setAttribute('aria-pressed',String(s.playing));}
+  for(const b of document.querySelectorAll('[data-action="timeout"]')){b.textContent=s.pendingTimeout?'将在本分后暂停':(s.round>=24?'加时':'战术')+'暂停 · '+Math.max(0,R.timeoutLeft(s));b.dataset.pending=String(!!s.pendingTimeout);}
   if(model.primaryAction.action==='next-round')for(const b of document.querySelectorAll('#subpage-dock [data-action=next-round]'))b.textContent=model.primaryAction.label;
   paintOperations();
  }
@@ -176,7 +177,8 @@
  function updateTeam(){const q=s.teamQuery.toLowerCase(),list=F.lineup(s).filter(p=>p.name.toLowerCase().includes(q));if(s.teamSort!=='default')list.sort((a,b)=>b[s.teamSort]-a[s.teamSort]);$('team-results').dataset.sort=s.teamSort;$('team-results').innerHTML=list.length?list.map(p=>renderNavRoster(p,D.key(p),s.teamSort)).join(''):'<div class="players-empty"><h3>没有匹配结果</h3><button data-action="clear-team">清除搜索</button></div>';$('team-count').textContent=list.length+' 名选手';}
  function filterUI(){const groups=[['tier','品质',[['all','全部'],['铜','铜卡'],['银','银卡'],['金','金卡'],['钻','钻卡']]],['sort','排序',[['default','默认'],['rating','总评优先'],['name','姓名']]]];$('filter-fields').innerHTML=groups.map(([field,title,options])=>`<fieldset data-field="${field}"><legend>${title}</legend><div class="filter-options">${options.map(([value,label])=>`<button data-filter-field="${field}" data-filter-value="${value}" aria-pressed="${filterDraft[field]===value}">${label}</button>`).join('')}</div></fieldset>`).join('');$('filter-apply').textContent='查看 '+albumResults(filterDraft).length+' 张';}
  function validLineup(list){if(s.run==='reinforce'&&s.reinforcementOpened<10)return '请先揭晓补强包';return R.validate(list,D.cards,s.run==='reinforce'?[...s.roster,...s.reinforcementPack]:s.packs[s.chosenPack]);}
- function selectPlayer(field,k,max){const list=s[field],allowed=field==='reinforce'&&s.run==='reinforce'?[...s.roster,...s.reinforcementPack]:field==='lineup'&&s.run==='draft'?s.packs[s.chosenPack]:[];if(!card(k)||!allowed?.includes(k)){toast('该卡不在本次候选范围。');return;}if(list.includes(k)){s[field]=list.filter(v=>v!==k);refresh();return;}if(list.length>=max){toast('先移出一位队员，再加入新人。');return;}if(list.some(v=>card(v).name===card(k).name)){toast('同一选手只能选择一个版本。');return;}list.push(k);refresh();}
+ function offerReplacement(k){const candidate=card(k);dialog('选择要替换的队员','<p class="dialog-copy">用 '+esc(candidate.name)+' 替换一位当前队员，立即查看取舍。</p><div class="replacement-options">'+(s.reinforce||[]).map(key=>{const current=card(key),delta=candidate.rating-current.rating;return '<button data-replace-with="'+esc(k)+'" data-replace-out="'+esc(key)+'"><img src="'+F.asset(current.photo,'thumb')+'" alt=""><span><strong>'+esc(current.name)+'</strong><small>总评 '+current.rating+' → '+candidate.rating+'</small></span><b>'+(delta>0?'+':'')+delta+'</b></button>';}).join('')+'</div>');}
+ function selectPlayer(field,k,max){const list=s[field],allowed=field==='reinforce'&&s.run==='reinforce'?[...s.roster,...s.reinforcementPack]:field==='lineup'&&s.run==='draft'?s.packs[s.chosenPack]:[];if(!card(k)||!allowed?.includes(k)){toast('该卡不在本次候选范围。');return;}if(list.includes(k)){s[field]=list.filter(v=>v!==k);refresh();return;}if(list.length>=max){if(field==='reinforce'){offerReplacement(k);return;}toast('先移出一位队员，再加入新人。');return;}if(list.some(v=>card(v).name===card(k).name)){toast('同一选手只能选择一个版本。');return;}list.push(k);refresh();}
  function stopTimer(){clearTimeout(timer);timer=null;}
  function startTimer(delay){stopTimer();if(roundBusy||!s.playing||path!=='campaign/match'||s.coachWindow||s.adjusting)return;timer=setTimeout(()=>{if(!s.playing||path!=='campaign/match'||s.coachWindow||s.adjusting)return;if(R.replayPending?.(s))startTimer(250);else advanceRound();},delay??(s.fastForward||s.autoTempo==='fast'?900:Math.max(3600,R.replayDuration?.(s)||0)));}
  let roundStarted=0,roundWatch=null;
@@ -253,6 +255,7 @@
   if(b.dataset.club){s.nextClub=b.dataset.club;refresh(`[data-club="${b.dataset.club}"]`);return;}
   if(b.dataset.pack!==undefined){if(s.chosenPack!==null){toast('整包已锁定，请先重新选择整包。');return;}s.pack=Number(b.dataset.pack);refresh(`[data-pack="${s.pack}"]`);return;}
   if(b.dataset.pick){selectPlayer('lineup',b.dataset.pick,5);return;}
+  if(b.dataset.replaceWith){const index=s.reinforce.indexOf(b.dataset.replaceOut),candidate=card(b.dataset.replaceWith);if(s.run!=='reinforce'||index<0||!candidate||!s.reinforcementPack.includes(b.dataset.replaceWith))return;if(s.reinforce.some((key,i)=>i!==index&&card(key)?.name===candidate.name)){toast('同一选手只能选择一个版本。');return;}s.reinforce[index]=b.dataset.replaceWith;$('app-dialog').close();refresh();return;}
   if(b.dataset.reinforce){selectPlayer('reinforce',b.dataset.reinforce,5);return;}
   if(b.dataset.bpRole){if(s.bp.length)return;if(s.simulation==='live')R.chooseBPRole(s,b.dataset.bpRole);else{s.bpRole=b.dataset.bpRole;s.sideChosen=[false,false,false];R.fillOpponentBP(s);}refresh();return;}
   if(b.dataset.map){if(s.bp.length>=7||s.bp.includes(b.dataset.map)||R.bpActor(s)!=='player')return;s.pendingMap=b.dataset.map;refresh(`[data-map="${s.pendingMap}"]`);return;}
@@ -402,7 +405,7 @@
   if(testDatabase){$('cache-status').textContent='隔离验收页 · 离线安装请使用正式入口';return;}
   if(!('serviceWorker' in navigator)){$('cache-status').textContent='当前浏览器不支持离线缓存';return;}
   try{
-   registration=await navigator.serviceWorker.register('sw.js?v=20261103-v023',{updateViaCache:'none'});
+   registration=await navigator.serviceWorker.register('sw.js?v=20261104-v024',{updateViaCache:'none'});
    registration.addEventListener('updatefound',()=>{const w=registration.installing;w?.addEventListener('statechange',()=>{if(w.state==='installed'&&navigator.serviceWorker.controller)toast('发现更新，可在设置中安装。');});});
    await navigator.serviceWorker.ready;
    await new Promise(resolve=>{if('requestIdleCallback' in window)requestIdleCallback(resolve,{timeout:1800});else setTimeout(resolve,300);});
