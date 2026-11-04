@@ -9,9 +9,9 @@
  let previewMode=false; let s=D.seed(),path='',view=null,filterDraft=null,timer=null,toastTimer=null,installPrompt=null,registration=null,cacheReady=false,focusNext='',returnFocus='',disclosures={},storageError=null,pendingImport=null;
  let preserveSeasonRoute=false;
  let roundBusy=false,roundError='',roundJob=0,careerBusy=false,seasonBusy=false,seasonJob=0,seasonProgress=null,seriesSettling=false,updateBusy=false,updateText='';
- const seasonWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('season-worker.js?v=20261104-v024',document.baseURI)),timeout:120000});
+ const seasonWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('season-worker.js?v=20261104-v025',document.baseURI)),timeout:120000});
  let modalOpener=null,cacheState='preparing',saving=0,work=null,replayFailedToken='',renderFault=null,backupLibrary=[],backupOrigin=null,persistTimer=null;
- const roundWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('round-worker.js?v=20261104-v024',document.baseURI))});
+ const roundWorker=ROUND_WORKER.create({spawn:()=>new Worker(new URL('round-worker.js?v=20261104-v025',document.baseURI))});
  const testInitial=testDatabase?document.getElementById('career-test-initial')?.textContent:null;
  const bridge=CAREER_STORE.contentBridge(D,R,CN_CONTENT),durable=CAREER_STORE.create({indexedDB:window.indexedDB,...(testDatabase?{databaseName:testDatabase,test:true}:{}),legacyStorage:{getItem:key=>window.localStorage.getItem(key)},legacyKey:STORE,freeze:bridge.freeze,initial:()=>testInitial?JSON.parse(testInitial):D.seed()});
  const previewDurable=CAREER_STORE.create({indexedDB:window.indexedDB,databaseName:(testDatabase||'val-manager-complete-career-v1')+'-preview',test:!!testDatabase,legacyStorage:{getItem:key=>window.localStorage.getItem(key)},legacyKey:PREVIEW_STORE,freeze:bridge.freeze,initial:()=>D.seed()});let previewReady;const loadPreview=()=>previewReady||(previewReady=previewDurable.load());
@@ -405,7 +405,7 @@
   if(testDatabase){$('cache-status').textContent='隔离验收页 · 离线安装请使用正式入口';return;}
   if(!('serviceWorker' in navigator)){$('cache-status').textContent='当前浏览器不支持离线缓存';return;}
   try{
-   registration=await navigator.serviceWorker.register('sw.js?v=20261104-v024',{updateViaCache:'none'});
+   registration=await navigator.serviceWorker.register('sw.js?v=20261104-v025',{updateViaCache:'none'});
    registration.addEventListener('updatefound',()=>{const w=registration.installing;w?.addEventListener('statechange',()=>{if(w.state==='installed'&&navigator.serviceWorker.controller)toast('发现更新，可在设置中安装。');});});
    await navigator.serviceWorker.ready;
    await new Promise(resolve=>{if('requestIdleCallback' in window)requestIdleCallback(resolve,{timeout:1800});else setTimeout(resolve,300);});
