@@ -1,13 +1,13 @@
 /* UI navigation policy: completed game actions must never be replayed by Back. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.VM_NAV=api;})(typeof window==='object'?window:globalThis,()=>{
  'use strict';
- const draftPages=new Set(['start','packs','reveal','batch','compare','pick','confirm']);
+ const draftPages=new Set(['start','packs','reveal','batch','compare','draft','pick','confirm']);
  function parent(route,s={}){
   const [root,page]=route.split('/');
   if(root==='team')return page==='map'?'team/maps':'team';
-  if(root==='archive')return page==='player'?'archive/album':page==='relation'?'archive/relationships':'archive/career';
+  if(root==='archive')return page==='player'?'archive/album':page==='relation'?'archive/relationships':page==='dictionary'?'archive/career':'archive/career';
   if(root!=='campaign')return 'campaign';
-  if(draftPages.has(page))return s.run==='draft'?({packs:'campaign',reveal:'campaign/packs',batch:'campaign/packs',compare:'campaign/packs',pick:'campaign/compare',confirm:'campaign/pick'}[page]||'campaign'):'campaign';
+  if(draftPages.has(page))return s.run==='draft'?({packs:'campaign',reveal:'campaign/packs',batch:'campaign/packs',compare:'campaign/packs',draft:'campaign/packs',pick:'campaign/compare',confirm:'campaign/pick'}[page]||'campaign'):'campaign';
   if(page==='tactics'&&s.adjusting)return 'campaign/match';
   if(['match','series-result','stage-result','year-result'].includes(page))return 'campaign';
   if(page==='map-result')return s.reviewMap!==null&&s.reviewMap!==undefined?'campaign/series-result':'campaign/match';
@@ -34,7 +34,7 @@
  function dockTone(view){return view.dockTone==='secondary'||view.action==='card-face'||/^返回/.test(view.dock||'')?'secondary':'primary';}
  function resume(s={}){
   if(s.run==='reinforce')return 'campaign/reinforce';
-  if(s.run==='draft')return s.chosenPack!==null&&s.chosenPack!==undefined?(s.lineup?.length===5?'campaign/confirm':'campaign/pick'):s.opened?.every(n=>n===10)?'campaign/compare':'campaign/packs';
+  if(s.run==='draft')return s.opened?.every(n=>n===10)?'campaign/draft':'campaign/packs';
   if(s.completedMatch)return 'campaign/series-result';
   if((s.bp?.length||0)<7)return s.bp?.length?'campaign/bp':'campaign/prepare';
   if((s.sideChosen||[]).some(v=>!v))return 'campaign/bp';

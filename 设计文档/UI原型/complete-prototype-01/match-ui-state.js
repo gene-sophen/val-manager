@@ -17,7 +17,7 @@
   else if(s.playing){state='automatic';label=s.watchPreference==='summary'?'纯战报连续推进 · 决策点会等待':'高光连播 · 暂停点会等待';}
   else if(s.watchPreference==='manual'){state='manual';label='手动推进 · 每分等待';}
   const allowedActions=['save-exit','export-diagnostics','export-layout-diagnostics','export-save','export-draft','save-library','review-backup','return-library','export-library-backup','restore-save','close-dialog','speed','cancel-replay'];
-  if(!c.storageError){if(!over&&!s.coachWindow)allowedActions.push('play-toggle','request-stop','timeout');if(!c.busy&&!over&&!s.coachWindow)allowedActions.push('next-round','retry-round','skip-map','watch-round');if(!c.busy&&s.coachWindow)allowedActions.push('adjust-window','resume-window','resume-from-home');if(over&&(!c.busy||c.work?.operation==='replay'))allowedActions.push('open-map-result','next-map');}
+  if(!c.storageError){if(!over&&!s.coachWindow)allowedActions.push('play-toggle','request-stop','timeout');if(!c.busy&&!over&&!s.coachWindow)allowedActions.push('next-round','retry-round','skip-map');if(!c.busy&&!s.coachWindow)allowedActions.push('watch-round');if(!c.busy&&s.coachWindow)allowedActions.push('adjust-window','resume-window','resume-from-home');if(over&&(!c.busy||c.work?.operation==='replay'))allowedActions.push('open-map-result','next-map');}
   const last=m?.rounds?.at(-1),displayScore=state==='replaying'&&last?[score[0]-(last.win?1:0),score[1]-(last.win?0:1)]:score;
   return {state,label,displayScore,primaryAction,nextRoute,allowedActions,score,series,seriesOver,map:maps[s.map]||m?.mapId,nextMap:maps[s.map+1]||null,key:key(s),over};
  }
